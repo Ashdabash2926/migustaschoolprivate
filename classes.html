@@ -87,7 +87,7 @@
 
     /* ─── PAGE HERO ───────────────────────────────────── */
     .page-hero {
-      padding: 10rem 4.5rem 6rem;
+      padding: 7rem 4.5rem 4rem;
       background: var(--bg-warm);
       position: relative;
       overflow: hidden;
@@ -117,7 +117,7 @@
     .polaroid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
     .polaroid-caption { position: absolute; bottom: 12px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 500; color: var(--ink-soft); }
     @media (max-width: 960px) {
-      .page-hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 4rem; gap: 3rem; }
+      .page-hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
       .page-hero::before { display: none; }
     }
 
@@ -210,7 +210,7 @@
     .format-card {
       background: var(--cream);
       border-radius: var(--r);
-      padding: 2.2rem 2rem 2.5rem;
+      padding: 1.5rem 1.6rem 1.8rem;
       border: 1px solid rgba(74,58,44,0.08);
       box-shadow: var(--shadow-soft);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -218,11 +218,10 @@
       overflow: hidden;
     }
     .format-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--terra); border-radius: var(--r) var(--r) 0 0; }
-    .format-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-warm); }
+    .format-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
 
-    .format-icon { font-size: 2rem; margin-bottom: 1.2rem; display: block; }
-    .format-title { font-family: 'Cormorant', serif; font-size: 1.7rem; font-weight: 400; color: var(--ink); margin-bottom: 0.8rem; }
-    .format-desc { font-size: 0.88rem; line-height: 1.82; color: var(--ink-soft); }
+    .format-title { font-family: 'Cormorant', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; }
+    .format-desc { font-size: 0.86rem; line-height: 1.75; color: var(--ink-soft); }
 
     /* Steps section */
     .steps-wrap {
@@ -454,9 +453,9 @@
 
   <!-- ─── TABS ──────────────────────────────────── -->
   <div class="class-tabs">
-    <button class="tab-btn active" data-target="face-to-face" data-en="🏛️ Face-to-Face Classes" data-es="🏛️ Clases Presenciales">🏛️ Face-to-Face Classes</button>
-    <button class="tab-btn" data-target="online" data-en="🌐 Online Classes" data-es="🌐 Clases Online">🌐 Online Classes</button>
-    <button class="tab-btn" data-target="trial" data-en="✨ Request a Trial" data-es="✨ Pedir una Prueba">✨ Request a Trial</button>
+    <button class="tab-btn active" data-target="face-to-face" data-en="Face-to-Face Classes" data-es="Clases Presenciales">Face-to-Face Classes</button>
+    <button class="tab-btn" data-target="online" data-en="Online Classes" data-es="Clases Online">Online Classes</button>
+    <button class="tab-btn" data-target="trial" data-en="Request a Trial" data-es="Pedir una Prueba">Request a Trial</button>
   </div>
 
   <!-- ─── FACE-TO-FACE ──────────────────────────── -->
@@ -492,32 +491,26 @@
     </div>
     <div class="formats-grid">
       <div class="format-card reveal">
-        <span class="format-icon">👤</span>
         <h4 class="format-title" data-en="Private" data-es="Privado">Private</h4>
         <p class="format-desc" data-en="One-to-one lessons entirely tailored to your pace, goals and interests. The fastest way to progress." data-es="Clases individuales totalmente adaptadas a tu ritmo, objetivos e intereses. La forma más rápida de progresar.">One-to-one lessons entirely tailored to your pace, goals and interests. The fastest way to progress.</p>
       </div>
       <div class="format-card reveal">
-        <span class="format-icon">💑</span>
         <h4 class="format-title" data-en="Couples" data-es="Parejas">Couples</h4>
         <p class="format-desc" data-en="Learn together with a partner, friend or family member. Shared classes at a shared pace — still personal." data-es="Aprende junto a tu pareja, amigo o familiar. Clases compartidas a un ritmo compartido — pero aún personalizadas.">Learn together with a partner, friend or family member. Shared classes at a shared pace — still personal.</p>
       </div>
       <div class="format-card reveal">
-        <span class="format-icon">👥</span>
         <h4 class="format-title" data-en="Groups" data-es="Grupos">Groups</h4>
         <p class="format-desc" data-en="Small group classes with international students at a similar level. Great for conversation practice and making friends." data-es="Clases en grupos pequeños con estudiantes internacionales de nivel similar. Ideal para practicar la conversación y hacer amigos.">Small group classes with international students at a similar level. Great for conversation practice and making friends.</p>
       </div>
       <div class="format-card reveal">
-        <span class="format-icon">🧒</span>
         <h4 class="format-title" data-en="Children &amp; Teens" data-es="Niños y Adolescentes">Children &amp; Teens</h4>
         <p class="format-desc" data-en="Age-appropriate programmes from 6 years old, taught by specialist instructors who know how to make learning fun for young minds." data-es="Programas apropiados para la edad desde 6 años, impartidos por instructores especializados que saben cómo hacer el aprendizaje divertido.">Age-appropriate programmes from 6 years old, taught by specialist instructors who know how to make learning fun for young minds.</p>
       </div>
       <div class="format-card reveal">
-        <span class="format-icon">🎯</span>
         <h4 class="format-title" data-en="Specialised" data-es="Especializado">Specialised</h4>
         <p class="format-desc" data-en="Business Spanish, medical terminology, travel Spanish and more. Built around your specific professional or personal needs." data-es="Español de negocios, terminología médica, español para viajes y más. Diseñado en torno a tus necesidades profesionales o personales específicas.">Business Spanish, medical terminology, travel Spanish and more. Built around your specific professional or personal needs.</p>
       </div>
       <div class="format-card reveal">
-        <span class="format-icon">🏢</span>
         <h4 class="format-title" data-en="Companies" data-es="Empresas">Companies</h4>
         <p class="format-desc" data-en="Corporate Spanish courses for teams — delivered on-site or at our school. Flexible scheduling to fit around your business." data-es="Cursos de español corporativo para equipos — impartidos en sus instalaciones o en nuestra escuela. Horario flexible para adaptarse a su negocio.">Corporate Spanish courses for teams — delivered on-site or at our school. Flexible scheduling to fit around your business.</p>
       </div>
@@ -753,15 +746,28 @@
     langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
     setLang(currentLang);
 
-    // Tab smooth scroll
-    document.querySelectorAll('.tab-btn').forEach(btn => {
+    // Tab smooth scroll + scrollspy
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        tabBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const target = document.getElementById(btn.dataset.target);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+
+    const tabOffset = 64 + 56; // nav + tabs height
+    const sections = ['face-to-face', 'online', 'trial'].map(id => document.getElementById(id)).filter(Boolean);
+    const scrollSpy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tabBtns.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+        }
+      });
+    }, { rootMargin: `-${tabOffset}px 0px -50% 0px`, threshold: 0 });
+    sections.forEach(s => scrollSpy.observe(s));
 
     // Reveal
     const io = new IntersectionObserver((entries) => {
