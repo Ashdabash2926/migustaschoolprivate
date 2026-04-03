@@ -202,7 +202,7 @@
         <button class="lang-btn" data-lang="es">ES</button>
       </div>
       <div class="lang-bubble" id="langBubble">
-        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close"></button>
+        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
         ¿Quieres este sitio en español?
       </div>
     </div>
@@ -564,6 +564,21 @@
   }
   langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
   setLang(currentLang);
+
+  // LANG BUBBLE
+  const langBubble = document.getElementById('langBubble');
+  const langBubbleClose = document.getElementById('langBubbleClose');
+  if (localStorage.getItem('mgBubbleDismissed')) {
+    langBubble.classList.add('hidden');
+  }
+  langBubbleClose.addEventListener('click', () => {
+    langBubble.classList.add('hidden');
+    localStorage.setItem('mgBubbleDismissed', '1');
+  });
+  langBtns.forEach(b => b.addEventListener('click', () => {
+    langBubble.classList.add('hidden');
+    localStorage.setItem('mgBubbleDismissed', '1');
+  }));
 
   // Mobile nav
   const burger = document.getElementById('navBurger');
