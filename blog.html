@@ -23,9 +23,10 @@
     body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
 
     /* NAV */
-    #main-nav { position: fixed; inset: 0 0 auto 0; z-index: 200; padding: 1.1rem 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: rgba(250,250,247,0.95); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
-    .nav-logo { font-family: 'Cormorant', serif; font-style: italic; font-size: 1.45rem; font-weight: 400; color: var(--ink); text-decoration: none; flex-shrink: 0; }
+    #main-nav { position: fixed; inset: 0 0 auto 0; z-index: 200; padding: 0 3.5rem; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: rgba(250,250,247,0.95); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo { text-decoration: none; flex-shrink: 0; display: flex; align-items: center; align-self: stretch; }
     .nav-logo b { color: var(--terra); font-weight: 600; font-style: normal; }
+    .nav-logo-img { height: 100%; width: auto; display: block; }
     .nav-center { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-center a { color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; white-space: nowrap; transition: color 0.2s; }
     .nav-center a:hover, .nav-center a.active { color: var(--terra); }
@@ -42,7 +43,61 @@
     .nav-mobile a { font-family: 'Cormorant', serif; font-size: 2rem; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .nav-mobile a:hover { color: var(--terra); }
     .nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--ink-soft); }
-    @media (max-width: 960px) { #main-nav { padding: 1rem 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
+
+    /* Language speech bubble */
+    .lang-bubble {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      background: #fff;
+      border: 1.5px solid var(--terra);
+      border-radius: 10px;
+      padding: 0.55rem 2rem 0.55rem 0.85rem;
+      white-space: nowrap;
+      font-size: 0.82rem;
+      font-family: 'Lora', serif;
+      color: var(--ink);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      z-index: 200;
+      animation: bubblePop 0.25s ease;
+    }
+    .lang-bubble::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 22px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid var(--terra);
+    }
+    .lang-bubble::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: 23px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid #fff;
+    }
+    .lang-bubble-close {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      color: #aaa;
+      line-height: 1;
+      padding: 0;
+    }
+    .lang-bubble-close:hover { color: var(--terra); }
+    .lang-bubble.hidden { display: none; }
+    @keyframes bubblePop {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 960px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* SHARED */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
@@ -122,7 +177,7 @@
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a class="nav-logo" href="index.html"><b>Me Gusta</b> Spanish</a>
+  <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.png" alt="Me Gusta Spanish" class="nav-logo-img"></a>
   <ul class="nav-center">
     <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
     <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
@@ -136,20 +191,26 @@
     <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <div class="lang-toggle" id="langToggle">
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="es">ES</button>
+    <div class="lang-toggle-wrap" style="position:relative;">
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+      <div class="lang-bubble" id="langBubble">
+        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close"></button>
+        ¿Quieres este sitio en español?
+      </div>
     </div>
-    <a href="contact.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
+    <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <button class="nav-burger" id="navBurger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<!-- MOBILE NAV -->
+<!-- Mobile nav -->
 <div class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose">✕</button>
+  <button class="nav-mobile-close" id="navClose"></button>
   <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
   <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
   <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
@@ -160,18 +221,19 @@
   <a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a>
   <a href="blog.html" data-en="Blog" data-es="Blog">Blog</a>
   <a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a>
+  <a href="classes.html" class="btn-primary" data-en="Register Now" data-es="Regístrate">Register Now</a>
 </div>
 
 <!-- HERO -->
 <section class="page-hero">
-  <span class="page-hero-hand" data-en="stories, tips &amp; Bolivia 📖" data-es="historias, consejos y Bolivia 📖">stories, tips &amp; Bolivia 📖</span>
+  <span class="page-hero-hand" data-en="stories, tips &amp; Bolivia " data-es="historias, consejos y Bolivia ">stories, tips &amp; Bolivia </span>
   <h1 class="page-hero-title" data-en="The Me Gusta <em>Blog</em>" data-es="El <em>Blog</em> de Me Gusta">The Me Gusta <em>Blog</em></h1>
   <p class="page-hero-sub" data-en="Tips for learning Spanish, stories from our students, life in Sucre, and everything you need to know about Bolivia before you arrive." data-es="Consejos para aprender español, historias de nuestros estudiantes, vida en Sucre y todo lo que necesitas saber sobre Bolivia antes de llegar.">Tips for learning Spanish, stories from our students, life in Sucre, and everything you need to know about Bolivia before you arrive.</p>
 </section>
 
 <!-- FEATURED POST -->
 <div class="blog-featured reveal">
-  <span class="featured-label" data-en="✦ latest post" data-es="✦ último artículo">✦ latest post</span>
+  <span class="featured-label" data-en=" latest post" data-es=" último artículo"> latest post</span>
   <div class="featured-card">
     <div class="featured-img">
       <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=1200&q=82" alt="Learning Spanish conversation" loading="lazy">
@@ -309,7 +371,7 @@
 
 <!-- COMING SOON -->
 <section class="coming-soon reveal">
-  <span class="coming-hand" data-en="more coming soon ✍️" data-es="más próximamente ✍️">more coming soon ✍️</span>
+  <span class="coming-hand" data-en="more coming soon " data-es="más próximamente ">more coming soon </span>
   <h2 class="coming-title" data-en="New posts every month — from Elizabeth, Fernando, and the whole team" data-es="Nuevos artículos cada mes — de Elizabeth, Fernando y todo el equipo">New posts every month — from Elizabeth, Fernando, and the whole team</h2>
   <p class="coming-sub" data-en="Tips on learning Spanish, life in Bolivia, student stories, teacher perspectives, and everything in between." data-es="Consejos para aprender español, vida en Bolivia, historias de estudiantes, perspectivas de profesores y todo lo demás.">Tips on learning Spanish, life in Bolivia, student stories, teacher perspectives, and everything in between.</p>
 </section>
@@ -347,26 +409,26 @@
     <div>
       <p class="footer-col-title" data-en="Find Us" data-es="Encuéntranos">Find Us</p>
       <div class="footer-contact-item">
-        <span class="footer-contact-icon">📍</span>
+        <span class="footer-contact-icon"></span>
         <span data-en="Calle Dalence 146, Sucre, Bolivia" data-es="Calle Dalence 146, Sucre, Bolivia">Calle Dalence 146, Sucre, Bolivia</span>
       </div>
       <div class="footer-contact-item">
-        <span class="footer-contact-icon">📞</span>
+        <span class="footer-contact-icon"></span>
         <span>+591 4 644 1008</span>
       </div>
       <div class="footer-contact-item">
-        <span class="footer-contact-icon">📱</span>
+        <span class="footer-contact-icon"></span>
         <span>+591 7000 1234</span>
       </div>
       <div class="footer-contact-item">
-        <span class="footer-contact-icon">✉️</span>
+        <span class="footer-contact-icon"></span>
         <span>info@megustaspanish.com</span>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
     <span data-en="© 2025 Me Gusta Spanish. All rights reserved." data-es="© 2025 Me Gusta Spanish. Todos los derechos reservados.">© 2025 Me Gusta Spanish. All rights reserved.</span>
-    <span data-en="Sucre, Bolivia 🇧🇴" data-es="Sucre, Bolivia 🇧🇴">Sucre, Bolivia 🇧🇴</span>
+    <span data-en="Sucre, Bolivia " data-es="Sucre, Bolivia ">Sucre, Bolivia </span>
   </div>
 </footer>
 

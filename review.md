@@ -66,3 +66,37 @@ migusta/
 | Display font | Cormorant (italic headings) |
 | Accent font | Caveat (handwritten labels, prices) |
 | Body font | Lora (serif body copy) |
+
+---
+
+## Session — 31 March 2026 (continued)
+
+### 5. cafe.html — Coffee Origins section redesign
+Replaced the three equal rounded cards (AI-looking) with an editorial **archive/logbook** layout:
+- Three horizontal rows separated by thin gold ruled lines (`1px solid rgba(196,145,58,0.18)`)
+- Large faded index numbers (`01`, `02`, `03`) in ghosted Cormorant (4.5rem, opacity ~13%) as left column
+- Origin name in large Cormorant (left-aligned), location label in Caveat above
+- Description text in Lora italic, left-aligned, not boxed
+- Taste notes stacked on the right as italic Cormorant text with thin underline strokes
+- Removed: flag emojis, rounded cards, gold top borders, pill taste tags
+- Fully bilingual (`data-en`/`data-es`) preserved throughout
+- CSS classes renamed: `origins-grid` → `origins-list`, `origin-card` → `origin-entry`, `taste-tag` → `taste-note`
+
+### 6. Git setup & GitHub push
+- Initialised git repo in `/Users/ash/Projects/migusta/`
+- Created and pushed to `github.com/Ashdabash2926/migusta` (public)
+- Initial commit included all 10 HTML files
+
+### 7. Added migusta to Studio North portfolio
+- Took Puppeteer screenshot of local `index.html` at 1440×900
+- Converted to WebP (69KB) via Sharp
+- Added portfolio card to `studio-north/index.html` as card 9 (before Peak Form)
+- Card links to `ashdabash2926.github.io/migusta/` — GitHub Pages needs enabling to go live
+- Pushed to `github.com/Ashdabash2926/studio-north`
+
+### 8. Navbar logo — image replacing text
+- Added `images/megustalogoclear.png` to navbar across all 10 pages
+- Replaced `.nav-logo` text (`Me Gusta Spanish`) with `<img class="nav-logo-img">`
+- Nav height set to explicit `64px`, vertical padding removed, logo fills full height via `height: 100%`
+- `classes.html` had a multiline `#main-nav` block — fixed separately after sed missed it
+- Logo switched from `megustalogo.png` to `megustalogoclear.png` across all pages
