@@ -163,7 +163,8 @@
     @keyframes steam { 0%{opacity:0;transform:translateY(0) scaleX(1)} 20%{opacity:0.6} 100%{opacity:0;transform:translateY(-50px) scaleX(1.4)} }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes floatIn { from{opacity:0;transform:translateY(20px) rotate(var(--rot,-3deg))}@media (max-width: 960px) {
+    @keyframes floatIn { from{opacity:0;transform:translateY(20px) rotate(-2.5deg)} to{opacity:1;transform:translateY(0) rotate(-2.5deg)} }
+    @media (max-width: 960px) {
       .cafe-hero-content { padding: 4rem 1.5rem 5rem; }
       .cafe-hero-floats { display: none; }
     }
@@ -174,7 +175,7 @@
     .ticker-track:hover { animation-play-state: paused; }
     .tick-item { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 500; color: rgba(255,255,255,0.9); padding: 0 2.5rem; }
     .tick-sep { color: rgba(255,255,255,0.38); }
-    @keyframes tickMove { from{transform:translateX(0)}
+    @keyframes tickMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
     /*  ATMOSPHERE (SPACE)  */
     /* THE SPACE — split canvas */
@@ -461,38 +462,100 @@
 
 <!-- NAV -->
 <nav id="main-nav">
-    <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.png" alt="Me Gusta Spanish" class="nav-logo-img"></a>
-
-    <ul class="nav-center">
-      <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
-      <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-      <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-      <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-      <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" class="active" data-en="Café" data-es="Café">Café</a></li>
-      <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
-      <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-      <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
-      <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
-      <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
-    </ul>
-
-    <div class="nav-right">
-      <div class="lang-toggle-wrap" style="position:relative;">
-        <div class="lang-toggle" id="langToggle">
-          <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="es">ES</button>
-        </div>
-        <div class="lang-bubble" id="langBubble">
-          <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
-          ¿Quieres este sitio en español?
-        </div>
+  <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.png" alt="Me Gusta Spanish" class="nav-logo-img"></a>
+  <ul class="nav-center">
+    <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
+    <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
+    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
+    <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
+    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" class="active" data-en="Café" data-es="Café">Café</a></li>
+    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
+    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
+    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
+    <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
+    <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle-wrap" style="position:relative;">
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
       </div>
-      <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
-      <button class="nav-burger" id="navBurger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="lang-bubble" id="langBubble">
+        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
+        ¿Quieres este sitio en español?
+      </div>
     </div>
-  </nav>
+    <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="cafe-hero">
+  <div class="cafe-hero-bg" id="heroBg"></div>
+  <div class="cafe-hero-gradient"></div>
+  <div class="cafe-hero-content">
+    <span class="cafe-hero-eyebrow" data-en="Café · Sucre, Bolivia" data-es="Café · Sucre, Bolivia">Café · Sucre, Bolivia</span>
+    <h1 class="cafe-hero-title" data-en="Where coffee<br><em>tastes different</em>" data-es="Donde el café<br><em>sabe diferente</em>">Where coffee<br><em>tastes different</em></h1>
+    <p class="cafe-hero-sub" data-en="Single-origin Bolivian beans, brewed slowly. A colonial courtyard. A place to learn, linger, and let the morning unfold." data-es="Granos bolivianos de origen único, preparados lentamente. Un patio colonial. Un lugar para aprender, quedarse y dejar que la mañana se desarrolle.">Single-origin Bolivian beans, brewed slowly. A colonial courtyard. A place to learn, linger, and let the morning unfold.</p>
+    <div class="cafe-hero-badges">
+      <span class="cafe-badge" data-en="Single-origin coffee" data-es="Café de origen único">Single-origin coffee</span>
+      <span class="cafe-badge" data-en="Open-air courtyard" data-es="Patio al aire libre">Open-air courtyard</span>
+      <span class="cafe-badge" data-en="Bolivar #603, Sucre" data-es="Bolivar #603, Sucre">Bolivar #603, Sucre</span>
+    </div>
+    <div class="cafe-hero-cta-row">
+      <a href="#menu" class="btn-gold" data-en="See the menu" data-es="Ver el menú">See the menu</a>
+      <span class="cafe-hero-hours" data-en="Open <strong>Mon–Sat, 7am–7pm</strong>" data-es="Abierto <strong>Lun–Sáb, 7am–7pm</strong>">Open <strong>Mon–Sat, 7am–7pm</strong></span>
+    </div>
+  </div>
+  <div class="cafe-hero-floats">
+    <div class="float-polaroid">
+      <img src="images/cafe/DSC06175.webp" alt="Inside the café">
+      <span class="float-polaroid-cap">nuestro café</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="tick-item">Single Origin <span class="tick-sep">—</span> Bolivian Beans <span class="tick-sep">—</span> Colonial Courtyard <span class="tick-sep">—</span> Free WiFi <span class="tick-sep">—</span> Mon–Sat 7am–7pm <span class="tick-sep">—</span> Bolivar #603 <span class="tick-sep">—</span> Study Space <span class="tick-sep">—</span> &nbsp;</span>
+    <span class="tick-item">Single Origin <span class="tick-sep">—</span> Bolivian Beans <span class="tick-sep">—</span> Colonial Courtyard <span class="tick-sep">—</span> Free WiFi <span class="tick-sep">—</span> Mon–Sat 7am–7pm <span class="tick-sep">—</span> Bolivar #603 <span class="tick-sep">—</span> Study Space <span class="tick-sep">—</span> &nbsp;</span>
+  </div>
+</div>
+
+<!-- THE SPACE -->
+<section class="atmosphere">
+  <div class="atm-left">
+    <img class="atm-main-photo" src="images/cafe/DSC05948.webp" alt="The café space">
+    <div class="atm-inset">
+      <img src="images/cafe/DSC06100.webp" alt="The courtyard">
+      <span class="pol-cap"></span>
+    </div>
+  </div>
+  <div class="atm-text">
+    <span class="section-label" data-en="the space" data-es="el espacio">the space</span>
+    <h2 class="section-title" data-en="A place to <em>stay a while</em>" data-es="Un lugar para <em>quedarse un rato</em>">A place to <em>stay a while</em></h2>
+    <p data-en="Housed in a 19th-century colonial building in the heart of Sucre, our café is more than a coffee stop — it's a space to work, read, or simply breathe." data-es="Ubicado en un edificio colonial del siglo XIX en el corazón de Sucre, nuestro café es más que una parada de café — es un espacio para trabajar, leer o simplemente respirar.">Housed in a 19th-century colonial building in the heart of Sucre, our café is more than a coffee stop — it's a space to work, read, or simply breathe.</p>
+    <div class="atm-feats">
+      <div class="atm-feat">
+        <span class="atm-feat-title" data-en="Colonial Architecture" data-es="Arquitectura Colonial">Colonial Architecture</span>
+        <span class="atm-feat-desc" data-en="Original 19th-century stonework, arched doorways, and terracotta floors." data-es="Mampostería original del siglo XIX, puertas en arco y suelos de terracota.">Original 19th-century stonework, arched doorways, and terracotta floors.</span>
+      </div>
+      <div class="atm-feat">
+        <span class="atm-feat-title" data-en="Free WiFi" data-es="WiFi Gratis">Free WiFi</span>
+        <span class="atm-feat-desc" data-en="Fast, reliable connection — ideal for students and remote workers." data-es="Conexión rápida y fiable — ideal para estudiantes y trabajadores remotos.">Fast, reliable connection — ideal for students and remote workers.</span>
+      </div>
+      <div class="atm-feat">
+        <span class="atm-feat-title" data-en="Open-Air Courtyard" data-es="Patio al Aire Libre">Open-Air Courtyard</span>
+        <span class="atm-feat-desc" data-en="Shaded tables under the open sky — the finest office in Sucre." data-es="Mesas con sombra bajo el cielo abierto — la mejor oficina de Sucre.">Shaded tables under the open sky — the finest office in Sucre.</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <!--  COFFEE ORIGINS  -->
@@ -833,17 +896,9 @@
   langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
   const langBubble = document.getElementById('langBubble');
   const langBubbleClose = document.getElementById('langBubbleClose');
-  if (localStorage.getItem('mgBubbleDismissed')) {
-    langBubble.classList.add('hidden');
-  }
-  langBubbleClose.addEventListener('click', () => {
-    langBubble.classList.add('hidden');
-    localStorage.setItem('mgBubbleDismissed', '1');
-  });
-  langBtns.forEach(b => b.addEventListener('click', () => {
-    langBubble.classList.add('hidden');
-    localStorage.setItem('mgBubbleDismissed', '1');
-  }));
+  if (localStorage.getItem('mgBubbleDismissed')) { langBubble.classList.add('hidden'); }
+  langBubbleClose.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed', '1'); });
+  langBtns.forEach(b => b.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed', '1'); }));
   setLang(currentLang);
 
   // Mobile nav
