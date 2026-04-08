@@ -101,19 +101,33 @@
     }
 
     /* Language toggle */
-        /* Language dropdown */
-    .lang-select { position: relative; }
-    .lang-selected { display: flex; align-items: center; gap: 0.4rem; padding: 0.32rem 0.75rem; border-radius: 6px; background: rgba(232,227,219,0.7); border: 1px solid rgba(74,58,44,0.12); cursor: pointer; font-family: 'Lora', serif; font-size: 0.75rem; color: var(--ink); user-select: none; transition: background 0.2s; }
-    .lang-selected:hover { background: #E8E3DB; }
-    .lang-flag-ic { font-size: 1rem; line-height: 1; }
-    .lang-code-lbl { font-weight: 600; font-size: 0.72rem; letter-spacing: 0.04em; }
-    .lang-caret { font-size: 0.5rem; opacity: 0.45; margin-left: 2px; transition: transform 0.2s; }
-    .lang-select.open .lang-caret { transform: rotate(180deg); }
-    .lang-dropdown { position: absolute; top: calc(100% + 7px); right: 0; background: #fff; border: 1px solid rgba(74,58,44,0.1); border-radius: 8px; box-shadow: 0 8px 28px rgba(28,20,16,0.13); overflow: hidden; z-index: 300; min-width: 120px; opacity: 0; pointer-events: none; transform: translateY(-5px); transition: opacity 0.18s, transform 0.18s; }
-    .lang-select.open .lang-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .lang-option { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; cursor: pointer; font-family: 'Lora', serif; font-size: 0.78rem; color: var(--ink); transition: background 0.15s; white-space: nowrap; }
-    .lang-option:hover { background: rgba(232,227,219,0.5); }
-    .lang-option.active { color: var(--terra); font-weight: 600; }
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: #E8E3DB;
+      border-radius: 50px;
+      padding: 4px;
+      gap: 2px;
+    }
+    .lang-btn {
+      padding: 0.28rem 0.65rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Lora', serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: all 0.25s ease;
+      background: transparent;
+      color: #9A8878;
+      line-height: 1;
+    }
+    .lang-btn.active {
+      background: var(--ink);
+      color: #fff;
+      box-shadow: 0 1px 4px rgba(28,20,16,0.2);
+    }
 
     .nav-cta {
       font-family: 'Caveat', cursive;
@@ -130,6 +144,60 @@
       font-style: normal !important;
     }
     .nav-cta:hover { background: var(--terra-dark) !important; transform: translateY(-1px); }
+
+    /* Language speech bubble */
+    .lang-bubble {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      background: #fff;
+      border: 1.5px solid var(--terra);
+      border-radius: 10px;
+      padding: 0.55rem 2rem 0.55rem 0.85rem;
+      white-space: nowrap;
+      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      z-index: 200;
+      animation: bubblePop 0.25s ease;
+    }
+    .lang-bubble::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 22px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid var(--terra);
+    }
+    .lang-bubble::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: 23px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid #fff;
+    }
+    .lang-bubble-close {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      color: #aaa;
+      line-height: 1;
+      padding: 0;
+    }
+    .lang-bubble-close:hover { color: var(--terra); }
+    .lang-bubble.hidden { display: none; }
+    @keyframes bubblePop {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     /* Hamburger */
     .nav-burger {
@@ -1089,6 +1157,8 @@
     }
     @keyframes ticker {
       from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
     .reveal {
       opacity: 0;
@@ -1153,37 +1223,85 @@
     <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.png" alt="Me Gusta Spanish" class="nav-logo-img"></a>
 
     <ul class="nav-center">
-      <li><a href="index.html" class="active" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a></li>
-      <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
-      <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
-      <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
-      <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" data-en="Café" data-es="Café" data-fr="Café">Café</a></li>
-      <li><a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a></li>
-      <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
-      <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a></li>
-      <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
-      <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
+      <li><a href="index.html" class="active" data-en="Home" data-es="Inicio">Home</a></li>
+      <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
+      <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
+      <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
+      <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" data-en="Café" data-es="Café">Café</a></li>
+      <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
+      <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
+      <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
+      <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
+      <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
     </ul>
 
     <div class="nav-right">
-      <div class="lang-select" id="langSelect">
-        <div class="lang-selected" id="langSelected">
-          <span class="lang-flag-ic" id="langFlag">🇬🇧</span>
-          <span class="lang-code-lbl" id="langCode">EN</span>
-          <span class="lang-caret">&#9660;</span>
+      <div class="lang-toggle-wrap" style="position:relative;">
+        <div class="lang-toggle" id="langToggle">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
         </div>
-        <div class="lang-dropdown" id="langDropdown">
-          <div class="lang-option active" data-lang="en"><span class="lang-flag-ic">🇬🇧</span><span class="lang-name">English</span></div>
-          <div class="lang-option" data-lang="es"><span class="lang-flag-ic">🇪🇸</span><span class="lang-name">Español</span></div>
-          <div class="lang-option" data-lang="fr"><span class="lang-flag-ic">🇫🇷</span><span class="lang-name">Français</span></div>
+        <div class="lang-bubble" id="langBubble">
+          <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
+          ¿Quieres este sitio en español?
         </div>
       </div>
-      <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
+      <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
       <button class="nav-burger" id="navBurger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
+
+  <!-- Mobile nav -->
+  <div class="nav-mobile" id="navMobile">
+    <button class="nav-mobile-close" id="navClose"></button>
+    <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
+    <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
+    <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
+    <a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a>
+    <a href="cafe.html" data-en="Café" data-es="Café">Café</a>
+    <a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a>
+    <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a>
+    <a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a>
+    <a href="blog.html" data-en="Blog" data-es="Blog">Blog</a>
+    <a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a>
+    <a href="classes.html" class="btn-primary" data-en="Register Now" data-es="Regístrate">Register Now</a>
+  </div>
+
+  <!--  HERO  -->
+  <section class="hero" id="hero">
+    <div class="hero-blob" aria-hidden="true"></div>
+    <div class="hero-left">
+      <span class="hero-handwritten" data-en="¡Hola! — est. 2005 · Sucre, Bolivia" data-es="¡Hola! — desde 2005 · Sucre, Bolivia">¡Hola! — est. 2005 · Sucre, Bolivia</span>
+      <h1 class="hero-title">
+        <span data-en="Probably the most" data-es="Probablemente la escuela">Probably the most</span><br>
+        <em><span data-en="fun &amp; friendly" data-es="más divertida">fun &amp; friendly</span></em><br>
+        <span data-en="Spanish School in Sucre!" data-es="y amigable de Sucre">Spanish School in Sucre!</span>
+      </h1>
+      <p class="hero-subtitle" data-en="Enjoy every lesson, immerse in the culture. Speak with confidence." data-es="Disfruta cada clase, sumérgete en la cultura. Habla con confianza.">
+        Enjoy every lesson, immerse in the culture. Speak with confidence.
+      </p>
+      <p class="hero-desc" data-en="Our small group and private lessons combine real life conversation, grammar and Bolivian culture to help you learn faster and feel at home." data-es="Nuestras clases privadas y en grupo combinan conversación real, gramática y cultura boliviana para que aprendas más rápido y te sientas como en casa.">
+        Our small group and private lessons combine real life conversation, grammar and Bolivian culture to help you learn faster and feel at home.
+      </p>
+      <div class="hero-actions">
+        <a href="classes.html" class="btn-primary" data-en="Face to Face Classes" data-es="Clases Presenciales">Face to Face Classes</a>
+        <a href="classes.html#online" class="btn-secondary" data-en="Online Classes" data-es="Clases Online">Online Classes</a>
+      </div>
+      <span class="hero-meta" data-en=" Junín 333, Sucre · In-person &amp; Online" data-es=" Junín 333, Sucre · Presencial y Online"> Junín 333, Sucre · In-person &amp; Online</span>
+    </div>
+    <div class="hero-right">
+      <div class="polaroid">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=82" alt="Students learning together" loading="eager">
+        <span class="polaroid-caption" data-en="our students, learning &amp; laughing " data-es="nuestros estudiantes, aprendiendo y riendo ">our students, learning &amp; laughing </span>
+        <div class="hero-badge">
+          <span class="hero-badge-num">750<sup>+</sup></span>
+          <span class="hero-badge-label" data-en="happy students" data-es="estudiantes felices">happy students</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!--  TICKER  -->
   <div class="ticker-wrap" aria-hidden="true">
@@ -1410,15 +1528,15 @@
         <ul class="footer-links">
           <li><a href="about.html" data-en="About Us" data-es="Sobre Nosotros">About Us</a></li>
           <li><a href="classes.html" data-en="Types of Classes" data-es="Tipos de Clases">Types of Classes</a></li>
-          <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
-          <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+          <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
+          <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
           <li><a href="teachers.html" data-en="Our Teachers" data-es="Nuestros Profesores">Our Teachers</a></li>
           <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes">FAQs</a></li>
-          <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
+          <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
         </ul>
       </div>
       <div>
-        <span class="footer-col-title" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</span>
+        <span class="footer-col-title" data-en="Classes" data-es="Clases">Classes</span>
         <ul class="footer-links">
           <li><a href="classes.html" data-en="Face-to-Face" data-es="Presenciales">Face-to-Face</a></li>
           <li><a href="classes.html#online" data-en="Online Classes" data-es="Clases Online">Online Classes</a></li>
@@ -1429,7 +1547,7 @@
         </ul>
       </div>
       <div>
-        <span class="footer-col-title" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</span>
+        <span class="footer-col-title" data-en="Contact" data-es="Contacto">Contact</span>
         <div class="footer-contact-item">
           <span></span>
           <span data-en="Junín 333, Sucre, Bolivia" data-es="Junín 333, Sucre, Bolivia">Junín 333, Sucre, Bolivia</span>
@@ -1476,32 +1594,47 @@
     });
 
     //  LANGUAGE TOGGLE 
-      // Language dropdown
-  (function() {
-    var langSelect = document.getElementById('langSelect');
-    var langFlagEl = document.getElementById('langFlag');
-    var langCodeEl = document.getElementById('langCode');
-    var langOptions = document.querySelectorAll('.lang-option');
-    var langMeta = { en: { flag: '🇬🇧', code: 'EN' }, es: { flag: '🇪🇸', code: 'ES' }, fr: { flag: '🇫🇷', code: 'FR' } };
-    var currentLang = localStorage.getItem('mgLang') || 'en';
+    const langToggle = document.getElementById('langToggle');
+    const langBtns = langToggle.querySelectorAll('.lang-btn');
+    let currentLang = localStorage.getItem('mgLang') || 'en';
+
     function setLang(lang) {
       currentLang = lang;
       localStorage.setItem('mgLang', lang);
       document.documentElement.lang = lang;
-      langFlagEl.textContent = langMeta[lang].flag;
-      langCodeEl.textContent = langMeta[lang].code;
-      langOptions.forEach(function(o) { o.classList.toggle('active', o.dataset.lang === lang); });
-      document.querySelectorAll('[data-en]').forEach(function(el) {
-        var val = el.dataset[lang] !== undefined ? el.dataset[lang] : el.dataset.en;
-        if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
+
+      langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const val = el.dataset[lang];
+        if (val !== undefined) {
+          // Preserve innerHTML for elements with em tags
+          if (val.includes('<')) {
+            el.innerHTML = val;
+          } else {
+            el.textContent = val;
+          }
+        }
       });
-      langSelect.classList.remove('open');
     }
-    document.getElementById('langSelected').addEventListener('click', function(e) { e.stopPropagation(); langSelect.classList.toggle('open'); });
-    document.addEventListener('click', function() { langSelect.classList.remove('open'); });
-    langOptions.forEach(function(o) { o.addEventListener('click', function(e) { e.stopPropagation(); setLang(o.dataset.lang); }); });
+
+    langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
     setLang(currentLang);
-  })();
+
+    //  LANG BUBBLE 
+    const langBubble = document.getElementById('langBubble');
+    const langBubbleClose = document.getElementById('langBubbleClose');
+    if (localStorage.getItem('mgBubbleDismissed')) {
+      langBubble.classList.add('hidden');
+    }
+    langBubbleClose.addEventListener('click', () => {
+      langBubble.classList.add('hidden');
+      localStorage.setItem('mgBubbleDismissed', '1');
+    });
+    langBtns.forEach(b => b.addEventListener('click', () => {
+      langBubble.classList.add('hidden');
+      localStorage.setItem('mgBubbleDismissed', '1');
+    }));
 
     //  SCROLL REVEAL 
     const io = new IntersectionObserver((entries) => {
