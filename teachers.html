@@ -31,9 +31,19 @@
     .nav-center a { color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; white-space: nowrap; transition: color 0.2s; }
     .nav-center a:hover, .nav-center a.active { color: var(--terra); }
     .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
-    .lang-toggle { display: flex; align-items: center; background: #E8E3DB; border-radius: 50px; padding: 4px; gap: 2px; }
-    .lang-btn { padding: 0.28rem 0.65rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Lora', serif; font-size: 0.72rem; font-weight: 500; transition: all 0.25s ease; background: transparent; color: #9A8878; line-height: 1; }
-    .lang-btn.active { background: var(--ink); color: #fff; box-shadow: 0 1px 4px rgba(28,20,16,0.2); }
+        /* Language dropdown */
+    .lang-select { position: relative; }
+    .lang-selected { display: flex; align-items: center; gap: 0.4rem; padding: 0.32rem 0.75rem; border-radius: 6px; background: rgba(232,227,219,0.7); border: 1px solid rgba(74,58,44,0.12); cursor: pointer; font-family: 'Lora', serif; font-size: 0.75rem; color: var(--ink); user-select: none; transition: background 0.2s; }
+    .lang-selected:hover { background: #E8E3DB; }
+    .lang-flag-ic { font-size: 1rem; line-height: 1; }
+    .lang-code-lbl { font-weight: 600; font-size: 0.72rem; letter-spacing: 0.04em; }
+    .lang-caret { font-size: 0.5rem; opacity: 0.45; margin-left: 2px; transition: transform 0.2s; }
+    .lang-select.open .lang-caret { transform: rotate(180deg); }
+    .lang-dropdown { position: absolute; top: calc(100% + 7px); right: 0; background: #fff; border: 1px solid rgba(74,58,44,0.1); border-radius: 8px; box-shadow: 0 8px 28px rgba(28,20,16,0.13); overflow: hidden; z-index: 300; min-width: 120px; opacity: 0; pointer-events: none; transform: translateY(-5px); transition: opacity 0.18s, transform 0.18s; }
+    .lang-select.open .lang-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .lang-option { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; cursor: pointer; font-family: 'Lora', serif; font-size: 0.78rem; color: var(--ink); transition: background 0.15s; white-space: nowrap; }
+    .lang-option:hover { background: rgba(232,227,219,0.5); }
+    .lang-option.active { color: var(--terra); font-weight: 600; }
     .nav-cta { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 600; color: #fff !important; background: var(--terra); padding: 0.45rem 1.2rem; border-radius: 50px; text-decoration: none !important; white-space: nowrap; box-shadow: 0 3px 12px rgba(200,87,45,0.3); transition: background 0.2s, transform 0.2s !important; font-style: normal !important; }
     .nav-cta:hover { background: var(--terra-dark) !important; transform: translateY(-1px); }
     .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
@@ -43,60 +53,6 @@
     .nav-mobile a { font-family: 'Cormorant', serif; font-size: 2rem; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .nav-mobile a:hover { color: var(--terra); }
     .nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--ink-soft); }
-
-    /* Language speech bubble */
-    .lang-bubble {
-      position: absolute;
-      top: calc(100% + 12px);
-      right: 0;
-      background: #fff;
-      border: 1.5px solid var(--terra);
-      border-radius: 10px;
-      padding: 0.55rem 2rem 0.55rem 0.85rem;
-      white-space: nowrap;
-      font-size: 0.82rem;
-      font-family: 'Lora', serif;
-      color: var(--ink);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-      z-index: 200;
-      animation: bubblePop 0.25s ease;
-    }
-    .lang-bubble::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: 22px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 8px solid var(--terra);
-    }
-    .lang-bubble::after {
-      content: '';
-      position: absolute;
-      top: -6px;
-      right: 23px;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid #fff;
-    }
-    .lang-bubble-close {
-      position: absolute;
-      top: 5px;
-      right: 7px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 0.7rem;
-      color: #aaa;
-      line-height: 1;
-      padding: 0;
-    }
-    .lang-bubble-close:hover { color: var(--terra); }
-    .lang-bubble.hidden { display: none; }
-    @keyframes bubblePop {
-      from { opacity: 0; transform: translateY(-4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @media (max-width: 960px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* SHARED */
@@ -146,9 +102,7 @@
     .founder-mini-name { font-family: 'Cormorant', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); margin-bottom: 0.15rem; }
     .founder-mini-role { font-family: 'Caveat', cursive; font-size: 0.9rem; font-weight: 500; color: var(--terra); margin-bottom: 1rem; display: block; }
     .founder-mini-bio { font-size: 0.86rem; line-height: 1.85; color: var(--ink-soft); }
-    @media (max-width: 900px) { .founders-teaching { padding: 5rem 1.5rem; } .founder-teaching-grid { grid-template-columns: 1fr; } .founder-teaching-card { grid-template-columns: 1fr; } .founder-mini-photo { width: 100px; height: 100px; } }
-
-    /* CTA TERRA */
+    @media (max-width: 900px) { .founders-teaching { padding: 5rem 1.5rem; } .founder-teaching-grid { grid-template-columns: 1fr; } .founder-teaching-card { grid-template-columns: 1fr; } .founder-mini-pho/* CTA TERRA */
     .cta-terra { background: var(--terra); padding: 6rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
     .cta-terra::before { content: ''; position: absolute; left: -8%; top: -20%; width: 40%; height: 150%; background: rgba(255,255,255,0.08); border-radius: 40% 60% 55% 45%; pointer-events: none; }
     .cta-hand { font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: 500; color: rgba(255,255,255,0.75); display: block; margin-bottom: 1.2rem; transform: rotate(-1deg); position: relative; z-index: 1; }
@@ -184,271 +138,37 @@
 <nav id="main-nav">
   <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.png" alt="Me Gusta Spanish" class="nav-logo-img"></a>
   <ul class="nav-center">
-    <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
-    <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-    <li><a href="teachers.html" class="active" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" data-en="Café" data-es="Café">Café</a></li>
-    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
-    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
-    <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
-    <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+    <li><a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a></li>
+    <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+    <li><a href="teachers.html" class="active" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
+    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" data-en="Café" data-es="Café" data-fr="Café">Café</a></li>
+    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a></li>
+    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a></li>
+    <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
+    <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <div class="lang-toggle-wrap" style="position:relative;">
-      <div class="lang-toggle" id="langToggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
+    <div class="lang-select" id="langSelect">
+      <div class="lang-selected" id="langSelected">
+        <span class="lang-flag-ic" id="langFlag">🇬🇧</span>
+        <span class="lang-code-lbl" id="langCode">EN</span>
+        <span class="lang-caret">&#9660;</span>
       </div>
-      <div class="lang-bubble" id="langBubble">
-        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
-        ¿Quieres este sitio en español?
-      </div>
-    </div>
-    <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
-    <button class="nav-burger" id="navBurger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- Mobile nav -->
-<div class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose"></button>
-  <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
-  <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
-  <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
-  <a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a>
-  <a href="cafe.html" data-en="Café" data-es="Café">Café</a>
-  <a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a>
-  <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a>
-  <a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a>
-  <a href="blog.html" data-en="Blog" data-es="Blog">Blog</a>
-  <a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a>
-  <a href="classes.html" class="btn-primary" data-en="Register Now" data-es="Regístrate">Register Now</a>
-</div>
-
-<!-- HERO -->
-<section class="page-hero">
-  <span class="page-hero-hand" data-en="the people who make it happen " data-es="las personas que lo hacen posible ">the people who make it happen </span>
-  <h1 class="page-hero-title" data-en="Meet our <em>teachers</em>" data-es="Conoce a nuestros <em>profesores</em>">Meet our <em>teachers</em></h1>
-  <p class="page-hero-sub" data-en="Every teacher at Me Gusta is personally trained by Elizabeth and Fernando. They're not just fluent — they're warm, patient, and genuinely invested in your progress." data-es="Cada profesor de Me Gusta es formado personalmente por Elizabeth y Fernando. No son solo competentes — son cálidos, pacientes y genuinamente comprometidos con tu progreso.">Every teacher at Me Gusta is personally trained by Elizabeth and Fernando. They're not just fluent — they're warm, patient, and genuinely invested in your progress.</p>
-</section>
-
-<!-- TEACHERS GRID -->
-<section class="teachers-section">
-  <div class="teachers-grid">
-
-    <!-- Andrea -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=82" alt="Andrea, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="7 years" data-es="7 años">7 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Andrea</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesora de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
-          <span class="teacher-tag" data-en="Conversation" data-es="Conversación">Conversation</span>
-          <span class="teacher-tag" data-en="Business Spanish" data-es="Español de Negocios">Business Spanish</span>
-        </div>
-        <p class="teacher-bio" data-en="Andrea was born and raised in Sucre and has been teaching Spanish since graduating with a degree in Modern Languages from Universidad San Francisco Xavier. She has a particular talent for putting nervous beginners at ease — her classes are lively, structured, and full of laughter. Outside the classroom, Andrea is a passionate cook and often uses recipes to teach vocabulary. Students consistently describe her as the teacher who made them finally feel like they could actually do this." data-es="Andrea nació y creció en Sucre y lleva enseñando español desde que se graduó en Lenguas Modernas por la Universidad San Francisco Xavier. Tiene un talento especial para poner cómodos a los principiantes nerviosos — sus clases son animadas, estructuradas y llenas de risas. Fuera del aula, Andrea es una apasionada de la cocina y a menudo usa recetas para enseñar vocabulario. Los estudiantes la describen consistentemente como la profesora que les hizo sentir que realmente podían lograrlo.">Andrea was born and raised in Sucre and has been teaching Spanish since graduating with a degree in Modern Languages from Universidad San Francisco Xavier. She has a particular talent for putting nervous beginners at ease — her classes are lively, structured, and full of laughter. Outside the classroom, Andrea is a passionate cook and often uses recipes to teach vocabulary. Students consistently describe her as the teacher who made them finally feel like they could actually do this.</p>
+      <div class="lang-dropdown" id="langDropdown">
+        <div class="lang-option active" data-lang="en"><span class="lang-flag-ic">🇬🇧</span><span class="lang-name">English</span></div>
+        <div class="lang-option" data-lang="es"><span class="lang-flag-ic">🇪🇸</span><span class="lang-name">Español</span></div>
+        <div class="lang-option" data-lang="fr"><span class="lang-flag-ic">🇫🇷</span><span class="lang-name">Français</span></div>
       </div>
     </div>
-
-    <!-- Jhosmar -->
-    <div class="teacher-card reveal" style="transition-delay: 0.1s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=82" alt="Jhosmar, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="5 years" data-es="5 años">5 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Jhosmar</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesor de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
-          <span class="teacher-tag" data-en="Advanced" data-es="Avanzado">Advanced</span>
-          <span class="teacher-tag" data-en="Culture &amp; History" data-es="Cultura e Historia">Culture &amp; History</span>
-        </div>
-        <p class="teacher-bio" data-en="Jhosmar grew up in the market town of Tarabuco, an hour from Sucre, and moved to the city to study History and Social Sciences. He brings the colour and depth of Bolivian history into every lesson, helping students understand not just the language but the world it belongs to. He's been described as the kind of teacher who makes you want to learn more just by hearing him talk. With five years at Me Gusta, he works primarily with intermediate and advanced students who are hungry to go deeper." data-es="Jhosmar creció en Tarabuco, a una hora de Sucre, y se mudó a la ciudad para estudiar Historia y Ciencias Sociales. Incorpora el color y la profundidad de la historia boliviana en cada lección, ayudando a los estudiantes a entender no solo el idioma sino el mundo al que pertenece. Lo han descrito como el tipo de profesor que te hace querer aprender más solo con escucharle hablar. Con cinco años en Me Gusta, trabaja principalmente con estudiantes de nivel intermedio y avanzado.">Jhosmar grew up in the market town of Tarabuco, an hour from Sucre, and moved to the city to study History and Social Sciences. He brings the colour and depth of Bolivian history into every lesson, helping students understand not just the language but the world it belongs to. He's been described as the kind of teacher who makes you want to learn more just by hearing him talk. With five years at Me Gusta, he works primarily with intermediate and advanced students who are hungry to go deeper.</p>
-      </div>
+      <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
+      <button class="nav-burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </nav>
 
-    <!-- Yhamyle -->
-    <div class="teacher-card reveal" style="transition-delay: 0.2s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=82" alt="Yhamyle, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="4 years" data-es="4 años">4 años</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Yhamyle</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Online Specialist" data-es="Profesora de Español — Especialista Online">Spanish Teacher — Online Specialist</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
-          <span class="teacher-tag" data-en="Children &amp; Teens" data-es="Niños y Jóvenes">Children &amp; Teens</span>
-          <span class="teacher-tag" data-en="Exam Prep" data-es="Preparación de Exámenes">Exam Prep</span>
-        </div>
-        <p class="teacher-bio" data-en="Yhamyle (pronounced ya-MEE-leh) is Me Gusta's online specialist and the teacher students request most for younger learners. She studied Education and Linguistics in Sucre and spent two years teaching in a bilingual primary school before joining the team. Her online sessions are rich with interactive activities, games, and real-world tasks that keep energy high from start to finish. She also runs Me Gusta's DELE exam preparation programme and has helped dozens of students pass with flying colours." data-es="Yhamyle (pronunciado ya-MEE-leh) es la especialista online de Me Gusta y la profesora que más solicitan los estudiantes para los más jóvenes. Estudió Educación y Lingüística en Sucre y pasó dos años enseñando en una escuela primaria bilingüe antes de unirse al equipo. Sus sesiones online están llenas de actividades interactivas, juegos y tareas del mundo real que mantienen la energía alta de principio a fin. También dirige el programa de preparación para el examen DELE de Me Gusta.">Yhamyle (pronounced ya-MEE-leh) is Me Gusta's online specialist and the teacher students request most for younger learners. She studied Education and Linguistics in Sucre and spent two years teaching in a bilingual primary school before joining the team. Her online sessions are rich with interactive activities, games, and real-world tasks that keep energy high from start to finish. She also runs Me Gusta's DELE exam preparation programme and has helped dozens of students pass with flying colours.</p>
-      </div>
-    </div>
-
-    <!-- Daniela -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=82" alt="Daniela, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="3 years" data-es="3 años">3 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Daniela</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesora de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
-          <span class="teacher-tag" data-en="Pronunciation" data-es="Pronunciación">Pronunciation</span>
-        </div>
-        <p class="teacher-bio" data-en="Daniela studied phonetics at Universidad San Francisco Xavier and specialises in helping students who struggle with pronunciation and accent. Her warm, gentle manner makes even the most self-conscious learner feel at ease — and her classes are always full of laughter." data-es="Daniela estudió fonética en la Universidad San Francisco Xavier y se especializa en ayudar a los estudiantes con pronunciación y acento. Su calidez hace que incluso el estudiante más tímido se sienta cómodo.">Daniela studied phonetics at Universidad San Francisco Xavier and specialises in helping students who struggle with pronunciation and accent. Her warm, gentle manner makes even the most self-conscious learner feel at ease.</p>
-      </div>
-    </div>
-
-    <!-- Marco -->
-    <div class="teacher-card reveal" style="transition-delay:0.1s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=82" alt="Marco, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="6 years" data-es="6 años">6 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Marco</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesor de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Grammar" data-es="Gramática">Grammar</span>
-          <span class="teacher-tag" data-en="Advanced" data-es="Avanzado">Advanced</span>
-        </div>
-        <p class="teacher-bio" data-en="Marco is the school's grammar specialist — not in the dry, textbook way, but through storytelling and real conversation. Originally from Potosí, he brings a love of Bolivian literature into his lessons. He makes even the subjunctive feel logical." data-es="Marco es el especialista en gramática de la escuela — no de manera seca, sino a través de la narración y la conversación real. Originario de Potosí, aporta un amor por la literatura boliviana a sus clases.">Marco is the school's grammar specialist — not in the dry, textbook way, but through storytelling and real conversation. Originally from Potosí, he brings a love of Bolivian literature into his lessons and makes even the subjunctive feel logical.</p>
-      </div>
-    </div>
-
-    <!-- Valentina -->
-    <div class="teacher-card reveal" style="transition-delay:0.2s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=82" alt="Valentina, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="2 years" data-es="2 años">2 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Valentina</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Online" data-es="Profesora de Español — Online">Spanish Teacher — Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
-          <span class="teacher-tag" data-en="Travel Spanish" data-es="Español para Viajeros">Travel Spanish</span>
-        </div>
-        <p class="teacher-bio" data-en="Valentina taught Spanish in Germany and the Netherlands before returning to Sucre. She understands what it feels like to learn a language as an adult and brings that empathy into every class. Her travel-focused lessons are especially popular with students planning South American trips." data-es="Valentina enseñó español en Alemania y los Países Bajos antes de regresar a Sucre. Entiende lo que se siente al aprender un idioma de adulto y aporta esa empatía a cada clase.">Valentina taught Spanish in Germany and the Netherlands before returning to Sucre. She understands what it feels like to learn a language as an adult and brings that empathy into every class. Her travel-focused lessons are especially popular with students planning South American trips.</p>
-      </div>
-    </div>
-
-    <!-- Rodrigo -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=82" alt="Rodrigo, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="8 years" data-es="8 años">8 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Rodrigo</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesor de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
-          <span class="teacher-tag" data-en="Corporate" data-es="Empresas">Corporate</span>
-        </div>
-        <p class="teacher-bio" data-en="Rodrigo holds a Master's in Applied Linguistics from Buenos Aires and is particularly skilled with corporate clients needing Spanish for professional settings. Eight years at Me Gusta make him one of the most experienced voices on the team — calm, methodical, and endlessly patient." data-es="Rodrigo tiene un Máster en Lingüística Aplicada de Buenos Aires y es especialmente hábil con clientes corporativos que necesitan español para entornos profesionales. Ocho años en Me Gusta lo convierten en una de las voces más experimentadas del equipo.">Rodrigo holds a Master's in Applied Linguistics from Buenos Aires and is particularly skilled with corporate clients needing Spanish for professional settings. Eight years at Me Gusta make him one of the most experienced voices on the team — calm, methodical, and endlessly patient.</p>
-      </div>
-    </div>
-
-    <!-- Camila -->
-    <div class="teacher-card reveal" style="transition-delay:0.1s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=82" alt="Camila, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="3 years" data-es="3 años">3 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Camila</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesora de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
-          <span class="teacher-tag" data-en="Current Events" data-es="Actualidad">Current Events</span>
-        </div>
-        <p class="teacher-bio" data-en="Camila studied Journalism before discovering her true passion was teaching. Her classes are fast-paced and full of podcasts and real-world media — she believes the best way to learn a language is to live in it. Students love her energy and her knack for making vocabulary stick." data-es="Camila estudió Periodismo antes de descubrir su verdadera pasión. Sus clases son dinámicas y están llenas de podcasts y medios del mundo real. Los estudiantes adoran su energía y su habilidad para hacer que el vocabulario se quede grabado.">Camila studied Journalism before discovering her true passion was teaching. Her classes are fast-paced and full of podcasts and real-world media — she believes the best way to learn a language is to live in it. Students love her energy and her knack for making vocabulary stick.</p>
-      </div>
-    </div>
-
-    <!-- Luis -->
-    <div class="teacher-card reveal" style="transition-delay:0.2s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=82" alt="Luis, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="4 years" data-es="4 años">4 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Luis</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesor de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
-          <span class="teacher-tag" data-en="Music &amp; Culture" data-es="Música y Cultura">Music &amp; Culture</span>
-        </div>
-        <p class="teacher-bio" data-en="Luis is a musician and teacher in equal measure. He uses songs, lyrics, and rhythm to teach language in a genuinely unforgettable way. His intermediate classes are among the most requested at the school. Outside of teaching, he plays in a local folk band." data-es="Luis es músico y profesor a partes iguales. Usa canciones, letras y ritmo para enseñar el idioma de una manera genuinamente inolvidable. Sus clases de nivel intermedio son de las más solicitadas en la escuela.">Luis is a musician and teacher in equal measure. He uses songs, lyrics, and rhythm to teach language in a genuinely unforgettable way. His intermediate classes are among the most requested at the school. Outside of teaching, he plays in a local folk band.</p>
-      </div>
-    </div>
-
-    <!-- Paola -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=82" alt="Paola, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="5 years" data-es="5 años">5 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Paola</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Online Specialist" data-es="Profesora de Español — Especialista Online">Spanish Teacher — Online Specialist</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Advanced" data-es="Avanzado">Advanced</span>
-          <span class="teacher-tag" data-en="Writing" data-es="Escritura">Writing</span>
-        </div>
-        <p class="teacher-bio" data-en="Paola is a published poet whose classes blend creative writing with language acquisition. She works primarily with advanced students who want to move beyond functional fluency into something more expressive. Her online writing workshops have attracted students from twelve countries." data-es="Paola es poetisa publicada cuyas clases combinan la escritura creativa con la adquisición del idioma. Trabaja con estudiantes avanzados que quieren ir más allá de la fluidez funcional hacia algo más expresivo.">Paola is a published poet whose classes blend creative writing with language acquisition. She works primarily with advanced students who want to move beyond functional fluency into something more expressive. Her online writing workshops have attracted students from twelve countries.</p>
-      </div>
-    </div>
-
-    <!-- Diego -->
-    <div class="teacher-card reveal" style="transition-delay:0.1s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=600&q=82" alt="Diego, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="2 years" data-es="2 años">2 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Diego</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesor de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Children &amp; Teens" data-es="Niños y Jóvenes">Children &amp; Teens</span>
-          <span class="teacher-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
-        </div>
-        <p class="teacher-bio" data-en="Diego is the youngest member of the teaching team and brings a fresh energy to the classroom. He studied Primary Education and is especially gifted with children and teenagers, who respond brilliantly to his enthusiasm and playful teaching style. Parents regularly request him by name." data-es="Diego es el miembro más joven del equipo y aporta una energía fresca al aula. Estudió Educación Primaria y es especialmente bueno con niños y adolescentes, que responden brillantemente a su entusiasmo.">Diego is the youngest member of the teaching team and brings a fresh energy to the classroom. He studied Primary Education and is especially gifted with children and teenagers, who respond brilliantly to his enthusiasm and playful teaching style. Parents regularly request him by name.</p>
-      </div>
-    </div>
-
-    <!-- Sofía -->
-    <div class="teacher-card reveal" style="transition-delay:0.2s;">
-      <div class="teacher-photo">
-        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=82" alt="Sofía, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="6 years" data-es="6 años">6 years</span>
-      </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Sofía</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesora de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
-          <span class="teacher-tag" data-en="Couples" data-es="Parejas">Couples</span>
-        </div>
-        <p class="teacher-bio" data-en="Sofía is one of the most versatile teachers on the team, equally comfortable with complete beginners and near-fluent speakers. She specialises in teaching couples travelling together and has a gift for balancing two different personalities in a single class." data-es="Sofía es una de las profesoras más versátiles del equipo. Se especializa en enseñar a parejas que viajan juntas y tiene un don para equilibrar dos personalidades y estilos de aprendizaje diferentes en una sola clase.">Sofía is one of the most versatile teachers on the team, equally comfortable with complete beginners and near-fluent speakers. She specialises in teaching couples travelling together and has a gift for balancing two different personalities in a single class.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <!-- FOUNDERS AS TEACHERS -->
 <section class="founders-teaching">
@@ -505,9 +225,9 @@
     <div>
       <p class="footer-col-title" data-en="Learn" data-es="Aprender">Learn</p>
       <ul class="footer-links">
-        <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
+        <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
         <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes">FAQs</a></li>
       </ul>
     </div>
@@ -515,9 +235,9 @@
       <p class="footer-col-title" data-en="Discover" data-es="Descubrir">Discover</p>
       <ul class="footer-links">
         <li><a href="about.html" data-en="About Us" data-es="Sobre Nosotros">About Us</a></li>
-        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-        <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
-        <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+        <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
+        <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
       </ul>
     </div>
     <div>
@@ -547,38 +267,32 @@
 </footer>
 
 <script>
-  // Lang toggle
-  const langBtns = document.querySelectorAll('.lang-btn');
-  let currentLang = localStorage.getItem('mgLang') || 'en';
-  function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('mgLang', lang);
-    document.documentElement.lang = lang;
-    langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-    document.querySelectorAll('[data-en]').forEach(el => {
-      const val = el.dataset[lang];
-      if (val !== undefined) {
+    // Language dropdown
+  (function() {
+    var langSelect = document.getElementById('langSelect');
+    var langFlagEl = document.getElementById('langFlag');
+    var langCodeEl = document.getElementById('langCode');
+    var langOptions = document.querySelectorAll('.lang-option');
+    var langMeta = { en: { flag: '🇬🇧', code: 'EN' }, es: { flag: '🇪🇸', code: 'ES' }, fr: { flag: '🇫🇷', code: 'FR' } };
+    var currentLang = localStorage.getItem('mgLang') || 'en';
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('mgLang', lang);
+      document.documentElement.lang = lang;
+      langFlagEl.textContent = langMeta[lang].flag;
+      langCodeEl.textContent = langMeta[lang].code;
+      langOptions.forEach(function(o) { o.classList.toggle('active', o.dataset.lang === lang); });
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        var val = el.dataset[lang] !== undefined ? el.dataset[lang] : el.dataset.en;
         if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
-      }
-    });
-  }
-  langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  setLang(currentLang);
-
-  // LANG BUBBLE
-  const langBubble = document.getElementById('langBubble');
-  const langBubbleClose = document.getElementById('langBubbleClose');
-  if (localStorage.getItem('mgBubbleDismissed')) {
-    langBubble.classList.add('hidden');
-  }
-  langBubbleClose.addEventListener('click', () => {
-    langBubble.classList.add('hidden');
-    localStorage.setItem('mgBubbleDismissed', '1');
-  });
-  langBtns.forEach(b => b.addEventListener('click', () => {
-    langBubble.classList.add('hidden');
-    localStorage.setItem('mgBubbleDismissed', '1');
-  }));
+      });
+      langSelect.classList.remove('open');
+    }
+    document.getElementById('langSelected').addEventListener('click', function(e) { e.stopPropagation(); langSelect.classList.toggle('open'); });
+    document.addEventListener('click', function() { langSelect.classList.remove('open'); });
+    langOptions.forEach(function(o) { o.addEventListener('click', function(e) { e.stopPropagation(); setLang(o.dataset.lang); }); });
+    setLang(currentLang);
+  })();
 
   // Mobile nav
   const burger = document.getElementById('navBurger');

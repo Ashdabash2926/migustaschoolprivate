@@ -33,9 +33,19 @@
     .nav-center a { color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; white-space: nowrap; transition: color 0.2s; }
     .nav-center a:hover, .nav-center a.active { color: var(--terra); }
     .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
-    .lang-toggle { display: flex; align-items: center; background: #E8E3DB; border-radius: 50px; padding: 4px; gap: 2px; }
-    .lang-btn { padding: 0.28rem 0.65rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Lora', serif; font-size: 0.72rem; font-weight: 500; transition: all 0.25s ease; background: transparent; color: #9A8878; line-height: 1; }
-    .lang-btn.active { background: var(--ink); color: #fff; box-shadow: 0 1px 4px rgba(28,20,16,0.2); }
+        /* Language dropdown */
+    .lang-select { position: relative; }
+    .lang-selected { display: flex; align-items: center; gap: 0.4rem; padding: 0.32rem 0.75rem; border-radius: 6px; background: rgba(232,227,219,0.7); border: 1px solid rgba(74,58,44,0.12); cursor: pointer; font-family: 'Lora', serif; font-size: 0.75rem; color: var(--ink); user-select: none; transition: background 0.2s; }
+    .lang-selected:hover { background: #E8E3DB; }
+    .lang-flag-ic { font-size: 1rem; line-height: 1; }
+    .lang-code-lbl { font-weight: 600; font-size: 0.72rem; letter-spacing: 0.04em; }
+    .lang-caret { font-size: 0.5rem; opacity: 0.45; margin-left: 2px; transition: transform 0.2s; }
+    .lang-select.open .lang-caret { transform: rotate(180deg); }
+    .lang-dropdown { position: absolute; top: calc(100% + 7px); right: 0; background: #fff; border: 1px solid rgba(74,58,44,0.1); border-radius: 8px; box-shadow: 0 8px 28px rgba(28,20,16,0.13); overflow: hidden; z-index: 300; min-width: 120px; opacity: 0; pointer-events: none; transform: translateY(-5px); transition: opacity 0.18s, transform 0.18s; }
+    .lang-select.open .lang-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .lang-option { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; cursor: pointer; font-family: 'Lora', serif; font-size: 0.78rem; color: var(--ink); transition: background 0.15s; white-space: nowrap; }
+    .lang-option:hover { background: rgba(232,227,219,0.5); }
+    .lang-option.active { color: var(--terra); font-weight: 600; }
     .nav-cta { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 600; color: #fff !important; background: var(--terra); padding: 0.45rem 1.2rem; border-radius: 50px; text-decoration: none !important; white-space: nowrap; box-shadow: 0 3px 12px rgba(200,87,45,0.3); transition: background 0.2s, transform 0.2s !important; font-style: normal !important; }
     .nav-cta:hover { background: var(--terra-dark) !important; transform: translateY(-1px); }
     .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
@@ -45,60 +55,6 @@
     .nav-mobile a { font-family: 'Cormorant', serif; font-size: 2rem; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .nav-mobile a:hover { color: var(--terra); }
     .nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--ink-soft); }
-
-    /* Language speech bubble */
-    .lang-bubble {
-      position: absolute;
-      top: calc(100% + 12px);
-      right: 0;
-      background: #fff;
-      border: 1.5px solid var(--terra);
-      border-radius: 10px;
-      padding: 0.55rem 2rem 0.55rem 0.85rem;
-      white-space: nowrap;
-      font-size: 0.82rem;
-      font-family: 'Lora', serif;
-      color: var(--ink);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-      z-index: 200;
-      animation: bubblePop 0.25s ease;
-    }
-    .lang-bubble::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: 22px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 8px solid var(--terra);
-    }
-    .lang-bubble::after {
-      content: '';
-      position: absolute;
-      top: -6px;
-      right: 23px;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid #fff;
-    }
-    .lang-bubble-close {
-      position: absolute;
-      top: 5px;
-      right: 7px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 0.7rem;
-      color: #aaa;
-      line-height: 1;
-      padding: 0;
-    }
-    .lang-bubble-close:hover { color: var(--terra); }
-    .lang-bubble.hidden { display: none; }
-    @keyframes bubblePop {
-      from { opacity: 0; transform: translateY(-4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @media (max-width: 960px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* SHARED */
@@ -128,7 +84,7 @@
     }
     .cafe-hero-bg {
       position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      background: url('images/cafe/DSC06122.webp') center/cover no-repeat;
       filter: brightness(0.42) saturate(1.1);
       transform: scale(1.04);
       transition: transform 8s ease;
@@ -186,21 +142,20 @@
     .cafe-hero-hours { font-family: 'Caveat', cursive; font-size: 1.05rem; color: rgba(255,255,255,0.6); }
     .cafe-hero-hours strong { color: rgba(255,255,255,0.9); }
 
-    /* Floating polaroids */
+    /* Floating polaroid — single card right */
     .cafe-hero-floats {
       position: absolute; top: 0; right: 0; bottom: 0; width: 42%;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      gap: 2rem; padding: 8rem 4rem 6rem 0; z-index: 2;
+      padding: 8rem 5rem 6rem 0; z-index: 2;
     }
     .float-polaroid {
-      background: #fff; padding: 10px 10px 40px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05);
+      background: #fff; padding: 14px 14px 52px;
+      box-shadow: 0 28px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
       position: relative; opacity: 0;
     }
-    .float-polaroid:nth-child(1) { transform: rotate(-3deg); animation: floatIn 1s 0.6s forwards; width: 280px; }
-    .float-polaroid:nth-child(2) { transform: rotate(2.5deg); animation: floatIn 1s 0.9s forwards; width: 240px; margin-left: 4rem; }
-    .float-polaroid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-    .float-polaroid-cap { position: absolute; bottom: 8px; left: 10px; right: 10px; text-align: center; font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--ink-soft); }
+    .float-polaroid:nth-child(1) { transform: rotate(-2.5deg); animation: floatIn 1s 0.7s forwards; width: 340px; }
+    .float-polaroid img { width: 100%; height: auto; display: block; }
+    .float-polaroid-cap { position: absolute; bottom: 12px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', cursive; font-size: 1rem; color: var(--ink-soft); }
 
     /* Steam */
     .steam-wrap { position: absolute; top: -58px; left: 50%; transform: translateX(-50%); pointer-events: none; }
@@ -211,9 +166,7 @@
     @keyframes steam { 0%{opacity:0;transform:translateY(0) scaleX(1)} 20%{opacity:0.6} 100%{opacity:0;transform:translateY(-50px) scaleX(1.4)} }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes floatIn { from{opacity:0;transform:translateY(20px) rotate(var(--rot,-3deg))} to{opacity:1} }
-
-    @media (max-width: 960px) {
+    @keyframes floatIn { from{opacity:0;transform:translateY(20px) rotate(var(--rot,-3deg))}@media (max-width: 960px) {
       .cafe-hero-content { padding: 4rem 1.5rem 5rem; }
       .cafe-hero-floats { display: none; }
     }
@@ -224,147 +177,192 @@
     .ticker-track:hover { animation-play-state: paused; }
     .tick-item { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 500; color: rgba(255,255,255,0.9); padding: 0 2.5rem; }
     .tick-sep { color: rgba(255,255,255,0.38); }
-    @keyframes tickMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes tickMove { from{transform:translateX(0)}
 
     /*  ATMOSPHERE (SPACE)  */
+    /* THE SPACE — split canvas */
     .atmosphere {
-      background: var(--bg-warm);
-      padding: 7rem 4.5rem;
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 6rem;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      min-height: 680px;
+      background: var(--bg-warm);
+      overflow: hidden;
+    }
+    .atm-left {
       position: relative;
       overflow: hidden;
     }
-    .atmosphere::before {
+    .atm-main-photo {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    /* gradient fade on right edge to blend into text side */
+    .atm-left::after {
       content: '';
-      position: absolute; right: -5%; top: -20%; width: 40%; height: 140%;
-      background: rgba(200,87,45,0.05); border-radius: 60% 40% 55% 45%;
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--bg-warm) 100%);
       pointer-events: none;
     }
+    /* small polaroid inset — bleeds across the divide */
+    .atm-inset {
+      position: absolute; bottom: -2rem; right: -2.5rem;
+      width: 28%; z-index: 3;
+      background: #fff; padding: 10px 10px 46px;
+      box-shadow: 0 24px 52px rgba(28,20,16,0.32), 0 4px 12px rgba(28,20,16,0.14);
+      transform: rotate(-4deg);
+      transition: transform 0.5s ease;
+    }
+    .atm-inset:hover { transform: rotate(-1.5deg) scale(1.02); }
+    .atm-inset img { width: 100%; height: auto; display: block; }
+    .atm-inset .pol-cap { display: block; text-align: center; font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--ink-soft); margin-top: 10px; }
 
-    /* Overlapping dual-polaroid */
-    .atm-photos { position: relative; padding: 2rem 3rem 3rem 0; }
-    .atm-photo-main {
-      background: #fff; padding: 14px 14px 52px;
-      box-shadow: 0 18px 55px rgba(28,20,16,0.16), 0 0 0 1px rgba(74,58,44,0.06);
-      transform: rotate(-2deg); transition: transform 0.5s ease;
+    /* right text column */
+    .atm-text {
+      padding: 5.5rem 5rem 5.5rem 5.5rem;
+      display: flex; flex-direction: column; justify-content: center;
       position: relative; z-index: 2;
     }
-    .atm-photo-main:hover { transform: rotate(-0.5deg) scale(1.01); }
-    .atm-photo-main img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-    .atm-photo-main .pol-cap { position: absolute; bottom: 12px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--ink-soft); }
-    .atm-photo-over {
-      position: absolute;
-      bottom: -1.5rem; right: -1rem;
-      width: 52%;
-      background: #fff; padding: 10px 10px 44px;
-      box-shadow: 0 14px 42px rgba(28,20,16,0.22);
-      transform: rotate(3deg); transition: transform 0.5s ease; z-index: 5;
+    .atm-text p { font-size: 0.95rem; line-height: 1.9; color: var(--ink-soft); margin-bottom: 1.3rem; margin-top: 1.4rem; }
+
+    /* decorative number */
+    .atm-text::before {
+      content: '02';
+      position: absolute; top: 3rem; right: 3rem;
+      font-family: 'Cormorant', serif; font-size: 7rem; font-weight: 300;
+      color: rgba(200,87,45,0.06); line-height: 1; pointer-events: none;
     }
-    .atm-photo-over:hover { transform: rotate(1deg) scale(1.02); }
-    .atm-photo-over img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
-    .atm-photo-over .pol-cap { position: absolute; bottom: 8px; left: 10px; right: 10px; text-align: center; font-family: 'Caveat', cursive; font-size: 0.88rem; color: var(--ink-soft); }
 
-    /* Text side */
-    .atm-text { position: relative; z-index: 1; }
-    .atm-text p { font-size: 0.97rem; line-height: 1.9; color: var(--ink-soft); margin-bottom: 1.4rem; margin-top: 1.5rem; }
+    /* left-rule features */
+    .atm-feats { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+    .atm-feat { padding-left: 1.1rem; border-left: 2px solid var(--terra); }
+    .atm-feat-title { font-family: 'Cormorant', serif; font-size: 1.15rem; font-weight: 500; color: var(--ink); display: block; margin-bottom: 0.2rem; }
+    .atm-feat-desc { font-size: 0.82rem; line-height: 1.7; color: var(--ink-soft); font-style: italic; }
 
-    /* Clean left-rule features — no boxes */
-    .atm-feats { display: flex; flex-direction: column; gap: 1.6rem; margin-top: 2.2rem; }
-    .atm-feat { padding-left: 1.25rem; border-left: 2px solid var(--terra); }
-    .atm-feat-title { font-family: 'Cormorant', serif; font-size: 1.2rem; font-weight: 500; color: var(--ink); display: block; margin-bottom: 0.25rem; }
-    .atm-feat-desc { font-size: 0.85rem; line-height: 1.7; color: var(--ink-soft); font-style: italic; }
+    @media (max-width: 900px) {
+      .atmosphere { grid-template-columns: 1fr; }
+      .atm-left { height: 320px; }
+      .atm-left::after { background: linear-gradient(to bottom, transparent 60%, var(--bg-warm) 100%); }
+      .atm-inset { display: none; }
+      .atm-text { padding: 3rem 1.5rem 4rem; }
+      .atm-text::before { display: none; }
+    }
 
-    @media (max-width: 900px) { .atmosphere { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 4rem; } .atm-photo-over { right: 0; } }
-
-    /*  ORIGINS  */
-    .origins-section { background: var(--coffee); padding: 8rem 4.5rem; position: relative; overflow: hidden; }
+    /*  ORIGINS CAROUSEL  */
+    .origins-section { background: var(--coffee); padding: 5.5rem 4.5rem; position: relative; overflow: hidden; }
+    .origins-bg {
+      position: absolute; inset: 0;
+      background: url('images/cafe/beans.webp') center/cover no-repeat;
+      filter: brightness(0.22) saturate(0.7);
+      z-index: 0;
+    }
     .origins-section::before {
-      content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-      width: 60%; height: 200%; background: radial-gradient(ellipse, rgba(200,87,45,0.18) 0%, transparent 70%);
+      content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); z-index: 1;
+      width: 60%; height: 200%; background: radial-gradient(ellipse, rgba(200,87,45,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
-    .origins-header { text-align: center; max-width: 48rem; margin: 0 auto 5rem; position: relative; z-index: 1; }
-    .origins-header .section-label { color: var(--gold); transform-origin: center; }
-    .origins-header h2 { font-family: 'Cormorant', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; color: #fff; }
+    .origins-header { text-align: center; max-width: 48rem; margin: 0 auto 3rem; position: relative; z-index: 2; }
+    .origins-header .section-label { color: var(--gold); }
+    .origins-header h2 { font-family: 'Cormorant', serif; font-size: clamp(2.2rem, 3.5vw, 3.4rem); font-weight: 300; color: #fff; }
     .origins-header h2 em { color: var(--gold); font-style: italic; }
-    .origins-header p { font-size: 0.95rem; line-height: 1.9; color: rgba(255,255,255,0.55); font-style: italic; margin-top: 1.4rem; }
-    .origins-list { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0 4rem; }
-    .origin-entry {
-      display: grid; grid-template-columns: 4.5rem 1fr 160px;
-      gap: 0 3.5rem; padding: 3.2rem 0;
-      border-top: 1px solid rgba(196,145,58,0.18); align-items: center;
+    .origins-header p { font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.5); font-style: italic; margin-top: 1rem; }
+
+    /* Carousel */
+    .origins-carousel { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
+    .origins-track-wrap { overflow: hidden; border-top: 1px solid rgba(196,145,58,0.2); border-bottom: 1px solid rgba(196,145,58,0.2); }
+    .origins-track { display: flex; transition: transform 0.55s cubic-bezier(0.65,0,0.35,1); }
+    .origin-slide {
+      min-width: 100%; display: grid;
+      grid-template-columns: 5rem 1fr 150px;
+      gap: 0 3rem; padding: 2.8rem 0; align-items: center;
     }
-    .origin-entry:nth-child(3) { grid-column: 1 / -1; max-width: calc(50% - 2rem); margin: 0 auto; width: 100%; }
-    .origin-entry:last-child { border-bottom: 1px solid rgba(196,145,58,0.18); }
     .origin-idx-num {
-      font-family: 'Cormorant', serif; font-size: 3.8rem; font-weight: 300;
-      color: rgba(196,145,58,0.13); line-height: 1; text-align: right;
-      user-select: none; padding-right: 0.5rem;
+      font-family: 'Cormorant', serif; font-size: 4.5rem; font-weight: 300;
+      color: rgba(196,145,58,0.12); line-height: 1; text-align: right;
+      user-select: none;
     }
     .origin-body {}
-    .origin-loc {
-      font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--gold);
-      display: block; margin-bottom: 0.4rem; letter-spacing: 0.01em;
+    .origin-loc { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--gold); display: block; margin-bottom: 0.35rem; }
+    .origin-name { font-family: 'Cormorant', serif; font-size: clamp(1.6rem, 2.2vw, 2.1rem); font-weight: 300; color: #fff; line-height: 1.2; }
+    .origin-desc { font-family: 'Lora', serif; font-size: 0.8rem; line-height: 1.85; color: rgba(255,255,255,0.45); font-style: italic; margin-top: 0.8rem; }
+    .origin-notes { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+    .taste-note { font-family: 'Cormorant', serif; font-size: 0.9rem; font-style: italic; color: rgba(196,145,58,0.6); text-align: right; line-height: 1.2; }
+    .taste-note::after { content: ''; display: block; width: 16px; height: 1px; background: rgba(196,145,58,0.25); margin-left: auto; margin-top: 4px; }
+
+    /* Nav */
+    .origins-nav { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 2rem; }
+    .origins-arrow {
+      width: 38px; height: 38px; border: 1px solid rgba(196,145,58,0.3); border-radius: 50%;
+      background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: rgba(196,145,58,0.7); font-size: 1rem; transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
-    .origin-name {
-      font-family: 'Cormorant', serif; font-size: clamp(1.7rem, 2.4vw, 2.3rem);
-      font-weight: 300; color: #fff; line-height: 1.15;
+    .origins-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(196,145,58,0.08); }
+    .origins-dots { display: flex; gap: 0.55rem; }
+    .origins-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: rgba(196,145,58,0.25);
+      border: none; cursor: pointer; padding: 0; transition: background 0.25s, transform 0.25s;
     }
-    .origin-desc {
-      font-family: 'Lora', serif; font-size: 0.82rem; line-height: 1.9;
-      color: rgba(255,255,255,0.48); font-style: italic;
-      margin-top: 0.9rem; max-width: 46ch;
-    }
-    .origin-notes {
-      display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem;
-    }
-    .taste-note {
-      font-family: 'Cormorant', serif; font-size: 0.92rem; font-style: italic;
-      color: rgba(196,145,58,0.65); text-align: right; line-height: 1.2;
-    }
-    .taste-note::after {
-      content: ''; display: block; width: 18px; height: 1px;
-      background: rgba(196,145,58,0.28); margin-left: auto; margin-top: 5px;
-    }
+    .origins-dot.active { background: var(--gold); transform: scale(1.3); }
+    .origins-counter { font-family: 'Caveat', cursive; font-size: 0.95rem; color: rgba(196,145,58,0.5); min-width: 3rem; text-align: center; }
+
     @media (max-width: 768px) {
-      .origins-section { padding: 5rem 1.5rem; }
-      .origins-list { grid-template-columns: 1fr; }
-      .origin-entry { grid-template-columns: 3rem 1fr; gap: 0 1.5rem; padding: 2.5rem 0; }
-      .origin-entry:nth-child(3) { grid-column: auto; max-width: 100%; }
+      .origins-section { padding: 4rem 1.5rem; }
+      .origin-slide { grid-template-columns: 3rem 1fr; gap: 0 1.5rem; }
       .origin-notes { display: none; }
-      .origin-idx-num { font-size: 2.8rem; }
+      .origin-idx-num { font-size: 3rem; }
     }
 
     /*  MENU  */
-    .menu-section { padding: 8rem 4.5rem; background: var(--cream); position: relative; overflow: hidden; }
-    .menu-section::after {
-      content: '"café"'; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%) rotate(90deg);
-      font-family: 'Cormorant', serif; font-size: 14rem; font-style: italic;
-      color: rgba(200,87,45,0.04); line-height: 1; pointer-events: none; white-space: nowrap;
+    .menu-section {
+      padding: 9rem 4.5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--coffee);
     }
+    .menu-bg {
+      position: absolute; inset: 0;
+      background: url('images/cafe/DSC06197.webp') center/cover no-repeat;
+      filter: brightness(0.42) saturate(0.9);
+      z-index: 0;
+    }
+    .menu-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        160deg,
+        rgba(30,14,6,0.55) 0%,
+        rgba(61,35,20,0.3) 50%,
+        rgba(20,10,4,0.65) 100%
+      );
+    }
+    /* ghost watermark */
+    .menu-section::after {
+      content: 'menú'; position: absolute; right: -1rem; bottom: 6rem;
+      font-family: 'Cormorant', serif; font-size: 18rem; font-style: italic; font-weight: 300;
+      color: rgba(196,145,58,0.06); line-height: 1; pointer-events: none; white-space: nowrap; z-index: 2;
+    }
+    .menu-inner { position: relative; z-index: 3; }
     .menu-header { text-align: center; max-width: 44rem; margin: 0 auto 5rem; }
-    .menu-header h2 { font-family: 'Cormorant', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; }
+    .menu-header .section-label { color: var(--gold); }
+    .menu-header h2 { font-family: 'Cormorant', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; color: #f5ede0; }
     .menu-header h2 em { font-style: italic; color: var(--terra); }
-    .menu-header p { font-size: 0.95rem; line-height: 1.9; color: var(--ink-soft); font-style: italic; margin-top: 1.2rem; }
-    .menu-fresh-note { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.4rem; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--terra); background: var(--terra-pale); padding: 0.45rem 1.2rem; border-radius: 50px; border: 1px solid rgba(200,87,45,0.2); }
-    .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 6rem; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
-    .menu-cat-hd { display: flex; align-items: center; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; }
-    .menu-cat-ic { font-size: 1.35rem; }
-    .menu-cat-nm { font-family: 'Cormorant', serif; font-size: 1.55rem; font-weight: 500; color: var(--ink); }
-    .menu-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; padding: 1rem 0 1rem 1.2rem; border-bottom: 1px dashed rgba(74,58,44,0.1); position: relative; }
+    .menu-header p { font-size: 0.95rem; line-height: 1.9; color: rgba(245,237,224,0.65); font-style: italic; margin-top: 1.2rem; }
+    .menu-fresh-note { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.4rem; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--gold); background: rgba(196,145,58,0.12); padding: 0.45rem 1.2rem; border-radius: 50px; border: 1px solid rgba(196,145,58,0.3); }
+    .menu-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 4rem; max-width: 1100px; margin: 0 auto; }
+    .menu-divider { background: rgba(245,237,224,0.1); }
+    .menu-col { }
+    .menu-cat-hd { display: flex; align-items: center; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(196,145,58,0.25); margin-bottom: 0.5rem; }
+    .menu-cat-nm { font-family: 'Cormorant', serif; font-size: 1.55rem; font-weight: 400; font-style: italic; color: #f5ede0; letter-spacing: 0.01em; }
+    .menu-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; padding: 1rem 0 1rem 1.2rem; border-bottom: 1px solid rgba(245,237,224,0.07); position: relative; }
     .menu-item:last-child { border-bottom: none; }
-    .menu-item::before { content: ''; position: absolute; left: 0; top: 50%; width: 3px; height: 55%; background: var(--terra); border-radius: 2px; transform: translateY(-50%) scaleY(0); transform-origin: center; transition: transform 0.25s ease; }
+    .menu-item::before { content: ''; position: absolute; left: 0; top: 50%; width: 2px; height: 55%; background: var(--terra); border-radius: 2px; transform: translateY(-50%) scaleY(0); transform-origin: center; transition: transform 0.25s ease; }
     .menu-item:hover::before { transform: translateY(-50%) scaleY(1); }
-    .menu-item-nm { font-family: 'Cormorant', serif; font-size: 1.15rem; font-weight: 500; color: var(--ink); display: block; margin-bottom: 0.2rem; }
-    .menu-item-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; font-style: italic; }
+    .menu-item-nm { font-family: 'Cormorant', serif; font-size: 1.15rem; font-weight: 500; color: #f5ede0; display: block; margin-bottom: 0.2rem; }
+    .menu-item-desc { font-size: 0.8rem; color: rgba(245,237,224,0.52); line-height: 1.6; font-style: italic; }
     .menu-tags { display: flex; gap: 0.35rem; margin-top: 0.4rem; }
-    .mtag { font-family: 'Caveat', cursive; font-size: 0.76rem; padding: 0.1rem 0.5rem; border-radius: 50px; border: 1px solid var(--border); color: var(--muted); }
-    .mtag.fresh { background: var(--gold-pale); color: var(--gold); border-color: rgba(196,145,58,0.22); }
-    .menu-price { font-family: 'Caveat', cursive; font-size: 1.15rem; font-weight: 600; color: var(--terra); white-space: nowrap; padding-top: 0.15rem; }
-    @media (max-width: 900px) { .menu-section { padding: 5rem 1.5rem; } .menu-grid { grid-template-columns: 1fr; } }
+    .mtag { font-family: 'Caveat', cursive; font-size: 0.76rem; padding: 0.1rem 0.5rem; border-radius: 50px; border: 1px solid rgba(245,237,224,0.15); color: rgba(245,237,224,0.45); }
+    .mtag.fresh { background: rgba(196,145,58,0.15); color: var(--gold); border-color: rgba(196,145,58,0.3); }
+    .menu-price { font-family: 'Caveat', cursive; font-size: 1.15rem; font-weight: 600; color: var(--gold); white-space: nowrap; padding-top: 0.15rem; }
+    @media (max-width: 900px) { .menu-section { padding: 5rem 1.5rem; } .menu-grid { grid-template-columns: 1fr; } .menu-divider { display: none; } }
 
     /*  GALLERY  */
     .gallery-section { background: var(--ink); padding: 6rem 0; overflow: hidden; }
@@ -468,202 +466,108 @@
 <nav id="main-nav">
   <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.png" alt="Me Gusta Spanish" class="nav-logo-img"></a>
   <ul class="nav-center">
-    <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
-    <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-    <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" class="active" data-en="Café" data-es="Café">Café</a></li>
-    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
-    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
-    <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
-    <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+    <li><a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a></li>
+    <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+    <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
+    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" class="active" data-en="Café" data-es="Café" data-fr="Café">Café</a></li>
+    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a></li>
+    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a></li>
+    <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
+    <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <div class="lang-toggle-wrap" style="position:relative;">
-      <div class="lang-toggle" id="langToggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
+    <div class="lang-select" id="langSelect">
+      <div class="lang-selected" id="langSelected">
+        <span class="lang-flag-ic" id="langFlag">🇬🇧</span>
+        <span class="lang-code-lbl" id="langCode">EN</span>
+        <span class="lang-caret">&#9660;</span>
       </div>
-      <div class="lang-bubble" id="langBubble">
-        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
-        ¿Quieres este sitio en español?
-      </div>
-    </div>
-    <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
-    <button class="nav-burger" id="navBurger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- Mobile nav -->
-<div class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose"></button>
-  <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
-  <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
-  <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
-  <a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a>
-  <a href="cafe.html" data-en="Café" data-es="Café">Café</a>
-  <a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a>
-  <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a>
-  <a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a>
-  <a href="blog.html" data-en="Blog" data-es="Blog">Blog</a>
-  <a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a>
-  <a href="classes.html" class="btn-primary" data-en="Register Now" data-es="Regístrate">Register Now</a>
-</div>
-
-<!--  HERO  -->
-<section class="cafe-hero">
-  <div class="cafe-hero-bg" id="heroBg"></div>
-  <div class="cafe-hero-gradient"></div>
-
-  <div class="cafe-hero-floats">
-    <div class="float-polaroid">
-      <svg class="steam-wrap" width="80" height="58" viewBox="0 0 80 58" style="display:block;margin:0 auto -2px;">
-        <path class="steam-path" d="M20 58 Q12 44 22 28 Q32 12 26 0"/>
-        <path class="steam-path" d="M40 58 Q34 44 42 28 Q50 12 45 0"/>
-        <path class="steam-path" d="M60 58 Q68 44 58 28 Q48 12 54 0"/>
-      </svg>
-      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=82" alt="Cortado at Me Gusta Café">
-      <span class="float-polaroid-cap" data-en="the perfect cortado " data-es="el cortado perfecto ">the perfect cortado </span>
-    </div>
-    <div class="float-polaroid">
-      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=500&q=82" alt="Me Gusta Café colonial courtyard">
-      <span class="float-polaroid-cap" data-en="our colonial patio " data-es="nuestro patio colonial ">our colonial patio </span>
-    </div>
-  </div>
-
-  <div class="cafe-hero-content">
-    <span class="cafe-hero-eyebrow" data-en=" Bolivar #603, Sucre" data-es=" Bolivar #603, Sucre"> Bolivar #603, Sucre</span>
-    <h1 class="cafe-hero-title" data-en="Where great coffee meets <em>great company</em>" data-es="Donde el gran café se encuentra con <em>gran compañía</em>">Where great coffee meets <em>great company</em></h1>
-    <p class="cafe-hero-sub" data-en="A colonial café in the heart of Sucre — open to students, guests, and anyone who appreciates good coffee, fresh food, and a beautiful space to slow down in." data-es="Un café colonial en el corazón de Sucre — abierto a estudiantes, huéspedes y a cualquiera que aprecie el buen café, la comida fresca y un hermoso espacio para disfrutar con calma.">A colonial café in the heart of Sucre — open to students, guests, and anyone who appreciates good coffee, fresh food, and a beautiful space to slow down in.</p>
-    <div class="cafe-hero-badges">
-      <span class="cafe-badge"> <span data-en="Bolivian single-origin coffee" data-es="Café de origen boliviano">Bolivian single-origin coffee</span></span>
-      <span class="cafe-badge"> <span data-en="Free WiFi for students" data-es="WiFi gratis para estudiantes">Free WiFi for students</span></span>
-      <span class="cafe-badge"> <span data-en="Colonial courtyard" data-es="Patio colonial">Colonial courtyard</span></span>
-      <span class="cafe-badge"> <span data-en="Baked fresh daily" data-es="Horneado fresco cada día">Baked fresh daily</span></span>
-    </div>
-    <div class="cafe-hero-cta-row">
-      <a href="#menu" class="btn-gold" data-en="See the menu ↓" data-es="Ver el menú ↓">See the menu ↓</a>
-      <span class="cafe-hero-hours" data-en="Open <strong>Mon–Sat</strong>, 8 am – 8 pm" data-es="Abierto <strong>Lun–Sáb</strong>, 8 h – 20 h">Open <strong>Mon–Sat</strong>, 8 am – 8 pm</span>
-    </div>
-  </div>
-
-  <div class="ticker">
-    <div class="ticker-track">
-      <span class="tick-item" data-en=" Bolivian single-origin coffee" data-es=" Café boliviano de origen único"> Bolivian single-origin coffee</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Colonial courtyard, Sucre" data-es=" Patio colonial, Sucre"> Colonial courtyard, Sucre</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Free WiFi for all students" data-es=" WiFi gratis para todos los estudiantes"> Free WiFi for all students</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Baked fresh every morning" data-es=" Horneado fresco cada mañana"> Baked fresh every morning</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Bolivar #603, Sucre, Bolivia" data-es=" Bolivar #603, Sucre, Bolivia"> Bolivar #603, Sucre, Bolivia</span>
-      <span class="tick-item tick-sep">·</span>
-      <!-- duplicate for seamless loop -->
-      <span class="tick-item" data-en=" Bolivian single-origin coffee" data-es=" Café boliviano de origen único"> Bolivian single-origin coffee</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Colonial courtyard, Sucre" data-es=" Patio colonial, Sucre"> Colonial courtyard, Sucre</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Free WiFi for all students" data-es=" WiFi gratis para todos los estudiantes"> Free WiFi for all students</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Baked fresh every morning" data-es=" Horneado fresco cada mañana"> Baked fresh every morning</span>
-      <span class="tick-item tick-sep">·</span>
-      <span class="tick-item" data-en=" Bolivar #603, Sucre, Bolivia" data-es=" Bolivar #603, Sucre, Bolivia"> Bolivar #603, Sucre, Bolivia</span>
-      <span class="tick-item tick-sep">·</span>
-    </div>
-  </div>
-</section>
-
-<!--  THE SPACE  -->
-<section class="atmosphere">
-  <div class="atm-photos reveal">
-    <div class="atm-photo-main">
-      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=82" alt="Me Gusta Café interior">
-      <span class="pol-cap" data-en="the main hall " data-es="el salón principal ">the main hall </span>
-    </div>
-    <div class="atm-photo-over">
-      <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=500&q=82" alt="Colonial courtyard">
-      <span class="pol-cap" data-en="our patio " data-es="nuestro patio ">our patio </span>
-    </div>
-  </div>
-
-  <div class="atm-text reveal" style="transition-delay:0.15s;">
-    <span class="section-label" data-en="the space" data-es="el espacio">the space</span>
-    <h2 class="section-title" data-en="A café that feels like <em>home</em>" data-es="Un café que se siente como <em>casa</em>">A café that feels like <em>home</em></h2>
-    <p data-en="Me Gusta Café lives inside a beautifully preserved colonial building on Bolivar Street. Step through the arched doorway and you'll find a light-filled interior, an open courtyard wrapped in tropical plants, and the kind of unhurried atmosphere that makes one coffee turn into three." data-es="Me Gusta Café se encuentra dentro de un hermoso edificio colonial en la Calle Bolívar. Cruza la puerta arqueada y encontrarás un interior lleno de luz, un patio abierto envuelto en plantas tropicales y ese ambiente tranquilo que hace que un café se convierta en tres.">Me Gusta Café lives inside a beautifully preserved colonial building on Bolivar Street. Step through the arched doorway and you'll find a light-filled interior, an open courtyard wrapped in tropical plants, and the kind of unhurried atmosphere that makes one coffee turn into three.</p>
-    <p data-en="Whether you're reviewing your Spanish notes between classes, catching up on work, or simply enjoying your morning — there's always a table waiting." data-es="Ya sea que estés repasando tus apuntes de español entre clases, poniéndote al día con el trabajo o simplemente disfrutando de tu mañana — siempre hay una mesa esperándote.">Whether you're reviewing your Spanish notes between classes, catching up on work, or simply enjoying your morning — there's always a table waiting.</p>
-    <div class="atm-feats">
-      <div class="atm-feat">
-        <span class="atm-feat-title" data-en="Colonial Architecture" data-es="Arquitectura Colonial">Colonial Architecture</span>
-        <span class="atm-feat-desc" data-en="Original 19th-century building with high ceilings, archways, and a stunning central courtyard." data-es="Edificio original del siglo XIX con techos altos, arcos y un impresionante patio central.">Original 19th-century building with high ceilings, archways, and a stunning central courtyard.</span>
-      </div>
-      <div class="atm-feat">
-        <span class="atm-feat-title" data-en="Free WiFi — Fast &amp; Reliable" data-es="WiFi Gratis — Rápido y Fiable">Free WiFi — Fast &amp; Reliable</span>
-        <span class="atm-feat-desc" data-en="A unique study space for all students and guests. Bring your laptop and settle in." data-es="Un espacio de estudio único para todos los estudiantes y huéspedes. Trae tu portátil y acomódate.">A unique study space for all students and guests. Bring your laptop and settle in.</span>
-      </div>
-      <div class="atm-feat">
-        <span class="atm-feat-title" data-en="Open-Air Courtyard" data-es="Patio al Aire Libre">Open-Air Courtyard</span>
-        <span class="atm-feat-desc" data-en="Dine under the open sky in our plant-filled colonial patio — one of Sucre's hidden gems." data-es="Come bajo el cielo abierto en nuestro patio colonial lleno de plantas — una de las joyas escondidas de Sucre.">Dine under the open sky in our plant-filled colonial patio — one of Sucre's hidden gems.</span>
+      <div class="lang-dropdown" id="langDropdown">
+        <div class="lang-option active" data-lang="en"><span class="lang-flag-ic">🇬🇧</span><span class="lang-name">English</span></div>
+        <div class="lang-option" data-lang="es"><span class="lang-flag-ic">🇪🇸</span><span class="lang-name">Español</span></div>
+        <div class="lang-option" data-lang="fr"><span class="lang-flag-ic">🇫🇷</span><span class="lang-name">Français</span></div>
       </div>
     </div>
-  </div>
-</section>
+      <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
+      <button class="nav-burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
 
 <!--  COFFEE ORIGINS  -->
 <section class="origins-section">
+  <div class="origins-bg"></div>
   <div class="origins-header reveal">
     <span class="section-label" data-en="from bean to cup" data-es="del grano a la taza">from bean to cup</span>
     <h2 data-en="Coffee with a <em>story</em>" data-es="Café con <em>historia</em>">Coffee with a <em>story</em></h2>
-    <p data-en="Every cup we serve is sourced from regions with extraordinary growing conditions — from the misty valleys of Bolivia to the fields of northern Italy. We want you to taste the difference." data-es="Cada taza proviene de regiones con condiciones de cultivo extraordinarias — desde los valles neblinosos de Bolivia hasta los campos del norte de Italia. Queremos que notes la diferencia.">Every cup we serve is sourced from regions with extraordinary growing conditions — from the misty valleys of Bolivia to the fields of northern Italy. We want you to taste the difference.</p>
+    <p data-en="Every cup is sourced from regions with extraordinary growing conditions — from the misty valleys of Bolivia to the fields of northern Italy." data-es="Cada taza proviene de regiones con condiciones de cultivo extraordinarias — desde los valles bolivianos hasta los campos del norte de Italia.">Every cup is sourced from regions with extraordinary growing conditions — from the misty valleys of Bolivia to the fields of northern Italy.</p>
   </div>
-  <div class="origins-list">
-    <div class="origin-entry reveal">
-      <div class="origin-idx-num">01</div>
-      <div class="origin-body">
-        <span class="origin-loc" data-en="Yungas, Bolivia" data-es="Yungas, Bolivia">Yungas, Bolivia</span>
-        <h3 class="origin-name" data-en="Yungas Valley" data-es="Valle de Yungas">Yungas Valley</h3>
-        <p class="origin-desc" data-en="Grown in the cloud forests of the Bolivian Andes at 1,500–2,000m. Rich volcanic soil and high altitude produce a coffee of exceptional clarity and complexity." data-es="Cultivado en los bosques nubosos de los Andes bolivianos a 1.500–2.000m. El suelo volcánico rico y la gran altitud producen un café de claridad y complejidad excepcionales.">Grown in the cloud forests of the Bolivian Andes at 1,500–2,000m. Rich volcanic soil and high altitude produce a coffee of exceptional clarity and complexity.</p>
-      </div>
-      <div class="origin-notes">
-        <span class="taste-note" data-en="Dark chocolate" data-es="Chocolate oscuro">Dark chocolate</span>
-        <span class="taste-note" data-en="Citrus" data-es="Cítrico">Citrus</span>
-        <span class="taste-note" data-en="Floral" data-es="Floral">Floral</span>
+  <div class="origins-carousel reveal">
+    <div class="origins-track-wrap">
+      <div class="origins-track" id="originsTrack">
+        <div class="origin-slide">
+          <div class="origin-idx-num">01</div>
+          <div class="origin-body">
+            <span class="origin-loc" data-en="Yungas, Bolivia" data-es="Yungas, Bolivia">Yungas, Bolivia</span>
+            <h3 class="origin-name" data-en="Yungas Valley" data-es="Valle de Yungas">Yungas Valley</h3>
+            <p class="origin-desc" data-en="Grown in the cloud forests of the Bolivian Andes at 1,500–2,000m. Rich volcanic soil and high altitude produce a coffee of exceptional clarity and complexity." data-es="Cultivado en los bosques nubosos de los Andes bolivianos a 1.500–2.000m. El suelo volcánico rico y la gran altitud producen un café de claridad y complejidad excepcionales.">Grown in the cloud forests of the Bolivian Andes at 1,500–2,000m. Rich volcanic soil and high altitude produce a coffee of exceptional clarity and complexity.</p>
+          </div>
+          <div class="origin-notes">
+            <span class="taste-note" data-en="Dark chocolate" data-es="Chocolate oscuro">Dark chocolate</span>
+            <span class="taste-note" data-en="Citrus" data-es="Cítrico">Citrus</span>
+            <span class="taste-note" data-en="Floral" data-es="Floral">Floral</span>
+          </div>
+        </div>
+        <div class="origin-slide">
+          <div class="origin-idx-num">02</div>
+          <div class="origin-body">
+            <span class="origin-loc" data-en="Caranavi, Bolivia" data-es="Caranavi, Bolivia">Caranavi, Bolivia</span>
+            <h3 class="origin-name" data-en="Caranavi Hills" data-es="Colinas de Caranavi">Caranavi Hills</h3>
+            <p class="origin-desc" data-en="Bolivia's most celebrated coffee-growing region. Fertile foothills and an ideal microclimate produce a naturally sweet, full-bodied cup that's become a world favourite." data-es="La región cafetalera más célebre de Bolivia. Las fértiles estribaciones y el microclima ideal producen una taza naturalmente dulce y con cuerpo, favorita en todo el mundo.">Bolivia's most celebrated coffee-growing region. Fertile foothills and an ideal microclimate produce a naturally sweet, full-bodied cup that's become a world favourite.</p>
+          </div>
+          <div class="origin-notes">
+            <span class="taste-note" data-en="Brown sugar" data-es="Azúcar moreno">Brown sugar</span>
+            <span class="taste-note" data-en="Walnut" data-es="Nuez">Walnut</span>
+            <span class="taste-note" data-en="Stone fruit" data-es="Fruta de hueso">Stone fruit</span>
+          </div>
+        </div>
+        <div class="origin-slide">
+          <div class="origin-idx-num">03</div>
+          <div class="origin-body">
+            <span class="origin-loc" data-en="Northern Italy" data-es="Norte de Italia">Northern Italy</span>
+            <h3 class="origin-name">Lavazza</h3>
+            <p class="origin-desc" data-en="Italy's most iconic coffee house, roasting since 1895. For those who want that classic, robust Italian espresso — smooth, strong, and completely reliable." data-es="La casa de café más icónica de Italia, tostando desde 1895. Para quienes quieren ese espresso italiano clásico — suave, intenso y completamente fiable.">Italy's most iconic coffee house, roasting since 1895. For those who want that classic, robust Italian espresso — smooth, strong, and completely reliable.</p>
+          </div>
+          <div class="origin-notes">
+            <span class="taste-note" data-en="Roasted nuts" data-es="Frutos secos tostados">Roasted nuts</span>
+            <span class="taste-note" data-en="Caramel" data-es="Caramelo">Caramel</span>
+            <span class="taste-note" data-en="Classic espresso" data-es="Espresso clásico">Classic espresso</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="origin-entry reveal" style="transition-delay:0.12s;">
-      <div class="origin-idx-num">02</div>
-      <div class="origin-body">
-        <span class="origin-loc" data-en="Caranavi, Bolivia" data-es="Caranavi, Bolivia">Caranavi, Bolivia</span>
-        <h3 class="origin-name" data-en="Caranavi Hills" data-es="Colinas de Caranavi">Caranavi Hills</h3>
-        <p class="origin-desc" data-en="Bolivia's most celebrated coffee-growing region. Fertile foothills and an ideal microclimate produce a naturally sweet, full-bodied cup that's become a world favourite." data-es="La región cafetalera más célebre de Bolivia. Las fértiles estribaciones y el microclima ideal producen una taza naturalmente dulce y con cuerpo, favorita en todo el mundo.">Bolivia's most celebrated coffee-growing region. Fertile foothills and an ideal microclimate produce a naturally sweet, full-bodied cup that's become a world favourite.</p>
+    <div class="origins-nav">
+      <button class="origins-arrow" id="originsPrev" aria-label="Previous">&#8592;</button>
+      <div class="origins-dots">
+        <button class="origins-dot active" data-idx="0"></button>
+        <button class="origins-dot" data-idx="1"></button>
+        <button class="origins-dot" data-idx="2"></button>
       </div>
-      <div class="origin-notes">
-        <span class="taste-note" data-en="Brown sugar" data-es="Azúcar moreno">Brown sugar</span>
-        <span class="taste-note" data-en="Walnut" data-es="Nuez">Walnut</span>
-        <span class="taste-note" data-en="Stone fruit" data-es="Fruta de hueso">Stone fruit</span>
-      </div>
-    </div>
-    <div class="origin-entry reveal" style="transition-delay:0.24s;">
-      <div class="origin-idx-num">03</div>
-      <div class="origin-body">
-        <span class="origin-loc" data-en="Northern Italy" data-es="Norte de Italia">Northern Italy</span>
-        <h3 class="origin-name">Lavazza</h3>
-        <p class="origin-desc" data-en="Italy's most iconic coffee house, roasting since 1895. For those who want that classic, robust Italian espresso — smooth, strong, and completely reliable." data-es="La casa de café más icónica de Italia, tostando desde 1895. Para quienes quieren ese espresso italiano clásico — suave, intenso y completamente fiable.">Italy's most iconic coffee house, roasting since 1895. For those who want that classic, robust Italian espresso — smooth, strong, and completely reliable.</p>
-      </div>
-      <div class="origin-notes">
-        <span class="taste-note" data-en="Roasted nuts" data-es="Frutos secos tostados">Roasted nuts</span>
-        <span class="taste-note" data-en="Caramel" data-es="Caramelo">Caramel</span>
-        <span class="taste-note" data-en="Classic espresso" data-es="Espresso clásico">Classic espresso</span>
-      </div>
+      <span class="origins-counter" id="originsCounter">1 / 3</span>
+      <button class="origins-arrow" id="originsNext" aria-label="Next">&#8594;</button>
     </div>
   </div>
 </section>
 
 <!--  MENU  -->
 <section class="menu-section" id="menu">
+  <div class="menu-bg"></div>
+  <div class="menu-overlay"></div>
+  <div class="menu-inner">
   <div class="menu-header reveal">
     <span class="section-label" data-en="what we're serving" data-es="lo que servimos">what we're serving</span>
     <h2 data-en="Our <em>Menu</em>" data-es="Nuestro <em>Menú</em>">Our <em>Menu</em></h2>
@@ -671,7 +575,7 @@
     <span class="menu-fresh-note" data-en="All food baked fresh this morning" data-es="Toda la comida horneada fresca esta mañana">All food baked fresh this morning</span>
   </div>
   <div class="menu-grid">
-    <div class="reveal">
+    <div class="menu-col reveal">
       <div class="menu-cat-hd">
         
         <span class="menu-cat-nm" data-en="Coffee &amp; Hot Drinks" data-es="Café y Bebidas Calientes">Coffee &amp; Hot Drinks</span>
@@ -705,9 +609,10 @@
         
       </div>
     </div>
-    <div class="reveal" style="transition-delay:0.15s;">
+    <div class="menu-divider"></div>
+    <div class="menu-col reveal" style="transition-delay:0.15s;">
       <div class="menu-cat-hd">
-        
+
         <span class="menu-cat-nm" data-en="Food — Baked Fresh Daily" data-es="Comida — Horneada Fresca Cada Día">Food — Baked Fresh Daily</span>
       </div>
       <div class="menu-item">
@@ -736,6 +641,7 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!--  GALLERY  -->
@@ -745,12 +651,14 @@
     <h2 data-en="Come and <em>see</em> for yourself" data-es="Ven y <em>compruébalo</em> tú mismo">Come and <em>see</em> for yourself</h2>
   </div>
   <div class="gallery-scroll">
-    <div class="gcard reveal"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=700&q=80" alt="Café interior"><div class="gcard-cap" data-en="the main room " data-es="la sala principal ">the main room </div></div>
-    <div class="gcard reveal" style="transition-delay:0.1s;"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=700&q=80" alt="Cortado"><div class="gcard-cap" data-en="serious about coffee " data-es="serios con el café ">serious about coffee </div></div>
-    <div class="gcard reveal" style="transition-delay:0.2s;"><img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=700&q=80" alt="Courtyard"><div class="gcard-cap" data-en="the colonial courtyard " data-es="el patio colonial ">the colonial courtyard </div></div>
-    <div class="gcard reveal" style="transition-delay:0.3s;"><img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?auto=format&fit=crop&w=700&q=80" alt="Cake"><div class="gcard-cap" data-en="baked this morning " data-es="horneado esta mañana ">baked this morning </div></div>
-    <div class="gcard reveal" style="transition-delay:0.4s;"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=700&q=80" alt="Study spot"><div class="gcard-cap" data-en="the perfect study spot " data-es="el lugar perfecto para estudiar ">the perfect study spot </div></div>
-    <div class="gcard reveal" style="transition-delay:0.5s;"><img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=700&q=80" alt="Cozy corner"><div class="gcard-cap" data-en="evenings in Sucre " data-es="tardes en Sucre ">evenings in Sucre </div></div>
+    <div class="gcard reveal"><img src="images/cafe/DSC06122.webp" alt="Me Gusta Café"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.08s;"><img src="images/cafe/DSC05948.webp" alt="Me Gusta Café interior"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.16s;"><img src="images/cafe/DSC06100.webp" alt="Me Gusta Café menu board"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.24s;"><img src="images/cafe/DSC06112.webp" alt="Me Gusta Café courtyard"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.32s;"><img src="images/cafe/DSC06175.webp" alt="Me Gusta Café"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.40s;"><img src="images/cafe/DSC06192.webp" alt="Me Gusta Café students"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.48s;"><img src="images/cafe/DSC06197.webp" alt="Me Gusta Café interior"><div class="gcard-cap"></div></div>
+    <div class="gcard reveal" style="transition-delay:0.56s;"><img src="images/cafe/cafesign.webp" alt="Me Gusta Café sign"><div class="gcard-cap"></div></div>
   </div>
 </section>
 
@@ -759,8 +667,8 @@
   <div class="study-inner">
     <div class="study-img-wrap reveal">
       <div class="polaroid study-pol">
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=82" alt="Students studying at Me Gusta Café">
-        <span class="polaroid-caption" data-en="students at work " data-es="estudiantes trabajando ">students at work </span>
+        <img src="images/cafe/DSC06192.webp" alt="Students studying at Me Gusta Café">
+        <span class="polaroid-caption"></span>
       </div>
       <div class="wifi-badge">
         <span class="wifi-badge-icon"></span>
@@ -848,9 +756,9 @@
     <div>
       <p class="footer-col-title" data-en="Learn" data-es="Aprender">Learn</p>
       <ul class="footer-links">
-        <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
+        <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
         <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes">FAQs</a></li>
       </ul>
     </div>
@@ -859,8 +767,8 @@
       <ul class="footer-links">
         <li><a href="about.html" data-en="About Us" data-es="Sobre Nosotros">About Us</a></li>
         <li><a href="cafe.html" data-en="The Café" data-es="El Café">The Café</a></li>
-        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-        <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+        <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
       </ul>
     </div>
     <div>
@@ -878,6 +786,31 @@
 </footer>
 
 <script>
+  // Origins carousel
+  (function() {
+    const track = document.getElementById('originsTrack');
+    const dots = document.querySelectorAll('.origins-dot');
+    const counter = document.getElementById('originsCounter');
+    const total = 3;
+    let current = 0;
+
+    function goTo(n) {
+      current = (n + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      counter.textContent = `${current + 1} / ${total}`;
+    }
+
+    document.getElementById('originsNext').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('originsPrev').addEventListener('click', () => goTo(current - 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+    // Auto-advance every 6s
+    let timer = setInterval(() => goTo(current + 1), 6000);
+    document.querySelector('.origins-carousel').addEventListener('mouseenter', () => clearInterval(timer));
+    document.querySelector('.origins-carousel').addEventListener('mouseleave', () => { timer = setInterval(() => goTo(current + 1), 6000); });
+  })();
+
   // Hero bg
   document.getElementById('heroBg').classList.add('loaded');
 
@@ -887,38 +820,32 @@
     nav.style.boxShadow = window.scrollY > 40 ? '0 2px 20px rgba(28,20,16,0.1)' : '0 1px 0 rgba(74,58,44,0.12)';
   }, { passive: true });
 
-  // Lang toggle
-  const langBtns = document.querySelectorAll('.lang-btn');
-  let currentLang = localStorage.getItem('mgLang') || 'en';
-  function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('mgLang', lang);
-    document.documentElement.lang = lang;
-    langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-    document.querySelectorAll('[data-en]').forEach(el => {
-      const val = el.dataset[lang];
-      if (val !== undefined) {
+    // Language dropdown
+  (function() {
+    var langSelect = document.getElementById('langSelect');
+    var langFlagEl = document.getElementById('langFlag');
+    var langCodeEl = document.getElementById('langCode');
+    var langOptions = document.querySelectorAll('.lang-option');
+    var langMeta = { en: { flag: '🇬🇧', code: 'EN' }, es: { flag: '🇪🇸', code: 'ES' }, fr: { flag: '🇫🇷', code: 'FR' } };
+    var currentLang = localStorage.getItem('mgLang') || 'en';
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('mgLang', lang);
+      document.documentElement.lang = lang;
+      langFlagEl.textContent = langMeta[lang].flag;
+      langCodeEl.textContent = langMeta[lang].code;
+      langOptions.forEach(function(o) { o.classList.toggle('active', o.dataset.lang === lang); });
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        var val = el.dataset[lang] !== undefined ? el.dataset[lang] : el.dataset.en;
         if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
-      }
-    });
-  }
-  langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  setLang(currentLang);
-
-  // LANG BUBBLE
-  const langBubble = document.getElementById('langBubble');
-  const langBubbleClose = document.getElementById('langBubbleClose');
-  if (localStorage.getItem('mgBubbleDismissed')) {
-    langBubble.classList.add('hidden');
-  }
-  langBubbleClose.addEventListener('click', () => {
-    langBubble.classList.add('hidden');
-    localStorage.setItem('mgBubbleDismissed', '1');
-  });
-  langBtns.forEach(b => b.addEventListener('click', () => {
-    langBubble.classList.add('hidden');
-    localStorage.setItem('mgBubbleDismissed', '1');
-  }));
+      });
+      langSelect.classList.remove('open');
+    }
+    document.getElementById('langSelected').addEventListener('click', function(e) { e.stopPropagation(); langSelect.classList.toggle('open'); });
+    document.addEventListener('click', function() { langSelect.classList.remove('open'); });
+    langOptions.forEach(function(o) { o.addEventListener('click', function(e) { e.stopPropagation(); setLang(o.dataset.lang); }); });
+    setLang(currentLang);
+  })();
 
   // Mobile nav
   document.getElementById('navBurger').addEventListener('click', () => document.getElementById('navMobile').classList.add('open'));
