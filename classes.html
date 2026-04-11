@@ -165,14 +165,45 @@
     .page-hero-title { font-family: 'Cormorant', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.5rem; }
     .page-hero-title em { font-style: italic; color: var(--terra); font-weight: 400; }
     .page-hero-sub { font-size: 0.97rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 30rem; margin-bottom: 2rem; }
-    .page-hero-img { position: relative; z-index: 1; }
-    .polaroid { background: #fff; padding: 14px 14px 52px; box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06); transform: rotate(2deg); transition: transform 0.4s ease; position: relative; }
-    .polaroid:hover { transform: rotate(0.5deg) scale(1.015); }
+    .page-hero-img { position: relative; z-index: 1; min-height: 520px; }
+    .polaroid { background: #fff; padding: 14px 14px 52px; box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06); transition: transform 0.4s ease; position: absolute; }
     .polaroid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
     .polaroid-caption { position: absolute; bottom: 12px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 500; color: var(--ink-soft); }
+
+    .hero-polaroid-main {
+      width: 62%;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-45%) rotate(2deg);
+      z-index: 3;
+    }
+    .hero-polaroid-main:hover { transform: translateX(-45%) rotate(0.5deg) scale(1.015); }
+
+    .hero-polaroid-back-left {
+      width: 46%;
+      top: 0;
+      left: 0;
+      transform: rotate(-5deg);
+      z-index: 2;
+    }
+    .hero-polaroid-back-left:hover { transform: rotate(-2deg) scale(1.02); }
+
+    .hero-polaroid-back-right {
+      width: 44%;
+      bottom: 10px;
+      right: 0;
+      transform: rotate(6deg);
+      z-index: 1;
+    }
+    .hero-polaroid-back-right:hover { transform: rotate(3deg) scale(1.02); }
+
     @media (max-width: 960px) {
       .page-hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
       .page-hero::before { display: none; }
+      .page-hero-img { min-height: 340px; }
+      .hero-polaroid-back-left { width: 42%; }
+      .hero-polaroid-main { width: 60%; top: 30px; }
+      .hero-polaroid-back-right { width: 40%; }
     }
 
     /*  SECTION TABS  */
@@ -506,7 +537,15 @@
       </div>
     </div>
     <div class="page-hero-img reveal">
-      <div class="polaroid">
+      <div class="polaroid hero-polaroid-back-left">
+        <img src="images/school/DSC05880.webp" alt="Spanish lesson in Sucre" loading="eager" style="object-fit: cover; object-position: 60% 40%;">
+        <span class="polaroid-caption" data-en="small groups, big results " data-es="grupos pequeños, grandes resultados ">small groups, big results </span>
+      </div>
+      <div class="polaroid hero-polaroid-back-right">
+        <img src="images/school/DSC06035.webp" alt="Cultural immersion in Bolivia" loading="lazy" style="object-fit: cover; object-position: 50% 30%;">
+        <span class="polaroid-caption" data-en="culture + language " data-es="cultura + idioma ">culture + language </span>
+      </div>
+      <div class="polaroid hero-polaroid-main">
         <img src="images/school/DSC06082.webp" alt="Students learning Spanish" loading="eager" style="object-fit: cover; object-position: 50% 50%;">
         <span class="polaroid-caption" data-en="real conversations from day one " data-es="conversaciones reales desde el primer día ">real conversations from day one </span>
       </div>
