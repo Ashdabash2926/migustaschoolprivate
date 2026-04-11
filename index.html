@@ -665,34 +665,56 @@
     .classes-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.8rem;
+      gap: 3px;
       margin-top: 3rem;
       position: relative;
       z-index: 1;
-    }
-
-    .class-card {
-      background: var(--cream);
       border-radius: var(--r);
       overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(74,58,44,0.08);
+      box-shadow: 0 12px 48px rgba(28,20,16,0.18);
+    }
+
+    .class-pane {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .class-pane img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .class-pane:hover img { transform: scale(1.06); }
+
+    .class-pane-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(28,20,16,0.90) 0%,
+        rgba(28,20,16,0.50) 45%,
+        rgba(28,20,16,0.10) 70%,
+        transparent 100%
+      );
       display: flex;
       flex-direction: column;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      justify-content: flex-end;
+      padding: 2.8rem;
+      transition: background 0.4s ease;
     }
-    .class-card:hover { transform: translateY(-5px) rotate(0.3deg); box-shadow: var(--shadow-warm); }
-
-    .class-card-img img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      display: block;
+    .class-pane:hover .class-pane-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(28,20,16,0.95) 0%,
+        rgba(28,20,16,0.60) 50%,
+        rgba(28,20,16,0.15) 75%,
+        transparent 100%
+      );
     }
-    .class-card:hover .class-card-img img { transform: scale(1.05); }
-
-    .class-card-body { padding: 2.2rem 2.4rem 2.8rem; flex: 1; }
 
     .card-label {
       font-family: 'Caveat', cursive;
@@ -700,19 +722,49 @@
       font-weight: 600;
       color: var(--terra);
       display: block;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .card-title {
       font-family: 'Cormorant', serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 1rem;
+      color: #fff;
+      margin-bottom: 0.8rem;
       line-height: 1.1;
     }
 
-    .card-desc { font-size: 0.9rem; line-height: 1.85; color: var(--ink-soft); margin-bottom: 1.8rem; }
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 1.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: 50px;
+      padding: 0.5rem 1.4rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      align-self: flex-start;
+    }
+    .btn-ghost:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-1px);
+    }
 
     /*  STATS  */
     .stats-section {
@@ -1207,7 +1259,9 @@
       .polaroid-mini { display: none; }
 
       .classes { padding: 5rem 1.5rem; }
-      .classes-grid { grid-template-columns: 1fr; }
+      .classes-grid { grid-template-columns: 1fr; gap: 3px; }
+      .class-pane { height: 420px; }
+      .class-pane-overlay { padding: 2rem; }
 
       .stats-section { padding: 0 1rem; flex-wrap: wrap; }
       .stat-card { flex: 1 1 30%; padding: 1.4rem 1rem; }
@@ -1375,30 +1429,26 @@
       <h2 class="section-title" data-en="Two ways to <em>learn</em>" data-es="Dos formas de <em>aprender</em>">Two ways to <em>learn</em></h2>
     </div>
     <div class="classes-grid">
-      <div class="class-card reveal">
-        <div class="class-card-img">
-          <img src="images/school/DSC06159.webp" alt="Face to face Spanish classes in Sucre" loading="lazy">
-        </div>
-        <div class="class-card-body">
+      <div class="class-pane reveal">
+        <img src="images/school/DSC06159.webp" alt="Face to face Spanish classes in Sucre" loading="lazy">
+        <div class="class-pane-overlay">
           <span class="card-label" data-en=" in sucre, bolivia" data-es=" en sucre, bolivia"> in sucre, bolivia</span>
           <h3 class="card-title" data-en="Face-to-Face Classes" data-es="Clases Presenciales">Face-to-Face Classes</h3>
           <p class="card-desc" data-en="Learn Spanish in Sucre — the heart of language and culture. Join our in-person classes and live the language every day alongside native teachers and an international community of students." data-es="Aprende español en Sucre — el corazón del idioma y la cultura. Únete a nuestras clases presenciales y vive el idioma cada día junto a profesores nativos y una comunidad internacional de estudiantes.">
             Learn Spanish in Sucre — the heart of language and culture. Join our in-person classes and live the language every day alongside native teachers and an international community of students.
           </p>
-          <a href="classes.html" class="btn-primary" data-en="Learn More →" data-es="Saber Más →">Learn More →</a>
+          <a href="classes.html" class="btn-ghost" data-en="Learn More →" data-es="Saber Más →">Learn More →</a>
         </div>
       </div>
-      <div class="class-card reveal">
-        <div class="class-card-img">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=82" alt="Online Spanish classes" loading="lazy">
-        </div>
-        <div class="class-card-body">
+      <div class="class-pane reveal">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=82" alt="Online Spanish classes" loading="lazy">
+        <div class="class-pane-overlay">
           <span class="card-label" data-en=" learn from anywhere" data-es=" aprende desde cualquier lugar"> learn from anywhere</span>
           <h3 class="card-title" data-en="Online Classes" data-es="Clases Online">Online Classes</h3>
           <p class="card-desc" data-en="Millions of people around the world are learning Spanish online. Our interactive sessions with native Bolivian teachers bring the same warmth and results — directly to your screen." data-es="Millones de personas en todo el mundo aprenden español online. Nuestras sesiones interactivas con profesores nativos bolivianos brindan la misma calidez y resultados — directamente a tu pantalla.">
             Millions of people around the world are learning Spanish online. Our interactive sessions with native Bolivian teachers bring the same warmth and results — directly to your screen.
           </p>
-          <a href="classes.html#online" class="btn-primary" data-en="Learn More →" data-es="Saber Más →">Learn More →</a>
+          <a href="classes.html#online" class="btn-ghost" data-en="Learn More →" data-es="Saber Más →">Learn More →</a>
         </div>
       </div>
     </div>
