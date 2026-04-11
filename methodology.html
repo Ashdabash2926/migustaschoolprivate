@@ -210,23 +210,23 @@
 
     /* ── FOUR CHARACTERISTICS ─────────────────────────────── */
     .characteristics {
-      padding: 8rem 4.5rem;
+      padding: 6rem 4.5rem;
       background: var(--bg-warm);
       position: relative;
       overflow: hidden;
     }
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 0;
-      margin-top: 4rem;
+      margin-top: 3rem;
       position: relative;
       z-index: 1;
       border-top: 1px solid var(--border);
       border-left: 1px solid var(--border);
     }
     .char-card {
-      padding: 3.2rem 3rem 3.5rem;
+      padding: 1.8rem 1.8rem 2rem;
       border-bottom: 1px solid var(--border);
       border-right: 1px solid var(--border);
       position: relative;
@@ -241,19 +241,19 @@
     .char-card::before { display: none; }
     .char-num {
       font-family: 'Cormorant', serif;
-      font-size: 6.5rem;
+      font-size: 3.5rem;
       font-weight: 300;
       color: var(--terra);
-      opacity: 0.12;
+      opacity: 0.15;
       line-height: 1;
       display: block;
-      margin-bottom: -1.2rem;
+      margin-bottom: -0.4rem;
       letter-spacing: -0.02em;
     }
     .char-icon { display: none; }
     .char-title {
       font-family: 'Cormorant', serif;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 500;
       color: var(--ink);
       margin-bottom: 0;
@@ -262,17 +262,20 @@
     .char-title::after {
       content: '';
       display: block;
-      width: 2rem;
+      width: 1.8rem;
       height: 2px;
       background: var(--terra);
-      margin-top: 0.8rem;
-      margin-bottom: 1rem;
+      margin-top: 0.6rem;
+      margin-bottom: 0.8rem;
     }
-    .char-desc { font-size: 0.88rem; line-height: 1.85; color: var(--ink-soft); }
+    .char-desc { font-size: 0.84rem; line-height: 1.82; color: var(--ink-soft); }
     @media (max-width: 960px) {
       .characteristics { padding: 5rem 1.5rem; }
-      .char-grid { grid-template-columns: 1fr; border-left: none; border-top: none; }
-      .char-card { border-top: 1px solid var(--border); border-right: none; border-left: none; }
+      .char-grid { grid-template-columns: 1fr 1fr; border-left: none; border-top: none; }
+      .char-card { border-top: 1px solid var(--border); }
+    }
+    @media (max-width: 600px) {
+      .char-grid { grid-template-columns: 1fr; }
     }
 
     /* ── TWO-PART CLASS STRUCTURE ─────────────────────────── */
