@@ -45,58 +45,13 @@
     .nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--ink-soft); }
 
     /* Language speech bubble */
-    .lang-bubble {
-      position: absolute;
-      top: calc(100% + 12px);
-      right: 0;
-      background: #fff;
-      border: 1.5px solid var(--terra);
-      border-radius: 10px;
-      padding: 0.55rem 2rem 0.55rem 0.85rem;
-      white-space: nowrap;
-      font-size: 0.82rem;
-      font-family: 'Lora', serif;
-      color: var(--ink);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-      z-index: 200;
-      animation: bubblePop 0.25s ease;
-    }
-    .lang-bubble::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: 22px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 8px solid var(--terra);
-    }
-    .lang-bubble::after {
-      content: '';
-      position: absolute;
-      top: -6px;
-      right: 23px;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid #fff;
-    }
-    .lang-bubble-close {
-      position: absolute;
-      top: 5px;
-      right: 7px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 0.7rem;
-      color: #aaa;
-      line-height: 1;
-      padding: 0;
-    }
+    .lang-bubble { position: absolute; top: calc(100% + 12px); right: 0; background: #fff; border: 1.5px solid var(--terra); border-radius: 10px; padding: 0.55rem 2rem 0.55rem 0.85rem; white-space: nowrap; font-size: 0.82rem; font-family: 'Lora', serif; color: var(--ink); box-shadow: 0 4px 16px rgba(0,0,0,0.10); z-index: 200; animation: bubblePop 0.25s ease; }
+    .lang-bubble::before { content: ''; position: absolute; top: -8px; right: 22px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid var(--terra); }
+    .lang-bubble::after { content: ''; position: absolute; top: -6px; right: 23px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid #fff; }
+    .lang-bubble-close { position: absolute; top: 5px; right: 7px; background: none; border: none; cursor: pointer; font-size: 0.7rem; color: #aaa; line-height: 1; padding: 0; }
     .lang-bubble-close:hover { color: var(--terra); }
     .lang-bubble.hidden { display: none; }
-    @keyframes bubblePop {
-      from { opacity: 0; transform: translateY(-4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes bubblePop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 960px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* SHARED */
@@ -108,34 +63,260 @@
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* PAGE HERO */
-    .page-hero { padding: 10rem 4.5rem 7rem; background: var(--bg-warm); position: relative; overflow: hidden; text-align: center; }
-    .page-hero::before { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 70%; height: 200%; background: radial-gradient(ellipse, rgba(200,87,45,0.07) 0%, transparent 65%); pointer-events: none; }
-    .page-hero-hand { font-family: 'Caveat', cursive; font-size: 1.2rem; font-weight: 500; color: var(--terra); margin-bottom: 1rem; display: block; transform: rotate(-1deg); position: relative; z-index: 1; }
-    .page-hero-title { font-family: 'Cormorant', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      padding: 9rem 4.5rem 7rem;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    /* Large ghosted number */
+    .page-hero::before {
+      content: '07';
+      position: absolute;
+      right: -0.05em;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant', serif;
+      font-size: clamp(16rem, 30vw, 28rem);
+      font-weight: 600;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+    /* Warm radial glow */
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%; height: 200%;
+      background: radial-gradient(ellipse, rgba(200,87,45,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero-hand {
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--terra);
+      margin-bottom: 1.2rem;
+      display: block;
+      transform: rotate(-1deg);
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+    }
+    .page-hero-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
     .page-hero-title em { font-style: italic; color: var(--terra); }
-    .page-hero-sub { font-size: 1rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 36rem; margin: 0 auto; position: relative; z-index: 1; }
+    .page-hero-sub {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.55);
+      font-style: italic;
+      max-width: 34rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    /* Rule under hero */
+    .hero-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-rule-line { flex: 1; max-width: 120px; height: 1px; background: rgba(255,255,255,0.12); }
+    .hero-rule-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); }
+    @media (max-width: 768px) { .page-hero { padding: 7rem 1.5rem 5rem; } }
 
-    /* TEACHERS GRID */
-    .teachers-section { padding: 8rem 4.5rem; background: var(--bg); }
-    .teachers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; max-width: 1200px; margin: 0 auto; }
-    .teacher-card { background: var(--cream); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-soft); transition: transform 0.35s ease, box-shadow 0.35s ease; }
-    .teacher-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-warm); }
-    .teacher-photo { position: relative; aspect-ratio: 4/3; overflow: hidden; }
-    .teacher-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.5s ease; }
-    .teacher-card:hover .teacher-photo img { transform: scale(1.04); }
-    .teacher-photo-badge { position: absolute; top: 1rem; right: 1rem; background: var(--terra); color: #fff; font-family: 'Caveat', cursive; font-size: 0.9rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; }
-    .teacher-body { padding: 2rem 2rem 2.2rem; }
-    .teacher-name { font-family: 'Cormorant', serif; font-size: 1.9rem; font-weight: 400; color: var(--ink); margin-bottom: 0.2rem; }
-    .teacher-role { font-family: 'Caveat', cursive; font-size: 0.95rem; font-weight: 500; color: var(--terra); margin-bottom: 0.5rem; display: block; }
-    .teacher-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
-    .teacher-tag { background: var(--terra-pale); color: var(--terra-dark); font-family: 'Caveat', cursive; font-size: 0.85rem; font-weight: 500; padding: 0.2rem 0.75rem; border-radius: 50px; }
-    .teacher-bio { font-size: 0.88rem; line-height: 1.9; color: var(--ink-soft); }
-    @media (max-width: 960px) { .teachers-section { padding: 5rem 1.5rem; } .teachers-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
-    @media (min-width: 600px) and (max-width: 960px) { .teachers-grid { grid-template-columns: 1fr 1fr; max-width: 700px; } }
+    /* ─── TEACHERS SECTION ─── */
+    .teachers-section {
+      padding: 7rem 4rem;
+      background: var(--bg);
+    }
+    /* 12-column editorial grid */
+    .teachers-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.25rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    /* Row 1: 4 cards × 3 cols = 12 */
+    .teacher-card:nth-child(1),
+    .teacher-card:nth-child(2),
+    .teacher-card:nth-child(3),
+    .teacher-card:nth-child(4) { grid-column: span 3; }
+    /* Row 2: 3 cards × 4 cols = 12 */
+    .teacher-card:nth-child(5),
+    .teacher-card:nth-child(6),
+    .teacher-card:nth-child(7) { grid-column: span 4; }
 
-    /* FOUNDER TEACHERS (Elizabeth + Fernando) */
-    .founders-teaching { padding: 8rem 4.5rem; background: var(--bg-warm); position: relative; overflow: hidden; }
+    /* Card base */
+    .teacher-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 3px;
+      background: var(--ink);
+    }
+    /* Portrait photo */
+    .teacher-card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    }
+    .teacher-card:hover img,
+    .teacher-card.active img { transform: scale(1.04); opacity: 0.7; }
+
+    /* Always-on bottom gradient + name */
+    .teacher-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 1.5rem 1.4rem;
+      background: linear-gradient(to top,
+        rgba(20,12,8,0.92) 0%,
+        rgba(20,12,8,0.55) 45%,
+        transparent 100%);
+      z-index: 2;
+      transition: opacity 0.35s ease;
+    }
+    .teacher-card:hover .teacher-info,
+    .teacher-card.active .teacher-info { opacity: 0; }
+
+    .teacher-name-static {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.1;
+      display: block;
+    }
+    .teacher-role-static {
+      font-family: 'Caveat', cursive;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(196,145,58,0.9);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Hover bio overlay */
+    .teacher-bio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20,12,8,0.88);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.75rem;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 3;
+    }
+    .teacher-card:hover .teacher-bio-overlay,
+    .teacher-card.active .teacher-bio-overlay { opacity: 1; }
+
+    .bio-name {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.15rem;
+    }
+    .bio-role {
+      font-family: 'Caveat', cursive;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+    .bio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.9rem;
+    }
+    .bio-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      background: rgba(200,87,45,0.25);
+      border: 1px solid rgba(200,87,45,0.4);
+      padding: 0.15rem 0.6rem;
+      border-radius: 50px;
+    }
+    .bio-text {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+    /* Hover hint on non-touch */
+    .touch-hint {
+      display: none;
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-family: 'Caveat', cursive;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      background: rgba(0,0,0,0.25);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .teachers-section { padding: 5rem 1.25rem; }
+      .teachers-grid { gap: 1rem; }
+      .teacher-card:nth-child(1),
+      .teacher-card:nth-child(2),
+      .teacher-card:nth-child(3),
+      .teacher-card:nth-child(4),
+      .teacher-card:nth-child(5),
+      .teacher-card:nth-child(6),
+      .teacher-card:nth-child(7) { grid-column: span 6; }
+      .teacher-card img { aspect-ratio: 2 / 3; }
+    }
+    @media (max-width: 560px) {
+      .teacher-card:nth-child(1),
+      .teacher-card:nth-child(2),
+      .teacher-card:nth-child(3),
+      .teacher-card:nth-child(4),
+      .teacher-card:nth-child(5),
+      .teacher-card:nth-child(6),
+      .teacher-card:nth-child(7) { grid-column: span 12; }
+      .teacher-card img { aspect-ratio: 3 / 4; }
+    }
+
+    /* ─── FOUNDERS TEACHING ─── */
+    .founders-teaching { padding: 7rem 4.5rem; background: var(--bg-warm); position: relative; overflow: hidden; }
     .founders-teaching::before { content: ''; position: absolute; left: -5%; top: 10%; width: 35%; height: 80%; background: rgba(200,87,45,0.05); border-radius: 55% 45% 50% 50%; pointer-events: none; }
     .founders-teaching-intro { text-align: center; max-width: 42rem; margin: 0 auto 5rem; }
     .founders-teaching-intro p { font-size: 0.95rem; line-height: 1.9; color: var(--ink-soft); margin-top: 1.2rem; }
@@ -148,7 +329,7 @@
     .founder-mini-bio { font-size: 0.86rem; line-height: 1.85; color: var(--ink-soft); }
     @media (max-width: 900px) { .founders-teaching { padding: 5rem 1.5rem; } .founder-teaching-grid { grid-template-columns: 1fr; } .founder-teaching-card { grid-template-columns: 1fr; } .founder-mini-photo { width: 100px; height: 100px; } }
 
-    /* CTA TERRA */
+    /* ─── CTA ─── */
     .cta-terra { background: var(--terra); padding: 6rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
     .cta-terra::before { content: ''; position: absolute; left: -8%; top: -20%; width: 40%; height: 150%; background: rgba(255,255,255,0.08); border-radius: 40% 60% 55% 45%; pointer-events: none; }
     .cta-hand { font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: 500; color: rgba(255,255,255,0.75); display: block; margin-bottom: 1.2rem; transform: rotate(-1deg); position: relative; z-index: 1; }
@@ -158,7 +339,7 @@
     .btn-light:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(28,20,16,0.22); }
     @media (max-width: 768px) { .cta-terra { padding: 4.5rem 1.5rem; } }
 
-    /* FOOTER */
+    /* ─── FOOTER ─── */
     footer { background: var(--ink); color: rgba(255,255,255,0.7); padding: 5rem 4.5rem 3rem; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
     .footer-brand-name { font-family: 'Cormorant', serif; font-style: italic; font-size: 1.5rem; color: #fff; margin-bottom: 0.75rem; }
@@ -231,9 +412,14 @@
 
 <!-- HERO -->
 <section class="page-hero">
-  <span class="page-hero-hand" data-en="the people who make it happen " data-es="las personas que lo hacen posible ">the people who make it happen </span>
+  <span class="page-hero-hand" data-en="the people who make it happen" data-es="las personas que lo hacen posible">the people who make it happen</span>
   <h1 class="page-hero-title" data-en="Meet our <em>teachers</em>" data-es="Conoce a nuestros <em>profesores</em>">Meet our <em>teachers</em></h1>
-  <p class="page-hero-sub" data-en="Every teacher at Me Gusta is personally trained by Elizabeth and Fernando. They're not just fluent — they're warm, patient, and genuinely invested in your progress." data-es="Cada profesor de Me Gusta es formado personalmente por Elizabeth y Fernando. No son solo competentes — son cálidos, pacientes y genuinamente comprometidos con tu progreso.">Every teacher at Me Gusta is personally trained by Elizabeth and Fernando. They're not just fluent — they're warm, patient, and genuinely invested in your progress.</p>
+  <p class="page-hero-sub" data-en="Every teacher at Me Gusta is personally trained by Elizabeth and Fernando. Not just fluent — warm, patient, and genuinely invested in your progress." data-es="Cada profesor de Me Gusta es formado personalmente por Elizabeth y Fernando. No solo competentes — cálidos, pacientes y comprometidos con tu progreso.">Every teacher at Me Gusta is personally trained by Elizabeth and Fernando. Not just fluent — warm, patient, and genuinely invested in your progress.</p>
+  <div class="hero-rule">
+    <span class="hero-rule-line"></span>
+    <span class="hero-rule-dot"></span>
+    <span class="hero-rule-line"></span>
+  </div>
 </section>
 
 <!-- TEACHERS GRID -->
@@ -241,123 +427,130 @@
   <div class="teachers-grid">
 
     <!-- Abbie -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Abbie.webp" alt="Abbie, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+    <article class="teacher-card reveal">
+      <img src="images/Teachers/Abbie.webp" alt="Abbie, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <span class="teacher-name-static">Abbie</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Abbie</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesora de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
-          <span class="teacher-tag" data-en="Conversation" data-es="Conversación">Conversation</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Abbie</p>
+        <span class="bio-role" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
+          <span class="bio-tag" data-en="Conversation" data-es="Conversación">Conversation</span>
         </div>
-        <p class="teacher-bio" data-en="Abbie brings warmth and patience to every session. Known for her ability to put nervous beginners at ease, her classes are lively, structured, and full of real conversation from day one. Students regularly describe her as the teacher who made them finally believe they could do this." data-es="Abbie aporta calidez y paciencia a cada sesión. Conocida por su capacidad para poner cómodos a los principiantes nerviosos, sus clases son animadas, estructuradas y llenas de conversación real desde el primer día.">Abbie brings warmth and patience to every session. Known for her ability to put nervous beginners at ease, her classes are lively, structured, and full of real conversation from day one. Students regularly describe her as the teacher who made them finally believe they could do this.</p>
+        <p class="bio-text" data-en="Abbie brings warmth and patience to every session. Known for putting nervous beginners at ease, her classes are lively, structured, and full of real conversation from day one. Students describe her as the teacher who made them finally believe they could do this." data-es="Abbie aporta calidez y paciencia a cada sesión. Conocida por poner cómodos a los principiantes nerviosos, sus clases son animadas y llenas de conversación real desde el primer día.">Abbie brings warmth and patience to every session. Known for putting nervous beginners at ease, her classes are lively, structured, and full of real conversation from day one. Students describe her as the teacher who made them finally believe they could do this.</p>
       </div>
-    </div>
+    </article>
 
     <!-- Angel -->
-    <div class="teacher-card reveal" style="transition-delay: 0.1s;">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Angel.webp" alt="Angel, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+    <article class="teacher-card reveal" style="transition-delay: 0.08s;">
+      <img src="images/Teachers/Angel.webp" alt="Angel, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+        <span class="teacher-name-static">Angel</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Angel</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesor de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
-          <span class="teacher-tag" data-en="Culture &amp; History" data-es="Cultura e Historia">Culture &amp; History</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Angel</p>
+        <span class="bio-role" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
+          <span class="bio-tag" data-en="Culture &amp; History" data-es="Cultura e Historia">Culture &amp; History</span>
         </div>
-        <p class="teacher-bio" data-en="Angel weaves Bolivian culture and history into every lesson — his students leave not just knowing the language but understanding the world it belongs to. He's the kind of teacher who makes you want to keep learning long after the class is over." data-es="Angel integra la cultura y la historia boliviana en cada lección — sus estudiantes no solo aprenden el idioma sino que entienden el mundo al que pertenece. Es el tipo de profesor que te hace querer seguir aprendiendo mucho después de que termine la clase.">Angel weaves Bolivian culture and history into every lesson — his students leave not just knowing the language but understanding the world it belongs to. He's the kind of teacher who makes you want to keep learning long after the class is over.</p>
+        <p class="bio-text" data-en="Angel weaves Bolivian culture and history into every lesson — his students leave not just knowing the language but understanding the world it belongs to. He's the kind of teacher who makes you want to keep learning long after the class is over." data-es="Angel integra la cultura y la historia boliviana en cada lección — sus estudiantes no solo aprenden el idioma sino que entienden el mundo al que pertenece. El tipo de profesor que te hace querer seguir aprendiendo.">Angel weaves Bolivian culture and history into every lesson — his students leave not just knowing the language but understanding the world it belongs to. He's the kind of teacher who makes you want to keep learning long after the class is over.</p>
       </div>
-    </div>
+    </article>
 
     <!-- Anna -->
-    <div class="teacher-card reveal" style="transition-delay: 0.2s;">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Anna.webp" alt="Anna, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Online" data-es="Online">Online</span>
+    <article class="teacher-card reveal" style="transition-delay: 0.16s;">
+      <img src="images/Teachers/Anna.webp" alt="Anna, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Online Specialist" data-es="Especialista Online">Online Specialist</span>
+        <span class="teacher-name-static">Anna</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Anna</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Online Specialist" data-es="Profesora de Español — Especialista Online">Spanish Teacher — Online Specialist</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
-          <span class="teacher-tag" data-en="Exam Prep" data-es="Preparación de Exámenes">Exam Prep</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Anna</p>
+        <span class="bio-role" data-en="Online Specialist" data-es="Especialista Online">Online Specialist</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
+          <span class="bio-tag" data-en="Exam Prep" data-es="Preparación DELE">Exam Prep</span>
         </div>
-        <p class="teacher-bio" data-en="Anna is Me Gusta's online specialist — her virtual sessions are packed with interactive activities and real-world tasks that keep energy high from start to finish. She also runs the school's DELE exam preparation programme and has helped dozens of students pass with flying colours." data-es="Anna es la especialista online de Me Gusta — sus sesiones virtuales están repletas de actividades interactivas y tareas del mundo real que mantienen la energía alta de principio a fin. También dirige el programa de preparación para el examen DELE de la escuela.">Anna is Me Gusta's online specialist — her virtual sessions are packed with interactive activities and real-world tasks that keep energy high from start to finish. She also runs the school's DELE exam preparation programme and has helped dozens of students pass with flying colours.</p>
+        <p class="bio-text" data-en="Anna is Me Gusta's online specialist — her virtual sessions are packed with interactive activities and real-world tasks. She also runs the school's DELE exam preparation programme and has helped dozens of students pass with flying colours." data-es="Anna es la especialista online de Me Gusta — sus sesiones virtuales están repletas de actividades interactivas. También dirige el programa de preparación para el examen DELE y ha ayudado a docenas de estudiantes a aprobar con nota.">Anna is Me Gusta's online specialist — her virtual sessions are packed with interactive activities and real-world tasks. She also runs the school's DELE exam preparation programme and has helped dozens of students pass with flying colours.</p>
       </div>
-    </div>
+    </article>
 
-    <!-- Belen -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Belen.webp" alt="Belén, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+    <!-- Belén -->
+    <article class="teacher-card reveal" style="transition-delay: 0.24s;">
+      <img src="images/Teachers/Belen.webp" alt="Belén, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+        <span class="teacher-name-static">Belén</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Belén</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesora de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
-          <span class="teacher-tag" data-en="Pronunciation" data-es="Pronunciación">Pronunciation</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Belén</p>
+        <span class="bio-role" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Beginners" data-es="Principiantes">Beginners</span>
+          <span class="bio-tag" data-en="Pronunciation" data-es="Pronunciación">Pronunciation</span>
         </div>
-        <p class="teacher-bio" data-en="Belén has a gift for pronunciation — she helps students move past the self-conscious stumbling that holds so many back and find a rhythm that feels natural. Her calm, encouraging manner makes even the most nervous learner feel completely at ease in the room." data-es="Belén tiene un don para la pronunciación — ayuda a los estudiantes a superar los tropiezos y encontrar un ritmo que se sienta natural. Su manera calmada y alentadora hace que incluso el estudiante más nervioso se sienta completamente cómodo.">Belén has a gift for pronunciation — she helps students move past the self-conscious stumbling that holds so many back and find a rhythm that feels natural. Her calm, encouraging manner makes even the most nervous learner feel completely at ease in the room.</p>
+        <p class="bio-text" data-en="Belén has a gift for pronunciation — she helps students move past the self-conscious stumbling that holds so many back and find a rhythm that feels natural. Her calm, encouraging manner makes even the most nervous learner feel completely at ease." data-es="Belén tiene un don para la pronunciación — ayuda a los estudiantes a superar los tropiezos y encontrar un ritmo natural. Su manera calmada y alentadora hace que incluso el estudiante más nervioso se sienta completamente cómodo.">Belén has a gift for pronunciation — she helps students move past the self-conscious stumbling that holds so many back and find a rhythm that feels natural. Her calm, encouraging manner makes even the most nervous learner feel completely at ease.</p>
       </div>
-    </div>
+    </article>
 
     <!-- Claudia -->
-    <div class="teacher-card reveal" style="transition-delay:0.1s;">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Claudia.webp" alt="Claudia, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+    <article class="teacher-card reveal" style="transition-delay: 0.08s;">
+      <img src="images/Teachers/Claudia.webp" alt="Claudia, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <span class="teacher-name-static">Claudia</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Claudia</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesora de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Grammar" data-es="Gramática">Grammar</span>
-          <span class="teacher-tag" data-en="Advanced" data-es="Avanzado">Advanced</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Claudia</p>
+        <span class="bio-role" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Grammar" data-es="Gramática">Grammar</span>
+          <span class="bio-tag" data-en="Advanced" data-es="Avanzado">Advanced</span>
         </div>
-        <p class="teacher-bio" data-en="Claudia is the team's grammar specialist — not in the dry, textbook sense, but through storytelling and real conversation. She makes even the subjunctive feel logical. Her advanced students consistently describe her classes as the point where Spanish finally clicked." data-es="Claudia es la especialista en gramática del equipo — no de manera seca, sino a través de la narración y la conversación real. Hace que incluso el subjuntivo parezca lógico. Sus estudiantes avanzados describen sus clases como el momento en que el español finalmente encajó.">Claudia is the team's grammar specialist — not in the dry, textbook sense, but through storytelling and real conversation. She makes even the subjunctive feel logical. Her advanced students consistently describe her classes as the point where Spanish finally clicked.</p>
+        <p class="bio-text" data-en="Claudia is the team's grammar specialist — not in the dry, textbook sense, but through storytelling and real conversation. She makes even the subjunctive feel logical. Her advanced students consistently say her classes were the point where Spanish finally clicked." data-es="Claudia es la especialista en gramática del equipo — no de manera seca, sino a través de la narración y la conversación real. Hace que incluso el subjuntivo parezca lógico. Sus estudiantes dicen que fue el punto donde el español finalmente encajó.">Claudia is the team's grammar specialist — not in the dry, textbook sense, but through storytelling and real conversation. She makes even the subjunctive feel logical. Her advanced students consistently say her classes were the point where Spanish finally clicked.</p>
       </div>
-    </div>
+    </article>
 
     <!-- Erik -->
-    <div class="teacher-card reveal" style="transition-delay:0.2s;">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Erik.webp" alt="Erik, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+    <article class="teacher-card reveal" style="transition-delay: 0.16s;">
+      <img src="images/Teachers/Erik.webp" alt="Erik, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+        <span class="teacher-name-static">Erik</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Erik</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face" data-es="Profesor de Español — Presencial">Spanish Teacher — Face to Face</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
-          <span class="teacher-tag" data-en="Travel Spanish" data-es="Español para Viajeros">Travel Spanish</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Erik</p>
+        <span class="bio-role" data-en="Face to Face" data-es="Presencial">Face to Face</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Intermediate" data-es="Intermedio">Intermediate</span>
+          <span class="bio-tag" data-en="Travel Spanish" data-es="Español para Viajeros">Travel Spanish</span>
         </div>
-        <p class="teacher-bio" data-en="Erik understands exactly what it feels like to learn a language as an adult — and that empathy is the foundation of every class he teaches. His sessions are practical, immersive, and built around real situations, making him a favourite with travellers and independent learners alike." data-es="Erik entiende exactamente lo que se siente al aprender un idioma de adulto — y esa empatía es la base de cada clase que imparte. Sus sesiones son prácticas, inmersivas y construidas en torno a situaciones reales, lo que lo convierte en el favorito de los viajeros.">Erik understands exactly what it feels like to learn a language as an adult — and that empathy is the foundation of every class he teaches. His sessions are practical, immersive, and built around real situations, making him a favourite with travellers and independent learners alike.</p>
+        <p class="bio-text" data-en="Erik understands exactly what it feels like to learn a language as an adult — and that empathy is the foundation of every class he teaches. His sessions are practical, immersive, and built around real situations, making him a favourite with travellers." data-es="Erik entiende exactamente lo que se siente al aprender un idioma de adulto — y esa empatía es la base de cada clase. Sus sesiones son prácticas, inmersivas y construidas en torno a situaciones reales, lo que lo convierte en el favorito de los viajeros.">Erik understands exactly what it feels like to learn a language as an adult — and that empathy is the foundation of every class he teaches. His sessions are practical, immersive, and built around real situations, making him a favourite with travellers.</p>
       </div>
-    </div>
+    </article>
 
     <!-- Kiara -->
-    <div class="teacher-card reveal">
-      <div class="teacher-photo">
-        <img src="images/Teachers/Kiara.webp" alt="Kiara, Spanish teacher" loading="lazy">
-        <span class="teacher-photo-badge" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+    <article class="teacher-card reveal" style="transition-delay: 0.24s;">
+      <img src="images/Teachers/Kiara.webp" alt="Kiara, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <span class="teacher-name-static">Kiara</span>
       </div>
-      <div class="teacher-body">
-        <h2 class="teacher-name">Kiara</h2>
-        <span class="teacher-role" data-en="Spanish Teacher — Face to Face &amp; Online" data-es="Profesora de Español — Presencial y Online">Spanish Teacher — Face to Face &amp; Online</span>
-        <div class="teacher-tags">
-          <span class="teacher-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
-          <span class="teacher-tag" data-en="Conversation" data-es="Conversación">Conversación</span>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Kiara</p>
+        <span class="bio-role" data-en="Face to Face &amp; Online" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="All levels" data-es="Todos los niveles">All levels</span>
+          <span class="bio-tag" data-en="Conversation" data-es="Conversación">Conversation</span>
         </div>
-        <p class="teacher-bio" data-en="Kiara is one of the most versatile teachers at Me Gusta — equally at home with complete beginners and near-fluent speakers. She has a natural ability to read where a student is and adapt on the spot, creating classes that always feel tailored, never generic." data-es="Kiara es una de las profesoras más versátiles de Me Gusta — igual de cómoda con principiantes completos que con hablantes casi fluidos. Tiene una capacidad natural para leer dónde está un estudiante y adaptarse al momento, creando clases que siempre se sienten personalizadas.">Kiara is one of the most versatile teachers at Me Gusta — equally at home with complete beginners and near-fluent speakers. She has a natural ability to read where a student is and adapt on the spot, creating classes that always feel tailored, never generic.</p>
+        <p class="bio-text" data-en="Kiara is one of the most versatile teachers at Me Gusta — equally at home with complete beginners and near-fluent speakers. She has a natural ability to read where a student is and adapt on the spot, creating classes that always feel tailored, never generic." data-es="Kiara es una de las profesoras más versátiles de Me Gusta — igual de cómoda con principiantes que con hablantes casi fluidos. Tiene una capacidad natural para adaptarse al momento, creando clases que siempre se sienten personalizadas.">Kiara is one of the most versatile teachers at Me Gusta — equally at home with complete beginners and near-fluent speakers. She has a natural ability to read where a student is and adapt on the spot, creating classes that always feel tailored, never generic.</p>
       </div>
-    </div>
+    </article>
 
   </div>
 </section>
@@ -367,7 +560,7 @@
   <div class="founders-teaching-intro reveal">
     <span class="section-label" data-en="always involved" data-es="siempre presentes">always involved</span>
     <h2 class="section-title" data-en="The <em>founders</em> still teach" data-es="Los <em>fundadores</em> siguen enseñando">The <em>founders</em> still teach</h2>
-    <p data-en="Elizabeth and Fernando didn't step back when the school grew — they stepped in. Both founders continue to teach regularly, covering classes and working with advanced students who want to go deep into the language." data-es="Elizabeth y Fernando no se alejaron cuando la escuela creció — se implicaron más. Ambos fundadores siguen enseñando con regularidad, cubriendo clases y trabajando con estudiantes avanzados que quieren profundizar en el idioma.">Elizabeth and Fernando didn't step back when the school grew — they stepped in. Both founders continue to teach regularly, covering classes and working with advanced students who want to go deep into the language.</p>
+    <p data-en="Elizabeth and Fernando didn't step back when the school grew — they stepped in. Both founders continue to teach regularly, covering classes and working with advanced students who want to go deep into the language." data-es="Elizabeth y Fernando no se alejaron cuando la escuela creció — se implicaron más. Ambos fundadores siguen enseñando con regularidad, trabajando con estudiantes avanzados que quieren profundizar en el idioma.">Elizabeth and Fernando didn't step back when the school grew — they stepped in. Both founders continue to teach regularly, covering classes and working with advanced students who want to go deep into the language.</p>
   </div>
 
   <div class="founder-teaching-grid">
@@ -378,7 +571,7 @@
       <div>
         <h3 class="founder-mini-name">Elizabeth</h3>
         <span class="founder-mini-role" data-en="Co-founder &amp; Academic Director" data-es="Co-fundadora &amp; Directora Académica">Co-founder &amp; Academic Director</span>
-        <p class="founder-mini-bio" data-en="Elizabeth teaches advanced conversation and writing classes. Her sessions focus on fluency, nuance, and helping students move from functional Spanish to something that feels truly natural." data-es="Elizabeth imparte clases avanzadas de conversación y escritura. Sus sesiones se centran en la fluidez, los matices y en ayudar a los estudiantes a pasar de un español funcional a algo que se sienta verdaderamente natural.">Elizabeth teaches advanced conversation and writing classes. Her sessions focus on fluency, nuance, and helping students move from functional Spanish to something that feels truly natural.</p>
+        <p class="founder-mini-bio" data-en="Elizabeth teaches advanced conversation and writing classes. Her sessions focus on fluency, nuance, and helping students move from functional Spanish to something that feels truly natural." data-es="Elizabeth imparte clases avanzadas de conversación y escritura. Sus sesiones se centran en la fluidez y en ayudar a los estudiantes a pasar de un español funcional a algo verdaderamente natural.">Elizabeth teaches advanced conversation and writing classes. Her sessions focus on fluency, nuance, and helping students move from functional Spanish to something that feels truly natural.</p>
       </div>
     </div>
     <div class="founder-teaching-card reveal" style="transition-delay: 0.12s;">
@@ -388,7 +581,7 @@
       <div>
         <h3 class="founder-mini-name">Fernando</h3>
         <span class="founder-mini-role" data-en="Co-founder &amp; School Director" data-es="Co-fundador &amp; Director de la Escuela">Co-founder &amp; School Director</span>
-        <p class="founder-mini-bio" data-en="Fernando covers classes across all levels and is especially popular with travellers on short intensive stays. His deep knowledge of Bolivian culture brings an authenticity to lessons that students find hard to find elsewhere." data-es="Fernando cubre clases de todos los niveles y es especialmente popular entre los viajeros en estancias intensivas cortas. Su profundo conocimiento de la cultura boliviana aporta una autenticidad a las lecciones que los estudiantes encuentran difícil de encontrar en otros sitios.">Fernando covers classes across all levels and is especially popular with travellers on short intensive stays. His deep knowledge of Bolivian culture brings an authenticity to lessons that students find hard to find elsewhere.</p>
+        <p class="founder-mini-bio" data-en="Fernando covers classes across all levels and is especially popular with travellers on short intensive stays. His deep knowledge of Bolivian culture brings an authenticity to lessons that students find hard to find elsewhere." data-es="Fernando cubre clases de todos los niveles y es especialmente popular entre los viajeros en estancias intensivas. Su profundo conocimiento de la cultura boliviana aporta una autenticidad difícil de encontrar en otros sitios.">Fernando covers classes across all levels and is especially popular with travellers on short intensive stays. His deep knowledge of Bolivian culture brings an authenticity to lessons that students find hard to find elsewhere.</p>
       </div>
     </div>
   </div>
@@ -502,8 +695,17 @@
   // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Touch tap-to-reveal bio on mobile
+  document.querySelectorAll('.teacher-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const isActive = card.classList.contains('active');
+      document.querySelectorAll('.teacher-card').forEach(c => c.classList.remove('active'));
+      if (!isActive) card.classList.add('active');
+    });
+  });
 </script>
 </body>
 </html>
