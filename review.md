@@ -41,14 +41,18 @@ No code changes required — all inter-page links use relative filenames and con
 migusta/
 ├── index.html
 ├── classes.html
+├── kids.html
 ├── methodology.html
 ├── teachers.html
+├── activities.html
 ├── cafe.html
 ├── about.html
 ├── accommodation.html
 ├── faqs.html
 ├── blog.html
 ├── contact.html
+├── docs/
+├── images/
 └── review.md
 ```
 
@@ -197,6 +201,24 @@ Replaced the three equal rounded cards (AI-looking) with an editorial **archive/
 - ~540+ strings translated across all 11 pages (~85% coverage)
 - Covers nav, headings, body copy, form labels, testimonials, FAQs, blog posts, footer
 - Remaining ~99 strings gracefully fall back to English
+
+### 22. Kids Programme page — new page created
+- `kids.html` built from scratch with full Kids Programme content
+- Dark hero with radial gradients, Cormorant title, trilingual EN/ES/FR
+- Classes section: three age-group cards (Little Explorers 4–7, Young Adventurers 8–11, Teen Travellers 12–15) using `.format-card` pattern
+- Activities section: six kid-friendly activities with left-rule layout (Treasure Hunts, Cooking Class, Art & Crafts, Market Mornings, Story Time, Dance & Music)
+- Family section: Family Accommodation, Parent Classes, Flexible Scheduling info blocks
+- CTA section linking to contact page
+
+### 23. Nav restructured across all 12 pages
+- Primary nav reduced to 5 links: Home, Classes, Kids, Café, Contact
+- "More" dropdown expanded: Teachers, Activities, Methodology, About, Accommodation, FAQs, Blog
+- Mobile nav updated to match with all pages listed
+- Active states set per-page (primary links and dropdown items)
+- Breakpoint standardised to 1100px across all pages (was 960px on index.html and classes.html)
+
+### 24. Footer updated with Kids link
+- Kids link added to "Learn" column in footer across all 12 pages
 
 ---
 
