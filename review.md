@@ -138,11 +138,73 @@ Replaced the three equal rounded cards (AI-looking) with an editorial **archive/
 
 ---
 
+## Session — 13/14 April 2026
+
+### 12. Teachers page — real photos added
+- Converted 7 teacher photos (Abbie, Angel, Anna, Belen, Claudia, Erik, Kiara) from JPG to WebP using `cwebp -q 82 -resize 800 0`
+- Original JPGs deleted, teachers.html updated with real images replacing Unsplash placeholders
+
+### 13. Teachers page — full redesign (frontend-design)
+- Editorial portrait gallery with dark hero, 12-column grid, aspect-ratio 3/4 portrait cards
+- Hover/tap bio overlays with gradient backgrounds, touch support via `.active` class toggle
+
+### 14. Activities page — new page created
+- `activities.html` built from scratch with 8 activity cards (Bolivian Cooking, Market Morning, City Walk, Salsa Night, Cinema, Conversation Evening, Tarabuco Day Trip, Photography Walk)
+- Dark hero with dual radial gradients, ticker strip animation, 12-column editorial grid
+- Hover overlays with activity details, "How it works" 3-step section, bilingual EN/ES/FR
+
+### 15. Nav redesign — "More" dropdown across all pages
+- Wrote `update_nav.py` to bulk-update nav in 9 existing pages
+- Primary nav: Classes, Teachers, Activities, Cafe, About, Contact
+- "More" dropdown: Home, Methodology, Accommodation, FAQs, Blog
+- `.nav-cafe-link` class replacing inline styles for Cafe link
+- Breakpoint bumped from 960px to 1100px for the mobile hamburger
+- Mobile nav updated to include Activities link
+
+### 16. Contact page — full redesign
+- Compact `--bg-warm` hero replacing the dark split layout (per feedback)
+- Contact methods as pill-shaped links (WhatsApp, Email, Landline) below hero
+- WhatsApp link fixed: `tel:+59170001234` changed to `https://wa.me/59170001234`
+- Centred form section, "Find us" section with Google Maps embed using real school location
+- "Open in Maps" button linking to `https://maps.app.goo.gl/rnyqrN6wnNvEvuTX6`
+
+### 17. About page — founders updated
+- Elizabeth & Fernando updated to both Bolivian locals (previously British-Bolivian)
+- Hero subtitle, founders intro, Elizabeth's bio, and timeline all rewritten
+- Timeline 2003 entry changed from "Elizabeth arrives in Bolivia" to "Elizabeth & Fernando meet"
+- Real photos added: Elizabeth.jpg, Fernando.jpg, Elizabeth&Fernando.jpg
+- Hero polaroid `aspect-ratio: 4/3` overridden to `auto` for the couple photo (was cropping)
+
+### 18. About page — values section redesign (frontend-design)
+- Dark background with radial gradients (terra + gold)
+- Split header: title left, description right
+- 3x2 borderless grid cells with ghosted numbers, italic Cormorant titles, muted text
+
+### 19. Image workflow updated
+- Images exported from Lightroom as sRGB JPG (long edge 800px, quality 82-85) can now be used directly without WebP conversion if already under ~200KB
+- Previous cwebp conversion was stripping ICC colour profiles causing colour shifts (greener/more contrasty)
+- CLAUDE.md and memory updated with new rule
+- Old `.webp` teacher files replaced with Lightroom-exported `.jpg` files
+
+### 20. Language toggle — flag dropdown with French
+- EN/ES pill toggle replaced with flag dropdown (🇬🇧 EN, 🇪🇸 ES, 🇫🇷 FR) across all 11 pages
+- Wrote `update_lang.py` and `fix_lang_remaining.py` for bulk updates
+- Fixed `langBtns` → `langOptions` crash in lang bubble dismiss code (was breaking scroll reveal on all pages)
+- JS `setLang` updated to fall back to English if `data-fr` missing: `el.dataset[lang] || el.dataset['en']`
+
+### 21. French translations added
+- Wrote `add_french.py` and `add_french_2.py` to programmatically add `data-fr` attributes
+- ~540+ strings translated across all 11 pages (~85% coverage)
+- Covers nav, headings, body copy, form labels, testimonials, FAQs, blog posts, footer
+- Remaining ~99 strings gracefully fall back to English
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
-- **Always convert images to `.webp` before using them in the site**
-- After converting, delete the original (jpg/png/etc) — no duplicates allowed
-- Only the `.webp` version should remain in the `images/` folder
-- Reference the `.webp` path in the HTML
+- If a JPG/PNG is already exported at a reasonable size (under ~200KB, resized to ~800px long edge, sRGB colour space), it can be used directly — no conversion needed
+- For large/unoptimised images, convert to `.webp` using `cwebp -q 82 -resize 800 0`
+- After converting, delete the original — no duplicates allowed
+- Only one format per image should remain in the `images/` folder
 - Reason: keeps the images folder clean and reduces file sizes loaded by the site
