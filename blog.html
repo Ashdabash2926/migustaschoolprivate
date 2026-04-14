@@ -31,9 +31,18 @@
     .nav-center a { color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; white-space: nowrap; transition: color 0.2s; }
     .nav-center a:hover, .nav-center a.active { color: var(--terra); }
     .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
-    .lang-toggle { display: flex; align-items: center; background: #E8E3DB; border-radius: 50px; padding: 4px; gap: 2px; }
-    .lang-btn { padding: 0.28rem 0.65rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Lora', serif; font-size: 0.72rem; font-weight: 500; transition: all 0.25s ease; background: transparent; color: #9A8878; line-height: 1; }
-    .lang-btn.active { background: var(--ink); color: #fff; box-shadow: 0 1px 4px rgba(28,20,16,0.2); }
+    .lang-select { position: relative; }
+    .lang-current { display: flex; align-items: center; gap: 0.4rem; background: #E8E3DB; border: none; border-radius: 50px; padding: 0.3rem 0.7rem 0.3rem 0.5rem; cursor: pointer; font-family: 'Lora', serif; font-size: 0.72rem; font-weight: 500; color: var(--ink-soft); line-height: 1; transition: background 0.2s; }
+    .lang-current:hover { background: #DDD8CF; }
+    .lang-flag { font-size: 0.95rem; line-height: 1; }
+    .lang-current svg { width: 8px; height: 5px; transition: transform 0.2s; flex-shrink: 0; }
+    .lang-current[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .lang-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 0.35rem; list-style: none; box-shadow: 0 8px 28px rgba(28,20,16,0.12); min-width: 130px; z-index: 300; }
+    .lang-menu.open { display: block; animation: langDrop 0.15s ease; }
+    @keyframes langDrop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .lang-option { display: flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.7rem; border-radius: 8px; border: none; background: none; width: 100%; cursor: pointer; font-family: 'Lora', serif; font-size: 0.78rem; color: var(--ink-soft); transition: background 0.15s, color 0.15s; }
+    .lang-option:hover, .lang-option.active { background: var(--terra-pale); color: var(--terra); }
+    .lang-option .lang-flag { font-size: 1rem; }
     .nav-cta { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 600; color: #fff !important; background: var(--terra); padding: 0.45rem 1.2rem; border-radius: 50px; text-decoration: none !important; white-space: nowrap; box-shadow: 0 3px 12px rgba(200,87,45,0.3); transition: background 0.2s, transform 0.2s !important; font-style: normal !important; }
     .nav-cta:hover { background: var(--terra-dark) !important; transform: translateY(-1px); }
     .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
@@ -192,38 +201,46 @@
 <nav id="main-nav">
   <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.webp" alt="Me Gusta Spanish" class="nav-logo-img"></a>
     <ul class="nav-center">
-    <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-    <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-    <li><a href="activities.html" data-en="Activities" data-es="Actividades">Activities</a></li>
+    <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+    <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
+    <li><a href="activities.html" data-en="Activities" data-es="Actividades" data-fr="Activités">Activities</a></li>
     <li><a href="cafe.html" class="nav-cafe-link" data-en="Café" data-es="Café">Café</a></li>
-    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
-    <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+    <li><a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a></li>
+    <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
     <li class="nav-more-item">
       <button class="nav-more-btn active" id="navMoreBtn" aria-expanded="false">
-        <span data-en="More" data-es="Más">More</span>
+        <span data-en="More" data-es="Más" data-fr="Plus">More</span>
         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <ul class="nav-dropdown" id="navDropdown">
-        <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
-        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
-        <li><a href="blog.html" class="active" data-en="Blog" data-es="Blog">Blog</a></li>
+        <li><a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a></li>
+        <li><a href="blog.html" class="active" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
       </ul>
     </li>
   </ul>
   <div class="nav-right">
     <div class="lang-toggle-wrap" style="position:relative;">
-      <div class="lang-toggle" id="langToggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
-      </div>
+        <div class="lang-select" id="langSelect">
+          <button class="lang-current" id="langCurrentBtn" aria-expanded="false">
+            <span class="lang-flag" id="langCurrentFlag">🇬🇧</span>
+            <span id="langCurrentCode">EN</span>
+            <svg viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><button class="lang-option active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</button></li>
+            <li><button class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</button></li>
+            <li><button class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+          </ul>
+        </div>
       <div class="lang-bubble" id="langBubble">
         <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
         ¿Quieres este sitio en español?
       </div>
     </div>
-    <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate">Register Now</a>
+    <a href="classes.html" class="nav-cta" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
     <button class="nav-burger" id="navBurger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -233,18 +250,18 @@
 <!-- Mobile nav -->
 <div class="nav-mobile" id="navMobile">
   <button class="nav-mobile-close" id="navClose">✕</button>
-  <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
-  <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
-  <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
-  <a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a>
-  <a href="activities.html" data-en="Activities" data-es="Actividades">Activities</a>
+  <a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a>
+  <a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a>
+  <a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a>
+  <a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a>
+  <a href="activities.html" data-en="Activities" data-es="Actividades" data-fr="Activités">Activities</a>
   <a href="cafe.html" data-en="Café" data-es="Café">Café</a>
-  <a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a>
-  <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a>
-  <a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a>
+  <a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a>
+  <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a>
+  <a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a>
   <a href="blog.html" data-en="Blog" data-es="Blog">Blog</a>
-  <a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a>
-  <a href="classes.html" class="btn-primary" data-en="Register Now" data-es="Regístrate">Register Now</a>
+  <a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a>
+  <a href="classes.html" class="btn-primary" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
 </div>
 
 <!-- HERO -->
@@ -414,19 +431,19 @@
     <div>
       <p class="footer-col-title" data-en="Learn" data-es="Aprender">Learn</p>
       <ul class="footer-links">
-        <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
-        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes">FAQs</a></li>
+        <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes" data-fr="FAQ">FAQs</a></li>
       </ul>
     </div>
     <div>
       <p class="footer-col-title" data-en="Discover" data-es="Descubrir">Discover</p>
       <ul class="footer-links">
         <li><a href="about.html" data-en="About Us" data-es="Sobre Nosotros">About Us</a></li>
-        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-        <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
-        <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+        <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
+        <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
       </ul>
     </div>
     <div>
@@ -456,22 +473,49 @@
 </footer>
 
 <script>
-  // Lang toggle
-  const langBtns = document.querySelectorAll('.lang-btn');
+  // Lang select dropdown
+  const FLAGS = { en: '\u{1F1EC}\u{1F1E7}', es: '\u{1F1EA}\u{1F1F8}', fr: '\u{1F1EB}\u{1F1F7}' };
+  const CODES = { en: 'EN', es: 'ES', fr: 'FR' };
+  const langCurrentBtn = document.getElementById('langCurrentBtn');
+  const langCurrentFlag = document.getElementById('langCurrentFlag');
+  const langCurrentCode = document.getElementById('langCurrentCode');
+  const langMenu = document.getElementById('langMenu');
+  const langOptions = document.querySelectorAll('.lang-option');
   let currentLang = localStorage.getItem('mgLang') || 'en';
+
   function setLang(lang) {
     currentLang = lang;
     localStorage.setItem('mgLang', lang);
     document.documentElement.lang = lang;
-    langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    langCurrentFlag.textContent = FLAGS[lang];
+    langCurrentCode.textContent = CODES[lang];
+    langOptions.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
     document.querySelectorAll('[data-en]').forEach(el => {
-      const val = el.dataset[lang];
+      const val = el.dataset[lang] || el.dataset['en'];
       if (val !== undefined) {
         if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
       }
     });
   }
-  langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+
+  if (langCurrentBtn && langMenu) {
+    langCurrentBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = langMenu.classList.contains('open');
+      langMenu.classList.toggle('open', !open);
+      langCurrentBtn.setAttribute('aria-expanded', String(!open));
+    });
+    document.addEventListener('click', () => {
+      langMenu.classList.remove('open');
+      if (langCurrentBtn) langCurrentBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
+  langOptions.forEach(btn => btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setLang(btn.dataset.lang);
+    langMenu.classList.remove('open');
+    langCurrentBtn.setAttribute('aria-expanded', 'false');
+  }));
   setLang(currentLang);
 
   // LANG BUBBLE
