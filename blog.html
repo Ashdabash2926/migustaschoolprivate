@@ -97,7 +97,7 @@
       from { opacity: 0; transform: translateY(-4px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @media (max-width: 960px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
+    @media (max-width: 1100px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* SHARED */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
@@ -171,6 +171,19 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
     @media (max-width: 960px) { footer { padding: 4rem 1.5rem 2rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; } }
     @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+  
+    /* Nav dropdown */
+    .nav-cafe-link { font-family: 'Caveat', cursive !important; font-size: 1.3rem !important; font-weight: 600 !important; color: var(--terra) !important; font-style: normal !important; }
+    .nav-more-item { position: relative; }
+    .nav-more-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--ink-soft); font-family: 'Lora', serif; font-size: 0.78rem; font-style: italic; padding: 0; line-height: 1; transition: color 0.2s; }
+    .nav-more-btn:hover, .nav-more-btn.active { color: var(--terra); }
+    .nav-more-btn svg { transition: transform 0.2s; flex-shrink: 0; }
+    .nav-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 0.5rem; list-style: none; box-shadow: 0 8px 32px rgba(28,20,16,0.12); min-width: 175px; z-index: 300; }
+    .nav-dropdown.open { display: block; animation: dropIn 0.18s ease; }
+    @keyframes dropIn { from { opacity: 0; transform: translateX(-50%) translateY(-6px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    .nav-dropdown li a { display: block; padding: 0.5rem 0.9rem; color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; border-radius: 8px; white-space: nowrap; transition: background 0.15s, color 0.15s; }
+    .nav-dropdown li a:hover, .nav-dropdown li a.active { background: var(--terra-pale); color: var(--terra); }
   </style>
 </head>
 <body>
@@ -178,17 +191,26 @@
 <!-- NAV -->
 <nav id="main-nav">
   <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.webp" alt="Me Gusta Spanish" class="nav-logo-img"></a>
-  <ul class="nav-center">
-    <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
+    <ul class="nav-center">
     <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
     <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" data-en="Café" data-es="Café">Café</a></li>
+    <li><a href="activities.html" data-en="Activities" data-es="Actividades">Activities</a></li>
+    <li><a href="cafe.html" class="nav-cafe-link" data-en="Café" data-es="Café">Café</a></li>
     <li><a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a></li>
-    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
-    <li><a href="blog.html" class="active" data-en="Blog" data-es="Blog">Blog</a></li>
     <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+    <li class="nav-more-item">
+      <button class="nav-more-btn active" id="navMoreBtn" aria-expanded="false">
+        <span data-en="More" data-es="Más">More</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="nav-dropdown" id="navDropdown">
+        <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
+        <li><a href="blog.html" class="active" data-en="Blog" data-es="Blog">Blog</a></li>
+      </ul>
+    </li>
   </ul>
   <div class="nav-right">
     <div class="lang-toggle-wrap" style="position:relative;">
@@ -210,11 +232,12 @@
 
 <!-- Mobile nav -->
 <div class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose"></button>
+  <button class="nav-mobile-close" id="navClose">✕</button>
   <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
   <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
   <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
   <a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a>
+  <a href="activities.html" data-en="Activities" data-es="Actividades">Activities</a>
   <a href="cafe.html" data-en="Café" data-es="Café">Café</a>
   <a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a>
   <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a>

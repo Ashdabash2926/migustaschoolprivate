@@ -97,7 +97,7 @@
       from { opacity: 0; transform: translateY(-4px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @media (max-width: 960px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
+    @media (max-width: 1100px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* SHARED */
     .section-label { font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 500; color: var(--terra); display: block; margin-bottom: 1rem; transform: rotate(-0.8deg); transform-origin: left center; }
@@ -120,6 +120,7 @@
     .polaroid { background: #fff; padding: 14px 14px 52px; box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06); transform: rotate(2deg); transition: transform 0.4s ease; position: relative; }
     .polaroid:hover { transform: rotate(0.5deg) scale(1.015); }
     .polaroid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .page-hero-img .polaroid img { aspect-ratio: auto; }
     .polaroid-caption { position: absolute; bottom: 12px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 500; color: var(--ink-soft); }
     @media (max-width: 960px) { .page-hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 2rem; } .page-hero::before { display: none; } }
 
@@ -213,17 +214,94 @@
     }
 
     /* VALUES */
-    .values-section { padding: 5rem 4.5rem; background: var(--bg); }
-    .values-intro { text-align: center; max-width: 42rem; margin: 0 auto 2.5rem; }
-    .values-intro p { font-size: 0.95rem; line-height: 1.9; color: var(--ink-soft); margin-top: 1.2rem; }
-    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
-    .value-card { background: var(--bg-warm); border-radius: var(--r); padding: 2.5rem 2rem; border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
-    .value-card::before { content: ''; position: absolute; right: -20px; bottom: -20px; width: 100px; height: 100px; border-radius: 50%; background: rgba(200,87,45,0.07); pointer-events: none; }
-    .value-num { font-family: 'Cormorant', serif; font-size: 4rem; font-weight: 300; color: var(--terra); opacity: 0.2; line-height: 1; margin-bottom: -1rem; }
-    .value-title { font-family: 'Cormorant', serif; font-size: 1.6rem; font-weight: 500; color: var(--ink); margin-bottom: 0.8rem; }
-    .value-text { font-size: 0.88rem; line-height: 1.85; color: var(--ink-soft); }
-    @media (max-width: 900px) { .values-section { padding: 3.5rem 1.5rem; } .values-grid { grid-template-columns: 1fr; } }
+    .values-section {
+      padding: 7rem 4.5rem 8rem;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .values-section::before {
+      content: '';
+      position: absolute;
+      left: -10%;
+      top: -20%;
+      width: 50%;
+      height: 140%;
+      background: radial-gradient(ellipse, rgba(200,87,45,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .values-section::after {
+      content: '';
+      position: absolute;
+      right: -5%;
+      bottom: -30%;
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(196,145,58,0.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .values-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto 5rem;
+      align-items: end;
+      position: relative;
+      z-index: 1;
+    }
+    .values-header-left {}
+    .values-header .section-label { color: var(--terra); }
+    .values-header .section-title { color: #fff; }
+    .values-header-right p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .value-item {
+      padding: 2.5rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      transition: background 0.35s ease;
+    }
+    .value-item:hover { background: rgba(255,255,255,0.03); }
+    .value-num {
+      font-family: 'Cormorant', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--terra);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+    .value-title {
+      font-family: 'Cormorant', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 0.9rem;
+    }
+    .value-text {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.45);
+    }
+    @media (max-width: 900px) {
+      .values-section { padding: 5rem 1.5rem; }
+      .values-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
 
     /* WELCOME TERRA */
     .welcome-terra {
@@ -276,6 +354,19 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
     @media (max-width: 960px) { footer { padding: 4rem 1.5rem 2rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; } }
     @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+  
+    /* Nav dropdown */
+    .nav-cafe-link { font-family: 'Caveat', cursive !important; font-size: 1.3rem !important; font-weight: 600 !important; color: var(--terra) !important; font-style: normal !important; }
+    .nav-more-item { position: relative; }
+    .nav-more-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--ink-soft); font-family: 'Lora', serif; font-size: 0.78rem; font-style: italic; padding: 0; line-height: 1; transition: color 0.2s; }
+    .nav-more-btn:hover, .nav-more-btn.active { color: var(--terra); }
+    .nav-more-btn svg { transition: transform 0.2s; flex-shrink: 0; }
+    .nav-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 0.5rem; list-style: none; box-shadow: 0 8px 32px rgba(28,20,16,0.12); min-width: 175px; z-index: 300; }
+    .nav-dropdown.open { display: block; animation: dropIn 0.18s ease; }
+    @keyframes dropIn { from { opacity: 0; transform: translateX(-50%) translateY(-6px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    .nav-dropdown li a { display: block; padding: 0.5rem 0.9rem; color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; border-radius: 8px; white-space: nowrap; transition: background 0.15s, color 0.15s; }
+    .nav-dropdown li a:hover, .nav-dropdown li a.active { background: var(--terra-pale); color: var(--terra); }
   </style>
 </head>
 <body>
@@ -283,17 +374,26 @@
 <!-- NAV -->
 <nav id="main-nav">
   <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.webp" alt="Me Gusta Spanish" class="nav-logo-img"></a>
-  <ul class="nav-center">
-    <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
+    <ul class="nav-center">
     <li><a href="classes.html" data-en="Classes" data-es="Clases">Classes</a></li>
-    <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
     <li><a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a></li>
-    <li><a href="cafe.html" style="font-family:'Caveat',cursive;font-size:1.55rem;font-weight:600;color:var(--terra);font-style:normal;" data-en="Café" data-es="Café">Café</a></li>
+    <li><a href="activities.html" data-en="Activities" data-es="Actividades">Activities</a></li>
+    <li><a href="cafe.html" class="nav-cafe-link" data-en="Café" data-es="Café">Café</a></li>
     <li><a href="about.html" class="active" data-en="About" data-es="Sobre Nosotros">About</a></li>
-    <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
-    <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
-    <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
     <li><a href="contact.html" data-en="Contact" data-es="Contacto">Contact</a></li>
+    <li class="nav-more-item">
+      <button class="nav-more-btn" id="navMoreBtn" aria-expanded="false">
+        <span data-en="More" data-es="Más">More</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="nav-dropdown" id="navDropdown">
+        <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas">FAQs</a></li>
+        <li><a href="blog.html" data-en="Blog" data-es="Blog">Blog</a></li>
+      </ul>
+    </li>
   </ul>
   <div class="nav-right">
     <div class="lang-toggle-wrap" style="position:relative;">
@@ -315,11 +415,12 @@
 
 <!-- Mobile nav -->
 <div class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose"></button>
+  <button class="nav-mobile-close" id="navClose">✕</button>
   <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
   <a href="classes.html" data-en="Classes" data-es="Clases">Classes</a>
   <a href="methodology.html" data-en="Methodology" data-es="Metodología">Methodology</a>
   <a href="teachers.html" data-en="Teachers" data-es="Profesores">Teachers</a>
+  <a href="activities.html" data-en="Activities" data-es="Actividades">Activities</a>
   <a href="cafe.html" data-en="Café" data-es="Café">Café</a>
   <a href="about.html" data-en="About" data-es="Sobre Nosotros">About</a>
   <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento">Accommodation</a>
@@ -334,12 +435,12 @@
   <div class="page-hero-text">
     <span class="page-hero-handwritten" data-en="our story " data-es="nuestra historia ">our story </span>
     <h1 class="page-hero-title" data-en="A school born from <em>passion</em>" data-es="Una escuela nacida de la <em>pasión</em>">A school born from <em>passion</em></h1>
-    <p class="page-hero-sub" data-en="We're Elizabeth and Fernando — a British-Bolivian couple who fell in love with languages, with Sucre, and with the idea that anyone can learn to speak Spanish. Me Gusta is our home, and we'd love it to become yours too." data-es="Somos Elizabeth y Fernando — una pareja británico-boliviana que se enamoró de los idiomas, de Sucre y de la idea de que cualquiera puede aprender a hablar español. Me Gusta es nuestro hogar, y nos encantaría que también fuera el tuyo.">We're Elizabeth and Fernando — a British-Bolivian couple who fell in love with languages, with Sucre, and with the idea that anyone can speak Spanish. Me Gusta is our home, and we'd love it to become yours too.</p>
+    <p class="page-hero-sub" data-en="We're Elizabeth and Fernando — a Bolivian couple who fell in love with languages, with Sucre, and with the idea that anyone can learn to speak Spanish. Me Gusta is our home, and we'd love it to become yours too." data-es="Somos Elizabeth y Fernando — una pareja boliviana que se enamoró de los idiomas, de Sucre y de la idea de que cualquiera puede aprender a hablar español. Me Gusta es nuestro hogar, y nos encantaría que también fuera el tuyo.">We're Elizabeth and Fernando — a Bolivian couple who fell in love with languages, with Sucre, and with the idea that anyone can speak Spanish. Me Gusta is our home, and we'd love it to become yours too.</p>
     <a href="contact.html" class="btn-primary" data-en="Meet us in Sucre →" data-es="Conócenos en Sucre →">Meet us in Sucre →</a>
   </div>
   <div class="page-hero-img reveal">
     <div class="polaroid">
-      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=82" alt="Elizabeth and Fernando, founders of Me Gusta Spanish">
+      <img src="images/Teachers/Elizabeth%26Fernando.jpg" alt="Elizabeth and Fernando, founders of Me Gusta Spanish" style="object-fit: cover; object-position: 64% 8%;">
       <span class="polaroid-caption" data-en="Elizabeth &amp; Fernando, Sucre 2011 " data-es="Elizabeth y Fernando, Sucre 2011 ">Elizabeth &amp; Fernando, Sucre 2011 </span>
     </div>
   </div>
@@ -357,21 +458,21 @@
   <div class="founders-intro reveal">
     <span class="section-label" data-en="the people behind the school" data-es="las personas detrás de la escuela">the people behind the school</span>
     <h2 class="section-title" data-en="Meet the <em>Founders</em>" data-es="Conoce a los <em>Fundadores</em>">Meet the <em>Founders</em></h2>
-    <p data-en="Me Gusta Spanish was built on a simple belief: that learning a language should feel personal, joyful, and deeply human. Elizabeth and Fernando bring together two worlds — British rigour and Bolivian warmth — to create a school unlike anywhere else." data-es="Me Gusta Spanish se construyó sobre una creencia simple: que aprender un idioma debe sentirse personal, alegre y profundamente humano. Elizabeth y Fernando unen dos mundos — el rigor británico y la calidez boliviana — para crear una escuela diferente a cualquier otra.">Me Gusta Spanish was built on a simple belief: that learning a language should feel personal, joyful, and deeply human. Elizabeth and Fernando bring together two worlds — British rigour and Bolivian warmth — to create a school unlike anywhere else.</p>
+    <p data-en="Me Gusta Spanish was built on a simple belief: that learning a language should feel personal, joyful, and deeply human. Elizabeth and Fernando are both from Sucre, and their deep love for their city, its culture, and its beautifully clear Spanish shines through in every part of the school." data-es="Me Gusta Spanish se construyó sobre una creencia simple: que aprender un idioma debe sentirse personal, alegre y profundamente humano. Elizabeth y Fernando son de Sucre, y su profundo amor por su ciudad, su cultura y su español hermosamente claro se refleja en cada parte de la escuela.">Me Gusta Spanish was built on a simple belief: that learning a language should feel personal, joyful, and deeply human. Elizabeth and Fernando are both from Sucre, and their deep love for their city, its culture, and its beautifully clear Spanish shines through in every part of the school.</p>
   </div>
 
   <div class="founders-grid">
     <div class="founder-card reveal">
       <div class="founder-photo">
         <div class="polaroid">
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=700&q=82" alt="Elizabeth, co-founder">
+          <img src="images/Teachers/Elizabeth.jpg" alt="Elizabeth, co-founder" style="object-fit: cover; object-position: 50% 15%;">
           <span class="polaroid-caption" data-en="Elizabeth, Co-founder " data-es="Elizabeth, Co-fundadora ">Elizabeth, Co-founder </span>
         </div>
       </div>
       <h3 class="founder-name">Elizabeth</h3>
       <span class="founder-role" data-en="Co-founder &amp; Academic Director" data-es="Co-fundadora &amp; Directora Académica">Co-founder &amp; Academic Director</span>
       <div class="founder-bio">
-        <p data-en="Elizabeth grew up in Yorkshire and discovered her love of languages at university, where she studied French and Spanish. After graduating, she moved to South America and never quite left — Sucre's colonial streets and extraordinary light had that effect on her." data-es="Elizabeth creció en Yorkshire y descubrió su pasión por los idiomas en la universidad, donde estudió francés y español. Tras graduarse, se mudó a Sudamérica y nunca se fue del todo — las calles coloniales de Sucre y su luz extraordinaria tuvieron ese efecto en ella.">Elizabeth grew up in Yorkshire and discovered her love of languages at university, where she studied French and Spanish. After graduating, she moved to South America and never quite left — Sucre's colonial streets and extraordinary light had that effect on her.</p>
+        <p data-en="Elizabeth grew up in Sucre and discovered her passion for teaching languages while studying at university. Her natural gift for connecting with people from all over the world, combined with her deep knowledge of Bolivian culture, makes her the heart of Me Gusta's academic programme." data-es="Elizabeth creció en Sucre y descubrió su pasión por la enseñanza de idiomas mientras estudiaba en la universidad. Su don natural para conectar con personas de todo el mundo, combinado con su profundo conocimiento de la cultura boliviana, la convierte en el corazón del programa académico de Me Gusta.">Elizabeth grew up in Sucre and discovered her passion for teaching languages while studying at university. Her natural gift for connecting with people from all over the world, combined with her deep knowledge of Bolivian culture, makes her the heart of Me Gusta's academic programme.</p>
         <p data-en="As Academic Director, she designs the curriculum, trains every teacher personally, and ensures that every student leaves having genuinely improved. She believes the most powerful thing a teacher can do is make you feel capable — and that conviction shapes everything about how Me Gusta teaches." data-es="Como Directora Académica, diseña el currículo, forma a cada profesor personalmente y se asegura de que cada estudiante salga habiendo mejorado de verdad. Cree que lo más poderoso que puede hacer un profesor es hacerte sentir capaz — y esa convicción da forma a todo lo que enseña Me Gusta.">As Academic Director, she designs the curriculum, trains every teacher personally, and ensures that every student leaves having genuinely improved. She believes the most powerful thing a teacher can do is make you feel capable — and that shapes everything about how Me Gusta teaches.</p>
       </div>
     </div>
@@ -379,7 +480,7 @@
     <div class="founder-card reveal" style="transition-delay: 0.15s;">
       <div class="founder-photo">
         <div class="polaroid" style="transform: rotate(2deg);">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=82" alt="Fernando, co-founder">
+          <img src="images/Teachers/Fernando.jpg" alt="Fernando, co-founder" style="object-fit: cover; object-position: 50% 13%;">
           <span class="polaroid-caption" data-en="Fernando, Co-founder " data-es="Fernando, Co-fundador ">Fernando, Co-founder </span>
         </div>
       </div>
@@ -405,8 +506,8 @@
       </div>
       <div><div class="timeline-dot"></div></div>
       <div class="timeline-right">
-        <p class="timeline-title" data-en="Elizabeth arrives in Bolivia" data-es="Elizabeth llega a Bolivia">Elizabeth arrives in Bolivia</p>
-        <p class="timeline-desc" data-en="Elizabeth moves to Sucre intending to stay for three months. She falls in love with the city, the people, and a certain Bolivian linguist." data-es="Elizabeth se muda a Sucre con la intención de quedarse tres meses. Se enamora de la ciudad, de la gente y de un cierto lingüista boliviano.">Elizabeth moves to Sucre intending to stay for three months. She falls in love with the city, the people, and a certain Bolivian linguist.</p>
+        <p class="timeline-title" data-en="Elizabeth &amp; Fernando meet" data-es="Elizabeth y Fernando se conocen">Elizabeth &amp; Fernando meet</p>
+        <p class="timeline-desc" data-en="Both born and raised in Sucre, Elizabeth and Fernando meet through a shared love of languages. They begin dreaming of a school that could share their city — and its beautifully clear Spanish — with the world." data-es="Ambos nacidos y criados en Sucre, Elizabeth y Fernando se conocen a través de su amor compartido por los idiomas. Comienzan a soñar con una escuela que pueda compartir su ciudad — y su español hermosamente claro — con el mundo.">Both born and raised in Sucre, Elizabeth and Fernando meet through a shared love of languages. They begin dreaming of a school that could share their city — and its beautifully clear Spanish — with the world.</p>
       </div>
     </div>
 
@@ -458,39 +559,43 @@
 
 <!-- VALUES -->
 <section class="values-section">
-  <div class="values-intro reveal">
-    <span class="section-label" data-en="what drives us" data-es="qué nos impulsa">what drives us</span>
-    <h2 class="section-title" data-en="Our <em>values</em>" data-es="Nuestros <em>valores</em>">Our <em>values</em></h2>
-    <p data-en="We're not a factory. Every student is treated as an individual, every teacher is trained by us personally, and every decision we make comes back to one question: does this help our students learn?" data-es="No somos una fábrica. Cada estudiante es tratado como un individuo, cada profesor es formado personalmente por nosotros, y cada decisión que tomamos vuelve a una pregunta: ¿esto ayuda a nuestros estudiantes a aprender?">We're not a factory. Every student is treated as an individual, every teacher is trained by us personally, and every decision comes back to one question: does this help our students learn?</p>
+  <div class="values-header reveal">
+    <div class="values-header-left">
+      <span class="section-label" data-en="what drives us" data-es="qué nos impulsa">what drives us</span>
+      <h2 class="section-title" data-en="Our <em>values</em>" data-es="Nuestros <em>valores</em>">Our <em>values</em></h2>
+    </div>
+    <div class="values-header-right">
+      <p data-en="We're not a factory. Every student is treated as an individual, every teacher is trained by us personally, and every decision comes back to one question: does this help our students learn?" data-es="No somos una fábrica. Cada estudiante es tratado como un individuo, cada profesor es formado personalmente por nosotros, y cada decisión vuelve a una pregunta: ¿esto ayuda a nuestros estudiantes a aprender?">We're not a factory. Every student is treated as an individual, every teacher is trained by us personally, and every decision comes back to one question: does this help our students learn?</p>
+    </div>
   </div>
 
-  <div class="values-grid">
-    <div class="value-card reveal">
+  <div class="values-grid reveal" style="transition-delay: 0.15s;">
+    <div class="value-item">
       <span class="value-num">01</span>
       <h3 class="value-title" data-en="People first" data-es="Las personas primero">People first</h3>
       <p class="value-text" data-en="Languages exist to connect people. We never lose sight of that. Our classes are conversations, not lectures — warm, relaxed, and completely focused on you." data-es="Los idiomas existen para conectar personas. Nunca lo olvidamos. Nuestras clases son conversaciones, no conferencias — cálidas, relajadas y completamente centradas en ti.">Languages exist to connect people. We never lose sight of that. Our classes are conversations, not lectures — warm, relaxed, and focused entirely on you.</p>
     </div>
-    <div class="value-card reveal" style="transition-delay: 0.1s;">
+    <div class="value-item">
       <span class="value-num">02</span>
       <h3 class="value-title" data-en="Continuous improvement" data-es="Mejora continua">Continuous improvement</h3>
       <p class="value-text" data-en="We never stop refining how we teach. Elizabeth reviews every teacher's performance regularly, attends classes, and updates the curriculum as the language — and our students' needs — evolve." data-es="Nunca dejamos de perfeccionar nuestra forma de enseñar. Elizabeth revisa el rendimiento de cada profesor con regularidad, asiste a las clases y actualiza el currículo a medida que el idioma — y las necesidades de nuestros estudiantes — evolucionan.">We never stop refining how we teach. Elizabeth reviews every teacher's performance regularly, attends classes, and updates the curriculum as the language — and our students' needs — evolve.</p>
     </div>
-    <div class="value-card reveal" style="transition-delay: 0.2s;">
+    <div class="value-item">
       <span class="value-num">03</span>
       <h3 class="value-title" data-en="Honest progress" data-es="Progreso honesto">Honest progress</h3>
       <p class="value-text" data-en="We'll tell you the truth about where you are and what you need to do to improve. We'd rather give you honest feedback than make you feel good for a week and see no change." data-es="Te diremos la verdad sobre dónde estás y qué necesitas hacer para mejorar. Preferimos darte comentarios honestos a hacerte sentir bien durante una semana sin que haya ningún cambio.">We'll tell you the truth about where you are and what you need to do to improve. We'd rather give honest feedback than make you feel good for a week and see no change.</p>
     </div>
-    <div class="value-card reveal" style="transition-delay: 0.3s;">
+    <div class="value-item">
       <span class="value-num">04</span>
       <h3 class="value-title" data-en="Immersion in everything" data-es="Inmersión en todo">Immersion in everything</h3>
       <p class="value-text" data-en="Class is just the beginning. We recommend host families, organise activities, and encourage you to get out into Sucre. The whole city is your classroom." data-es="La clase es solo el comienzo. Recomendamos familias anfitrionas, organizamos actividades y te animamos a salir a Sucre. Toda la ciudad es tu aula.">Class is just the beginning. We recommend host families, organise activities, and encourage you to explore Sucre. The whole city is your classroom.</p>
     </div>
-    <div class="value-card reveal" style="transition-delay: 0.4s;">
+    <div class="value-item">
       <span class="value-num">05</span>
       <h3 class="value-title" data-en="Warmth &amp; welcome" data-es="Calidez y bienvenida">Warmth &amp; welcome</h3>
       <p class="value-text" data-en="Moving to a new country, even for a few weeks, can be daunting. From the moment you arrive, we want you to feel like you belong here. Fernando's door is always open." data-es="Mudarse a un nuevo país, aunque sea por unas semanas, puede ser abrumador. Desde el momento en que llegas, queremos que sientas que perteneces aquí. La puerta de Fernando siempre está abierta.">Moving to a new country, even for a few weeks, can be daunting. From the moment you arrive, we want you to feel like you belong here. Fernando's door is always open.</p>
     </div>
-    <div class="value-card reveal" style="transition-delay: 0.5s;">
+    <div class="value-item">
       <span class="value-num">06</span>
       <h3 class="value-title" data-en="Love of Bolivia" data-es="Amor por Bolivia">Love of Bolivia</h3>
       <p class="value-text" data-en="We're proud to be based in Sucre. Bolivia doesn't get the attention it deserves — its culture, history, food, and people are extraordinary. Part of our mission is to share that with the world." data-es="Estamos orgullosos de estar en Sucre. Bolivia no recibe la atención que merece — su cultura, historia, gastronomía y gente son extraordinarias. Parte de nuestra misión es compartir eso con el mundo.">We're proud to be based in Sucre. Bolivia doesn't get the attention it deserves — its culture, history, food, and people are extraordinary. Part of our mission is to share that with the world.</p>
