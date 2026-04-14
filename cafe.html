@@ -983,7 +983,7 @@
   const langBubbleClose = document.getElementById('langBubbleClose');
   if (localStorage.getItem('mgBubbleDismissed')) { langBubble.classList.add('hidden'); }
   langBubbleClose.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed', '1'); });
-  langBtns.forEach(b => b.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed', '1'); }));
+  langOptions.forEach(b => b.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed', '1'); }));
   setLang(currentLang);
 
   // Mobile nav
