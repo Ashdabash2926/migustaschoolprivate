@@ -592,6 +592,22 @@
   burger.addEventListener('click', () => mobileNav.classList.add('open'));
   closeBtn.addEventListener('click', () => mobileNav.classList.remove('open'));
 
+  // More dropdown
+  const navMoreBtn = document.getElementById('navMoreBtn');
+  const navDropdown = document.getElementById('navDropdown');
+  if (navMoreBtn && navDropdown) {
+    navMoreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navDropdown.classList.contains('open');
+      navDropdown.classList.toggle('open', !open);
+      navMoreBtn.setAttribute('aria-expanded', String(!open));
+    });
+    document.addEventListener('click', () => {
+      navDropdown.classList.remove('open');
+      if (navMoreBtn) navMoreBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });

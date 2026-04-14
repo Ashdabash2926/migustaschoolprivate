@@ -829,6 +829,22 @@
     localStorage.setItem('mgBubbleDismissed', '1');
   }));
 
+  // More dropdown
+  const navMoreBtn = document.getElementById('navMoreBtn');
+  const navDropdown = document.getElementById('navDropdown');
+  if (navMoreBtn && navDropdown) {
+    navMoreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navDropdown.classList.contains('open');
+      navDropdown.classList.toggle('open', !open);
+      navMoreBtn.setAttribute('aria-expanded', String(!open));
+    });
+    document.addEventListener('click', () => {
+      navDropdown.classList.remove('open');
+      if (navMoreBtn) navMoreBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
