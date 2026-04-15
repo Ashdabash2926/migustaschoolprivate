@@ -13,7 +13,9 @@
       --bg: #FAFAF7; --bg-warm: #F5F0E8; --cream: #FFF9F4;
       --ink: #1C1410; --ink-soft: #4A3A2C; --muted: #9A8878;
       --terra: #C8572D; --terra-dark: #8C3419; --terra-pale: #FAEEE8;
-      --gold: #C4913A; --border: rgba(74,58,44,0.12);
+      --gold: #C4913A; --gold-pale: #FAF3E4;
+      --coffee: #3D2314;
+      --border: rgba(74,58,44,0.12);
       --shadow-warm: 0 6px 28px rgba(200,87,45,0.10), 0 2px 8px rgba(28,20,16,0.06);
       --shadow-soft: 0 4px 20px rgba(28,20,16,0.08);
       --r: 20px;
@@ -22,8 +24,8 @@
     body { background: var(--bg); color: var(--ink); font-family: 'Lora', serif; font-weight: 400; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
 
-    /* NAV */
-    #main-nav { position: fixed; inset: 0 0 auto 0; z-index: 200; padding: 0 3rem; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; background: rgba(250,250,247,0.96); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
+    /* ─── NAV ─── */
+    #main-nav { position: fixed; inset: 0 0 auto 0; z-index: 200; padding: 0 3.5rem; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: rgba(250,250,247,0.95); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
     .nav-logo { text-decoration: none; flex-shrink: 0; display: flex; align-items: center; align-self: stretch; }
     .nav-logo b { color: var(--terra); font-weight: 600; font-style: normal; }
     .nav-logo-img { height: 100%; width: auto; display: block; }
@@ -41,7 +43,7 @@
     @keyframes dropIn { from { opacity: 0; transform: translateX(-50%) translateY(-6px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
     .nav-dropdown li a { display: block; padding: 0.5rem 0.9rem; color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; border-radius: 8px; white-space: nowrap; transition: background 0.15s, color 0.15s; }
     .nav-dropdown li a:hover, .nav-dropdown li a.active { background: var(--terra-pale); color: var(--terra); }
-    .nav-right { display: flex; align-items: center; gap: 0.85rem; flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
     .lang-select { position: relative; }
     .lang-current { display: flex; align-items: center; gap: 0.4rem; background: #E8E3DB; border: none; border-radius: 50px; padding: 0.3rem 0.7rem 0.3rem 0.5rem; cursor: pointer; font-family: 'Lora', serif; font-size: 0.72rem; font-weight: 500; color: var(--ink-soft); line-height: 1; transition: background 0.2s; }
     .lang-current:hover { background: #DDD8CF; }
@@ -54,7 +56,14 @@
     .lang-option { display: flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.7rem; border-radius: 8px; border: none; background: none; width: 100%; cursor: pointer; font-family: 'Lora', serif; font-size: 0.78rem; color: var(--ink-soft); transition: background 0.15s, color 0.15s; }
     .lang-option:hover, .lang-option.active { background: var(--terra-pale); color: var(--terra); }
     .lang-option .lang-flag { font-size: 1rem; }
-    .nav-cta { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 600; color: #fff !important; background: var(--terra); padding: 0.42rem 1.15rem; border-radius: 50px; text-decoration: none !important; white-space: nowrap; box-shadow: 0 3px 12px rgba(200,87,45,0.3); transition: background 0.2s, transform 0.2s !important; font-style: normal !important; }
+    .lang-bubble { position: absolute; top: calc(100% + 12px); right: 0; background: #fff; border: 1.5px solid var(--terra); border-radius: 10px; padding: 0.55rem 2rem 0.55rem 0.85rem; white-space: nowrap; font-size: 0.82rem; font-family: 'Lora', serif; color: var(--ink); box-shadow: 0 4px 16px rgba(0,0,0,0.10); z-index: 200; animation: bubblePop 0.25s ease; }
+    .lang-bubble::before { content: ''; position: absolute; top: -8px; right: 22px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid var(--terra); }
+    .lang-bubble::after { content: ''; position: absolute; top: -6px; right: 23px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid #fff; }
+    .lang-bubble-close { position: absolute; top: 5px; right: 7px; background: none; border: none; cursor: pointer; font-size: 0.7rem; color: #aaa; line-height: 1; padding: 0; }
+    .lang-bubble-close:hover { color: var(--terra); }
+    .lang-bubble.hidden { display: none; }
+    @keyframes bubblePop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .nav-cta { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 600; color: #fff !important; background: var(--terra); padding: 0.45rem 1.2rem; border-radius: 50px; text-decoration: none !important; white-space: nowrap; box-shadow: 0 3px 12px rgba(200,87,45,0.3); transition: background 0.2s, transform 0.2s !important; font-style: normal !important; }
     .nav-cta:hover { background: var(--terra-dark) !important; transform: translateY(-1px); }
     .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .nav-burger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
@@ -63,20 +72,16 @@
     .nav-mobile a { font-family: 'Cormorant', serif; font-size: 2rem; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .nav-mobile a:hover { color: var(--terra); }
     .nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--ink-soft); }
-    .lang-bubble { position: absolute; top: calc(100% + 12px); right: 0; background: #fff; border: 1.5px solid var(--terra); border-radius: 10px; padding: 0.55rem 2rem 0.55rem 0.85rem; white-space: nowrap; font-size: 0.82rem; font-family: 'Lora', serif; color: var(--ink); box-shadow: 0 4px 16px rgba(0,0,0,0.10); z-index: 200; animation: bubblePop 0.25s ease; }
-    .lang-bubble::before { content: ''; position: absolute; top: -8px; right: 22px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid var(--terra); }
-    .lang-bubble::after { content: ''; position: absolute; top: -6px; right: 23px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid #fff; }
-    .lang-bubble-close { position: absolute; top: 5px; right: 7px; background: none; border: none; cursor: pointer; font-size: 0.7rem; color: #aaa; line-height: 1; padding: 0; }
-    .lang-bubble-close:hover { color: var(--terra); }
-    .lang-bubble.hidden { display: none; }
-    @keyframes bubblePop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 1100px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
-    /* SHARED */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ─── SHARED ─── */
+    .section-label { font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 500; color: var(--terra); display: block; margin-bottom: 1rem; transform: rotate(-0.8deg); transform-origin: left center; }
+    .section-title { font-family: 'Cormorant', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--ink); }
+    .section-title em { font-style: italic; color: var(--terra); font-weight: 400; }
     .btn-primary { background: var(--terra); color: #fff; padding: 0.85rem 2rem; font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 600; text-decoration: none; display: inline-block; border-radius: 50px; box-shadow: 0 4px 18px rgba(200,87,45,0.35); transition: background 0.25s, transform 0.2s; }
     .btn-primary:hover { background: var(--terra-dark); transform: translateY(-2px); }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ─── HERO ─── */
     .page-hero {
@@ -106,6 +111,7 @@
       margin-bottom: 1.2rem;
       position: relative;
       z-index: 1;
+      animation: fadeUp 0.9s ease both;
     }
     .hero-title {
       font-family: 'Cormorant', serif;
@@ -117,6 +123,7 @@
       margin-bottom: 1.5rem;
       position: relative;
       z-index: 1;
+      animation: fadeUp 0.9s ease 0.1s both;
     }
     .hero-title em { font-style: italic; color: var(--terra); }
     .hero-sub {
@@ -128,12 +135,40 @@
       margin: 0 auto 2.5rem;
       position: relative;
       z-index: 1;
+      animation: fadeUp 0.9s ease 0.25s both;
     }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.9s ease 0.4s both;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 0.4rem 1rem;
+      font-family: 'Caveat', cursive;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 768px) { .page-hero { padding: 7rem 1.5rem 5rem; } }
+
+    /* ─── TICKER ─── */
+    .ticker { background: var(--terra); padding: 0.85rem 0; overflow: hidden; white-space: nowrap; }
+    .ticker-track { display: flex; animation: ticker 28s linear infinite; }
+    .ticker-track span { font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 500; color: #fff; padding: 0 1.8rem; flex-shrink: 0; }
+    .tick-sep { opacity: 0.4; margin: 0 0.3rem; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* ─── CLASSES SECTION ─── */
     .kids-classes {
-      padding: 7rem 3rem;
+      padding: 7rem 4.5rem;
       background: var(--bg);
     }
     .kids-classes-intro {
@@ -141,23 +176,6 @@
       max-width: 42rem;
       margin: 0 auto 4rem;
     }
-    .kids-classes-intro .section-label {
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--terra);
-      display: block;
-      margin-bottom: 1rem;
-      transform: rotate(-0.8deg);
-    }
-    .kids-classes-intro .section-title {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(2.4rem, 4vw, 3.8rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--ink);
-    }
-    .kids-classes-intro .section-title em { font-style: italic; color: var(--terra); }
     .kids-classes-intro p {
       font-size: 0.95rem;
       line-height: 1.85;
@@ -175,16 +193,17 @@
     .format-card {
       background: var(--cream);
       border-radius: var(--r);
-      padding: 1.5rem 1.6rem 1.8rem;
+      padding: 2rem 1.8rem 2.2rem;
       box-shadow: var(--shadow-soft);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
     }
     .format-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--terra); border-radius: var(--r) var(--r) 0 0; }
-    .format-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
+    .format-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-warm); }
+    .format-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
     .format-title { font-family: 'Cormorant', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; }
-    .format-age { font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--terra); display: block; margin-bottom: 0.6rem; }
+    .format-age { font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--terra); display: block; margin-bottom: 0.8rem; }
     .format-desc { font-size: 0.86rem; line-height: 1.75; color: var(--ink-soft); }
     @media (max-width: 768px) {
       .kids-classes { padding: 5rem 1.5rem; }
@@ -212,85 +231,71 @@
       max-width: 38rem;
       margin: 0 auto 4rem;
     }
-    .kids-activities-intro .section-label {
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--terra);
-      display: block;
-      margin-bottom: 1rem;
-      transform: rotate(-0.8deg);
-    }
-    .kids-activities-intro .section-title {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(2.2rem, 3.5vw, 3.4rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--ink);
-    }
-    .kids-activities-intro .section-title em { font-style: italic; color: var(--terra); }
     .kids-act-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      max-width: 900px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
       margin: 0 auto;
     }
-    .kids-act-item {
-      border-left: 2px solid var(--terra);
-      padding-left: 1.2rem;
+    .kids-act-card {
+      background: var(--cream);
+      border-radius: var(--r);
+      padding: 1.8rem 1.6rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
-    .kids-act-item h4 {
-      font-family: 'Lora', serif;
-      font-size: 0.95rem;
-      font-weight: 500;
+    .kids-act-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
+    .kids-act-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+    .kids-act-card h4 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
       color: var(--ink);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.5rem;
     }
-    .kids-act-item p {
-      font-size: 0.86rem;
+    .kids-act-card p {
+      font-size: 0.84rem;
       line-height: 1.75;
       color: var(--ink-soft);
     }
-    @media (max-width: 768px) {
+    @media (max-width: 960px) { .kids-act-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) {
       .kids-activities { padding: 5rem 1.5rem; }
-      .kids-act-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .kids-act-grid { grid-template-columns: 1fr; gap: 1.2rem; }
     }
 
     /* ─── FAMILY SECTION ─── */
     .kids-family {
-      padding: 7rem 3rem;
+      padding: 7rem 4.5rem;
       background: var(--bg);
+      position: relative;
     }
     .kids-family-intro {
       text-align: center;
       max-width: 38rem;
       margin: 0 auto 4rem;
     }
-    .kids-family-intro .section-label {
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--terra);
-      display: block;
-      margin-bottom: 1rem;
-      transform: rotate(-0.8deg);
-    }
-    .kids-family-intro .section-title {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(2.2rem, 3.5vw, 3.4rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--ink);
-    }
-    .kids-family-intro .section-title em { font-style: italic; color: var(--terra); }
     .kids-family-blocks {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
+      gap: 1.5rem;
       max-width: 1000px;
       margin: 0 auto;
     }
+    .kids-family-block {
+      background: var(--cream);
+      border-radius: var(--r);
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .kids-family-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); border-radius: var(--r) var(--r) 0 0; }
+    .kids-family-block:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
+    .kids-family-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
     .kids-family-block h4 {
       font-family: 'Cormorant', serif;
       font-size: 1.4rem;
@@ -305,7 +310,7 @@
     }
     @media (max-width: 768px) {
       .kids-family { padding: 5rem 1.5rem; }
-      .kids-family-blocks { grid-template-columns: 1fr; gap: 2rem; }
+      .kids-family-blocks { grid-template-columns: 1fr; gap: 1.2rem; }
     }
 
     /* ─── CTA ─── */
@@ -325,21 +330,24 @@
     @media (max-width: 768px) { .cta-terra { padding: 4.5rem 1.5rem; } }
 
     /* ─── FOOTER ─── */
-    footer { background: var(--ink); color: rgba(255,255,255,0.7); padding: 5rem 4.5rem 3rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
-    .footer-brand-name { font-family: 'Cormorant', serif; font-style: italic; font-size: 1.5rem; color: #fff; margin-bottom: 0.75rem; }
-    .footer-brand-name b { color: var(--terra); font-style: normal; }
-    .footer-tagline { font-size: 0.85rem; line-height: 1.75; margin-bottom: 1.5rem; }
-    .footer-social { display: flex; gap: 1rem; }
-    .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.2s; }
+    footer { background: var(--ink); color: rgba(242,232,212,0.8); padding: 5rem 4.5rem 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-brand {}
+    .footer-logo { font-family: 'Cormorant', serif; font-style: italic; font-size: 1.5rem; color: #fff; display: block; margin-bottom: 0.75rem; }
+    .footer-logo b { color: var(--terra); font-style: normal; }
+    .footer-tagline { font-size: 0.85rem; line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
+    .footer-social { display: flex; gap: 0.8rem; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.2s, color 0.2s; }
     .footer-social a:hover { background: var(--terra); color: #fff; }
     .footer-col-title { font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
     .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
     .footer-links a:hover { color: var(--terra); }
     .footer-contact-item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.85rem; margin-bottom: 0.9rem; }
-    .footer-contact-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 0.55rem; background: var(--terra); color: #fff; padding: 0.65rem 1.4rem; font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 600; text-decoration: none; border-radius: 50px; transition: background 0.2s, transform 0.2s; }
+    .whatsapp-btn:hover { background: var(--terra-dark); transform: translateY(-2px); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: 'Caveat', cursive; font-size: 0.85rem; color: rgba(255,255,255,0.3); }
     @media (max-width: 960px) { footer { padding: 4rem 1.5rem 2rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; } }
     @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
   </style>
@@ -373,18 +381,18 @@
   </ul>
   <div class="nav-right">
     <div class="lang-toggle-wrap" style="position:relative;">
-        <div class="lang-select" id="langSelect">
-          <button class="lang-current" id="langCurrentBtn" aria-expanded="false">
-            <span class="lang-flag" id="langCurrentFlag">🇬🇧</span>
-            <span id="langCurrentCode">EN</span>
-            <svg viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <ul class="lang-menu" id="langMenu">
-            <li><button class="lang-option active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</button></li>
-            <li><button class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</button></li>
-            <li><button class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
-          </ul>
-        </div>
+      <div class="lang-select" id="langSelect">
+        <button class="lang-current" id="langCurrentBtn" aria-expanded="false">
+          <span class="lang-flag" id="langCurrentFlag">🇬🇧</span>
+          <span id="langCurrentCode">EN</span>
+          <svg viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu">
+          <li><button class="lang-option active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</button></li>
+          <li><button class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</button></li>
+          <li><button class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+        </ul>
+      </div>
       <div class="lang-bubble" id="langBubble">
         <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
         ¿Quieres este sitio en español?
@@ -397,9 +405,8 @@
   </div>
 </nav>
 
-<!-- Mobile nav -->
 <div class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose">✕</button>
+  <button class="nav-mobile-close" id="navClose" aria-label="Close menu">&times;</button>
   <a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a>
   <a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a>
   <a href="kids.html" data-en="Kids" data-es="Niños" data-fr="Enfants">Kids</a>
@@ -420,7 +427,20 @@
   <span class="hero-label" data-en="for young learners" data-es="para jóvenes aprendices" data-fr="pour les jeunes apprenants">for young learners</span>
   <h1 class="hero-title" data-en="Kids <em>Programme</em>" data-es="Programa <em>Infantil</em>" data-fr="Programme <em>Enfants</em>">Kids <em>Programme</em></h1>
   <p class="hero-sub" data-en="Your children learn Spanish through play, games and cultural immersion — while you study in the room next door." data-es="Tus hijos aprenden español a través del juego, actividades y la inmersión cultural — mientras tú estudias en la sala de al lado." data-fr="Vos enfants apprennent l'espagnol par le jeu, les activités et l'immersion culturelle — pendant que vous étudiez dans la salle d'à côté.">Your children learn Spanish through play, games and cultural immersion — while you study in the room next door.</p>
+  <div class="hero-badges">
+    <span class="hero-badge" data-en="Ages 4–15" data-es="Edades 4–15" data-fr="4–15 ans">Ages 4–15</span>
+    <span class="hero-badge" data-en="Same building as parents" data-es="Mismo edificio que los padres" data-fr="Même bâtiment que les parents">Same building as parents</span>
+    <span class="hero-badge" data-en="No textbooks" data-es="Sin libros de texto" data-fr="Pas de manuels">No textbooks</span>
+  </div>
 </section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Songs <span class="tick-sep">—</span> Games <span class="tick-sep">—</span> Treasure Hunts <span class="tick-sep">—</span> Cooking <span class="tick-sep">—</span> Art &amp; Crafts <span class="tick-sep">—</span> Dance <span class="tick-sep">—</span> Storytelling <span class="tick-sep">—</span> Market Trips <span class="tick-sep">—</span>&nbsp;</span>
+    <span>Songs <span class="tick-sep">—</span> Games <span class="tick-sep">—</span> Treasure Hunts <span class="tick-sep">—</span> Cooking <span class="tick-sep">—</span> Art &amp; Crafts <span class="tick-sep">—</span> Dance <span class="tick-sep">—</span> Storytelling <span class="tick-sep">—</span> Market Trips <span class="tick-sep">—</span>&nbsp;</span>
+  </div>
+</div>
 
 <!-- CLASSES -->
 <section class="kids-classes">
@@ -432,16 +452,19 @@
 
   <div class="kids-grid">
     <div class="format-card reveal">
+      <span class="format-icon">🧸</span>
       <h4 class="format-title" data-en="Little Explorers" data-es="Pequeños Exploradores" data-fr="Petits Explorateurs">Little Explorers</h4>
       <span class="format-age" data-en="Ages 4–7 · 45-min sessions" data-es="Edades 4–7 · sesiones de 45 min" data-fr="4–7 ans · séances de 45 min">Ages 4–7 · 45-min sessions</span>
       <p class="format-desc" data-en="Songs, puppets, colours, animals and storytelling. A gentle, playful introduction to Spanish for the youngest learners." data-es="Canciones, títeres, colores, animales y cuentos. Una introducción suave y lúdica al español para los más pequeños." data-fr="Chansons, marionnettes, couleurs, animaux et contes. Une introduction douce et ludique à l'espagnol pour les plus petits.">Songs, puppets, colours, animals and storytelling. A gentle, playful introduction to Spanish for the youngest learners.</p>
     </div>
     <div class="format-card reveal" style="transition-delay:0.1s;">
+      <span class="format-icon">🗺️</span>
       <h4 class="format-title" data-en="Young Adventurers" data-es="Jóvenes Aventureros" data-fr="Jeunes Aventuriers">Young Adventurers</h4>
       <span class="format-age" data-en="Ages 8–11 · 1-hour sessions" data-es="Edades 8–11 · sesiones de 1 hora" data-fr="8–11 ans · séances d'1 heure">Ages 8–11 · 1-hour sessions</span>
       <p class="format-desc" data-en="Games, role-play, basic conversation and cultural projects. Kids build confidence speaking Spanish through fun, immersive activities." data-es="Juegos, teatro, conversación básica y proyectos culturales. Los niños ganan confianza hablando español a través de actividades divertidas e inmersivas." data-fr="Jeux, jeux de rôle, conversation de base et projets culturels. Les enfants gagnent en confiance en parlant espagnol grâce à des activités ludiques et immersives.">Games, role-play, basic conversation and cultural projects. Kids build confidence speaking Spanish through fun, immersive activities.</p>
     </div>
     <div class="format-card reveal" style="transition-delay:0.2s;">
+      <span class="format-icon">🌎</span>
       <h4 class="format-title" data-en="Teen Travellers" data-es="Viajeros Adolescentes" data-fr="Ados Voyageurs">Teen Travellers</h4>
       <span class="format-age" data-en="Ages 12–15 · 1.5-hour sessions" data-es="Edades 12–15 · sesiones de 1.5 horas" data-fr="12–15 ans · séances d'1h30">Ages 12–15 · 1.5-hour sessions</span>
       <p class="format-desc" data-en="Conversation practice, real-world scenarios and city exploration. Teens develop practical Spanish skills while discovering Sucre." data-es="Práctica de conversación, situaciones reales y exploración de la ciudad. Los adolescentes desarrollan habilidades prácticas de español mientras descubren Sucre." data-fr="Pratique de la conversation, mises en situation réelles et exploration de la ville. Les ados développent des compétences pratiques en espagnol tout en découvrant Sucre.">Conversation practice, real-world scenarios and city exploration. Teens develop practical Spanish skills while discovering Sucre.</p>
@@ -457,27 +480,33 @@
   </div>
 
   <div class="kids-act-grid">
-    <div class="kids-act-item reveal">
+    <div class="kids-act-card reveal">
+      <span class="kids-act-icon">🗝️</span>
       <h4 data-en="Treasure Hunts" data-es="Búsquedas del tesoro" data-fr="Chasses au trésor">Treasure Hunts</h4>
       <p data-en="Explore Sucre's streets and plazas following clues in Spanish. Kids practise reading, asking directions, and working as a team." data-es="Explora las calles y plazas de Sucre siguiendo pistas en español. Los niños practican lectura, pedir direcciones y trabajo en equipo." data-fr="Explorez les rues et places de Sucre en suivant des indices en espagnol. Les enfants pratiquent la lecture, demandent leur chemin et travaillent en équipe.">Explore Sucre's streets and plazas following clues in Spanish. Kids practise reading, asking directions, and working as a team.</p>
     </div>
-    <div class="kids-act-item reveal" style="transition-delay:0.1s;">
+    <div class="kids-act-card reveal" style="transition-delay:0.08s;">
+      <span class="kids-act-icon">🍳</span>
       <h4 data-en="Cooking Class" data-es="Clase de cocina" data-fr="Cours de cuisine">Cooking Class</h4>
       <p data-en="Make simple Bolivian dishes together — learn food vocabulary, follow recipes in Spanish, and eat what you cook." data-es="Preparen platos bolivianos sencillos juntos — aprendan vocabulario de comida, sigan recetas en español y coman lo que cocinen." data-fr="Préparez ensemble des plats boliviens simples — apprenez le vocabulaire culinaire, suivez des recettes en espagnol et mangez ce que vous cuisinez.">Make simple Bolivian dishes together — learn food vocabulary, follow recipes in Spanish, and eat what you cook.</p>
     </div>
-    <div class="kids-act-item reveal" style="transition-delay:0.15s;">
+    <div class="kids-act-card reveal" style="transition-delay:0.16s;">
+      <span class="kids-act-icon">🎨</span>
       <h4 data-en="Art &amp; Crafts" data-es="Arte y manualidades" data-fr="Arts &amp; travaux manuels">Art &amp; Crafts</h4>
       <p data-en="Paint, draw and create using traditional Bolivian techniques. All instructions in Spanish — colours, shapes, and materials become vocabulary lessons." data-es="Pinta, dibuja y crea usando técnicas tradicionales bolivianas. Todas las instrucciones en español — colores, formas y materiales se convierten en lecciones de vocabulario." data-fr="Peignez, dessinez et créez en utilisant des techniques boliviennes traditionnelles. Toutes les instructions en espagnol — couleurs, formes et matériaux deviennent des leçons de vocabulaire.">Paint, draw and create using traditional Bolivian techniques. All instructions in Spanish — colours, shapes, and materials become vocabulary lessons.</p>
     </div>
-    <div class="kids-act-item reveal" style="transition-delay:0.2s;">
+    <div class="kids-act-card reveal" style="transition-delay:0.24s;">
+      <span class="kids-act-icon">🛒</span>
       <h4 data-en="Market Mornings" data-es="Mañanas de mercado" data-fr="Matinées au marché">Market Mornings</h4>
       <p data-en="Visit Sucre's central market with a teacher. Kids practise numbers, prices and polite requests while buying fruit and snacks." data-es="Visita el mercado central de Sucre con un profesor. Los niños practican números, precios y solicitudes corteses mientras compran fruta y bocadillos." data-fr="Visitez le marché central de Sucre avec un professeur. Les enfants pratiquent les nombres, les prix et les formules de politesse en achetant des fruits et des goûters.">Visit Sucre's central market with a teacher. Kids practise numbers, prices and polite requests while buying fruit and snacks.</p>
     </div>
-    <div class="kids-act-item reveal" style="transition-delay:0.25s;">
+    <div class="kids-act-card reveal" style="transition-delay:0.32s;">
+      <span class="kids-act-icon">📖</span>
       <h4 data-en="Story Time" data-es="Hora del cuento" data-fr="L'heure du conte">Story Time</h4>
       <p data-en="Bolivian folk tales and picture books read aloud in simple Spanish. Great for listening skills and building imagination." data-es="Cuentos populares bolivianos y libros ilustrados leídos en voz alta en español sencillo. Ideal para habilidades de escucha y fomentar la imaginación." data-fr="Contes populaires boliviens et livres illustrés lus à voix haute en espagnol simple. Idéal pour l'écoute et l'imagination.">Bolivian folk tales and picture books read aloud in simple Spanish. Great for listening skills and building imagination.</p>
     </div>
-    <div class="kids-act-item reveal" style="transition-delay:0.3s;">
+    <div class="kids-act-card reveal" style="transition-delay:0.4s;">
+      <span class="kids-act-icon">💃</span>
       <h4 data-en="Dance &amp; Music" data-es="Baile y música" data-fr="Danse &amp; musique">Dance &amp; Music</h4>
       <p data-en="Learn traditional Bolivian dances and songs. Movement, rhythm and repetition make new words stick — and it's impossible not to smile." data-es="Aprende bailes y canciones tradicionales bolivianos. Movimiento, ritmo y repetición hacen que las palabras nuevas se queden — y es imposible no sonreír." data-fr="Apprenez les danses et chansons traditionnelles boliviennes. Le mouvement, le rythme et la répétition ancrent les nouveaux mots — et impossible de ne pas sourire.">Learn traditional Bolivian dances and songs. Movement, rhythm and repetition make new words stick — and it's impossible not to smile.</p>
     </div>
@@ -493,14 +522,17 @@
 
   <div class="kids-family-blocks">
     <div class="kids-family-block reveal">
+      <span class="kids-family-icon">🏡</span>
       <h4 data-en="Family Accommodation" data-es="Alojamiento familiar" data-fr="Hébergement familial">Family Accommodation</h4>
       <p data-en="Our host families welcome children warmly. Safe neighbourhoods, home-cooked meals included, and a real Bolivian family experience for everyone." data-es="Nuestras familias anfitrionas reciben a los niños con cariño. Barrios seguros, comidas caseras incluidas y una experiencia familiar boliviana real para todos." data-fr="Nos familles d'accueil accueillent chaleureusement les enfants. Quartiers sûrs, repas faits maison inclus et une vraie expérience familiale bolivienne pour tous.">Our host families welcome children warmly. Safe neighbourhoods, home-cooked meals included, and a real Bolivian family experience for everyone.</p>
     </div>
     <div class="kids-family-block reveal" style="transition-delay:0.1s;">
+      <span class="kids-family-icon">👩‍🏫</span>
       <h4 data-en="Parent Classes" data-es="Clases para padres" data-fr="Cours pour parents">Parent Classes</h4>
       <p data-en="Adults study in the regular programme while kids are in theirs — same hours, same building. Everyone learns, nobody waits." data-es="Los adultos estudian en el programa regular mientras los niños están en el suyo — mismos horarios, mismo edificio. Todos aprenden, nadie espera." data-fr="Les adultes étudient dans le programme régulier pendant que les enfants suivent le leur — mêmes horaires, même bâtiment. Tout le monde apprend, personne n'attend.">Adults study in the regular programme while kids are in theirs — same hours, same building. Everyone learns, nobody waits.</p>
     </div>
     <div class="kids-family-block reveal" style="transition-delay:0.2s;">
+      <span class="kids-family-icon">📅</span>
       <h4 data-en="Flexible Scheduling" data-es="Horarios flexibles" data-fr="Horaires flexibles">Flexible Scheduling</h4>
       <p data-en="Book by the week, combine kids and adult classes, or choose part-time options. We work around your family's plans, not the other way round." data-es="Reserva por semana, combina clases de niños y adultos, o elige opciones de medio tiempo. Nos adaptamos a los planes de tu familia, no al revés." data-fr="Réservez à la semaine, combinez cours enfants et adultes, ou choisissez des options à temps partiel. Nous nous adaptons à vos projets familiaux, pas l'inverse.">Book by the week, combine kids and adult classes, or choose part-time options. We work around your family's plans, not the other way round.</p>
     </div>
@@ -525,44 +557,71 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name"><b>Me Gusta</b> Spanish</div>
-      <p class="footer-tagline" data-en="A Spanish school with heart, based in the heart of South America. Come for the language. Stay for Bolivia." data-es="Una escuela de español con corazón, ubicada en el corazón de Sudamérica. Ven por el idioma. Quédate por Bolivia." data-fr="Une école d'espagnol avec du cœur, au cœur de l'Amérique du Sud. Venez pour la langue. Restez pour la Bolivie.">A Spanish school with heart, based in the heart of South America. Come for the language. Stay for Bolivia.</p>
+    <div class="footer-brand">
+      <span class="footer-logo">Me <b>Gusta</b> Spanish</span>
+      <p class="footer-tagline" data-en="Probably the most fun and friendly Spanish school in Sucre, Bolivia. Helping students speak with confidence since 2005." data-es="Probablemente la escuela de español más divertida y amigable de Sucre, Bolivia. Ayudando a los estudiantes a hablar con confianza desde 2005." data-fr="Probablement l'école d'espagnol la plus amusante et accueillante de Sucre, Bolivie. Nous aidons les étudiants à parler avec confiance depuis 2005.">Probably the most fun and friendly Spanish school in Sucre, Bolivia. Helping students speak with confidence since 2005.</p>
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="WhatsApp">w</a>
+        <a href="https://www.facebook.com/Me-Gusta-Spanish-School-242207979133242" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/megustaspanishschool" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://wa.me/59173425725" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
       </div>
     </div>
     <div>
-      <p class="footer-col-title" data-en="Learn" data-es="Aprender" data-fr="Apprendre">Learn</p>
-      <ul class="footer-links">
-        <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
-        <li><a href="kids.html" data-en="Kids" data-es="Niños" data-fr="Enfants">Kids</a></li>
-        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
-        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
-        <li><a href="activities.html" data-en="Activities" data-es="Actividades" data-fr="Activités">Activities</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="footer-col-title" data-en="Discover" data-es="Descubrir" data-fr="Découvrir">Discover</p>
+      <span class="footer-col-title" data-en="Pages" data-es="Páginas" data-fr="Pages">Pages</span>
       <ul class="footer-links">
         <li><a href="about.html" data-en="About Us" data-es="Sobre Nosotros" data-fr="À propos de nous">About Us</a></li>
+        <li><a href="classes.html" data-en="Types of Classes" data-es="Tipos de Clases" data-fr="Types de cours">Types of Classes</a></li>
+        <li><a href="kids.html" data-en="Kids" data-es="Niños" data-fr="Enfants">Kids</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-fr="Méthodologie" data-es="Metodología">Methodology</a></li>
         <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
-        <li><a href="cafe.html" data-en="Café" data-es="Café" data-fr="Café">Café</a></li>
-        <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
+        <li><a href="teachers.html" data-en="Our Teachers" data-es="Nuestros Profesores" data-fr="Nos professeurs">Our Teachers</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes" data-fr="FAQ">FAQs</a></li>
       </ul>
     </div>
     <div>
-      <p class="footer-col-title" data-en="Find Us" data-es="Encuéntranos" data-fr="Nous trouver">Find Us</p>
-      <div class="footer-contact-item"><span class="footer-contact-icon"></span><span>Calle Dalence 146, Sucre, Bolivia</span></div>
-      <div class="footer-contact-item"><span class="footer-contact-icon"></span><span>+591 4 644 1008</span></div>
-      <div class="footer-contact-item"><span class="footer-contact-icon"></span><span>info@megustaspanish.com</span></div>
+      <span class="footer-col-title" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</span>
+      <ul class="footer-links">
+        <li><a href="classes.html" data-en="Face-to-Face" data-es="Presenciales" data-fr="En présentiel">Face-to-Face</a></li>
+        <li><a href="classes.html#online" data-en="Online Classes" data-es="Clases Online" data-fr="Cours en ligne">Online Classes</a></li>
+        <li><a href="accommodation.html" data-en="Host Families" data-es="Familias de Acogida" data-fr="Familles d'accueil">Host Families</a></li>
+        <li><a href="classes.html" data-en="Private Lessons" data-es="Clases Privadas" data-fr="Cours particuliers">Private Lessons</a></li>
+        <li><a href="classes.html" data-en="Group Classes" data-es="Clases Grupales" data-fr="Cours en groupe">Group Classes</a></li>
+        <li><a href="contact.html" data-en="Free Trial Class" data-es="Clase de Prueba Gratis" data-fr="Cours d'essai gratuit">Free Trial Class</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</span>
+      <div class="footer-contact-item">
+        <span></span>
+        <span data-en="Junín 333, Sucre, Bolivia" data-es="Junín 333, Sucre, Bolivia" data-fr="Junín 333, Sucre, Bolivie">Junín 333, Sucre, Bolivia</span>
+      </div>
+      <div class="footer-contact-item">
+        <span></span>
+        <span>+591 734 25725<br>+591 734 00447</span>
+      </div>
+      <div class="footer-contact-item">
+        <span></span>
+        <a href="https://www.facebook.com/Me-Gusta-Spanish-School-242207979133242" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Me Gusta Spanish School</a>
+      </div>
+      <div class="footer-contact-item">
+        <span></span>
+        <a href="https://www.instagram.com/megustaspanishschool" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">@megustaspanishschool</a>
+      </div>
+      <a href="https://wa.me/59173425725" class="whatsapp-btn" target="_blank" rel="noopener" style="margin-top:1rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-en="WhatsApp Us" data-es="Escríbenos" data-fr="WhatsApp">WhatsApp Us</span>
+      </a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span data-en="© 2025 Me Gusta Spanish. All rights reserved." data-es="© 2025 Me Gusta Spanish. Todos los derechos reservados." data-fr="© 2025 Me Gusta Spanish. Tous droits réservés.">© 2025 Me Gusta Spanish. All rights reserved.</span>
-    <span data-en="Sucre, Bolivia" data-es="Sucre, Bolivia" data-fr="Sucre, Bolivie">Sucre, Bolivia</span>
+    <span class="footer-copy" data-en="© 2025 Me Gusta Spanish School, Sucre, Bolivia " data-es="© 2025 Me Gusta Spanish School, Sucre, Bolivia " data-fr="© 2025 Me Gusta Spanish School, Sucre, Bolivie ">© 2025 Me Gusta Spanish School, Sucre, Bolivia </span>
+    <span class="footer-copy" data-en="Made with  in Sucre" data-es="Hecho con  en Sucre" data-fr="Fait avec  à Sucre">Made with  in Sucre</span>
   </div>
 </footer>
 
@@ -642,7 +701,7 @@
   // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
