@@ -296,6 +296,27 @@ Initial accommodation redesign used a scroll-aware dark nav that turned transluc
 ### 34. Memories saved
 - `feedback_headbar_consistency.md` — never add per-page nav variants; the `.over-dark` failure is the why.
 
+### 35. Accommodation — 6-bed dorm chapter added to gallery
+Extended the accommodation page with a dedicated chapter for the new six-bed dorm. Client dropped 11 JPGs (10–22MB each) into `images/rooms/6bed/`; converted all to WebP at 800px / q82 (30–85KB each) and deleted originals per the image workflow rule.
+
+- **Inserted new Chapter III** between the existing rooms (II) and details chapters; renumbered the old III → IV across number badge + `chapter-tag` EN/ES/FR attributes.
+- **Trilingual copy** for the new chapter title ("The six-bed dorm" / "El dormitorio de seis camas" / "Le dortoir six lits") and a sociable-but-not-grim chapter note.
+
+**Layout iterations (5 rounds of feedback):**
+1. First pass — 11-tile 12-col custom grid with `object-fit: cover`. Cropped portraits awkwardly.
+2. Client removed two photos (`DSC08504`, `DSC08509`). Dropped them from HTML; swapped the grid to CSS-columns masonry with `object-fit: contain` so landscape + portrait both show fully.
+3. Client wanted beds featured, bathroom/kitchen smaller. Restructured into **two tiers**: a 3-up bed feature + a 6-up "Kitchenette & bathroom" thumbnail strip.
+4. Feature row had a middle-column gap (short landscape tile in 3-col grid). Collapsed to 2 columns — big hero (2fr) + two stacked smaller bed shots (1fr).
+5. Client wanted bathroom/kitchen unified, no label. Merged into single clean 6-up grid with uniform `aspect-ratio: 3/4` + `object-fit: cover` tiles.
+6. **Final gap fix** — left-column hero was shorter than the stacked right column because `align-items: start` on the container prevented the hero tile from stretching. Added `align-self: stretch` on the hero + `height: 100%` + `object-fit: cover` on the img so it fills the full spanned height. Root cause was the container's `align-items: start`, not the img CSS.
+
+**Photo categorisation (determined by reading the actual webp files):**
+- Beds (feature): 489 bunks hero, 494 beds close-up, 519 single bed under bunk
+- Kitchen (small): 514 (portrait), 554 (landscape)
+- Bathroom (small): 529 twin sinks, 534 WC, 539 shower floor, 544 shower
+
+All captions EN/ES/FR.
+
 All commits pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
 
 ---
