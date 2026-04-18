@@ -538,20 +538,44 @@
     .ch3-grid > .img-tile:nth-child(5) { grid-column: 2; grid-row: 2; }
     .ch3-grid > .img-tile:nth-child(6) { grid-column: 4; grid-row: 2; }
 
-    /* masonry-style dorm grid — respects each photo's native aspect ratio */
-    .chdorm-grid {
-      column-count: 3;
-      column-gap: 0.7rem;
+    /* dorm chapter — beds feature big, bathroom/kitchen small */
+    .chdorm-feature {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 0.7rem;
+      align-items: start;
+      margin-bottom: 1rem;
     }
-    .chdorm-grid > .img-tile {
-      display: block;
-      break-inside: avoid;
-      margin: 0 0 0.7rem;
+    .chdorm-feature > .img-tile {
+      background: transparent;
     }
-    .chdorm-grid > .img-tile img {
+    .chdorm-feature > .img-tile img {
       width: 100%;
       height: auto;
       object-fit: contain;
+    }
+
+    .chdorm-small {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      align-items: start;
+    }
+    .chdorm-small > .img-tile {
+      background: transparent;
+    }
+    .chdorm-small > .img-tile img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    .chdorm-small-label {
+      grid-column: 1 / -1;
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--ink-soft);
+      opacity: 0.7;
+      margin: 1rem 0 -0.1rem;
     }
 
     @media (max-width: 1000px) {
@@ -565,11 +589,15 @@
       }
       .ch1-grid > .img-tile, .ch2-grid > .img-tile, .ch3-grid > .img-tile { grid-column: auto !important; grid-row: auto !important; }
       .ch1-grid > .img-tile:nth-child(1), .ch2-grid > .img-tile:nth-child(5), .ch3-grid > .img-tile:nth-child(1) { grid-column: 1 / -1 !important; }
-      .chdorm-grid { column-count: 2; }
+      .chdorm-feature { grid-template-columns: 1fr 1fr; }
+      .chdorm-feature > .img-tile:nth-child(1) { grid-column: 1 / -1; }
+      .chdorm-small { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 520px) {
       .ch1-grid, .ch2-grid, .ch3-grid { grid-template-columns: 1fr; }
-      .chdorm-grid { column-count: 1; }
+      .chdorm-feature { grid-template-columns: 1fr; }
+      .chdorm-feature > .img-tile:nth-child(1) { grid-column: auto; }
+      .chdorm-small { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -983,16 +1011,19 @@
         <p class="chapter-note" data-en="Our biggest shared room — solid wooden bunks, proper mattresses, a locker each and morning light through tall windows. The sociable option, without the hostel-grimness." data-es="Nuestra habitación compartida más amplia — literas de madera maciza, buenos colchones, un casillero por persona y luz de la mañana por ventanales altos. La opción sociable, sin la dureza del hostal típico." data-fr="Notre plus grande chambre partagée — lits superposés en bois massif, vrais matelas, un casier par personne et lumière du matin par de grandes fenêtres. L'option sociable, sans le côté austère des auberges classiques.">Our biggest shared room — solid wooden bunks, proper mattresses, a locker each and morning light through tall windows. The sociable option, without the hostel-grimness.</p>
       </div>
     </header>
-    <div class="chdorm-grid reveal">
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08489-HDR.webp" alt="Six-bed dorm — wide view" loading="lazy" data-lightbox><span class="img-caption" data-en="The dorm" data-es="El dormitorio" data-fr="Le dortoir">The dorm</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08494-HDR.webp" alt="Bunk detail" loading="lazy" data-lightbox><span class="img-caption" data-en="Solid wood bunks" data-es="Literas de madera" data-fr="Lits en bois">Solid wood bunks</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08514-HDR.webp" alt="Morning light" loading="lazy" data-lightbox><span class="img-caption" data-en="Morning light" data-es="Luz de la mañana" data-fr="Lumière du matin">Morning light</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08519-HDR.webp" alt="Corner of the dorm" loading="lazy" data-lightbox><span class="img-caption" data-en="Quiet corner" data-es="Rincón tranquilo" data-fr="Coin tranquille">Quiet corner</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08529-HDR.webp" alt="Lockers" loading="lazy" data-lightbox><span class="img-caption" data-en="Locker each" data-es="Un casillero por persona" data-fr="Un casier chacun">Locker each</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08534-HDR.webp" alt="Upper bunk" loading="lazy" data-lightbox><span class="img-caption" data-en="Upper bunk" data-es="Litera alta" data-fr="Lit du haut">Upper bunk</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08539-HDR.webp" alt="Lower bunk" loading="lazy" data-lightbox><span class="img-caption" data-en="Lower bunk" data-es="Litera baja" data-fr="Lit du bas">Lower bunk</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08544-HDR.webp" alt="Dorm detail" loading="lazy" data-lightbox><span class="img-caption" data-en="Small things" data-es="Pequeños detalles" data-fr="Petits détails">Small things</span></div>
-      <div class="img-tile"><img src="images/rooms/6bed/DSC08554-HDR.webp" alt="Dorm from the doorway" loading="lazy" data-lightbox><span class="img-caption" data-en="From the doorway" data-es="Desde la puerta" data-fr="Depuis la porte">From the doorway</span></div>
+    <div class="chdorm-feature reveal">
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08489-HDR.webp" alt="Six-bed dorm — bunks" loading="lazy" data-lightbox><span class="img-caption" data-en="The dorm" data-es="El dormitorio" data-fr="Le dortoir">The dorm</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08494-HDR.webp" alt="Beds lined up" loading="lazy" data-lightbox><span class="img-caption" data-en="Solid wood bunks" data-es="Literas de madera" data-fr="Lits en bois massif">Solid wood bunks</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08519-HDR.webp" alt="Single bed under bunk" loading="lazy" data-lightbox><span class="img-caption" data-en="Your own nook" data-es="Tu propio rincón" data-fr="Votre coin à vous">Your own nook</span></div>
+    </div>
+    <div class="chdorm-small reveal">
+      <span class="chdorm-small-label" data-en="Kitchenette & bathroom" data-es="Cocina y baño" data-fr="Kitchenette & salle de bain">Kitchenette & bathroom</span>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08514-HDR.webp" alt="Kitchenette" loading="lazy" data-lightbox><span class="img-caption" data-en="Kitchenette" data-es="Cocina" data-fr="Kitchenette">Kitchenette</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08554-HDR.webp" alt="Hob & sink" loading="lazy" data-lightbox><span class="img-caption" data-en="Hob & sink" data-es="Hornilla y fregadero" data-fr="Plaque & évier">Hob & sink</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08529-HDR.webp" alt="Twin sinks" loading="lazy" data-lightbox><span class="img-caption" data-en="Twin sinks" data-es="Dos lavabos" data-fr="Deux lavabos">Twin sinks</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08534-HDR.webp" alt="WC" loading="lazy" data-lightbox><span class="img-caption" data-en="WC" data-es="Baño" data-fr="WC">WC</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08539-HDR.webp" alt="Shower floor" loading="lazy" data-lightbox><span class="img-caption" data-en="Shower floor" data-es="Suelo de ducha" data-fr="Sol de douche">Shower floor</span></div>
+      <div class="img-tile"><img src="images/rooms/6bed/DSC08544-HDR.webp" alt="Shower" loading="lazy" data-lightbox><span class="img-caption" data-en="Shower" data-es="Ducha" data-fr="Douche">Shower</span></div>
     </div>
   </div>
 
