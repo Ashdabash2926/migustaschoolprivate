@@ -254,6 +254,7 @@
       background-repeat: no-repeat;
       z-index: 0;
       will-change: transform, background-position, background-size;
+      animation: kenBurns 28s ease-in-out infinite alternate;
     }
 
     .hero-blob {
@@ -1225,6 +1226,10 @@
     @keyframes ticker {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
+    }
+    @keyframes kenBurns {
+      0%   { background-size: 131%; background-position: 0% 24%; }
+      100% { background-size: 140%; background-position: 3% 27%; }
     }
 
     .reveal {
