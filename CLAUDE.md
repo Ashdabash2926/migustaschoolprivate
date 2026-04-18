@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Me Gusta Spanish — a Spanish language school in Bolivia. Multi-page static site with EN/ES language toggle.
+Me Gusta Spanish — a Spanish language school in Bolivia. Multi-page static site with EN/ES/FR language toggle.
 
 **Stack:** HTML, CSS (custom properties, no Tailwind), Vanilla JS  
 **Repo:** `github.com/Ashdabash2926/migustaschoolprivate` (private)
@@ -26,7 +26,7 @@ Me Gusta Spanish — a Spanish language school in Bolivia. Multi-page static sit
 
 ## Pages
 
-`index.html`, `classes.html`, `methodology.html`, `teachers.html`, `cafe.html`, `about.html`, `accommodation.html`, `faqs.html`, `blog.html`, `contact.html`
+`index.html`, `classes.html`, `kids.html`, `methodology.html`, `teachers.html`, `activities.html`, `cafe.html`, `about.html`, `accommodation.html`, `faqs.html`, `blog.html`, `contact.html`
 
 ---
 
@@ -40,8 +40,9 @@ Me Gusta Spanish — a Spanish language school in Bolivia. Multi-page static sit
 - Reason: keeps the images folder clean and reduces file sizes loaded by the site
 
 ### Language Toggle
-- All user-facing text must have both `data-en` and `data-es` attributes
+- All user-facing text must have `data-en`, `data-es`, and `data-fr` attributes (English, Spanish, French)
 - Toggle is handled by existing JS — just add the attributes correctly
+- **Whenever new text or content is added to any page, it must be translated across all 3 languages**
 
 ### General
 - No frameworks — vanilla JS only

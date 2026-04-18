@@ -209,8 +209,9 @@
     /* Row 3: pair */
     .act-card:nth-child(6) { grid-column: span 5; }
     .act-card:nth-child(7) { grid-column: span 7; }
-    /* Row 4: solo wide */
-    .act-card:nth-child(8) { grid-column: span 12; }
+    /* Row 4: pair */
+    .act-card:nth-child(8) { grid-column: span 5; }
+    .act-card:nth-child(9) { grid-column: span 7; }
 
     /* Card base */
     .act-card {
@@ -228,9 +229,9 @@
       display: block;
       transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
     }
-    .act-card:nth-child(1) img,
-    .act-card:nth-child(8) img { aspect-ratio: 16 / 10; }
+    .act-card:nth-child(1) img { aspect-ratio: 16 / 10; }
     .act-card:nth-child(2) img { aspect-ratio: 3 / 4; }
+    .act-card:nth-child(8) img { aspect-ratio: 3 / 4; }
     .act-card:nth-child(7) img { aspect-ratio: 16 / 10; }
     .act-card:hover img { transform: scale(1.04); opacity: 0.75; }
 
@@ -329,13 +330,223 @@
       .act-card:nth-child(5) { grid-column: span 6; }
       .act-card:nth-child(6),
       .act-card:nth-child(7) { grid-column: span 6; }
-      .act-card:nth-child(8) { grid-column: span 12; }
+      .act-card:nth-child(8),
+      .act-card:nth-child(9) { grid-column: span 6; }
       .act-card img { aspect-ratio: 4/3 !important; }
     }
     @media (max-width: 640px) {
       .act-card { grid-column: span 12 !important; }
       .act-card img { aspect-ratio: 4/3 !important; }
     }
+
+    /* ─── PHOTO STORIES ─── */
+    .photo-stories {
+      padding: 7rem 3rem 5rem;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-stories::before {
+      content: '';
+      position: absolute;
+      right: -10%; top: 10%;
+      width: 40%; height: 50%;
+      background: radial-gradient(ellipse, rgba(200,87,45,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .stories-intro {
+      text-align: center;
+      max-width: 38rem;
+      margin: 0 auto 5rem;
+    }
+    .stories-intro .section-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
+      transform: rotate(-0.8deg);
+    }
+    .stories-intro .section-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: #fff;
+    }
+    .stories-intro .section-title em { font-style: italic; color: var(--terra); }
+    .stories-intro p {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.55);
+      margin-top: 1.2rem;
+      font-style: italic;
+    }
+
+    /* Story block */
+    .story-block {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+    }
+    .story-block:last-of-type { margin-bottom: 0; }
+    .story-header {
+      margin-bottom: 2rem;
+    }
+    .story-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--terra);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .story-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.15;
+    }
+    .story-title em { font-style: italic; color: var(--gold); }
+
+    /* Story grid — cooking (6 images, editorial magazine layout) */
+    .story-grid {
+      display: grid;
+      gap: 0.6rem;
+    }
+    .story-grid--cooking {
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 260px 240px;
+    }
+    .story-img--a { grid-column: 1 / 6; grid-row: 1; }
+    .story-img--b { grid-column: 6 / 10; grid-row: 1 / 3; }
+    .story-img--c { grid-column: 10 / 13; grid-row: 1; }
+    .story-img--d { grid-column: 1 / 4; grid-row: 2; }
+    .story-img--e { grid-column: 4 / 6; grid-row: 2; }
+    .story-img--f { grid-column: 10 / 13; grid-row: 2; }
+
+    /* Story grid — wallyball (5 images) */
+    .story-grid--wallyball {
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 300px 280px;
+    }
+    .story-img--w1 { grid-column: 1 / 6; grid-row: 1; }
+    .story-img--w2 { grid-column: 6 / 9; grid-row: 1 / 3; }
+    .story-img--w3 { grid-column: 9 / 13; grid-row: 1; }
+    .story-img--w4 { grid-column: 1 / 4; grid-row: 2; }
+    .story-img--w5 { grid-column: 4 / 6; grid-row: 2; }
+
+    .story-img {
+      overflow: hidden;
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+    }
+    .story-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(28,20,16,0.15);
+      transition: background 0.4s;
+      pointer-events: none;
+    }
+    .story-img:hover::after { background: transparent; }
+    .story-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .story-img:hover img { transform: scale(1.05); }
+
+    @media (max-width: 900px) {
+      .photo-stories { padding: 5rem 1.5rem 4rem; }
+      .story-grid--cooking {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .story-img--a { grid-column: 1; grid-row: auto; }
+      .story-img--b { grid-column: 2; grid-row: auto; }
+      .story-img--c { grid-column: 1; grid-row: auto; }
+      .story-img--d { grid-column: 2; grid-row: auto; }
+      .story-img--e { grid-column: 1; grid-row: auto; }
+      .story-img--f { grid-column: 2; grid-row: auto; }
+      .story-grid--wallyball {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .story-img--w1 { grid-column: 1; grid-row: auto; }
+      .story-img--w2 { grid-column: 2; grid-row: auto; }
+      .story-img--w3 { grid-column: 1; grid-row: auto; }
+      .story-img--w4 { grid-column: 2; grid-row: auto; }
+      .story-img--w5 { grid-column: 1 / -1; grid-row: auto; }
+      .story-img img { aspect-ratio: 4/3; }
+    }
+    @media (max-width: 500px) {
+      .story-grid--cooking,
+      .story-grid--wallyball {
+        grid-template-columns: 1fr;
+      }
+      .story-img--a, .story-img--b, .story-img--c, .story-img--d, .story-img--e, .story-img--f,
+      .story-img--w1, .story-img--w2, .story-img--w3, .story-img--w4, .story-img--w5 {
+        grid-column: 1;
+      }
+    }
+
+    /* ─── LIGHTBOX ─── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(10,6,4,0.95);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; animation: lbFade 0.25s ease; }
+    @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.5);
+      animation: lbScale 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes lbScale { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      background: none; border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 2.5rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 3.5rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 2;
+      padding: 0.5rem;
+    }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+    .lightbox-prev:hover, .lightbox-next:hover { color: #fff; }
 
     /* ─── HOW IT WORKS ─── */
     .how-section {
@@ -558,6 +769,7 @@
       <span>Tarabuco Day Trip <em>·</em></span>
       <span>Conversation Evening <em>·</em></span>
       <span>Photography Walk <em>·</em></span>
+      <span>Wallyball <em>·</em></span>
       <span>Cooking Class <em>·</em></span>
       <span>City Walk <em>·</em></span>
       <span>Salsa Night <em>·</em></span>
@@ -573,7 +785,7 @@
 <!-- ACTIVITIES -->
 <section class="activities-section">
   <div class="activities-intro reveal">
-    <span class="section-label" data-en="eight ways to immerse" data-es="ocho formas de sumergirte" data-fr="huit façons de s'immerger">eight ways to immerse</span>
+    <span class="section-label" data-en="nine ways to immerse" data-es="nueve formas de sumergirte" data-fr="neuf façons de s'immerger">nine ways to immerse</span>
     <h2 class="section-title" data-en="The full <em>experience</em>" data-es="La experiencia <em>completa</em>" data-fr="L'<em>expérience</em> complète" data-fr="L'<em>expérience</em> complète">The full <em>experience</em></h2>
     <p data-en="These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish." data-es="Estas no son extras — es donde ocurre el aprendizaje real. Cada actividad está dirigida por un profesor o guía local, y todo se realiza en español." data-fr="Ce ne sont pas des extras — c'est là que le vrai apprentissage se fait. Chaque activité est menée par un professeur ou un guide local, et tout se fait en espagnol.">These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish.</p>
   </div>
@@ -582,7 +794,7 @@
 
     <!-- 1. Bolivian Cooking Class — featured large -->
     <article class="act-card reveal">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=82" alt="Bolivian Cooking Class" loading="lazy">
+      <img src="images/activities/Cooking/DSC06312.webp" alt="Bolivian Cooking Class" loading="lazy">
       <div class="act-info">
         <span class="act-meta" data-en="Every Tuesday · 3 hrs" data-es="Cada martes · 3 hrs" data-fr="Chaque mardi · 3h">Every Tuesday · 3 hrs</span>
         <span class="act-name" data-en="Bolivian Cooking Class" data-es="Clase de Cocina Boliviana" data-fr="Cours de cuisine bolivienne">Bolivian Cooking Class</span>
@@ -729,8 +941,75 @@
       </div>
     </article>
 
+    <!-- 9. Wallyball -->
+    <article class="act-card reveal" style="transition-delay:0.1s;">
+      <img src="images/activities/Wallyball/DSC06589.webp" alt="Wallyball" loading="lazy">
+      <div class="act-info">
+        <span class="act-meta" data-en="Wednesdays · 1.5 hrs" data-es="Miércoles · 1.5 hrs" data-fr="Mercredis · 1h30">Wednesdays · 1.5 hrs</span>
+        <span class="act-name" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</span>
+      </div>
+      <div class="act-overlay">
+        <span class="ov-tag" data-en="Sport & Social" data-es="Deporte y Social" data-fr="Sport & Social">Sport & Social</span>
+        <h3 class="ov-name" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</h3>
+        <p class="ov-desc" data-en="Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could." data-es="Voleibol entre cuatro paredes — rápido, ruidoso e imposible de jugar sin gritar en español. Estudiantes y locales mezclan equipos, y el vocabulario que aprendes en pleno juego se queda de una forma que ninguna tarjeta de estudio podría." data-fr="Du volley entre quatre murs — rapide, bruyant, et impossible à jouer sans crier en espagnol. Étudiants et locaux mélangent les équipes, et le vocabulaire appris en plein match reste gravé comme aucune fiche ne le pourrait.">Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could.</p>
+        <div class="ov-details">
+          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Every Wednesday" data-es="Cada miércoles" data-fr="Chaque mercredi">Every Wednesday</span></span>
+          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="1.5 hours" data-es="1.5 horas" data-fr="1h30">1.5 hours</span></span>
+          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span></span>
+        </div>
+      </div>
+    </article>
+
   </div>
 </section>
+
+<!-- PHOTO STORIES -->
+<section class="photo-stories">
+  <div class="stories-intro reveal">
+    <span class="section-label" data-en="from the field" data-es="desde el campo" data-fr="sur le terrain">from the field</span>
+    <h2 class="section-title" data-en="Real <em>moments</em>" data-es="Momentos <em>reales</em>" data-fr="Moments <em>réels</em>">Real <em>moments</em></h2>
+    <p data-en="No stock photos. No staging. This is what our activities actually look like — students learning, laughing, cooking, and competing together." data-es="Sin fotos de stock. Sin poses. Así se ven realmente nuestras actividades — estudiantes aprendiendo, riendo, cocinando y compitiendo juntos." data-fr="Pas de photos génériques. Pas de mise en scène. Voici à quoi ressemblent vraiment nos activités — des étudiants qui apprennent, rient, cuisinent et rivalisent ensemble.">No stock photos. No staging. This is what our activities actually look like — students learning, laughing, cooking, and competing together.</p>
+  </div>
+
+  <!-- Cooking Class Gallery -->
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-tag" data-en="Cooking Class" data-es="Clase de Cocina" data-fr="Cours de cuisine">Cooking Class</span>
+      <h3 class="story-title" data-en="From market basket to <em>mesa</em>" data-es="De la canasta del mercado a la <em>mesa</em>" data-fr="Du panier du marché à la <em>table</em>">From market basket to <em>mesa</em></h3>
+    </div>
+    <div class="story-grid story-grid--cooking">
+      <div class="story-img story-img--a"><img src="images/activities/Cooking/DSC06219.webp" alt="Fresh ingredients in woven baskets" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--b"><img src="images/activities/Cooking/DSC06342.webp" alt="Teacher guiding a student through cooking onions" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--c"><img src="images/activities/Cooking/DSC06312.webp" alt="Students in colourful aprons preparing food together" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--d"><img src="images/activities/Cooking/DSC06392.webp" alt="Playing board games while food cooks" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--e"><img src="images/activities/Cooking/DSC06411.webp" alt="Teacher and student laughing over a board game" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--f"><img src="images/activities/Cooking/DSC06425.webp" alt="Eating the finished Bolivian meal together" loading="lazy" data-lightbox></div>
+    </div>
+  </div>
+
+  <!-- Wallyball Gallery -->
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-tag" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</span>
+      <h3 class="story-title" data-en="Four walls. One ball. <em>Zero English.</em>" data-es="Cuatro paredes. Una pelota. <em>Cero inglés.</em>" data-fr="Quatre murs. Un ballon. <em>Zéro anglais.</em>">Four walls. One ball. <em>Zero English.</em></h3>
+    </div>
+    <div class="story-grid story-grid--wallyball">
+      <div class="story-img story-img--w1"><img src="images/activities/Wallyball/DSC06505.webp" alt="Serving over the net" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--w2"><img src="images/activities/Wallyball/DSC06531.webp" alt="Mid-air spike at the net" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--w3"><img src="images/activities/Wallyball/DSC06510.webp" alt="Two players in action from above" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--w4"><img src="images/activities/Wallyball/DSC06554.webp" alt="Player hitting over the net" loading="lazy" data-lightbox></div>
+      <div class="story-img story-img--w5"><img src="images/activities/Wallyball/DSC06589.webp" alt="Three students playing wallyball together" loading="lazy" data-lightbox></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&lsaquo;</button>
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next">&rsaquo;</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="how-section">
@@ -895,6 +1174,41 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lbImages = [...document.querySelectorAll('[data-lightbox]')];
+  let lbIndex = 0;
+
+  function openLightbox(idx) {
+    lbIndex = idx;
+    lightboxImg.src = lbImages[idx].src;
+    lightboxImg.alt = lbImages[idx].alt;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function navLightbox(dir) {
+    lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+    lightboxImg.src = lbImages[lbIndex].src;
+    lightboxImg.alt = lbImages[lbIndex].alt;
+  }
+
+  lbImages.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', () => navLightbox(-1));
+  document.getElementById('lightboxNext').addEventListener('click', () => navLightbox(1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
 </script>
 </body>
 </html>
