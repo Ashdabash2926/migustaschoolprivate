@@ -562,23 +562,14 @@
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 0.5rem;
-      align-items: start;
     }
     .chdorm-small > .img-tile {
-      background: transparent;
+      aspect-ratio: 3 / 4;
     }
     .chdorm-small > .img-tile img {
       width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
-    .chdorm-small-label {
-      grid-column: 1 / -1;
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--ink-soft);
-      opacity: 0.7;
-      margin: 1rem 0 -0.1rem;
+      height: 100%;
+      object-fit: cover;
     }
 
     @media (max-width: 1000px) {
@@ -1021,7 +1012,6 @@
       <div class="img-tile"><img src="images/rooms/6bed/DSC08519-HDR.webp" alt="Single bed under bunk" loading="lazy" data-lightbox><span class="img-caption" data-en="Your own nook" data-es="Tu propio rincón" data-fr="Votre coin à vous">Your own nook</span></div>
     </div>
     <div class="chdorm-small reveal">
-      <span class="chdorm-small-label" data-en="Kitchenette & bathroom" data-es="Cocina y baño" data-fr="Kitchenette & salle de bain">Kitchenette & bathroom</span>
       <div class="img-tile"><img src="images/rooms/6bed/DSC08514-HDR.webp" alt="Kitchenette" loading="lazy" data-lightbox><span class="img-caption" data-en="Kitchenette" data-es="Cocina" data-fr="Kitchenette">Kitchenette</span></div>
       <div class="img-tile"><img src="images/rooms/6bed/DSC08554-HDR.webp" alt="Hob & sink" loading="lazy" data-lightbox><span class="img-caption" data-en="Hob & sink" data-es="Hornilla y fregadero" data-fr="Plaque & évier">Hob & sink</span></div>
       <div class="img-tile"><img src="images/rooms/6bed/DSC08529-HDR.webp" alt="Twin sinks" loading="lazy" data-lightbox><span class="img-caption" data-en="Twin sinks" data-es="Dos lavabos" data-fr="Deux lavabos">Twin sinks</span></div>
