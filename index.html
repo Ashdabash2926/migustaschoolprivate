@@ -255,6 +255,7 @@
       z-index: 0;
       will-change: transform, background-position, background-size;
       animation: kenBurns 28s ease-in-out infinite alternate;
+      transform: translate3d(0, var(--parallax-y, 0), 0);
     }
 
     .hero-blob {
@@ -423,7 +424,7 @@
       background: #fff;
       padding: 14px 14px 52px;
       box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06);
-      transform: rotate(2.5deg);
+      transform: rotate(calc(2.5deg + var(--parallax-rot, 0deg)));
       transition: transform 0.4s ease;
       position: relative;
       max-width: 420px;
@@ -1713,6 +1714,52 @@
   </footer>
 
   <script>
+    //  HERO PARALLAX
+    (() => {
+      const hero = document.getElementById('hero');
+      const polaroid = document.querySelector('.hero .polaroid');
+      if (!hero || !polaroid) return;
+
+      // Skip on mobile (matches the @media breakpoint that hides hero-blob)
+      if (window.matchMedia('(max-width: 960px)').matches) return;
+
+      // Skip if user prefers reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let heroVisible = true;
+      let ticking = false;
+
+      // Detach scroll work when hero leaves the viewport
+      const io = new IntersectionObserver((entries) => {
+        heroVisible = entries[0].isIntersecting;
+      }, { threshold: 0 });
+      io.observe(hero);
+
+      const update = () => {
+        ticking = false;
+        if (!heroVisible) return;
+        const rect = hero.getBoundingClientRect();
+        const heroHeight = rect.height || 1;
+        // 0 at top of hero in view, 1 when hero is fully scrolled past
+        const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
+
+        // Background lags scroll at ~0.4x
+        hero.style.setProperty('--parallax-y', `${progress * heroHeight * 0.4}px`);
+
+        // Polaroid rotation eases from 0 → 3.5 extra degrees (on top of polaroid's own 2.5deg)
+        polaroid.style.setProperty('--parallax-rot', `${progress * 3.5}deg`);
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      update();
+    })();
+
     //  STICKY NAV 
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
