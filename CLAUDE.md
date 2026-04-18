@@ -44,6 +44,12 @@ Me Gusta Spanish — a Spanish language school in Bolivia. Multi-page static sit
 - Toggle is handled by existing JS — just add the attributes correctly
 - **Whenever new text or content is added to any page, it must be translated across all 3 languages**
 
+### Navigation (headbar)
+- The headbar (`#main-nav`) **must be identical across every page** — same styling, same background, same behaviour
+- Do not introduce page-specific nav variants (scroll-aware dark modes, transparent overlays on hero, etc.) — they break the dropdown/mobile menu and fragment the site's identity
+- When redesigning a page, copy the nav HTML + CSS + JS verbatim from another page
+- Only the `class="active"` marker on the current page's link should differ
+
 ### General
 - No frameworks — vanilla JS only
 - No Tailwind — use the existing CSS custom properties
