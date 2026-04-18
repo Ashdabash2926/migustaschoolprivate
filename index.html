@@ -308,7 +308,26 @@
       color: var(--ink);
       margin-bottom: 1.8rem;
     }
-    .hero-title em { font-style: italic; font-weight: 500; color: var(--terra); }
+    .hero-title em { font-style: italic; font-weight: 500; color: var(--terra); position: relative; display: inline-block; }
+    .hero-underline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.2em;
+      width: 100%;
+      height: 0.35em;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .hero-underline path {
+      fill: none;
+      stroke: var(--terra);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawUnderline 0.9s ease-out 1.4s forwards;
+    }
 
     .hero-subtitle {
       font-size: 1rem;
@@ -1235,6 +1254,9 @@
       0%   { opacity: 0; transform: translateY(-120%) rotate(-12deg); }
       100% { opacity: 1; transform: translateY(0) rotate(0deg); }
     }
+    @keyframes drawUnderline {
+      to { stroke-dashoffset: 0; }
+    }
 
     .reveal {
       opacity: 0;
@@ -1393,7 +1415,7 @@
       <span class="hero-handwritten" data-en="¡Hola! — est. 2005 · Sucre, Bolivia" data-es="¡Hola! — desde 2005 · Sucre, Bolivia" data-fr="¡Hola! — est. 2005 · Sucre, Bolivie">¡Hola! — est. 2005 · Sucre, Bolivia</span>
       <h1 class="hero-title">
         <span data-en="Probably the most" data-es="Probablemente la escuela" data-fr="Probablement la plus">Probably the most</span><br>
-        <em><span data-en="fun &amp; friendly" data-es="más divertida" data-fr="fun &amp; accueillante">fun &amp; friendly</span></em><br>
+        <em><span data-en="fun &amp; friendly" data-es="más divertida" data-fr="fun &amp; accueillante">fun &amp; friendly</span><svg class="hero-underline" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 Q40,2 80,7 T160,6 T240,8 T298,5"/></svg></em><br>
         <span data-en="Spanish School in Sucre!" data-es="y amigable de Sucre" data-fr="École d'espagnol à Sucre !">Spanish School in Sucre!</span>
       </h1>
       <p class="hero-subtitle" data-en="Enjoy every lesson, immerse in the culture. Speak with confidence." data-es="Disfruta cada clase, sumérgete en la cultura. Habla con confianza." data-fr="Appréciez chaque leçon, immergez-vous dans la culture. Parlez avec confiance.">
