@@ -249,6 +249,57 @@ All 10 hero commits pushed to `origin/main` → live on `ashdabash2926.github.io
 
 ---
 
+## Session — 18 April 2026
+
+### 29. Activities page — photo stories + Wallyball (started previous session, committed this session)
+- Added 9th activity card (Wallyball, Wednesday 1.5hrs).
+- New "Real moments" section with two editorial magazine-layout photo galleries (Cooking, Wallyball).
+- Click-to-enlarge lightbox with keyboard nav (Esc/←/→).
+- Swapped Unsplash hero on the cooking card for real `DSC06312.webp`.
+- `CLAUDE.md` updated to reflect FR support and new pages (`kids.html`, `activities.html`).
+
+### 30. Accommodation page — full redesign (frontend-design skill)
+**Design direction:** "The Residence" — editorial travel-magazine. Cinematic full-viewport hero, magazine-chapter gallery, dark amenities strip.
+
+- **Cinematic hero** (100vh) — full-bleed `DSC08332-HDR.webp` with 32s Ken Burns zoom, dual vignette + top/bottom gradient, thin terra accent line draws in on load.
+- **Staggered typography reveal** — "A house / in Sucre." headline: each line overflow-clips and animates `translateY(110%) → 0`. Eyebrow label, meta row, subtitle fade in with 0.3/1.0/1.15s delays.
+- **Two glassmorphic booking plates** — Hostelworld (01) + Booking.com (02). Each has terra side-stripe that scales in on hover, index/category rows, arrow that rotates into a terra-filled circle.
+- **Scroll-linked parallax + zoom-out** — `translateY = y * 0.6`, `scale = 1 - progress * 0.1`, `opacity = 1 - progress * 0.7`. rAF-throttled. Image wrapped in `.acc-hero-stage-wrap` so Ken Burns on inner element compounds cleanly.
+- **Manifesto strip** — condensed to a single 3-column row (label | body | sign) on desktop. Smaller Cormorant type (1.15–1.5rem), tighter padding (4.5rem vertical).
+- **Three numbered chapters** — I *Courtyard*, II *Rooms*, III *Details*. Each has huge terra italic numeral + right-aligned copy, then an asymmetric image mosaic (ch1: 4-image, ch2: 8-image 12-col editorial, ch3: 6-image 4-col).
+- **Amenities strip** — dark ink panel with 4 custom inline SVG icons (Wi-Fi, showers, kitchen, terrace) on a bordered grid. (Initially had 6 — laundry and 24/7 reception removed later.)
+- **Final CTA** — warm cream shapes bg, two buttons (`.btn-ink` + `.btn-terra`) linking to the two platforms.
+- **Lightbox** — fade + scale, keyboard nav, terra-highlight arrow buttons, `X / Y` counter at bottom.
+- **Image compression** — 36 room photos JPG→WebP (468MB → 4MB). Hero 2000px @ q85, gallery 1400px @ q80.
+- **Case fix** — renamed `images/Rooms` → `images/rooms` (git was case-sensitive from upstream commit; macOS FS isn't). Two-step rename via temp name to force the change through.
+- **Placeholder booking URLs** — `hostelworld.com` / `booking.com` domain roots; need real property URLs from client.
+
+### 31. Headbar restored to site standard (important)
+Initial accommodation redesign used a scroll-aware dark nav that turned translucent + white-text over the hero, swapping to cream after scroll. This broke the **More** dropdown — its links inherited `.over-dark .nav-center a { color: white }`, so dropdown text was invisible on the cream dropdown bg.
+
+- Reverted nav to the standard opaque cream with 95% alpha + `backdrop-filter: blur(16px)` that every other page uses.
+- Removed the `.over-dark` class, its CSS rules, and the scroll listener.
+- **Added rule to `CLAUDE.md`**: the headbar must be identical across all pages. No per-page variants. When redesigning any page, copy the nav HTML/CSS/JS verbatim — only `class="active"` should differ.
+
+### 32. Hero animation upgrades
+- **Parallax + zoom-out** on scroll (as above in §30).
+- **Top terra accent line** now draws in from center on load: `scaleX(0) → scaleX(1)` over 1.6s cubic-bezier with a 0.2s delay. Respects `prefers-reduced-motion`.
+
+### 33. Teachers page — 6 new teachers added
+- **New teachers:** Clara, Claudia, Ghiselle, Luz, Raquel, Yatsejany. All photos JPG→WebP @ 1100px q82 (~40–70KB each).
+- **Grid extended:** row 3 (4 × span-3: Clara, Claudia, Ghiselle, Luz), row 4 (2 × span-6: Raquel, Yatsejany).
+- **Mobile grid simplified** — dropped nth-child-specific rules in favour of `.teacher-card { grid-column: span 6/12 !important }`.
+- **Bios written in existing tone** — plausible placeholders tagged with role + 2 specialty tags, trilingual (EN/ES/FR). Flagged as edit-worthy.
+- **Filename "2" suffix convention** — user rule: any `*2.jpg` (backup variants like `Ghiselle2.jpg`, `Yatsejany2.jpg`) is **not** to be added to the page. Left untracked on disk as backups.
+- **Swapped Anna ↔ Kiara** positions after user feedback (Kiara now row 1, position 3; Anna now row 2, position 7).
+
+### 34. Memories saved
+- `feedback_headbar_consistency.md` — never add per-page nav variants; the `.over-dark` failure is the why.
+
+All commits pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
