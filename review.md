@@ -222,6 +222,33 @@ Replaced the three equal rounded cards (AI-looking) with an editorial **archive/
 
 ---
 
+## Session — 17 April 2026
+
+### 25. Hero animations — index.html
+Added four animations to the hero section on `index.html`, all changes inline in the single file.
+
+- **Ken Burns background** — slow pan/zoom on a new `.hero::before` pseudo-element (28s loop desktop, 40s mobile, alternating). Inline `style="background-image: ..."` on `<section class="hero">` removed in favour of the pseudo-element so parallax can target it without fighting Ken Burns.
+- **Polaroid drop-in** — `.hero-right` animation swapped from `fadeUp` to a new `polaroidDrop` keyframe. Drops from `translateY(-120%) rotate(-12deg)` to `translateY(0) rotate(0deg)` with `cubic-bezier(0.34, 1.56, 0.64, 1)` for a small overshoot. The child `.polaroid`'s own `rotate(2.5deg)` shows through as the resting tilt.
+- **Hand-drawn underline** — inline SVG (`<svg class="hero-underline">`) added as a sibling of the `<span>` inside the `<em>` in the hero title. Wavy path drawn via `stroke-dasharray`/`stroke-dashoffset` animation, 0.9s ease-out, 1.4s delay (lands after the title fade-up). `.hero-title em` augmented with `position: relative; display: inline-block` so the absolute SVG anchors to each language's width.
+- **Scroll parallax** — new IIFE in the existing `<script>` block with rAF-throttled scroll handler. Sets `--parallax-y` on `.hero` (consumed by `.hero::before` via `transform: translate3d`) and `--parallax-rot` on `.polaroid` (consumed via the independent CSS `rotate:` property). IntersectionObserver pauses when hero is offscreen. Self-disables on `matchMedia('(max-width: 960px)')` and `matchMedia('(prefers-reduced-motion: reduce)')`.
+
+### 26. Accessibility + mobile handling
+- New `@media (prefers-reduced-motion: reduce)` block: Ken Burns off, polaroid entrance reverts to gentle `fadeUp`, underline snaps in instantly, ticker marquee stops (`.ticker-track { animation: none }`).
+- New rule inside `@media (max-width: 960px)`: `.hero::before { animation-duration: 40s }` slows Ken Burns on mobile.
+- Parallax JS self-gates on both conditions (already in step 25).
+
+### 27. Review findings applied
+- Polaroid scroll rotation was smearing because `.polaroid`'s existing `transition: transform 0.4s ease` (for hover) was also transitioning the scroll-driven rotation. Moved scroll rotation to the independent CSS `rotate:` property so the `transform` transition no longer dampens parallax updates.
+- Trimmed `will-change` on `.hero::before` from `transform, background-position, background-size` to just `transform` — the non-composited properties don't benefit from the hint.
+
+### 28. Spec + plan committed
+- `docs/superpowers/specs/2026-04-17-hero-animations-design.md` — design spec
+- `docs/superpowers/plans/2026-04-17-hero-animations.md` — task-by-task implementation plan
+
+All 10 hero commits pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
