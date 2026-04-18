@@ -79,6 +79,12 @@
       color: #fff;
       isolation: isolate;
     }
+    .acc-hero-stage-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      will-change: transform, opacity;
+    }
     .acc-hero-stage {
       position: absolute;
       inset: -3% -2%;
@@ -101,14 +107,18 @@
       z-index: 1;
       pointer-events: none;
     }
-    /* thin terra accent line across top */
+    /* thin terra accent line across top — draws in on load */
     .acc-hero::after {
       content: '';
       position: absolute; left: 0; right: 0; top: 64px;
       height: 1px;
       background: linear-gradient(90deg, transparent 0%, rgba(200,87,45,0.55) 22%, rgba(200,87,45,0.55) 78%, transparent 100%);
       z-index: 2;
+      transform: scaleX(0);
+      transform-origin: center;
+      animation: lineDraw 1.6s cubic-bezier(0.2,0.7,0.2,1) 0.2s forwards;
     }
+    @keyframes lineDraw { to { transform: scaleX(1); } }
 
     .acc-hero-inner {
       position: relative;
@@ -339,6 +349,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .acc-hero-stage { animation: none; }
+      .acc-hero::after { transform: scaleX(1); animation: none; }
       .acc-hero-title .line > span { transform: translateY(0); animation: none; }
       .plate, .acc-hero-eyebrow, .acc-hero-meta, .acc-hero-sub, .acc-hero-rule { opacity: 1; transform: none; animation: none; }
     }
@@ -348,52 +359,52 @@
        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .manifesto {
       background: var(--bg-warm);
-      padding: 8rem 5rem;
+      padding: 4.5rem 5rem;
       position: relative;
     }
     .manifesto-inner {
-      max-width: 78rem;
+      max-width: 72rem;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 2.4fr;
-      gap: 4rem;
-      align-items: start;
+      grid-template-columns: auto 1fr auto;
+      gap: 3rem;
+      align-items: center;
     }
     .manifesto-label {
       display: flex; align-items: center; gap: 0.7rem;
       font-family: 'Lora', serif;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--muted);
-      padding-top: 0.6rem;
+      white-space: nowrap;
     }
     .manifesto-label::before {
-      content: ''; width: 28px; height: 1px; background: var(--terra);
+      content: ''; width: 24px; height: 1px; background: var(--terra);
     }
     .manifesto-body {
       font-family: 'Cormorant', serif;
       font-weight: 300;
-      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-      line-height: 1.35;
+      font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+      line-height: 1.45;
       color: var(--ink);
       letter-spacing: -0.005em;
     }
     .manifesto-body em { font-style: italic; color: var(--terra); }
     .manifesto-sign {
-      margin-top: 2.2rem;
-      display: inline-flex; align-items: center; gap: 0.8rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
       font-family: 'Caveat', cursive;
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       color: var(--ink-soft);
       transform: rotate(-1deg);
+      white-space: nowrap;
     }
     .manifesto-sign::before {
-      content: ''; width: 40px; height: 1px; background: var(--ink-soft); opacity: 0.4;
+      content: ''; width: 28px; height: 1px; background: var(--ink-soft); opacity: 0.4;
     }
     @media (max-width: 900px) {
-      .manifesto { padding: 5rem 1.5rem; }
-      .manifesto-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .manifesto { padding: 3.5rem 1.5rem; }
+      .manifesto-inner { grid-template-columns: 1fr; gap: 1.2rem; align-items: start; }
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -826,7 +837,9 @@
 
 <!-- ━━━ HERO ━━━ -->
 <section class="acc-hero" id="heroSec">
-  <div class="acc-hero-stage" aria-hidden="true"></div>
+  <div class="acc-hero-stage-wrap" id="heroStage" aria-hidden="true">
+    <div class="acc-hero-stage"></div>
+  </div>
 
   <div class="acc-hero-inner">
     <div class="acc-hero-lede">
@@ -894,10 +907,8 @@
 <section class="manifesto">
   <div class="manifesto-inner reveal">
     <span class="manifesto-label" data-en="About the place" data-es="Sobre el lugar" data-fr="Sur le lieu">About the place</span>
-    <div>
-      <p class="manifesto-body" data-en="Not a hotel. Not a chain. A quiet house on a calle in Sucre with <em>roof terraces</em>, hot showers and a kitchen you're welcome to cook in. Students share the common areas — which is where the <em>Spanish</em> quietly keeps happening, long after class ends." data-es="No es un hotel. No es una cadena. Una casa tranquila en una calle de Sucre con <em>terrazas</em>, duchas calientes y una cocina donde puedes cocinar. Los estudiantes comparten los espacios comunes — y ahí es donde el <em>español</em> sigue ocurriendo, mucho después de clase." data-fr="Ni un hôtel, ni une chaîne. Une maison paisible dans une rue de Sucre avec <em>terrasses</em>, douches chaudes et une cuisine à votre disposition. Les étudiants partagent les espaces communs — c'est là que l'<em>espagnol</em> continue, bien après la fin des cours.">Not a hotel. Not a chain. A quiet house on a calle in Sucre with <em>roof terraces</em>, hot showers and a kitchen you're welcome to cook in. Students share the common areas — which is where the <em>Spanish</em> quietly keeps happening, long after class ends.</p>
-      <span class="manifesto-sign" data-en="— the Me Gusta team" data-es="— el equipo de Me Gusta" data-fr="— l'équipe Me Gusta">— the Me Gusta team</span>
-    </div>
+    <p class="manifesto-body" data-en="Not a hotel, not a chain — a quiet house on a calle in Sucre with <em>roof terraces</em>, hot showers and a kitchen you're welcome to cook in. The common areas are where the <em>Spanish</em> quietly keeps happening, long after class ends." data-es="Ni hotel ni cadena — una casa tranquila en una calle de Sucre con <em>terrazas</em>, duchas calientes y una cocina donde puedes cocinar. En los espacios comunes es donde el <em>español</em> sigue ocurriendo, mucho después de clase." data-fr="Ni hôtel ni chaîne — une maison paisible dans une rue de Sucre avec <em>terrasses</em>, douches chaudes et une cuisine à votre disposition. C'est dans les espaces communs que l'<em>espagnol</em> continue, bien après la fin des cours.">Not a hotel, not a chain — a quiet house on a calle in Sucre with <em>roof terraces</em>, hot showers and a kitchen you're welcome to cook in. The common areas are where the <em>Spanish</em> quietly keeps happening, long after class ends.</p>
+    <span class="manifesto-sign" data-en="— the Me Gusta team" data-es="— el equipo Me Gusta" data-fr="— l'équipe Me Gusta">— the Me Gusta team</span>
   </div>
 </section>
 
@@ -1082,6 +1093,28 @@
 </footer>
 
 <script>
+  // Hero parallax — shift image up slowly and scale/fade out as you scroll past the hero
+  const heroStage = document.getElementById('heroStage');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroStage && !reduceMotion) {
+    let ticking = false;
+    const updateParallax = () => {
+      const y = window.scrollY;
+      const vh = window.innerHeight;
+      if (y > vh * 1.1) { ticking = false; return; }
+      const progress = Math.min(y / vh, 1);
+      const translateY = y * 0.35;
+      const scale = 1 - progress * 0.06;
+      const opacity = 1 - progress * 0.5;
+      heroStage.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+      heroStage.style.opacity = opacity;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+  }
+
   // Mobile nav
   const burger = document.getElementById('navBurger');
   const mobileNav = document.getElementById('navMobile');
