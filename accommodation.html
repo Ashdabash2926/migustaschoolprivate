@@ -1103,9 +1103,9 @@
       const vh = window.innerHeight;
       if (y > vh * 1.1) { ticking = false; return; }
       const progress = Math.min(y / vh, 1);
-      const translateY = y * 0.35;
-      const scale = 1 - progress * 0.06;
-      const opacity = 1 - progress * 0.5;
+      const translateY = y * 0.6;
+      const scale = 1 - progress * 0.1;
+      const opacity = 1 - progress * 0.7;
       heroStage.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
       heroStage.style.opacity = opacity;
       ticking = false;
