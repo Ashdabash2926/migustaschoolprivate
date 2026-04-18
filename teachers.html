@@ -176,6 +176,14 @@
     .teacher-card:nth-child(5),
     .teacher-card:nth-child(6),
     .teacher-card:nth-child(7) { grid-column: span 4; }
+    /* Row 3: 4 cards × 3 cols = 12 */
+    .teacher-card:nth-child(8),
+    .teacher-card:nth-child(9),
+    .teacher-card:nth-child(10),
+    .teacher-card:nth-child(11) { grid-column: span 3; }
+    /* Row 4: 2 cards × 6 cols = 12 */
+    .teacher-card:nth-child(12),
+    .teacher-card:nth-child(13) { grid-column: span 6; }
 
     /* Card base */
     .teacher-card {
@@ -304,23 +312,11 @@
     @media (max-width: 960px) {
       .teachers-section { padding: 5rem 1.25rem; }
       .teachers-grid { gap: 1rem; }
-      .teacher-card:nth-child(1),
-      .teacher-card:nth-child(2),
-      .teacher-card:nth-child(3),
-      .teacher-card:nth-child(4),
-      .teacher-card:nth-child(5),
-      .teacher-card:nth-child(6),
-      .teacher-card:nth-child(7) { grid-column: span 6; }
+      .teacher-card { grid-column: span 6 !important; }
       .teacher-card img { aspect-ratio: 2 / 3; }
     }
     @media (max-width: 560px) {
-      .teacher-card:nth-child(1),
-      .teacher-card:nth-child(2),
-      .teacher-card:nth-child(3),
-      .teacher-card:nth-child(4),
-      .teacher-card:nth-child(5),
-      .teacher-card:nth-child(6),
-      .teacher-card:nth-child(7) { grid-column: span 12; }
+      .teacher-card { grid-column: span 12 !important; }
       .teacher-card img { aspect-ratio: 3 / 4; }
     }
 
@@ -591,6 +587,114 @@
           <span class="bio-tag" data-en="Conversation" data-fr="Conversation" data-es="Conversación" data-fr="Conversation">Conversation</span>
         </div>
         <p class="bio-text" data-en="Kiara is one of the most versatile teachers at Me Gusta — equally at home with complete beginners and near-fluent speakers. She has a natural ability to read where a student is and adapt on the spot, creating classes that always feel tailored, never generic." data-es="Kiara es una de las profesoras más versátiles de Me Gusta — igual de cómoda con principiantes que con hablantes casi fluidos. Tiene una capacidad natural para adaptarse al momento, creando clases que siempre se sienten personalizadas." data-fr="Kiara est l'une des professeures les plus polyvalentes de Me Gusta — aussi à l'aise avec les débutants qu'avec les locuteurs quasi-fluents. Elle crée des cours toujours sur mesure." data-fr="Kiara est l'une des professeures les plus polyvalentes de Me Gusta — aussi à l'aise avec les débutants complets qu'avec les locuteurs quasi-fluents. Elle a une capacité naturelle à s'adapter, créant des cours toujours sur mesure.">Kiara is one of the most versatile teachers at Me Gusta — equally at home with complete beginners and near-fluent speakers. She has a natural ability to read where a student is and adapt on the spot, creating classes that always feel tailored, never generic.</p>
+      </div>
+    </article>
+
+    <!-- Clara -->
+    <article class="teacher-card reveal">
+      <img src="images/Teachers/Clara.webp" alt="Clara, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face" data-es="Presencial" data-fr="En présentiel">Face to Face</span>
+        <span class="teacher-name-static">Clara</span>
+      </div>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Clara</p>
+        <span class="bio-role" data-en="Face to Face" data-es="Presencial" data-fr="En présentiel">Face to Face</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Beginners" data-es="Principiantes" data-fr="Débutants">Beginners</span>
+          <span class="bio-tag" data-en="Conversation" data-es="Conversación" data-fr="Conversation">Conversation</span>
+        </div>
+        <p class="bio-text" data-en="Clara has a knack for making absolute beginners feel like they're already speaking Spanish. Her classes lean on conversation from day one, and her warm, patient style means students leave every session a little more confident than they walked in." data-es="Clara tiene un don para hacer que los principiantes absolutos sientan que ya están hablando español. Sus clases se apoyan en la conversación desde el primer día, y su estilo cálido y paciente hace que los estudiantes salgan de cada sesión un poco más seguros." data-fr="Clara a le don de faire sentir aux vrais débutants qu'ils parlent déjà espagnol. Ses cours s'appuient sur la conversation dès le premier jour, et son style chaleureux et patient fait que les étudiants repartent un peu plus confiants à chaque séance.">Clara has a knack for making absolute beginners feel like they're already speaking Spanish. Her classes lean on conversation from day one, and her warm, patient style means students leave every session a little more confident than they walked in.</p>
+      </div>
+    </article>
+
+    <!-- Claudia -->
+    <article class="teacher-card reveal" style="transition-delay: 0.08s;">
+      <img src="images/Teachers/Claudia.webp" alt="Claudia, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face &amp; Online" data-fr="Présentiel &amp; en ligne" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <span class="teacher-name-static">Claudia</span>
+      </div>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Claudia</p>
+        <span class="bio-role" data-en="Face to Face &amp; Online" data-fr="Présentiel &amp; en ligne" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span>
+          <span class="bio-tag" data-en="Vocabulary" data-es="Vocabulario" data-fr="Vocabulaire">Vocabulary</span>
+        </div>
+        <p class="bio-text" data-en="Claudia teaches across every level and format — from intensive one-week beginner courses to long-term online sessions with advanced students. Her classes are structured but never rigid, and she adapts effortlessly to whoever's in front of her." data-es="Claudia imparte clases en todos los niveles y formatos — desde cursos intensivos de una semana para principiantes hasta sesiones online a largo plazo con estudiantes avanzados. Sus clases son estructuradas pero nunca rígidas, y se adapta sin esfuerzo a quien tenga enfrente." data-fr="Claudia enseigne à tous les niveaux et formats — des cours intensifs d'une semaine pour débutants aux sessions en ligne à long terme avec des étudiants avancés. Ses cours sont structurés mais jamais rigides, et elle s'adapte sans effort à celui qui est en face d'elle.">Claudia teaches across every level and format — from intensive one-week beginner courses to long-term online sessions with advanced students. Her classes are structured but never rigid, and she adapts effortlessly to whoever's in front of her.</p>
+      </div>
+    </article>
+
+    <!-- Ghiselle -->
+    <article class="teacher-card reveal" style="transition-delay: 0.16s;">
+      <img src="images/Teachers/Ghiselle.webp" alt="Ghiselle, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face" data-es="Presencial" data-fr="En présentiel">Face to Face</span>
+        <span class="teacher-name-static">Ghiselle</span>
+      </div>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Ghiselle</p>
+        <span class="bio-role" data-en="Face to Face" data-es="Presencial" data-fr="En présentiel">Face to Face</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Intermediate" data-es="Intermedio" data-fr="Intermédiaire">Intermediate</span>
+          <span class="bio-tag" data-en="Culture &amp; History" data-es="Cultura e Historia" data-fr="Culture &amp; histoire">Culture &amp; History</span>
+        </div>
+        <p class="bio-text" data-en="Ghiselle brings Bolivia into every class. Her intermediate and advanced sessions weave history, music, and local life into the language, giving students the kind of cultural context you can't get from a textbook." data-es="Ghiselle trae Bolivia a cada clase. Sus sesiones intermedias y avanzadas integran historia, música y vida local en el idioma, dando a los estudiantes el tipo de contexto cultural que no se encuentra en un libro de texto." data-fr="Ghiselle apporte la Bolivie dans chaque cours. Ses sessions intermédiaires et avancées tissent histoire, musique et vie locale dans la langue, offrant aux étudiants un contexte culturel impossible à trouver dans un manuel.">Ghiselle brings Bolivia into every class. Her intermediate and advanced sessions weave history, music, and local life into the language, giving students the kind of cultural context you can't get from a textbook.</p>
+      </div>
+    </article>
+
+    <!-- Luz -->
+    <article class="teacher-card reveal" style="transition-delay: 0.24s;">
+      <img src="images/Teachers/Luz.webp" alt="Luz, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face" data-es="Presencial" data-fr="En présentiel">Face to Face</span>
+        <span class="teacher-name-static">Luz</span>
+      </div>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Luz</p>
+        <span class="bio-role" data-en="Face to Face" data-es="Presencial" data-fr="En présentiel">Face to Face</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Beginners" data-es="Principiantes" data-fr="Débutants">Beginners</span>
+          <span class="bio-tag" data-en="Pronunciation" data-es="Pronunciación" data-fr="Prononciation">Pronunciation</span>
+        </div>
+        <p class="bio-text" data-en="Luz has a sharp ear for the small pronunciation adjustments that make a huge difference for new learners. Her calm, encouraging style helps nervous students relax into sounds they didn't think they could make — and her beginners progress fast." data-es="Luz tiene un oído fino para los pequeños ajustes de pronunciación que marcan una gran diferencia para los principiantes. Su estilo calmado y alentador ayuda a los estudiantes nerviosos a soltarse con sonidos que no creían poder hacer — y sus principiantes progresan rápido." data-fr="Luz a une oreille fine pour les petits ajustements de prononciation qui font une énorme différence pour les nouveaux apprenants. Son style calme et encourageant aide les étudiants nerveux à se détendre dans des sons qu'ils ne pensaient pas pouvoir produire.">Luz has a sharp ear for the small pronunciation adjustments that make a huge difference for new learners. Her calm, encouraging style helps nervous students relax into sounds they didn't think they could make — and her beginners progress fast.</p>
+      </div>
+    </article>
+
+    <!-- Raquel -->
+    <article class="teacher-card reveal">
+      <img src="images/Teachers/Raquel.webp" alt="Raquel, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Online Specialist" data-fr="Spécialiste en ligne" data-es="Especialista Online">Online Specialist</span>
+        <span class="teacher-name-static">Raquel</span>
+      </div>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Raquel</p>
+        <span class="bio-role" data-en="Online Specialist" data-fr="Spécialiste en ligne" data-es="Especialista Online">Online Specialist</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span>
+          <span class="bio-tag" data-en="Exam Prep" data-es="Preparación DELE" data-fr="Préparation examen">Exam Prep</span>
+        </div>
+        <p class="bio-text" data-en="Raquel teaches exclusively online and runs a sizeable share of Me Gusta's DELE exam preparation. Her classes are structured and goal-driven — perfect for students working towards a specific level, deadline, or certificate." data-es="Raquel imparte clases exclusivamente online y se encarga de una buena parte de la preparación DELE de Me Gusta. Sus clases son estructuradas y orientadas a objetivos — perfectas para estudiantes que trabajan hacia un nivel, una fecha límite o un certificado." data-fr="Raquel enseigne exclusivement en ligne et assure une bonne partie de la préparation au DELE de Me Gusta. Ses cours sont structurés et orientés objectifs — parfaits pour les étudiants qui visent un niveau, une échéance ou un certificat précis.">Raquel teaches exclusively online and runs a sizeable share of Me Gusta's DELE exam preparation. Her classes are structured and goal-driven — perfect for students working towards a specific level, deadline, or certificate.</p>
+      </div>
+    </article>
+
+    <!-- Yatsejany -->
+    <article class="teacher-card reveal" style="transition-delay: 0.08s;">
+      <img src="images/Teachers/Yatsejany.webp" alt="Yatsejany, Spanish teacher" loading="lazy">
+      <div class="teacher-info">
+        <span class="teacher-role-static" data-en="Face to Face &amp; Online" data-fr="Présentiel &amp; en ligne" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <span class="teacher-name-static">Yatsejany</span>
+      </div>
+      <div class="teacher-bio-overlay">
+        <p class="bio-name">Yatsejany</p>
+        <span class="bio-role" data-en="Face to Face &amp; Online" data-fr="Présentiel &amp; en ligne" data-es="Presencial y Online">Face to Face &amp; Online</span>
+        <div class="bio-tags">
+          <span class="bio-tag" data-en="Conversation" data-es="Conversación" data-fr="Conversation">Conversation</span>
+          <span class="bio-tag" data-en="Grammar" data-es="Gramática" data-fr="Grammaire">Grammar</span>
+        </div>
+        <p class="bio-text" data-en="Yatsejany covers everything from grammar workshops to free-flowing conversation classes. Students often comment on her ability to turn even the trickiest grammar rules into something that genuinely makes sense — and sometimes even fun." data-es="Yatsejany cubre desde talleres de gramática hasta clases de conversación libre. Sus estudiantes destacan su capacidad de convertir incluso las reglas gramaticales más complicadas en algo que realmente tiene sentido — y a veces incluso divertido." data-fr="Yatsejany couvre tout, des ateliers de grammaire aux cours de conversation libre. Ses étudiants soulignent sa capacité à transformer les règles de grammaire les plus complexes en quelque chose qui prend vraiment du sens — et parfois même qui devient amusant.">Yatsejany covers everything from grammar workshops to free-flowing conversation classes. Students often comment on her ability to turn even the trickiest grammar rules into something that genuinely makes sense — and sometimes even fun.</p>
       </div>
     </article>
 
