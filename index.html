@@ -244,6 +244,18 @@
       gap: 5rem;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('images/school/DSC06152.webp');
+      background-position: 0% 24%;
+      background-size: 131%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      will-change: transform, background-position, background-size;
+    }
+
     .hero-blob {
       position: absolute;
       right: -8%;
@@ -1365,7 +1377,7 @@
 </div>
 
   <!--  HERO  -->
-  <section class="hero" id="hero" style="background-image: url('images/school/DSC06152.webp'); background-position: 0% 24%; background-size: 131%;">
+  <section class="hero" id="hero">
     <div class="hero-blob" aria-hidden="true"></div>
     <div class="hero-blob-left" aria-hidden="true"></div>
     <div class="hero-left">
