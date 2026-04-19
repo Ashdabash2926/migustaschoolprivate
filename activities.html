@@ -86,15 +86,27 @@
       overflow: hidden;
       text-align: center;
     }
+    .page-hero {
+      background:
+        linear-gradient(180deg, rgba(12,8,6,0.55) 0%, rgba(12,8,6,0.35) 45%, rgba(12,8,6,0.78) 100%),
+        url("images/activities/Cooking/DSC06219.webp") center/cover no-repeat;
+    }
     .page-hero::before {
       content: '';
       position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%; height: 200%;
-      background: radial-gradient(ellipse at 30% 60%, rgba(196,145,58,0.1) 0%, transparent 55%),
-                  radial-gradient(ellipse at 70% 40%, rgba(200,87,45,0.1) 0%, transparent 55%);
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 70%, rgba(200,87,45,0.22), transparent 55%),
+                  radial-gradient(ellipse at 75% 25%, rgba(196,145,58,0.18), transparent 60%);
       pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+      pointer-events: none;
+      mix-blend-mode: overlay;
     }
     .hero-label {
       font-family: 'Caveat', cursive;
@@ -109,14 +121,16 @@
     }
     .hero-title {
       font-family: 'Cormorant', serif;
-      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-size: clamp(4rem, 11vw, 10rem);
       font-weight: 300;
-      line-height: 1.0;
+      font-style: italic;
+      line-height: 0.95;
       letter-spacing: -0.02em;
       color: #fff;
       margin-bottom: 1.5rem;
       position: relative;
       z-index: 1;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.3);
     }
     .hero-title em { font-style: italic; color: var(--terra); }
     .hero-sub {
@@ -990,9 +1004,9 @@
 
 <!-- HERO -->
 <section class="page-hero">
-  <span class="hero-label" data-en="life beyond the classroom" data-fr="la vie au-delà de la salle de classe" data-es="vida más allá del aula" data-fr="la vie au-delà de la salle de classe">life beyond the classroom</span>
-  <h1 class="hero-title" data-en="Learn Spanish.<br><em>Live Bolivia.</em>" data-fr="Apprenez l'espagnol.<br><em>Vivez la Bolivie.</em>" data-es="Aprende español.<br><em>Vive Bolivia.</em>" data-fr="Apprenez l'espagnol.<br><em>Vivez la Bolivie.</em>">Learn Spanish.<br><em>Live Bolivia.</em></h1>
-  <p class="hero-sub" data-en="Language is more than grammar — it's music, food, markets, and conversation at midnight. Our activities put you in the middle of it all." data-es="El idioma es más que gramática — es música, comida, mercados y conversación a medianoche. Nuestras actividades te ponen en el centro de todo." data-fr="La langue, c'est plus que la grammaire — c'est la musique, la nourriture, les marchés et les conversations à minuit. Nos activités vous placent au cœur de tout cela.">Language is more than grammar — it's music, food, markets, and conversation at midnight. Our activities put you in the middle of it all.</p>
+  <span class="hero-label" data-en="life beyond the classroom" data-es="vida más allá del aula" data-fr="la vie au-delà de la salle de classe">life beyond the classroom</span>
+  <h1 class="hero-title" data-en="Activities" data-es="Actividades" data-fr="Activités">Activities</h1>
+  <p class="hero-sub" data-en="Language is more than grammar — it's food, sport, streets, and conversation at dusk. Our weekly activities put you in the middle of it all." data-es="El idioma es más que gramática — es comida, deporte, calles y conversación al atardecer. Nuestras actividades semanales te ponen en el centro de todo." data-fr="La langue, c'est plus que la grammaire — c'est la nourriture, le sport, les rues et les conversations au crépuscule. Nos activités hebdomadaires vous placent au cœur de tout cela.">Language is more than grammar — it's food, sport, streets, and conversation at dusk. Our weekly activities put you in the middle of it all.</p>
   <div class="hero-ticker-wrap">
     <div class="hero-ticker">
       <span>Mon — City Walk <em>·</em></span>
