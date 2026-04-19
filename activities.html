@@ -681,6 +681,259 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
     @media (max-width: 960px) { footer { padding: 4rem 1.5rem 2rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; } }
     @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ─── ACTIVITIES INDEX (editorial listing) ─── */
+    .act-index {
+      padding: 7rem 4.5rem 5rem;
+      background: var(--bg);
+      position: relative;
+    }
+    .act-index-head {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 3rem;
+      align-items: end;
+    }
+    .act-index-head .section-label { font-family: 'Caveat', cursive; font-size: 1.15rem; color: var(--terra); transform: rotate(-0.8deg); display: inline-block; margin-bottom: 0.8rem; }
+    .act-index-head .section-title { font-family: 'Cormorant', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; line-height: 1.08; color: var(--ink); }
+    .act-index-head .section-title em { font-style: italic; color: var(--terra); font-weight: 400; }
+    .act-index-head p { font-size: 1rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 34rem; }
+
+    .act-index-list {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+    }
+    .entry {
+      position: relative;
+      background: var(--cream);
+      padding: 2rem 1.8rem 2rem;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      overflow: hidden;
+    }
+    .entry::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--terra);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.4s ease;
+    }
+    .entry:hover {
+      transform: translateY(-4px);
+      border-color: rgba(200,87,45,0.35);
+      box-shadow: 0 14px 40px -18px rgba(28,20,16,0.25);
+    }
+    .entry:hover::before { transform: scaleY(1); }
+    .entry-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .entry-num {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.15rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .entry-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--terra);
+      padding: 0.15rem 0.7rem;
+      background: var(--terra-pale);
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .entry-name {
+      font-family: 'Cormorant', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .entry-name em { font-style: italic; color: var(--terra); }
+    .entry-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.7rem;
+      font-family: 'Lora', serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: -0.3rem;
+    }
+    .entry-meta span:not(:last-child)::after {
+      content: '·';
+      margin-left: 0.7rem;
+      color: var(--gold);
+      font-style: normal;
+    }
+    .entry-desc {
+      font-size: 0.88rem;
+      line-height: 1.78;
+      color: var(--ink-soft);
+    }
+
+    @media (max-width: 960px) {
+      .act-index { padding: 5.5rem 1.5rem 4rem; }
+      .act-index-head { grid-template-columns: 1fr; gap: 1.2rem; }
+      .act-index-list { grid-template-columns: 1fr; gap: 1.2rem; }
+    }
+
+    /* ─── GALLERY (unified scrapbook field) ─── */
+    .gallery-section {
+      padding: 6rem 4.5rem 7rem;
+      background: var(--bg-warm);
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-section::before {
+      content: '';
+      position: absolute;
+      right: -8%; top: -10%;
+      width: 40%; height: 55%;
+      background: radial-gradient(ellipse, rgba(196,145,58,0.10), transparent 65%);
+      pointer-events: none;
+    }
+    .gallery-section::after {
+      content: '';
+      position: absolute;
+      left: -5%; bottom: 5%;
+      width: 30%; height: 50%;
+      background: radial-gradient(ellipse, rgba(200,87,45,0.07), transparent 65%);
+      pointer-events: none;
+    }
+
+    .gallery-head {
+      max-width: 1200px;
+      margin: 0 auto 3.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-head .section-label { font-family: 'Caveat', cursive; font-size: 1.15rem; color: var(--terra); transform: rotate(-0.8deg); display: inline-block; margin-bottom: 0.8rem; }
+    .gallery-head .section-title { font-family: 'Cormorant', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; line-height: 1.08; color: var(--ink); }
+    .gallery-head .section-title em { font-style: italic; color: var(--terra); font-weight: 400; }
+    .gallery-head p { font-size: 0.98rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 34rem; margin: 1rem auto 0; }
+
+    .gallery-chapter {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-chapter:last-of-type { margin-bottom: 0; }
+    .gallery-chapter-label {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+      flex-wrap: wrap;
+    }
+    .gallery-chapter-label::before {
+      content: '';
+      flex-shrink: 0;
+      width: 2.2rem; height: 1px;
+      background: var(--terra);
+      transform: translateY(-4px);
+    }
+    .gallery-chapter-label .num {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+    .gallery-chapter-label .name {
+      font-family: 'Caveat', cursive;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--terra);
+    }
+    .gallery-chapter-label .sub {
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 110px;
+      gap: 0.85rem;
+    }
+    .gphoto {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(28,20,16,0.08);
+    }
+    .gphoto img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease;
+    }
+    .gphoto::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(28,20,16,0.2));
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+    }
+    .gphoto:hover img { transform: scale(1.05); }
+    .gphoto:hover::after { opacity: 1; }
+
+    /* cooking layout: 6 photos, editorial masonry */
+    .gg-cook .g1 { grid-column: 1 / 6;  grid-row: span 3; }
+    .gg-cook .g2 { grid-column: 6 / 9;  grid-row: span 4; }
+    .gg-cook .g3 { grid-column: 9 / 13; grid-row: span 3; }
+    .gg-cook .g4 { grid-column: 1 / 4;  grid-row: span 3; }
+    .gg-cook .g5 { grid-column: 4 / 6;  grid-row: span 3; }
+    .gg-cook .g6 { grid-column: 9 / 13; grid-row: span 4; }
+
+    /* wallyball layout: 5 photos, mostly horizontal */
+    .gg-wall .g1 { grid-column: 1 / 7;  grid-row: span 3; }
+    .gg-wall .g2 { grid-column: 7 / 13; grid-row: span 3; }
+    .gg-wall .g3 { grid-column: 1 / 5;  grid-row: span 3; }
+    .gg-wall .g4 { grid-column: 5 / 9;  grid-row: span 3; }
+    .gg-wall .g5 { grid-column: 9 / 13; grid-row: span 3; }
+
+    @media (max-width: 900px) {
+      .gallery-section { padding: 4.5rem 1.25rem 5rem; }
+      .gallery-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 90px; gap: 0.65rem; }
+      .gg-cook .g1 { grid-column: 1 / 7; grid-row: span 3; }
+      .gg-cook .g2 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-cook .g3 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-cook .g4 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-cook .g5 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-cook .g6 { grid-column: 1 / 7; grid-row: span 3; }
+      .gg-wall .g1 { grid-column: 1 / 7; grid-row: span 3; }
+      .gg-wall .g2 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-wall .g3 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-wall .g4 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-wall .g5 { grid-column: 4 / 7; grid-row: span 3; }
+      .gallery-chapter-label .sub { margin-left: 0; width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -782,223 +1035,180 @@
   </div>
 </section>
 
-<!-- ACTIVITIES -->
-<section class="activities-section">
-  <div class="activities-intro reveal">
-    <span class="section-label" data-en="nine ways to immerse" data-es="nueve formas de sumergirte" data-fr="neuf façons de s'immerger">nine ways to immerse</span>
-    <h2 class="section-title" data-en="The full <em>experience</em>" data-es="La experiencia <em>completa</em>" data-fr="L'<em>expérience</em> complète" data-fr="L'<em>expérience</em> complète">The full <em>experience</em></h2>
-    <p data-en="These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish." data-es="Estas no son extras — es donde ocurre el aprendizaje real. Cada actividad está dirigida por un profesor o guía local, y todo se realiza en español." data-fr="Ce ne sont pas des extras — c'est là que le vrai apprentissage se fait. Chaque activité est menée par un professeur ou un guide local, et tout se fait en espagnol.">These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish.</p>
+<!-- ACTIVITIES INDEX -->
+<section class="act-index">
+  <div class="act-index-head">
+    <div class="reveal">
+      <span class="section-label" data-en="nine ways to immerse" data-es="nueve formas de sumergirte" data-fr="neuf façons de s'immerger">nine ways to immerse</span>
+      <h2 class="section-title" data-en="The full <em>experience</em>" data-es="La experiencia <em>completa</em>" data-fr="L'<em>expérience</em> complète">The full <em>experience</em></h2>
+    </div>
+    <p class="reveal" data-en="These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish." data-es="Estas no son extras — es donde ocurre el aprendizaje real. Cada actividad está dirigida por un profesor o guía local, y todo se realiza en español." data-fr="Ce ne sont pas des extras — c'est là que le vrai apprentissage se fait. Chaque activité est menée par un professeur ou un guide local, et tout se fait en espagnol.">These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish.</p>
   </div>
 
-  <div class="act-grid">
+  <div class="act-index-list">
 
-    <!-- 1. Bolivian Cooking Class — featured large -->
-    <article class="act-card reveal">
-      <img src="images/activities/Cooking/DSC06312.webp" alt="Bolivian Cooking Class" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Every Tuesday · 3 hrs" data-es="Cada martes · 3 hrs" data-fr="Chaque mardi · 3h">Every Tuesday · 3 hrs</span>
-        <span class="act-name" data-en="Bolivian Cooking Class" data-es="Clase de Cocina Boliviana" data-fr="Cours de cuisine bolivienne">Bolivian Cooking Class</span>
+    <article class="entry reveal">
+      <div class="entry-top">
+        <span class="entry-num">i.</span>
+        <span class="entry-tag" data-en="Food &amp; Culture" data-es="Comida y Cultura" data-fr="Gastronomie &amp; Culture">Food &amp; Culture</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Food & Culture" data-es="Comida y Cultura" data-fr="Gastronomie & Culture">Food & Culture</span>
-        <h3 class="ov-name" data-en="Bolivian Cooking Class" data-fr="Cours de cuisine bolivienne" data-es="Clase de Cocina Boliviana" data-fr="Cours de cuisine bolivienne">Bolivian Cooking Class</h3>
-        <p class="ov-desc" data-en="Cook a traditional Bolivian meal from scratch in the Me Gusta café kitchen. Your teacher guides you through the whole process in Spanish — shopping vocabulary, recipe instructions, food culture. Then you eat what you made." data-es="Prepara una comida boliviana tradicional desde cero en la cocina del café Me Gusta. Tu profesor te guía en todo en español — vocabulario de compras, instrucciones de receta, cultura gastronómica. Después te comes lo que hiciste." data-fr="Cuisinez un repas bolivien traditionnel dans la cuisine du café. Votre professeur vous guide en espagnol. Puis vous mangez ce que vous avez préparé." data-fr="Cuisinez un repas bolivien traditionnel dans la cuisine du café Me Gusta. Votre professeur vous guide en espagnol — vocabulaire des courses, instructions de recette, culture culinaire. Puis vous mangez ce que vous avez préparé.">Cook a traditional Bolivian meal from scratch in the Me Gusta café kitchen. Your teacher guides you through the whole process in Spanish — shopping vocabulary, recipe instructions, food culture. Then you eat what you made.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Every Tuesday" data-es="Cada martes" data-fr="Chaque mardi">Every Tuesday</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="3 hours" data-fr="3 heures" data-es="3 horas" data-fr="3 heures">3 hours</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="All levels welcome" data-es="Todos los niveles" data-fr="Tous niveaux bienvenus">All levels welcome</span></span>
-        </div>
+      <h3 class="entry-name" data-en="Bolivian <em>Cooking</em> Class" data-es="Clase de <em>Cocina</em> Boliviana" data-fr="Cours de <em>cuisine</em> bolivienne">Bolivian <em>Cooking</em> Class</h3>
+      <div class="entry-meta">
+        <span data-en="Every Tuesday" data-es="Cada martes" data-fr="Chaque mardi">Every Tuesday</span>
+        <span data-en="3 hours" data-es="3 horas" data-fr="3 heures">3 hours</span>
+        <span data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span>
       </div>
+      <p class="entry-desc" data-en="Cook a traditional Bolivian meal from scratch in the Me Gusta café kitchen. Your teacher guides you through shopping vocabulary, recipe steps, and food culture — entirely in Spanish. Then you eat what you made." data-es="Prepara una comida boliviana tradicional desde cero en la cocina del café Me Gusta. Tu profesor te guía por el vocabulario de compras, los pasos de la receta y la cultura gastronómica — todo en español. Después te comes lo que hiciste." data-fr="Cuisinez un repas bolivien traditionnel dans la cuisine du café Me Gusta. Votre professeur vous guide en espagnol — vocabulaire des courses, étapes de la recette, culture culinaire. Puis vous mangez ce que vous avez préparé.">Cook a traditional Bolivian meal from scratch in the Me Gusta café kitchen. Your teacher guides you through shopping vocabulary, recipe steps, and food culture — entirely in Spanish. Then you eat what you made.</p>
     </article>
 
-    <!-- 2. Market Tour -->
-    <article class="act-card reveal" style="transition-delay:0.1s;">
-      <img src="https://images.unsplash.com/photo-1534531173927-aeb928d54385?auto=format&fit=crop&w=800&q=82" alt="Market Tour Sucre" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Saturday mornings" data-es="Mañanas de sábado" data-fr="Samedis matin">Saturday mornings</span>
-        <span class="act-name" data-en="Market Morning" data-es="Mañana en el Mercado" data-fr="Matinée au marché">Market Morning</span>
+    <article class="entry reveal" style="transition-delay:0.04s;">
+      <div class="entry-top">
+        <span class="entry-num">ii.</span>
+        <span class="entry-tag" data-en="City &amp; Culture" data-es="Ciudad y Cultura" data-fr="Ville &amp; Culture">City &amp; Culture</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="City & Culture" data-es="Ciudad y Cultura" data-fr="Ville & Culture">City & Culture</span>
-        <h3 class="ov-name" data-en="Market Morning" data-fr="Matinée au marché" data-es="Mañana en el Mercado" data-fr="Matinée au marché">Market Morning</h3>
-        <p class="ov-desc" data-en="An early-morning guided walk through Sucre's Mercado Central with one of our teachers. You'll learn the names of every vegetable, spice, and cut of meat — and how to haggle politely." data-es="Un paseo guiado por la mañana por el Mercado Central de Sucre con uno de nuestros profesores. Aprenderás los nombres de cada verdura, especia y corte de carne — y cómo regatear con educación." data-fr="Une promenade matinale guidée au Mercado Central de Sucre. Vous apprendrez le nom de chaque légume, épice et morceau de viande." data-fr="Une promenade matinale guidée à travers le Mercado Central de Sucre avec l'un de nos professeurs. Vous apprendrez le nom de chaque légume, épice et morceau de viande.">An early-morning guided walk through Sucre's Mercado Central with one of our teachers. You'll learn the names of every vegetable, spice, and cut of meat — and how to haggle politely.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Saturday 8am" data-es="Sábado 8am" data-fr="Samedi 8h">Saturday 8am</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="2 hours" data-fr="2 heures" data-es="2 horas" data-fr="2 heures">2 hours</span></span>
-        </div>
+      <h3 class="entry-name" data-en="<em>Market</em> Morning" data-es="Mañana en el <em>Mercado</em>" data-fr="<em>Matinée</em> au marché"><em>Market</em> Morning</h3>
+      <div class="entry-meta">
+        <span data-en="Saturday 8am" data-es="Sábado 8am" data-fr="Samedi 8h">Saturday 8am</span>
+        <span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span>
       </div>
+      <p class="entry-desc" data-en="An early-morning guided walk through Sucre's Mercado Central with one of our teachers. You'll learn the names of every vegetable, spice, and cut of meat — and how to haggle politely in Spanish." data-es="Un paseo guiado por la mañana temprano por el Mercado Central de Sucre con uno de nuestros profesores. Aprenderás los nombres de cada verdura, especia y corte de carne — y cómo regatear con educación en español." data-fr="Une promenade matinale guidée à travers le Mercado Central de Sucre avec l'un de nos professeurs. Vous apprendrez le nom de chaque légume, épice et morceau de viande — et à marchander poliment en espagnol.">An early-morning guided walk through Sucre's Mercado Central with one of our teachers. You'll learn the names of every vegetable, spice, and cut of meat — and how to haggle politely in Spanish.</p>
     </article>
 
-    <!-- 3. Sucre City Walk -->
-    <article class="act-card reveal" style="transition-delay:0.05s;">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=82" alt="Sucre City Walk" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Mon & Thu · 2 hrs" data-es="Lun y Jue · 2 hrs" data-fr="Lun & Jeu · 2h">Mon & Thu · 2 hrs</span>
-        <span class="act-name" data-en="Sucre City Walk" data-fr="Visite de Sucre" data-es="Paseo por Sucre" data-fr="Visite de Sucre">Sucre City Walk</span>
+    <article class="entry reveal" style="transition-delay:0.08s;">
+      <div class="entry-top">
+        <span class="entry-num">iii.</span>
+        <span class="entry-tag" data-en="History &amp; Architecture" data-es="Historia y Arquitectura" data-fr="Histoire &amp; Architecture">History &amp; Architecture</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="History & Architecture" data-es="Historia y Arquitectura" data-fr="Histoire & Architecture">History & Architecture</span>
-        <h3 class="ov-name" data-en="Sucre City Walk" data-fr="Visite de Sucre" data-es="Paseo por Sucre" data-fr="Visite de Sucre">Sucre City Walk</h3>
-        <p class="ov-desc" data-en="Walk the White City with a teacher-guide who brings its colonial history to life — entirely in Spanish. From the Plaza 25 de Mayo to hidden courtyards and rooftop views." data-es="Camina por la Ciudad Blanca con un profesor-guía que da vida a su historia colonial — completamente en español. Desde la Plaza 25 de Mayo hasta patios ocultos y vistas desde las azoteas." data-fr="Parcourez la Ville Blanche avec un professeur-guide — entièrement en espagnol." data-fr="Parcourez la Ville Blanche avec un professeur-guide qui donne vie à son histoire coloniale — entièrement en espagnol.">Walk the White City with a teacher-guide who brings its colonial history to life — entirely in Spanish. From the Plaza 25 de Mayo to hidden courtyards and rooftop views.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Mon & Thursday" data-es="Lunes y Jueves" data-fr="Lun & Jeudi">Mon & Thursday</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span></span>
-        </div>
+      <h3 class="entry-name" data-en="Sucre <em>City Walk</em>" data-es="<em>Paseo</em> por Sucre" data-fr="<em>Visite</em> de Sucre">Sucre <em>City Walk</em></h3>
+      <div class="entry-meta">
+        <span data-en="Mon &amp; Thursday" data-es="Lunes y Jueves" data-fr="Lun &amp; Jeudi">Mon &amp; Thursday</span>
+        <span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span>
       </div>
+      <p class="entry-desc" data-en="Walk the White City with a teacher-guide who brings its colonial history to life — entirely in Spanish. From the Plaza 25 de Mayo to hidden courtyards and rooftop views over red-tiled roofs." data-es="Camina por la Ciudad Blanca con un profesor-guía que da vida a su historia colonial — completamente en español. Desde la Plaza 25 de Mayo hasta patios ocultos y vistas desde las azoteas sobre tejados rojos." data-fr="Parcourez la Ville Blanche avec un professeur-guide qui donne vie à son histoire coloniale — entièrement en espagnol. De la Plaza 25 de Mayo aux cours cachées et vues sur les toits rouges.">Walk the White City with a teacher-guide who brings its colonial history to life — entirely in Spanish. From the Plaza 25 de Mayo to hidden courtyards and rooftop views over red-tiled roofs.</p>
     </article>
 
-    <!-- 4. Salsa Night -->
-    <article class="act-card reveal" style="transition-delay:0.1s;">
-      <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=800&q=82" alt="Salsa Night" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Every Friday · 2 hrs" data-es="Cada viernes · 2 hrs" data-fr="Chaque vendredi · 2h">Every Friday · 2 hrs</span>
-        <span class="act-name" data-en="Salsa &amp; Cumbia Night" data-fr="Soirée Salsa &amp; Cumbia" data-es="Noche de Salsa y Cumbia" data-fr="Soirée Salsa &amp; Cumbia">Salsa &amp; Cumbia Night</span>
+    <article class="entry reveal" style="transition-delay:0.12s;">
+      <div class="entry-top">
+        <span class="entry-num">iv.</span>
+        <span class="entry-tag" data-en="Music &amp; Dance" data-es="Música y Baile" data-fr="Musique &amp; Danse">Music &amp; Dance</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Music & Dance" data-es="Música y Baile" data-fr="Musique & Danse">Music & Dance</span>
-        <h3 class="ov-name" data-en="Salsa &amp; Cumbia Night" data-fr="Soirée Salsa &amp; Cumbia" data-es="Noche de Salsa y Cumbia" data-fr="Soirée Salsa &amp; Cumbia">Salsa &amp; Cumbia Night</h3>
-        <p class="ov-desc" data-en="Weekly dance session with a local instructor. Your teacher translates moves and cultural context. No experience needed — just be ready to laugh and move." data-es="Sesión de baile semanal con un instructor local. Tu profesor traduce los movimientos y el contexto cultural. No se necesita experiencia — solo estar listo para reír y moverte." data-fr="Session de danse hebdomadaire avec un instructeur local. Votre professeur traduit les mouvements et le contexte culturel. Aucune expérience requise.">Weekly dance session with a local instructor. Your teacher translates moves and cultural context. No experience needed — just be ready to laugh and move.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Every Friday" data-es="Cada viernes" data-fr="Chaque vendredi">Every Friday</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="2 hours" data-fr="2 heures" data-es="2 horas" data-fr="2 heures">2 hours</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="All welcome" data-es="Todos son bienvenidos" data-fr="Tous bienvenus">All welcome</span></span>
-        </div>
+      <h3 class="entry-name" data-en="<em>Salsa</em> &amp; Cumbia Night" data-es="Noche de <em>Salsa</em> y Cumbia" data-fr="Soirée <em>Salsa</em> &amp; Cumbia"><em>Salsa</em> &amp; Cumbia Night</h3>
+      <div class="entry-meta">
+        <span data-en="Every Friday" data-es="Cada viernes" data-fr="Chaque vendredi">Every Friday</span>
+        <span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span>
+        <span data-en="All welcome" data-es="Todos bienvenidos" data-fr="Tous bienvenus">All welcome</span>
       </div>
+      <p class="entry-desc" data-en="Weekly dance session with a local instructor. Your teacher translates moves and cultural context. No experience needed — just be ready to laugh, stumble, and move." data-es="Sesión de baile semanal con un instructor local. Tu profesor traduce los movimientos y el contexto cultural. No se necesita experiencia — solo estar listo para reír, tropezar y moverte." data-fr="Session de danse hebdomadaire avec un instructeur local. Votre professeur traduit les mouvements et le contexte culturel. Aucune expérience requise — il suffit d'être prêt à rire et à bouger.">Weekly dance session with a local instructor. Your teacher translates moves and cultural context. No experience needed — just be ready to laugh, stumble, and move.</p>
     </article>
 
-    <!-- 5. Film Night -->
-    <article class="act-card reveal" style="transition-delay:0.15s;">
-      <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=82" alt="Film Night" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Wednesday evenings" data-es="Miércoles por la noche" data-fr="Mercredis soir">Wednesday evenings</span>
-        <span class="act-name" data-en="Cinema &amp; Conversation" data-fr="Cinéma &amp; Conversation" data-es="Cine y Conversación" data-fr="Cinéma &amp; Conversation">Cinema &amp; Conversation</span>
+    <article class="entry reveal" style="transition-delay:0.16s;">
+      <div class="entry-top">
+        <span class="entry-num">v.</span>
+        <span class="entry-tag" data-en="Film &amp; Discussion" data-es="Cine y Debate" data-fr="Film &amp; Discussion">Film &amp; Discussion</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Film & Discussion" data-es="Cine y Debate" data-fr="Film & Discussion">Film & Discussion</span>
-        <h3 class="ov-name" data-en="Cinema &amp; Conversation" data-fr="Cinéma &amp; Conversation" data-es="Cine y Conversación" data-fr="Cinéma &amp; Conversation">Cinema &amp; Conversation</h3>
-        <p class="ov-desc" data-en="A Latin American film screened in the café, followed by an open discussion in Spanish. A brilliant way to hear natural speech, absorb vocabulary in context, and talk about things that matter." data-es="Una película latinoamericana proyectada en el café, seguida de un debate abierto en español. Una forma brillante de escuchar habla natural, absorber vocabulario en contexto y hablar de lo que importa." data-fr="Un film latino-américain au café, suivi d'une discussion en espagnol. Une excellente façon d'absorber du vocabulaire en contexte." data-fr="Un film latino-américain projeté au café, suivi d'une discussion ouverte en espagnol. Une excellente façon d'entendre la langue naturelle et d'absorber du vocabulaire en contexte.">A Latin American film screened in the café, followed by an open discussion in Spanish. A brilliant way to hear natural speech, absorb vocabulary in context, and talk about things that matter.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Wednesday 7pm" data-es="Miércoles 7pm" data-fr="Mercredi 19h">Wednesday 7pm</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Intermediate+" data-es="Intermedio+" data-fr="Intermédiaire+">Intermediate+</span></span>
-        </div>
+      <h3 class="entry-name" data-en="Cinema &amp; <em>Conversation</em>" data-es="Cine y <em>Conversación</em>" data-fr="Cinéma &amp; <em>Conversation</em>">Cinema &amp; <em>Conversation</em></h3>
+      <div class="entry-meta">
+        <span data-en="Wednesday 7pm" data-es="Miércoles 7pm" data-fr="Mercredi 19h">Wednesday 7pm</span>
+        <span data-en="Intermediate+" data-es="Intermedio+" data-fr="Intermédiaire+">Intermediate+</span>
       </div>
+      <p class="entry-desc" data-en="A Latin American film screened in the café, followed by an open discussion in Spanish. A brilliant way to hear natural speech, absorb vocabulary in context, and talk about things that matter." data-es="Una película latinoamericana proyectada en el café, seguida de un debate abierto en español. Una forma brillante de escuchar habla natural, absorber vocabulario en contexto y hablar de lo que importa." data-fr="Un film latino-américain projeté au café, suivi d'une discussion ouverte en espagnol. Une excellente façon d'entendre la langue naturelle, d'absorber du vocabulaire en contexte et de parler de ce qui compte.">A Latin American film screened in the café, followed by an open discussion in Spanish. A brilliant way to hear natural speech, absorb vocabulary in context, and talk about things that matter.</p>
     </article>
 
-    <!-- 6. Conversation Evening -->
-    <article class="act-card reveal" style="transition-delay:0.05s;">
-      <img src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?auto=format&fit=crop&w=900&q=82" alt="Conversation Evening" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Thursdays · from 6pm" data-es="Jueves · desde las 6pm" data-fr="Jeudis · à partir de 18h">Thursdays · from 6pm</span>
-        <span class="act-name" data-en="Conversation Evening" data-es="Tarde de Conversación" data-fr="Soirée conversation">Conversation Evening</span>
+    <article class="entry reveal" style="transition-delay:0.2s;">
+      <div class="entry-top">
+        <span class="entry-num">vi.</span>
+        <span class="entry-tag" data-en="Speaking Practice" data-es="Práctica de Conversación" data-fr="Pratique orale">Speaking Practice</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Speaking Practice" data-es="Práctica de Conversación" data-fr="Pratique orale">Speaking Practice</span>
-        <h3 class="ov-name" data-en="Conversation Evening" data-fr="Soirée conversation" data-es="Tarde de Conversación" data-fr="Soirée conversation">Conversation Evening</h3>
-        <p class="ov-desc" data-en="Informal gathering at the café with teachers, students, and local guests. No formal structure — just real conversation, great coffee, and the kind of connections that stay with you long after you've left Sucre." data-es="Encuentro informal en el café con profesores, estudiantes e invitados locales. Sin estructura formal — solo conversación real, buen café y el tipo de conexiones que permanecen contigo mucho después de haber dejado Sucre." data-fr="Rassemblement informel au café avec des professeurs, étudiants et invités locaux. Juste de vraies conversations et un bon café." data-fr="Rassemblement informel au café avec des professeurs, étudiants et invités locaux. Pas de structure formelle — juste de vraies conversations et un bon café.">Informal gathering at the café with teachers, students, and local guests. No formal structure — just real conversation, great coffee, and the kind of connections that stay with you long after you've left Sucre.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Every Thursday" data-es="Cada jueves" data-fr="Chaque jeudi">Every Thursday</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="From 6pm" data-es="Desde las 6pm" data-fr="À partir de 18h">From 6pm</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Free" data-fr="Gratuit" data-es="Gratis" data-fr="Gratuit">Free</span></span>
-        </div>
+      <h3 class="entry-name" data-en="<em>Conversation</em> Evening" data-es="Tarde de <em>Conversación</em>" data-fr="Soirée <em>conversation</em>"><em>Conversation</em> Evening</h3>
+      <div class="entry-meta">
+        <span data-en="Every Thursday" data-es="Cada jueves" data-fr="Chaque jeudi">Every Thursday</span>
+        <span data-en="From 6pm" data-es="Desde las 6pm" data-fr="À partir de 18h">From 6pm</span>
+        <span data-en="Free" data-es="Gratis" data-fr="Gratuit">Free</span>
       </div>
+      <p class="entry-desc" data-en="Informal gathering at the café with teachers, students, and local guests. No formal structure — just real conversation, great coffee, and the kind of connections that stay with you long after you've left Sucre." data-es="Encuentro informal en el café con profesores, estudiantes e invitados locales. Sin estructura formal — solo conversación real, buen café y el tipo de conexiones que permanecen contigo mucho después de dejar Sucre." data-fr="Rassemblement informel au café avec des professeurs, étudiants et invités locaux. Pas de structure formelle — juste de vraies conversations, un excellent café, et des liens qui durent bien après votre départ.">Informal gathering at the café with teachers, students, and local guests. No formal structure — just real conversation, great coffee, and the kind of connections that stay with you long after you've left Sucre.</p>
     </article>
 
-    <!-- 7. Tarabuco Day Trip — featured large -->
-    <article class="act-card reveal" style="transition-delay:0.1s;">
-      <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=82" alt="Tarabuco Day Trip" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Every Sunday · full day" data-es="Cada domingo · día completo" data-fr="Chaque dimanche · journée entière">Every Sunday · full day</span>
-        <span class="act-name" data-en="Tarabuco Day Trip" data-fr="Excursion à Tarabuco" data-es="Excursión a Tarabuco" data-fr="Excursion à Tarabuco">Tarabuco Day Trip</span>
+    <article class="entry reveal" style="transition-delay:0.24s;">
+      <div class="entry-top">
+        <span class="entry-num">vii.</span>
+        <span class="entry-tag" data-en="Excursion" data-es="Excursión" data-fr="Excursion">Excursion</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Excursion" data-es="Excursión" data-fr="Excursion">Excursion</span>
-        <h3 class="ov-name" data-en="Tarabuco Day Trip" data-fr="Excursion à Tarabuco" data-es="Excursión a Tarabuco" data-fr="Excursion à Tarabuco">Tarabuco Day Trip</h3>
-        <p class="ov-desc" data-en="A full-day Sunday excursion to Tarabuco, 1 hour from Sucre. One of Bolivia's most vibrant indigenous markets — Jalq'a and Yampara communities gather here in traditional dress. Your teacher guides you through, Spanish only." data-es="Una excursión de un día completo a Tarabuco, a 1 hora de Sucre. Uno de los mercados indígenas más vibrantes de Bolivia — las comunidades Jalq'a y Yampara se reúnen aquí en traje tradicional. Tu profesor te guía, solo en español." data-fr="Excursion du dimanche à Tarabuco, à 1h de Sucre. L'un des marchés indigènes les plus vibrants de Bolivie. En espagnol uniquement." data-fr="Excursion du dimanche à Tarabuco, à 1 heure de Sucre. L'un des marchés indigènes les plus vibrants de Bolivie. Votre professeur vous guide, en espagnol uniquement.">A full-day Sunday excursion to Tarabuco, 1 hour from Sucre. One of Bolivia's most vibrant indigenous markets — Jalq'a and Yampara communities gather here in traditional dress. Your teacher guides you through, Spanish only.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Every Sunday" data-es="Cada domingo" data-fr="Chaque dimanche">Every Sunday</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Full day" data-fr="Journée entière" data-es="Día completo" data-fr="Journée entière">Full day</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Transport included" data-es="Transporte incluido" data-fr="Transport inclus">Transport included</span></span>
-        </div>
+      <h3 class="entry-name" data-en="<em>Tarabuco</em> Day Trip" data-es="Excursión a <em>Tarabuco</em>" data-fr="Excursion à <em>Tarabuco</em>"><em>Tarabuco</em> Day Trip</h3>
+      <div class="entry-meta">
+        <span data-en="Every Sunday" data-es="Cada domingo" data-fr="Chaque dimanche">Every Sunday</span>
+        <span data-en="Full day" data-es="Día completo" data-fr="Journée entière">Full day</span>
+        <span data-en="Transport included" data-es="Transporte incluido" data-fr="Transport inclus">Transport included</span>
       </div>
+      <p class="entry-desc" data-en="A full-day Sunday excursion to Tarabuco, one hour from Sucre. One of Bolivia's most vibrant indigenous markets — Jalq'a and Yampara communities gather here in traditional dress. Your teacher guides you through, Spanish only." data-es="Excursión de un día a Tarabuco, a una hora de Sucre. Uno de los mercados indígenas más vibrantes de Bolivia — las comunidades Jalq'a y Yampara se reúnen aquí en traje tradicional. Tu profesor te guía, solo en español." data-fr="Excursion du dimanche à Tarabuco, à une heure de Sucre. L'un des marchés indigènes les plus vibrants de Bolivie — les communautés Jalq'a et Yampara s'y rassemblent en tenue traditionnelle. Votre professeur vous guide, uniquement en espagnol.">A full-day Sunday excursion to Tarabuco, one hour from Sucre. One of Bolivia's most vibrant indigenous markets — Jalq'a and Yampara communities gather here in traditional dress. Your teacher guides you through, Spanish only.</p>
     </article>
 
-    <!-- 8. Photography Walk — full width -->
-    <article class="act-card reveal">
-      <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1800&q=82" alt="Photography Walk Sucre" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="By arrangement" data-es="Bajo petición" data-fr="Sur arrangement">By arrangement</span>
-        <span class="act-name" data-en="Photography Walk" data-fr="Promenade photo" data-es="Paseo Fotográfico" data-fr="Promenade photo">Photography Walk</span>
+    <article class="entry reveal" style="transition-delay:0.28s;">
+      <div class="entry-top">
+        <span class="entry-num">viii.</span>
+        <span class="entry-tag" data-en="Language &amp; Art" data-es="Idioma y Arte" data-fr="Langue &amp; Art">Language &amp; Art</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Language & Art" data-es="Idioma y Arte" data-fr="Langue & Art">Language & Art</span>
-        <h3 class="ov-name" data-en="Photography Walk" data-fr="Promenade photo" data-es="Paseo Fotográfico" data-fr="Promenade photo">Photography Walk</h3>
-        <p class="ov-desc" data-en="A Spanish-language photography walk through Sucre. You describe what you see, what light does to a building, what a person's expression makes you feel. Descriptive vocabulary, adjectives, storytelling — all without feeling like a lesson." data-es="Un paseo fotográfico en español por Sucre. Describes lo que ves, lo que la luz hace a un edificio, lo que te hace sentir la expresión de una persona. Vocabulario descriptivo, adjetivos, narrativa — todo sin parecer una clase." data-fr="Une promenade photo en espagnol à travers Sucre. Vocabulaire descriptif, adjectifs, narration — sans jamais avoir l'impression d'une leçon." data-fr="Une promenade photo en espagnol à travers Sucre. Vous décrivez ce que vous voyez, la lumière sur un bâtiment, l'expression d'une personne. Vocabulaire descriptif, adjectifs, narration — sans jamais avoir l'impression d'une leçon.">A Spanish-language photography walk through Sucre. You describe what you see, what light does to a building, what a person's expression makes you feel. Descriptive vocabulary, adjectives, storytelling — all without feeling like a lesson.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Flexible scheduling" data-es="Horario flexible" data-fr="Horaires flexibles">Flexible scheduling</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="2–3 hours" data-fr="2–3 heures" data-es="2–3 horas" data-fr="2–3 heures">2–3 hours</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Small groups" data-es="Grupos pequeños" data-fr="Petits groupes">Small groups</span></span>
-        </div>
+      <h3 class="entry-name" data-en="<em>Photography</em> Walk" data-es="Paseo <em>Fotográfico</em>" data-fr="<em>Promenade</em> photo"><em>Photography</em> Walk</h3>
+      <div class="entry-meta">
+        <span data-en="Flexible scheduling" data-es="Horario flexible" data-fr="Horaires flexibles">Flexible scheduling</span>
+        <span data-en="2–3 hours" data-es="2–3 horas" data-fr="2–3 heures">2–3 hours</span>
+        <span data-en="Small groups" data-es="Grupos pequeños" data-fr="Petits groupes">Small groups</span>
       </div>
+      <p class="entry-desc" data-en="A Spanish-language photography walk through Sucre. You describe what you see, what light does to a wall, what a stranger's expression makes you feel. Descriptive vocabulary, adjectives, storytelling — all without feeling like a lesson." data-es="Un paseo fotográfico en español por Sucre. Describes lo que ves, lo que la luz hace a una pared, lo que la expresión de un desconocido te hace sentir. Vocabulario descriptivo, adjetivos, narrativa — todo sin parecer una clase." data-fr="Une promenade photo en espagnol à travers Sucre. Vous décrivez ce que vous voyez, la lumière sur un mur, l'expression d'un inconnu. Vocabulaire descriptif, adjectifs, narration — sans jamais avoir l'impression d'une leçon.">A Spanish-language photography walk through Sucre. You describe what you see, what light does to a wall, what a stranger's expression makes you feel. Descriptive vocabulary, adjectives, storytelling — all without feeling like a lesson.</p>
     </article>
 
-    <!-- 9. Wallyball -->
-    <article class="act-card reveal" style="transition-delay:0.1s;">
-      <img src="images/activities/Wallyball/DSC06589.webp" alt="Wallyball" loading="lazy">
-      <div class="act-info">
-        <span class="act-meta" data-en="Wednesdays · 1.5 hrs" data-es="Miércoles · 1.5 hrs" data-fr="Mercredis · 1h30">Wednesdays · 1.5 hrs</span>
-        <span class="act-name" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</span>
+    <article class="entry reveal" style="transition-delay:0.32s;">
+      <div class="entry-top">
+        <span class="entry-num">ix.</span>
+        <span class="entry-tag" data-en="Sport &amp; Social" data-es="Deporte y Social" data-fr="Sport &amp; Social">Sport &amp; Social</span>
       </div>
-      <div class="act-overlay">
-        <span class="ov-tag" data-en="Sport & Social" data-es="Deporte y Social" data-fr="Sport & Social">Sport & Social</span>
-        <h3 class="ov-name" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</h3>
-        <p class="ov-desc" data-en="Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could." data-es="Voleibol entre cuatro paredes — rápido, ruidoso e imposible de jugar sin gritar en español. Estudiantes y locales mezclan equipos, y el vocabulario que aprendes en pleno juego se queda de una forma que ninguna tarjeta de estudio podría." data-fr="Du volley entre quatre murs — rapide, bruyant, et impossible à jouer sans crier en espagnol. Étudiants et locaux mélangent les équipes, et le vocabulaire appris en plein match reste gravé comme aucune fiche ne le pourrait.">Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could.</p>
-        <div class="ov-details">
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="Every Wednesday" data-es="Cada miércoles" data-fr="Chaque mercredi">Every Wednesday</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="1.5 hours" data-es="1.5 horas" data-fr="1h30">1.5 hours</span></span>
-          <span class="ov-detail"><span class="ov-detail-dot"></span><span data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span></span>
-        </div>
+      <h3 class="entry-name" data-en="<em>Wallyball</em>" data-es="<em>Wallyball</em>" data-fr="<em>Wallyball</em>"><em>Wallyball</em></h3>
+      <div class="entry-meta">
+        <span data-en="Every Wednesday" data-es="Cada miércoles" data-fr="Chaque mercredi">Every Wednesday</span>
+        <span data-en="1.5 hours" data-es="1.5 horas" data-fr="1h30">1.5 hours</span>
+        <span data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span>
       </div>
+      <p class="entry-desc" data-en="Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could." data-es="Voleibol entre cuatro paredes — rápido, ruidoso e imposible de jugar sin gritar en español. Estudiantes y locales mezclan equipos, y el vocabulario que aprendes en pleno juego se queda de una forma que ninguna tarjeta podría." data-fr="Du volley entre quatre murs — rapide, bruyant, et impossible à jouer sans crier en espagnol. Étudiants et locaux mélangent les équipes, et le vocabulaire appris en plein match reste gravé comme aucune fiche ne pourrait.">Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could.</p>
     </article>
 
   </div>
 </section>
 
-<!-- PHOTO STORIES -->
-<section class="photo-stories">
-  <div class="stories-intro reveal">
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="gallery-head reveal">
     <span class="section-label" data-en="from the field" data-es="desde el campo" data-fr="sur le terrain">from the field</span>
     <h2 class="section-title" data-en="Real <em>moments</em>" data-es="Momentos <em>reales</em>" data-fr="Moments <em>réels</em>">Real <em>moments</em></h2>
     <p data-en="No stock photos. No staging. This is what our activities actually look like — students learning, laughing, cooking, and competing together." data-es="Sin fotos de stock. Sin poses. Así se ven realmente nuestras actividades — estudiantes aprendiendo, riendo, cocinando y compitiendo juntos." data-fr="Pas de photos génériques. Pas de mise en scène. Voici à quoi ressemblent vraiment nos activités — des étudiants qui apprennent, rient, cuisinent et rivalisent ensemble.">No stock photos. No staging. This is what our activities actually look like — students learning, laughing, cooking, and competing together.</p>
   </div>
 
-  <!-- Cooking Class Gallery -->
-  <div class="story-block reveal">
-    <div class="story-header">
-      <span class="story-tag" data-en="Cooking Class" data-es="Clase de Cocina" data-fr="Cours de cuisine">Cooking Class</span>
-      <h3 class="story-title" data-en="From market basket to <em>mesa</em>" data-es="De la canasta del mercado a la <em>mesa</em>" data-fr="Du panier du marché à la <em>table</em>">From market basket to <em>mesa</em></h3>
+  <div class="gallery-chapter reveal">
+    <div class="gallery-chapter-label">
+      <span class="num">01 —</span>
+      <span class="name" data-en="Bolivian Cooking Class" data-es="Clase de Cocina Boliviana" data-fr="Cours de cuisine bolivienne">Bolivian Cooking Class</span>
+      <span class="sub" data-en="from market basket to mesa" data-es="de la canasta del mercado a la mesa" data-fr="du panier du marché à la table">from market basket to mesa</span>
     </div>
-    <div class="story-grid story-grid--cooking">
-      <div class="story-img story-img--a"><img src="images/activities/Cooking/DSC06219.webp" alt="Fresh ingredients in woven baskets" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--b"><img src="images/activities/Cooking/DSC06342.webp" alt="Teacher guiding a student through cooking onions" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--c"><img src="images/activities/Cooking/DSC06312.webp" alt="Students in colourful aprons preparing food together" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--d"><img src="images/activities/Cooking/DSC06392.webp" alt="Playing board games while food cooks" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--e"><img src="images/activities/Cooking/DSC06411.webp" alt="Teacher and student laughing over a board game" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--f"><img src="images/activities/Cooking/DSC06425.webp" alt="Eating the finished Bolivian meal together" loading="lazy" data-lightbox></div>
+    <div class="gallery-grid gg-cook">
+      <figure class="gphoto g1"><img src="images/activities/Cooking/DSC06219.webp" alt="Fresh ingredients in woven baskets ready for the cooking class" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g2"><img src="images/activities/Cooking/DSC06342.webp" alt="Teacher guiding a student through cooking onions" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g3"><img src="images/activities/Cooking/DSC06312.webp" alt="Students in colourful aprons preparing food together" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g4"><img src="images/activities/Cooking/DSC06392.webp" alt="Playing board games while food cooks" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g5"><img src="images/activities/Cooking/DSC06411.webp" alt="Teacher and student laughing over a board game" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g6"><img src="images/activities/Cooking/DSC06425.webp" alt="Eating the finished Bolivian meal together" loading="lazy" data-lightbox></figure>
     </div>
   </div>
 
-  <!-- Wallyball Gallery -->
-  <div class="story-block reveal">
-    <div class="story-header">
-      <span class="story-tag" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</span>
-      <h3 class="story-title" data-en="Four walls. One ball. <em>Zero English.</em>" data-es="Cuatro paredes. Una pelota. <em>Cero inglés.</em>" data-fr="Quatre murs. Un ballon. <em>Zéro anglais.</em>">Four walls. One ball. <em>Zero English.</em></h3>
+  <div class="gallery-chapter reveal">
+    <div class="gallery-chapter-label">
+      <span class="num">02 —</span>
+      <span class="name" data-en="Wallyball" data-es="Wallyball" data-fr="Wallyball">Wallyball</span>
+      <span class="sub" data-en="four walls, one ball, zero English" data-es="cuatro paredes, una pelota, cero inglés" data-fr="quatre murs, un ballon, zéro anglais">four walls, one ball, zero English</span>
     </div>
-    <div class="story-grid story-grid--wallyball">
-      <div class="story-img story-img--w1"><img src="images/activities/Wallyball/DSC06505.webp" alt="Serving over the net" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--w2"><img src="images/activities/Wallyball/DSC06531.webp" alt="Mid-air spike at the net" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--w3"><img src="images/activities/Wallyball/DSC06510.webp" alt="Two players in action from above" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--w4"><img src="images/activities/Wallyball/DSC06554.webp" alt="Player hitting over the net" loading="lazy" data-lightbox></div>
-      <div class="story-img story-img--w5"><img src="images/activities/Wallyball/DSC06589.webp" alt="Three students playing wallyball together" loading="lazy" data-lightbox></div>
+    <div class="gallery-grid gg-wall">
+      <figure class="gphoto g1"><img src="images/activities/Wallyball/DSC06589.webp" alt="Three students playing wallyball together" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g2"><img src="images/activities/Wallyball/DSC06505.webp" alt="Serving over the net" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g3"><img src="images/activities/Wallyball/DSC06510.webp" alt="Two players in action from above" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g4"><img src="images/activities/Wallyball/DSC06531.webp" alt="Mid-air spike at the net" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g5"><img src="images/activities/Wallyball/DSC06554.webp" alt="Player hitting over the net" loading="lazy" data-lightbox></figure>
     </div>
   </div>
 </section>
