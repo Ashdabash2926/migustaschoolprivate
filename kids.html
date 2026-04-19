@@ -6,7 +6,7 @@
   <title>Kids Programme — Me Gusta Spanish</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -18,6 +18,7 @@
       --border: rgba(74,58,44,0.12);
       --shadow-warm: 0 6px 28px rgba(200,87,45,0.10), 0 2px 8px rgba(28,20,16,0.06);
       --shadow-soft: 0 4px 20px rgba(28,20,16,0.08);
+      --shadow-paper: 0 22px 45px -18px rgba(28,20,16,0.35), 0 6px 14px -6px rgba(28,20,16,0.15);
       --r: 20px;
     }
     html { scroll-behavior: smooth; }
@@ -75,7 +76,7 @@
     @media (max-width: 1100px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
 
     /* ─── SHARED ─── */
-    .section-label { font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 500; color: var(--terra); display: block; margin-bottom: 1rem; transform: rotate(-0.8deg); transform-origin: left center; }
+    .section-label { font-family: 'Caveat', cursive; font-size: 1.15rem; font-weight: 500; color: var(--terra); display: inline-block; transform: rotate(-1deg); transform-origin: left center; }
     .section-title { font-family: 'Cormorant', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--ink); }
     .section-title em { font-style: italic; color: var(--terra); font-weight: 400; }
     .btn-primary { background: var(--terra); color: #fff; padding: 0.85rem 2rem; font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 600; text-decoration: none; display: inline-block; border-radius: 50px; box-shadow: 0 4px 18px rgba(200,87,45,0.35); transition: background 0.25s, transform 0.2s; }
@@ -83,234 +84,465 @@
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* hand-drawn squiggle divider */
+    .squiggle { display: block; margin: 0 auto; width: clamp(140px, 20vw, 220px); height: 14px; color: var(--gold); opacity: 0.55; }
+
+    /* polaroid — shared scrapbook frame */
+    .polaroid {
+      background: #fff;
+      padding: 14px 14px 54px;
+      box-shadow: var(--shadow-paper);
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+    }
+    .polaroid img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: saturate(1.02);
+    }
+    .polaroid .tape {
+      position: absolute;
+      width: 100px; height: 22px;
+      top: -11px; left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      background: linear-gradient(180deg, rgba(196,145,58,0.55), rgba(196,145,58,0.32));
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      opacity: 0.85;
+    }
+    .polaroid .tape::before, .polaroid .tape::after {
+      content: ''; position: absolute; top: 0; bottom: 0;
+      width: 10px; background: inherit; filter: brightness(1.02);
+    }
+    .polaroid .tape::before { left: -9px; clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 70%); }
+    .polaroid .tape::after { right: -9px; clip-path: polygon(0 0, 100% 30%, 100% 70%, 0 100%); }
+    .polaroid .caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 14px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-align: center;
+      line-height: 1;
+    }
+
     /* ─── HERO ─── */
     .page-hero {
-      padding: 9rem 4.5rem 7rem;
-      background: var(--ink);
+      padding: 8rem 4.5rem 6rem;
+      background: var(--cream);
       position: relative;
       overflow: hidden;
-      text-align: center;
     }
     .page-hero::before {
       content: '';
       position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%; height: 200%;
-      background: radial-gradient(ellipse at 30% 60%, rgba(196,145,58,0.1) 0%, transparent 55%),
-                  radial-gradient(ellipse at 70% 40%, rgba(200,87,45,0.1) 0%, transparent 55%);
+      left: -12%; top: 10%;
+      width: 55%; height: 120%;
+      background: radial-gradient(ellipse at center, rgba(196,145,58,0.12), transparent 62%);
       pointer-events: none;
     }
-    .hero-label {
-      font-family: 'Caveat', cursive;
-      font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--gold);
-      display: block;
-      transform: rotate(-1deg);
-      margin-bottom: 1.2rem;
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      right: -8%; bottom: -20%;
+      width: 50%; height: 90%;
+      background: radial-gradient(ellipse at center, rgba(200,87,45,0.09), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
       position: relative;
-      z-index: 1;
-      animation: fadeUp 0.9s ease both;
+      z-index: 2;
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(2rem, 5vw, 5.5rem);
+      align-items: center;
+    }
+    .hero-left { position: relative; }
+    .hero-chapter {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--terra);
+      margin-bottom: 1.2rem;
+      transform: rotate(-0.5deg);
+    }
+    .hero-chapter::before {
+      content: ''; width: 34px; height: 1px; background: currentColor; opacity: 0.6;
     }
     .hero-title {
       font-family: 'Cormorant', serif;
-      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-size: clamp(3.2rem, 6.2vw, 6.4rem);
       font-weight: 300;
       line-height: 1.0;
       letter-spacing: -0.02em;
-      color: #fff;
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
       animation: fadeUp 0.9s ease 0.1s both;
     }
-    .hero-title em { font-style: italic; color: var(--terra); }
+    .hero-title em { font-style: italic; color: var(--terra); font-weight: 400; position: relative; }
+    .hero-title em::after {
+      content: '';
+      position: absolute;
+      left: -4%; right: -4%; bottom: -6px; height: 10px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 10' fill='none'%3E%3Cpath d='M2 6 C 40 1, 80 10, 120 4 S 200 8, 218 3' stroke='%23C4913A' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+      opacity: 0.9;
+    }
     .hero-sub {
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: rgba(255,255,255,0.55);
-      font-style: italic;
-      max-width: 36rem;
-      margin: 0 auto 2.5rem;
-      position: relative;
-      z-index: 1;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      max-width: 32rem;
+      margin-bottom: 2rem;
       animation: fadeUp 0.9s ease 0.25s both;
     }
     .hero-badges {
       display: flex;
-      justify-content: center;
-      gap: 0.8rem;
+      gap: 0.7rem;
       flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
       animation: fadeUp 0.9s ease 0.4s both;
     }
     .hero-badge {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #fff;
+      border: 1px solid var(--border);
       border-radius: 50px;
-      padding: 0.4rem 1rem;
+      padding: 0.45rem 1rem;
       font-family: 'Caveat', cursive;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.6);
+      color: var(--ink-soft);
+      box-shadow: 0 2px 10px rgba(28,20,16,0.04);
     }
+    .hero-badge strong { color: var(--terra); font-weight: 600; }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 420px;
+    }
+    .hero-polaroid {
+      transform: rotate(3deg);
+      max-width: 420px;
+      width: 100%;
+      animation: fadeUp 1s ease 0.35s both, floaty 7s ease-in-out 1.2s infinite;
+    }
+    .hero-polaroid .tape { background: linear-gradient(180deg, rgba(200,87,45,0.5), rgba(200,87,45,0.3)); }
+    .hero-arrow {
+      position: absolute;
+      left: -70px; top: 38%;
+      width: 130px;
+      color: var(--terra);
+      transform: rotate(-8deg);
+      opacity: 0.65;
+      animation: fadeUp 1s ease 0.7s both;
+    }
+    .hero-arrow-note {
+      position: absolute;
+      left: -90px; top: 18%;
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--terra);
+      transform: rotate(-4deg);
+      animation: fadeUp 1s ease 0.8s both;
+      white-space: nowrap;
+    }
+    .hero-sparkle {
+      position: absolute;
+      width: 38px; height: 38px;
+      color: var(--gold);
+      animation: twinkle 3.4s ease-in-out infinite;
+    }
+    .hero-sparkle.s1 { top: 6%; right: 8%; }
+    .hero-sparkle.s2 { bottom: 12%; right: 22%; animation-delay: 1.4s; width: 24px; height: 24px; }
+    .hero-sparkle.s3 { top: 44%; right: -2%; animation-delay: 2.2s; width: 30px; height: 30px; color: var(--terra); }
+
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 768px) { .page-hero { padding: 7rem 1.5rem 5rem; } }
+    @keyframes floaty { 0%, 100% { transform: rotate(3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(-10px); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0.35; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.15) rotate(10deg); } }
+
+    @media (max-width: 900px) {
+      .page-hero { padding: 7rem 1.5rem 5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-right { min-height: 360px; margin-top: 1rem; }
+      .hero-arrow, .hero-arrow-note { display: none; }
+      .hero-polaroid { max-width: 320px; }
+    }
 
     /* ─── TICKER ─── */
-    .ticker { background: var(--terra); padding: 0.85rem 0; overflow: hidden; white-space: nowrap; }
+    .ticker { background: var(--terra); padding: 0.85rem 0; overflow: hidden; white-space: nowrap; border-top: 1px solid rgba(0,0,0,0.05); }
     .ticker-track { display: flex; animation: ticker 28s linear infinite; }
     .ticker-track span { font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 500; color: #fff; padding: 0 1.8rem; flex-shrink: 0; }
-    .tick-sep { opacity: 0.4; margin: 0 0.3rem; }
+    .tick-sep { opacity: 0.5; margin: 0 0.3rem; }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ─── CLASSES SECTION ─── */
-    .kids-classes {
-      padding: 7rem 4.5rem;
+    /* ─── CHAPTERS (classes) ─── */
+    .chapters {
+      padding: 7.5rem 4.5rem 6rem;
       background: var(--bg);
+      position: relative;
     }
-    .kids-classes-intro {
-      text-align: center;
-      max-width: 42rem;
-      margin: 0 auto 4rem;
+    .chapters-head {
+      max-width: 1200px; margin: 0 auto 4rem;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 3rem;
+      align-items: end;
     }
-    .kids-classes-intro p {
-      font-size: 0.95rem;
+    .chapters-head .lead p {
+      font-size: 1.02rem;
       line-height: 1.85;
       color: var(--ink-soft);
-      margin-top: 1.2rem;
       font-style: italic;
+      max-width: 32rem;
     }
-    .kids-grid {
+    .chapters-head .label-wrap { display: flex; flex-direction: column; gap: 1rem; }
+
+    .chapters-grid {
+      max-width: 1200px; margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 1000px;
-      margin: 0 auto;
+      gap: 1.8rem;
     }
-    .format-card {
+    .chapter-card {
+      position: relative;
       background: var(--cream);
-      border-radius: var(--r);
-      padding: 2rem 1.8rem 2.2rem;
+      border-radius: 24px;
+      padding: 2.4rem 2rem 2.2rem;
       box-shadow: var(--shadow-soft);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
       overflow: hidden;
     }
-    .format-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--terra); border-radius: var(--r) var(--r) 0 0; }
-    .format-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-warm); }
-    .format-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-    .format-title { font-family: 'Cormorant', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; }
-    .format-age { font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--terra); display: block; margin-bottom: 0.8rem; }
-    .format-desc { font-size: 0.86rem; line-height: 1.75; color: var(--ink-soft); }
-    @media (max-width: 768px) {
-      .kids-classes { padding: 5rem 1.5rem; }
-      .kids-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-    }
-
-    /* ─── ACTIVITIES SECTION ─── */
-    .kids-activities {
-      padding: 7rem 4.5rem;
-      background: var(--bg-warm);
-      position: relative;
-      overflow: hidden;
-    }
-    .kids-activities::before {
+    .chapter-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-warm); }
+    .chapter-card::before {
       content: '';
       position: absolute;
-      right: -5%; top: 20%;
-      width: 30%; height: 60%;
-      background: rgba(200,87,45,0.05);
-      border-radius: 50%;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--terra), var(--gold));
+    }
+    .chapter-num {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 3.2rem;
+      font-weight: 300;
+      color: var(--terra);
+      opacity: 0.22;
+      line-height: 1;
+      position: absolute;
+      top: 1.4rem; right: 1.6rem;
       pointer-events: none;
     }
-    .kids-activities-intro {
-      text-align: center;
-      max-width: 38rem;
-      margin: 0 auto 4rem;
-    }
-    .kids-act-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .kids-act-card {
-      background: var(--cream);
-      border-radius: var(--r);
-      padding: 1.8rem 1.6rem;
-      box-shadow: var(--shadow-soft);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-    }
-    .kids-act-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
-    .kids-act-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
-    .kids-act-card h4 {
+    .chapter-glyph { width: 38px; height: 38px; color: var(--terra); margin-bottom: 1.2rem; display: block; }
+    .chapter-title {
       font-family: 'Cormorant', serif;
-      font-size: 1.35rem;
+      font-size: 1.7rem;
       font-weight: 400;
       color: var(--ink);
       margin-bottom: 0.5rem;
+      line-height: 1.15;
     }
-    .kids-act-card p {
-      font-size: 0.84rem;
-      line-height: 1.75;
-      color: var(--ink-soft);
+    .chapter-title em { font-style: italic; color: var(--terra); }
+    .chapter-age {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
     }
-    @media (max-width: 960px) { .kids-act-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) {
-      .kids-activities { padding: 5rem 1.5rem; }
-      .kids-act-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .chapter-desc { font-size: 0.9rem; line-height: 1.8; color: var(--ink-soft); }
+
+    @media (max-width: 960px) {
+      .chapters-head { grid-template-columns: 1fr; gap: 1.2rem; }
+      .chapters-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+      .chapters { padding: 5rem 1.5rem; }
     }
 
-    /* ─── FAMILY SECTION ─── */
-    .kids-family {
+    /* ─── WILD (activities feature) ─── */
+    .wild {
+      background: var(--bg-warm);
       padding: 7rem 4.5rem;
-      background: var(--bg);
-      position: relative;
-    }
-    .kids-family-intro {
-      text-align: center;
-      max-width: 38rem;
-      margin: 0 auto 4rem;
-    }
-    .kids-family-blocks {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .kids-family-block {
-      background: var(--cream);
-      border-radius: var(--r);
-      padding: 2rem 1.8rem;
-      box-shadow: var(--shadow-soft);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
     }
-    .kids-family-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); border-radius: var(--r) var(--r) 0 0; }
-    .kids-family-block:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
-    .kids-family-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-    .kids-family-block h4 {
-      font-family: 'Cormorant', serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 0.6rem;
+    .wild::before {
+      content: '';
+      position: absolute;
+      left: -6%; top: 18%;
+      width: 28%; height: 60%;
+      background: radial-gradient(ellipse, rgba(196,145,58,0.09), transparent 65%);
+      pointer-events: none;
     }
-    .kids-family-block p {
-      font-size: 0.88rem;
-      line-height: 1.8;
+    .wild-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .wild-feature { position: relative; }
+    .wild-feature .polaroid {
+      max-width: 520px;
+      transform: rotate(-2deg);
+    }
+    .wild-pullquote {
+      position: absolute;
+      right: -3rem;
+      bottom: -1.5rem;
+      background: var(--terra);
+      color: #fff;
+      padding: 1.1rem 1.4rem;
+      max-width: 230px;
+      font-family: 'Cormorant', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.35;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(200,87,45,0.28);
+      transform: rotate(2deg);
+    }
+    .wild-pullquote::before {
+      content: '\201C';
+      font-family: 'Cormorant', serif;
+      font-size: 3rem;
+      line-height: 0;
+      position: absolute;
+      top: 16px; left: 14px;
+      opacity: 0.25;
+    }
+    .wild-pullquote strong {
+      display: block;
+      font-family: 'Caveat', cursive;
+      font-style: normal;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      margin-top: 0.5rem;
+    }
+    .wild-right .section-label { margin-bottom: 1rem; }
+    .wild-right .section-title { margin-bottom: 1.2rem; }
+    .wild-right p.wild-intro { font-size: 0.98rem; line-height: 1.85; color: var(--ink-soft); margin-bottom: 2.2rem; max-width: 30rem; }
+
+    .act-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.6rem;
+    }
+    .act-item {
+      position: relative;
+      padding: 0.2rem 0 0.2rem 2.4rem;
+      min-height: 62px;
+    }
+    .act-item .tick {
+      position: absolute;
+      left: 0; top: 0.15rem;
+      width: 28px; height: 28px;
+      color: var(--terra);
+    }
+    .act-item h4 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+      line-height: 1.2;
+    }
+    .act-item p {
+      font-size: 0.82rem;
+      line-height: 1.6;
       color: var(--ink-soft);
     }
-    @media (max-width: 768px) {
-      .kids-family { padding: 5rem 1.5rem; }
-      .kids-family-blocks { grid-template-columns: 1fr; gap: 1.2rem; }
+
+    @media (max-width: 960px) {
+      .wild { padding: 5.5rem 1.5rem; }
+      .wild-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .wild-pullquote { right: 1rem; max-width: 200px; font-size: 1rem; }
+      .act-list { grid-template-columns: 1fr; }
+    }
+
+    /* ─── FAMILY ─── */
+    .family {
+      padding: 7rem 4.5rem;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .family-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .family-copy .section-label { margin-bottom: 1rem; }
+    .family-copy .section-title { margin-bottom: 1.6rem; }
+    .family-copy p.lead { font-size: 1rem; line-height: 1.85; color: var(--ink-soft); margin-bottom: 2.2rem; max-width: 32rem; }
+
+    .family-blocks { display: flex; flex-direction: column; gap: 1rem; }
+    .family-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.2rem 1.4rem;
+      background: var(--cream);
+      border-radius: 16px;
+      border: 1px solid rgba(196,145,58,0.18);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .family-block:hover { transform: translateX(4px); border-color: var(--gold); }
+    .family-block .num {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .family-block h4 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .family-block p {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+
+    .family-photo { position: relative; }
+    .family-photo .polaroid {
+      max-width: 440px;
+      transform: rotate(2.5deg);
+      margin-left: auto;
+      display: block;
+    }
+    .family-photo .note {
+      position: absolute;
+      bottom: -1rem; left: -1rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--terra);
+      background: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(28,20,16,0.1);
+      transform: rotate(-3deg);
+      max-width: 180px;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 960px) {
+      .family { padding: 5.5rem 1.5rem; }
+      .family-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .family-photo .polaroid { margin: 0 auto; transform: rotate(1.5deg); }
     }
 
     /* ─── CTA ─── */
@@ -424,13 +656,32 @@
 
 <!-- HERO -->
 <section class="page-hero">
-  <span class="hero-label" data-en="for young learners" data-es="para jóvenes aprendices" data-fr="pour les jeunes apprenants">for young learners</span>
-  <h1 class="hero-title" data-en="Kids <em>Programme</em>" data-es="Programa <em>Infantil</em>" data-fr="Programme <em>Enfants</em>">Kids <em>Programme</em></h1>
-  <p class="hero-sub" data-en="Your children learn Spanish through play, games and cultural immersion — while you study in the room next door." data-es="Tus hijos aprenden español a través del juego, actividades y la inmersión cultural — mientras tú estudias en la sala de al lado." data-fr="Vos enfants apprennent l'espagnol par le jeu, les activités et l'immersion culturelle — pendant que vous étudiez dans la salle d'à côté.">Your children learn Spanish through play, games and cultural immersion — while you study in the room next door.</p>
-  <div class="hero-badges">
-    <span class="hero-badge" data-en="Ages 4–15" data-es="Edades 4–15" data-fr="4–15 ans">Ages 4–15</span>
-    <span class="hero-badge" data-en="Same building as parents" data-es="Mismo edificio que los padres" data-fr="Même bâtiment que les parents">Same building as parents</span>
-    <span class="hero-badge" data-en="No textbooks" data-es="Sin libros de texto" data-fr="Pas de manuels">No textbooks</span>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <span class="hero-chapter" data-en="chapter one · the kids programme" data-es="capítulo uno · programa infantil" data-fr="chapitre un · programme enfants">chapter one · the kids programme</span>
+      <h1 class="hero-title" data-en="Spanish, but make it <em>playful</em>." data-es="Español, pero <em>jugando</em>." data-fr="L'espagnol, version <em>jeu</em>.">Spanish, but make it <em>playful</em>.</h1>
+      <p class="hero-sub" data-en="Your children learn Spanish through songs, storytelling, treasure hunts and real Bolivian mornings — while you study in the room next door. No textbooks. No pressure. Just the joyful shortcut we wish we'd had as kids." data-es="Tus hijos aprenden español con canciones, cuentos, búsquedas del tesoro y mañanas bolivianas reales — mientras tú estudias en la sala de al lado. Sin libros. Sin presión. Solo el atajo alegre que nos hubiera gustado tener de niños." data-fr="Vos enfants apprennent l'espagnol par les chansons, les contes, les chasses au trésor et de vraies matinées boliviennes — pendant que vous étudiez dans la salle d'à côté. Pas de manuels. Pas de pression. Le raccourci joyeux qu'on aurait aimé avoir.">Your children learn Spanish through songs, storytelling, treasure hunts and real Bolivian mornings — while you study in the room next door. No textbooks. No pressure. Just the joyful shortcut we wish we'd had as kids.</p>
+      <div class="hero-badges">
+        <span class="hero-badge" data-en="Ages <strong>4 – 15</strong>" data-es="Edades <strong>4 – 15</strong>" data-fr="<strong>4 – 15</strong> ans">Ages <strong>4 – 15</strong></span>
+        <span class="hero-badge" data-en="<strong>Same building</strong> as parents" data-es="<strong>Mismo edificio</strong> que los padres" data-fr="<strong>Même bâtiment</strong> que les parents">Same building as parents</span>
+        <span class="hero-badge" data-en="<strong>No</strong> textbooks" data-es="<strong>Sin</strong> libros de texto" data-fr="<strong>Pas</strong> de manuels">No textbooks</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <svg class="hero-sparkle s1" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2 L22 18 L38 20 L22 22 L20 38 L18 22 L2 20 L18 18 Z"/></svg>
+      <svg class="hero-sparkle s2" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2 L22 18 L38 20 L22 22 L20 38 L18 22 L2 20 L18 18 Z"/></svg>
+      <svg class="hero-sparkle s3" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true"><path d="M20 2 L22 18 L38 20 L22 22 L20 38 L18 22 L2 20 L18 18 Z"/></svg>
+      <span class="hero-arrow-note" data-en="real kids, real laughs" data-es="niños reales, risas reales" data-fr="vrais enfants, vrais rires">real kids, real laughs</span>
+      <svg class="hero-arrow" viewBox="0 0 130 60" fill="none" aria-hidden="true">
+        <path d="M4 14 C 28 6, 58 18, 82 30 S 114 44, 122 48" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="0.1 5"/>
+        <path d="M118 38 L 124 48 L 112 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <figure class="polaroid hero-polaroid">
+        <span class="tape"></span>
+        <img src="images/kids/DSC07157.webp" alt="Two students laughing while writing Spanish together" loading="eager">
+        <figcaption class="caption" data-en="Carla &amp; Ellie · morning class" data-es="Carla y Ellie · clase de la mañana" data-fr="Carla &amp; Ellie · classe du matin">Carla &amp; Ellie · morning class</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -442,99 +693,150 @@
   </div>
 </div>
 
-<!-- CLASSES -->
-<section class="kids-classes">
-  <div class="kids-classes-intro reveal">
-    <span class="section-label" data-en="how kids learn here" data-es="cómo aprenden los niños aquí" data-fr="comment les enfants apprennent ici">how kids learn here</span>
-    <h2 class="section-title" data-en="Learning through <em>play</em>" data-es="Aprender <em>jugando</em>" data-fr="Apprendre en <em>jouant</em>">Learning through <em>play</em></h2>
-    <p data-en="No textbooks, no grammar drills. Our kids programme uses songs, games, storytelling and hands-on projects to build real Spanish — naturally and joyfully." data-es="Sin libros de texto, sin ejercicios de gramática. Nuestro programa infantil usa canciones, juegos, cuentos y proyectos prácticos para construir español real — de forma natural y divertida." data-fr="Pas de manuels, pas d'exercices de grammaire. Notre programme enfants utilise des chansons, des jeux, des histoires et des projets pratiques pour apprendre l'espagnol — naturellement et joyeusement.">No textbooks, no grammar drills. Our kids programme uses songs, games, storytelling and hands-on projects to build real Spanish — naturally and joyfully.</p>
+<!-- CHAPTERS / CLASSES -->
+<section class="chapters">
+  <div class="chapters-head">
+    <div class="label-wrap reveal">
+      <span class="section-label" data-en="three ways in" data-es="tres maneras de entrar" data-fr="trois portes d'entrée">three ways in</span>
+      <h2 class="section-title" data-en="Grouped by <em>age</em>, not ability" data-es="Por <em>edad</em>, no por nivel" data-fr="Par <em>âge</em>, pas par niveau">Grouped by <em>age</em>, not ability</h2>
+    </div>
+    <div class="lead reveal">
+      <p data-en="No grammar drills. No flashcard marathons. Our teachers meet kids where they are — with songs for the little ones, adventures for the middle crew, and real conversation for the teens." data-es="Sin ejercicios de gramática. Sin maratones de tarjetas. Nuestros profesores se adaptan a cada niño — canciones para los pequeños, aventuras para los medianos y conversación real para los adolescentes." data-fr="Pas d'exercices de grammaire. Pas de marathon de cartes mémoire. Nos professeurs s'adaptent à chaque enfant — chansons pour les petits, aventures pour les moyens, vraies conversations pour les ados.">No grammar drills. No flashcard marathons. Our teachers meet kids where they are — with songs for the little ones, adventures for the middle crew, and real conversation for the teens.</p>
+    </div>
   </div>
 
-  <div class="kids-grid">
-    <div class="format-card reveal">
-      <span class="format-icon">🧸</span>
-      <h4 class="format-title" data-en="Little Explorers" data-es="Pequeños Exploradores" data-fr="Petits Explorateurs">Little Explorers</h4>
-      <span class="format-age" data-en="Ages 4–7 · 45-min sessions" data-es="Edades 4–7 · sesiones de 45 min" data-fr="4–7 ans · séances de 45 min">Ages 4–7 · 45-min sessions</span>
-      <p class="format-desc" data-en="Songs, puppets, colours, animals and storytelling. A gentle, playful introduction to Spanish for the youngest learners." data-es="Canciones, títeres, colores, animales y cuentos. Una introducción suave y lúdica al español para los más pequeños." data-fr="Chansons, marionnettes, couleurs, animaux et contes. Une introduction douce et ludique à l'espagnol pour les plus petits.">Songs, puppets, colours, animals and storytelling. A gentle, playful introduction to Spanish for the youngest learners.</p>
-    </div>
-    <div class="format-card reveal" style="transition-delay:0.1s;">
-      <span class="format-icon">🗺️</span>
-      <h4 class="format-title" data-en="Young Adventurers" data-es="Jóvenes Aventureros" data-fr="Jeunes Aventuriers">Young Adventurers</h4>
-      <span class="format-age" data-en="Ages 8–11 · 1-hour sessions" data-es="Edades 8–11 · sesiones de 1 hora" data-fr="8–11 ans · séances d'1 heure">Ages 8–11 · 1-hour sessions</span>
-      <p class="format-desc" data-en="Games, role-play, basic conversation and cultural projects. Kids build confidence speaking Spanish through fun, immersive activities." data-es="Juegos, teatro, conversación básica y proyectos culturales. Los niños ganan confianza hablando español a través de actividades divertidas e inmersivas." data-fr="Jeux, jeux de rôle, conversation de base et projets culturels. Les enfants gagnent en confiance en parlant espagnol grâce à des activités ludiques et immersives.">Games, role-play, basic conversation and cultural projects. Kids build confidence speaking Spanish through fun, immersive activities.</p>
-    </div>
-    <div class="format-card reveal" style="transition-delay:0.2s;">
-      <span class="format-icon">🌎</span>
-      <h4 class="format-title" data-en="Teen Travellers" data-es="Viajeros Adolescentes" data-fr="Ados Voyageurs">Teen Travellers</h4>
-      <span class="format-age" data-en="Ages 12–15 · 1.5-hour sessions" data-es="Edades 12–15 · sesiones de 1.5 horas" data-fr="12–15 ans · séances d'1h30">Ages 12–15 · 1.5-hour sessions</span>
-      <p class="format-desc" data-en="Conversation practice, real-world scenarios and city exploration. Teens develop practical Spanish skills while discovering Sucre." data-es="Práctica de conversación, situaciones reales y exploración de la ciudad. Los adolescentes desarrollan habilidades prácticas de español mientras descubren Sucre." data-fr="Pratique de la conversation, mises en situation réelles et exploration de la ville. Les ados développent des compétences pratiques en espagnol tout en découvrant Sucre.">Conversation practice, real-world scenarios and city exploration. Teens develop practical Spanish skills while discovering Sucre.</p>
-    </div>
+  <div class="chapters-grid">
+    <article class="chapter-card reveal">
+      <span class="chapter-num">01</span>
+      <svg class="chapter-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 22 C 8 14, 14 8, 20 8 S 32 14, 32 22 C 32 28, 28 32, 20 32 S 8 28, 8 22 Z"/>
+        <circle cx="15" cy="20" r="1.4" fill="currentColor"/>
+        <circle cx="25" cy="20" r="1.4" fill="currentColor"/>
+        <path d="M15 26 Q 20 29 25 26"/>
+      </svg>
+      <h3 class="chapter-title" data-en="Little <em>Explorers</em>" data-es="Pequeños <em>Exploradores</em>" data-fr="Petits <em>Explorateurs</em>">Little <em>Explorers</em></h3>
+      <span class="chapter-age" data-en="Ages 4 – 7 · 45-minute sessions" data-es="Edades 4 – 7 · sesiones de 45 min" data-fr="4 – 7 ans · séances de 45 min">Ages 4 – 7 · 45-minute sessions</span>
+      <p class="chapter-desc" data-en="Songs, puppets, colours, animals and storytelling. A gentle, playful introduction — short sessions tuned to tiny attention spans." data-es="Canciones, títeres, colores, animales y cuentos. Una introducción suave y lúdica — sesiones cortas pensadas para atenciones pequeñas." data-fr="Chansons, marionnettes, couleurs, animaux, contes. Une introduction douce et ludique — séances courtes pour petites attentions.">Songs, puppets, colours, animals and storytelling. A gentle, playful introduction — short sessions tuned to tiny attention spans.</p>
+    </article>
+
+    <article class="chapter-card reveal" style="transition-delay:0.1s;">
+      <span class="chapter-num">02</span>
+      <svg class="chapter-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 30 L 14 18 L 20 24 L 28 10 L 34 30 Z"/>
+        <circle cx="28" cy="10" r="2" fill="currentColor"/>
+        <path d="M6 34 L 34 34"/>
+      </svg>
+      <h3 class="chapter-title" data-en="Young <em>Adventurers</em>" data-es="Jóvenes <em>Aventureros</em>" data-fr="Jeunes <em>Aventuriers</em>">Young <em>Adventurers</em></h3>
+      <span class="chapter-age" data-en="Ages 8 – 11 · 1-hour sessions" data-es="Edades 8 – 11 · sesiones de 1 hora" data-fr="8 – 11 ans · séances d'1 heure">Ages 8 – 11 · 1-hour sessions</span>
+      <p class="chapter-desc" data-en="Games, role-play, basic conversation and cultural projects. Kids build real confidence speaking Spanish out loud — laughing through the mistakes." data-es="Juegos, teatro, conversación básica y proyectos culturales. Los niños ganan confianza hablando español en voz alta — riéndose de los errores." data-fr="Jeux, jeux de rôle, conversation de base et projets culturels. Les enfants gagnent en confiance à voix haute — en riant de leurs erreurs.">Games, role-play, basic conversation and cultural projects. Kids build real confidence speaking Spanish out loud — laughing through the mistakes.</p>
+    </article>
+
+    <article class="chapter-card reveal" style="transition-delay:0.2s;">
+      <span class="chapter-num">03</span>
+      <svg class="chapter-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="20" cy="20" r="13"/>
+        <path d="M7 20 H 33 M 20 7 C 14 12, 14 28, 20 33 M 20 7 C 26 12, 26 28, 20 33"/>
+      </svg>
+      <h3 class="chapter-title" data-en="Teen <em>Travellers</em>" data-es="Viajeros <em>Adolescentes</em>" data-fr="Ados <em>Voyageurs</em>">Teen <em>Travellers</em></h3>
+      <span class="chapter-age" data-en="Ages 12 – 15 · 1½-hour sessions" data-es="Edades 12 – 15 · sesiones de 1,5 h" data-fr="12 – 15 ans · séances d'1h30">Ages 12 – 15 · 1½-hour sessions</span>
+      <p class="chapter-desc" data-en="Conversation practice, real-world scenarios and proper city exploration. Teens leave Sucre with Spanish they can actually use — not just a report card." data-es="Práctica de conversación, situaciones reales y exploración de la ciudad. Los adolescentes se van con un español de verdad — no solo una nota." data-fr="Pratique de la conversation, mises en situation réelles, exploration de la ville. Les ados repartent avec un espagnol vraiment utilisable — pas juste une note.">Conversation practice, real-world scenarios and proper city exploration. Teens leave Sucre with Spanish they can actually use — not just a report card.</p>
+    </article>
   </div>
 </section>
 
-<!-- ACTIVITIES -->
-<section class="kids-activities">
-  <div class="kids-activities-intro reveal">
-    <span class="section-label" data-en="beyond the classroom" data-es="fuera del aula" data-fr="en dehors de la classe">beyond the classroom</span>
-    <h2 class="section-title" data-en="Fun for the <em>whole family</em>" data-es="Diversión para <em>toda la familia</em>" data-fr="Du plaisir pour <em>toute la famille</em>">Fun for the <em>whole family</em></h2>
-  </div>
+<!-- WILD (ACTIVITIES) -->
+<section class="wild">
+  <div class="wild-inner">
+    <div class="wild-feature reveal">
+      <figure class="polaroid">
+        <span class="tape"></span>
+        <img src="images/kids/DSC07149.webp" alt="Students learning Spanish with mini cereal boxes at a table" loading="lazy">
+        <figcaption class="caption" data-en="cereal boxes = grammar lesson" data-es="cajas de cereal = clase de gramática" data-fr="boîtes de céréales = leçon de grammaire">cereal boxes = grammar lesson</figcaption>
+      </figure>
+      <div class="wild-pullquote" data-en="Turns out breakfast cereal is the fastest route to the preterite tense.<strong>— Señora Carla, teacher</strong>" data-es="Resulta que los cereales son el camino más rápido al pretérito.<strong>— Profe Carla</strong>" data-fr="Les céréales du matin sont le raccourci le plus rapide vers le passé simple.<strong>— Profe Carla</strong>">Turns out breakfast cereal is the fastest route to the preterite tense.<strong>— Señora Carla, teacher</strong></div>
+    </div>
 
-  <div class="kids-act-grid">
-    <div class="kids-act-card reveal">
-      <span class="kids-act-icon">🗝️</span>
-      <h4 data-en="Treasure Hunts" data-es="Búsquedas del tesoro" data-fr="Chasses au trésor">Treasure Hunts</h4>
-      <p data-en="Explore Sucre's streets and plazas following clues in Spanish. Kids practise reading, asking directions, and working as a team." data-es="Explora las calles y plazas de Sucre siguiendo pistas en español. Los niños practican lectura, pedir direcciones y trabajo en equipo." data-fr="Explorez les rues et places de Sucre en suivant des indices en espagnol. Les enfants pratiquent la lecture, demandent leur chemin et travaillent en équipe.">Explore Sucre's streets and plazas following clues in Spanish. Kids practise reading, asking directions, and working as a team.</p>
-    </div>
-    <div class="kids-act-card reveal" style="transition-delay:0.08s;">
-      <span class="kids-act-icon">🍳</span>
-      <h4 data-en="Cooking Class" data-es="Clase de cocina" data-fr="Cours de cuisine">Cooking Class</h4>
-      <p data-en="Make simple Bolivian dishes together — learn food vocabulary, follow recipes in Spanish, and eat what you cook." data-es="Preparen platos bolivianos sencillos juntos — aprendan vocabulario de comida, sigan recetas en español y coman lo que cocinen." data-fr="Préparez ensemble des plats boliviens simples — apprenez le vocabulaire culinaire, suivez des recettes en espagnol et mangez ce que vous cuisinez.">Make simple Bolivian dishes together — learn food vocabulary, follow recipes in Spanish, and eat what you cook.</p>
-    </div>
-    <div class="kids-act-card reveal" style="transition-delay:0.16s;">
-      <span class="kids-act-icon">🎨</span>
-      <h4 data-en="Art &amp; Crafts" data-es="Arte y manualidades" data-fr="Arts &amp; travaux manuels">Art &amp; Crafts</h4>
-      <p data-en="Paint, draw and create using traditional Bolivian techniques. All instructions in Spanish — colours, shapes, and materials become vocabulary lessons." data-es="Pinta, dibuja y crea usando técnicas tradicionales bolivianas. Todas las instrucciones en español — colores, formas y materiales se convierten en lecciones de vocabulario." data-fr="Peignez, dessinez et créez en utilisant des techniques boliviennes traditionnelles. Toutes les instructions en espagnol — couleurs, formes et matériaux deviennent des leçons de vocabulaire.">Paint, draw and create using traditional Bolivian techniques. All instructions in Spanish — colours, shapes, and materials become vocabulary lessons.</p>
-    </div>
-    <div class="kids-act-card reveal" style="transition-delay:0.24s;">
-      <span class="kids-act-icon">🛒</span>
-      <h4 data-en="Market Mornings" data-es="Mañanas de mercado" data-fr="Matinées au marché">Market Mornings</h4>
-      <p data-en="Visit Sucre's central market with a teacher. Kids practise numbers, prices and polite requests while buying fruit and snacks." data-es="Visita el mercado central de Sucre con un profesor. Los niños practican números, precios y solicitudes corteses mientras compran fruta y bocadillos." data-fr="Visitez le marché central de Sucre avec un professeur. Les enfants pratiquent les nombres, les prix et les formules de politesse en achetant des fruits et des goûters.">Visit Sucre's central market with a teacher. Kids practise numbers, prices and polite requests while buying fruit and snacks.</p>
-    </div>
-    <div class="kids-act-card reveal" style="transition-delay:0.32s;">
-      <span class="kids-act-icon">📖</span>
-      <h4 data-en="Story Time" data-es="Hora del cuento" data-fr="L'heure du conte">Story Time</h4>
-      <p data-en="Bolivian folk tales and picture books read aloud in simple Spanish. Great for listening skills and building imagination." data-es="Cuentos populares bolivianos y libros ilustrados leídos en voz alta en español sencillo. Ideal para habilidades de escucha y fomentar la imaginación." data-fr="Contes populaires boliviens et livres illustrés lus à voix haute en espagnol simple. Idéal pour l'écoute et l'imagination.">Bolivian folk tales and picture books read aloud in simple Spanish. Great for listening skills and building imagination.</p>
-    </div>
-    <div class="kids-act-card reveal" style="transition-delay:0.4s;">
-      <span class="kids-act-icon">💃</span>
-      <h4 data-en="Dance &amp; Music" data-es="Baile y música" data-fr="Danse &amp; musique">Dance &amp; Music</h4>
-      <p data-en="Learn traditional Bolivian dances and songs. Movement, rhythm and repetition make new words stick — and it's impossible not to smile." data-es="Aprende bailes y canciones tradicionales bolivianos. Movimiento, ritmo y repetición hacen que las palabras nuevas se queden — y es imposible no sonreír." data-fr="Apprenez les danses et chansons traditionnelles boliviennes. Le mouvement, le rythme et la répétition ancrent les nouveaux mots — et impossible de ne pas sourire.">Learn traditional Bolivian dances and songs. Movement, rhythm and repetition make new words stick — and it's impossible not to smile.</p>
+    <div class="wild-right reveal">
+      <span class="section-label" data-en="spanish in the wild" data-es="español en la calle" data-fr="l'espagnol en vrai">spanish in the wild</span>
+      <h2 class="section-title" data-en="Lessons that <em>leave</em> the classroom" data-es="Clases que <em>salen</em> del aula" data-fr="Des cours qui <em>sortent</em> de la classe">Lessons that <em>leave</em> the classroom</h2>
+      <p class="wild-intro" data-en="Half the programme happens with pencils. The other half happens with empanadas, treasure maps, paint, or the mototaxi driver around the corner." data-es="La mitad del programa pasa con lápices. La otra mitad, con empanadas, mapas del tesoro, pintura o el mototaxista de la esquina." data-fr="La moitié du programme se fait au crayon. L'autre moitié, avec des empanadas, des cartes au trésor, de la peinture ou le chauffeur de mototaxi du coin.">Half the programme happens with pencils. The other half happens with empanadas, treasure maps, paint, or the mototaxi driver around the corner.</p>
+
+      <div class="act-list">
+        <div class="act-item">
+          <svg class="tick" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15 L 11 21 L 23 7"/></svg>
+          <h4 data-en="Treasure Hunts" data-es="Búsquedas del tesoro" data-fr="Chasses au trésor">Treasure Hunts</h4>
+          <p data-en="Chase clues in Spanish through Sucre's plazas — reading, asking directions, teamwork." data-es="Sigan pistas en español por las plazas de Sucre — lectura, preguntar el camino, equipo." data-fr="Suivez des indices en espagnol à travers les places de Sucre — lecture, directions, équipe.">Chase clues in Spanish through Sucre's plazas — reading, asking directions, teamwork.</p>
+        </div>
+        <div class="act-item">
+          <svg class="tick" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15 L 11 21 L 23 7"/></svg>
+          <h4 data-en="Cooking Class" data-es="Clase de cocina" data-fr="Cours de cuisine">Cooking Class</h4>
+          <p data-en="Simple Bolivian dishes, recipes in Spanish, and eating what you make." data-es="Platos bolivianos sencillos, recetas en español y comer lo que preparas." data-fr="Plats boliviens simples, recettes en espagnol, et on mange ce qu'on cuisine.">Simple Bolivian dishes, recipes in Spanish, and eating what you make.</p>
+        </div>
+        <div class="act-item">
+          <svg class="tick" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15 L 11 21 L 23 7"/></svg>
+          <h4 data-en="Art &amp; Crafts" data-es="Arte y manualidades" data-fr="Arts &amp; manuels">Art &amp; Crafts</h4>
+          <p data-en="Traditional Bolivian techniques. Colours, shapes and materials become vocabulary." data-es="Técnicas tradicionales bolivianas. Colores, formas y materiales se vuelven vocabulario." data-fr="Techniques boliviennes traditionnelles. Couleurs, formes et matières deviennent du vocabulaire.">Traditional Bolivian techniques. Colours, shapes and materials become vocabulary.</p>
+        </div>
+        <div class="act-item">
+          <svg class="tick" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15 L 11 21 L 23 7"/></svg>
+          <h4 data-en="Market Mornings" data-es="Mañanas de mercado" data-fr="Matinées au marché">Market Mornings</h4>
+          <p data-en="The central market with a teacher — numbers, prices, polite requests, fruit for breakfast." data-es="Al mercado central con profe — números, precios, formas corteses, fruta para el desayuno." data-fr="Au marché central avec un prof — nombres, prix, formules polies, fruits pour le petit-déjeuner.">The central market with a teacher — numbers, prices, polite requests, fruit for breakfast.</p>
+        </div>
+        <div class="act-item">
+          <svg class="tick" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15 L 11 21 L 23 7"/></svg>
+          <h4 data-en="Story Time" data-es="Hora del cuento" data-fr="L'heure du conte">Story Time</h4>
+          <p data-en="Bolivian folk tales read aloud in simple Spanish — great for listening and imagination." data-es="Cuentos populares bolivianos en español sencillo — ideal para escucha e imaginación." data-fr="Contes boliviens lus en espagnol simple — idéal pour l'écoute et l'imagination.">Bolivian folk tales read aloud in simple Spanish — great for listening and imagination.</p>
+        </div>
+        <div class="act-item">
+          <svg class="tick" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15 L 11 21 L 23 7"/></svg>
+          <h4 data-en="Dance &amp; Music" data-es="Baile y música" data-fr="Danse &amp; musique">Dance &amp; Music</h4>
+          <p data-en="Traditional dances, rhythm and repetition — it's impossible not to smile, and the words stick." data-es="Bailes tradicionales, ritmo y repetición — imposible no sonreír, y las palabras se quedan." data-fr="Danses traditionnelles, rythme et répétition — impossible de ne pas sourire, et les mots restent.">Traditional dances, rhythm and repetition — it's impossible not to smile, and the words stick.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FAMILY -->
-<section class="kids-family">
-  <div class="kids-family-intro reveal">
-    <span class="section-label" data-en="for parents" data-es="para padres" data-fr="pour les parents">for parents</span>
-    <h2 class="section-title" data-en="The <em>family</em> experience" data-es="La experiencia <em>familiar</em>" data-fr="L'expérience <em>familiale</em>">The <em>family</em> experience</h2>
-  </div>
+<section class="family">
+  <div class="family-inner">
+    <div class="family-copy reveal">
+      <span class="section-label" data-en="for the grown-ups" data-es="para los adultos" data-fr="pour les adultes">for the grown-ups</span>
+      <h2 class="section-title" data-en="Built around the <em>whole family</em>" data-es="Pensado para <em>toda la familia</em>" data-fr="Pensé pour <em>toute la famille</em>">Built around the <em>whole family</em></h2>
+      <p class="lead" data-en="This isn't kids-club-while-you-disappear. Adults study in the regular programme; kids study in theirs. Same hours, same building, one shared lunch table after." data-es="Esto no es club de niños mientras tú desapareces. Los adultos estudian en el programa regular; los niños en el suyo. Mismos horarios, mismo edificio, una mesa compartida al mediodía." data-fr="Ce n'est pas un club enfants pendant que vous disparaissez. Les adultes suivent le programme régulier, les enfants le leur. Mêmes horaires, même bâtiment, une table partagée au déjeuner.">This isn't kids-club-while-you-disappear. Adults study in the regular programme; kids study in theirs. Same hours, same building, one shared lunch table after.</p>
 
-  <div class="kids-family-blocks">
-    <div class="kids-family-block reveal">
-      <span class="kids-family-icon">🏡</span>
-      <h4 data-en="Family Accommodation" data-es="Alojamiento familiar" data-fr="Hébergement familial">Family Accommodation</h4>
-      <p data-en="Our host families welcome children warmly. Safe neighbourhoods, home-cooked meals included, and a real Bolivian family experience for everyone." data-es="Nuestras familias anfitrionas reciben a los niños con cariño. Barrios seguros, comidas caseras incluidas y una experiencia familiar boliviana real para todos." data-fr="Nos familles d'accueil accueillent chaleureusement les enfants. Quartiers sûrs, repas faits maison inclus et une vraie expérience familiale bolivienne pour tous.">Our host families welcome children warmly. Safe neighbourhoods, home-cooked meals included, and a real Bolivian family experience for everyone.</p>
+      <div class="family-blocks">
+        <div class="family-block">
+          <span class="num">i.</span>
+          <div>
+            <h4 data-en="Family Accommodation" data-es="Alojamiento familiar" data-fr="Hébergement familial">Family Accommodation</h4>
+            <p data-en="Host families who love welcoming children — safe neighbourhoods, home-cooked meals included, real Bolivian daily life." data-es="Familias anfitrionas que reciben niños con cariño — barrios seguros, comidas caseras, vida boliviana real." data-fr="Familles d'accueil qui aiment recevoir les enfants — quartiers sûrs, repas maison, vraie vie bolivienne.">Host families who love welcoming children — safe neighbourhoods, home-cooked meals included, real Bolivian daily life.</p>
+          </div>
+        </div>
+        <div class="family-block">
+          <span class="num">ii.</span>
+          <div>
+            <h4 data-en="Parent Classes" data-es="Clases para padres" data-fr="Cours pour parents">Parent Classes</h4>
+            <p data-en="You study in the adult programme on the same schedule. Everyone learns, nobody waits in a café for three hours." data-es="Tú estudias en el programa de adultos en el mismo horario. Todos aprenden, nadie espera tres horas en un café." data-fr="Vous suivez le programme adultes au même horaire. Tout le monde apprend, personne n'attend trois heures au café.">You study in the adult programme on the same schedule. Everyone learns, nobody waits in a café for three hours.</p>
+          </div>
+        </div>
+        <div class="family-block">
+          <span class="num">iii.</span>
+          <div>
+            <h4 data-en="Flexible Scheduling" data-es="Horarios flexibles" data-fr="Horaires flexibles">Flexible Scheduling</h4>
+            <p data-en="Book by the week. Mix kids and adult classes. Take a day off when the llamas are calling. Your holiday, your rules." data-es="Reserva por semana. Mezcla clases. Tómate un día libre si te llaman las llamas. Tus vacaciones, tus reglas." data-fr="Réservez à la semaine. Mélangez les cours. Prenez un jour off quand les lamas appellent. Vos vacances, vos règles.">Book by the week. Mix kids and adult classes. Take a day off when the llamas are calling. Your holiday, your rules.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="kids-family-block reveal" style="transition-delay:0.1s;">
-      <span class="kids-family-icon">👩‍🏫</span>
-      <h4 data-en="Parent Classes" data-es="Clases para padres" data-fr="Cours pour parents">Parent Classes</h4>
-      <p data-en="Adults study in the regular programme while kids are in theirs — same hours, same building. Everyone learns, nobody waits." data-es="Los adultos estudian en el programa regular mientras los niños están en el suyo — mismos horarios, mismo edificio. Todos aprenden, nadie espera." data-fr="Les adultes étudient dans le programme régulier pendant que les enfants suivent le leur — mêmes horaires, même bâtiment. Tout le monde apprend, personne n'attend.">Adults study in the regular programme while kids are in theirs — same hours, same building. Everyone learns, nobody waits.</p>
-    </div>
-    <div class="kids-family-block reveal" style="transition-delay:0.2s;">
-      <span class="kids-family-icon">📅</span>
-      <h4 data-en="Flexible Scheduling" data-es="Horarios flexibles" data-fr="Horaires flexibles">Flexible Scheduling</h4>
-      <p data-en="Book by the week, combine kids and adult classes, or choose part-time options. We work around your family's plans, not the other way round." data-es="Reserva por semana, combina clases de niños y adultos, o elige opciones de medio tiempo. Nos adaptamos a los planes de tu familia, no al revés." data-fr="Réservez à la semaine, combinez cours enfants et adultes, ou choisissez des options à temps partiel. Nous nous adaptons à vos projets familiaux, pas l'inverse.">Book by the week, combine kids and adult classes, or choose part-time options. We work around your family's plans, not the other way round.</p>
+
+    <div class="family-photo reveal">
+      <figure class="polaroid">
+        <span class="tape"></span>
+        <img src="images/kids/DSC07111.webp" alt="Students smiling with decorated gift bags after a class celebration" loading="lazy">
+        <figcaption class="caption" data-en="end-of-week fiesta · goody bags" data-es="fiesta de fin de semana · bolsas sorpresa" data-fr="fête de fin de semaine · pochettes surprises">end-of-week fiesta · goody bags</figcaption>
+      </figure>
+      <span class="note" data-en="nobody left empty-handed" data-es="nadie se fue con las manos vacías" data-fr="personne n'est reparti les mains vides">nobody left empty-handed</span>
     </div>
   </div>
 </section>
