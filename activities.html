@@ -702,97 +702,77 @@
     .act-index-head p { font-size: 1rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 34rem; }
 
     .act-index-list {
-      max-width: 1200px;
+      max-width: 1080px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.4rem;
+      border-top: 1px solid var(--border);
     }
     .entry {
-      position: relative;
-      background: var(--cream);
-      padding: 2rem 1.8rem 2rem;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: 2.4rem 1.2fr 1fr 1.8fr;
+      gap: 1.6rem;
+      align-items: baseline;
+      padding: 1.1rem 0.4rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease, padding 0.3s ease;
     }
-    .entry::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0; width: 3px;
-      background: var(--terra);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 0.4s ease;
-    }
-    .entry:hover {
-      transform: translateY(-4px);
-      border-color: rgba(200,87,45,0.35);
-      box-shadow: 0 14px 40px -18px rgba(28,20,16,0.25);
-    }
-    .entry:hover::before { transform: scaleY(1); }
-    .entry-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
+    .entry:hover { background: rgba(255,249,244,0.7); padding-left: 1rem; padding-right: 1rem; }
     .entry-num {
       font-family: 'Cormorant', serif;
       font-style: italic;
       font-weight: 400;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-    .entry-tag {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--terra);
-      padding: 0.15rem 0.7rem;
-      background: var(--terra-pale);
-      border-radius: 50px;
-      white-space: nowrap;
+      letter-spacing: 0.04em;
     }
     .entry-name {
       font-family: 'Cormorant', serif;
-      font-size: 1.75rem;
+      font-size: 1.55rem;
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 1.15;
       color: var(--ink);
+      letter-spacing: -0.01em;
     }
     .entry-name em { font-style: italic; color: var(--terra); }
     .entry-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem 0.7rem;
       font-family: 'Lora', serif;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       color: var(--muted);
       font-style: italic;
-      margin-top: -0.3rem;
+      line-height: 1.5;
     }
-    .entry-meta span:not(:last-child)::after {
-      content: '·';
-      margin-left: 0.7rem;
+    .entry-meta .dot {
+      display: inline-block;
+      margin: 0 0.35rem;
       color: var(--gold);
       font-style: normal;
     }
+    .entry-tag {
+      display: inline-block;
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--terra);
+      margin-top: 0.3rem;
+    }
     .entry-desc {
-      font-size: 0.88rem;
-      line-height: 1.78;
+      font-size: 0.9rem;
+      line-height: 1.65;
       color: var(--ink-soft);
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 900px) {
       .act-index { padding: 5.5rem 1.5rem 4rem; }
       .act-index-head { grid-template-columns: 1fr; gap: 1.2rem; }
-      .act-index-list { grid-template-columns: 1fr; gap: 1.2rem; }
+      .entry {
+        grid-template-columns: 1.8rem 1fr;
+        gap: 0.4rem 1rem;
+        padding: 1.2rem 0.2rem;
+      }
+      .entry:hover { padding-left: 0.2rem; padding-right: 0.2rem; }
+      .entry-name { grid-column: 2; font-size: 1.35rem; }
+      .entry-meta { grid-column: 2; margin-top: 0.2rem; }
+      .entry-tag { grid-column: 2; margin-top: 0.05rem; }
+      .entry-desc { grid-column: 2; margin-top: 0.3rem; font-size: 0.86rem; }
     }
 
     /* ─── GALLERY (unified scrapbook field) ─── */
@@ -1039,135 +1019,102 @@
 <section class="act-index">
   <div class="act-index-head">
     <div class="reveal">
-      <span class="section-label" data-en="nine ways to immerse" data-es="nueve formas de sumergirte" data-fr="neuf façons de s'immerger">nine ways to immerse</span>
-      <h2 class="section-title" data-en="The full <em>experience</em>" data-es="La experiencia <em>completa</em>" data-fr="L'<em>expérience</em> complète">The full <em>experience</em></h2>
+      <span class="section-label" data-en="what's on the week" data-es="lo que hay esta semana" data-fr="au programme de la semaine">what's on the week</span>
+      <h2 class="section-title" data-en="Nine <em>ways</em> to practise" data-es="Nueve <em>maneras</em> de practicar" data-fr="Neuf <em>façons</em> de pratiquer">Nine <em>ways</em> to practise</h2>
     </div>
-    <p class="reveal" data-en="These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish." data-es="Estas no son extras — es donde ocurre el aprendizaje real. Cada actividad está dirigida por un profesor o guía local, y todo se realiza en español." data-fr="Ce ne sont pas des extras — c'est là que le vrai apprentissage se fait. Chaque activité est menée par un professeur ou un guide local, et tout se fait en espagnol.">These aren't extras — they're where the real learning happens. Every activity is led by a teacher or local guide, and everything runs in Spanish.</p>
+    <p class="reveal" data-en="Led by teachers or local guides. Everything runs in Spanish." data-es="Dirigidas por profesores o guías locales. Todo se realiza en español." data-fr="Menées par nos professeurs ou des guides locaux. Tout se déroule en espagnol.">Led by teachers or local guides. Everything runs in Spanish.</p>
   </div>
 
-  <div class="act-index-list">
+  <div class="act-index-list reveal">
 
-    <article class="entry reveal">
-      <div class="entry-top">
-        <span class="entry-num">i.</span>
+    <article class="entry">
+      <span class="entry-num">i.</span>
+      <h3 class="entry-name" data-en="Bolivian <em>Cooking</em> Class" data-es="Clase de <em>Cocina</em> Boliviana" data-fr="Cours de <em>cuisine</em> bolivienne">Bolivian <em>Cooking</em> Class</h3>
+      <div>
+        <div class="entry-meta"><span data-en="Tuesdays" data-es="Martes" data-fr="Mardis">Tuesdays</span><span class="dot">·</span><span data-en="3 hrs" data-es="3 hrs" data-fr="3h">3 hrs</span></div>
         <span class="entry-tag" data-en="Food &amp; Culture" data-es="Comida y Cultura" data-fr="Gastronomie &amp; Culture">Food &amp; Culture</span>
       </div>
-      <h3 class="entry-name" data-en="Bolivian <em>Cooking</em> Class" data-es="Clase de <em>Cocina</em> Boliviana" data-fr="Cours de <em>cuisine</em> bolivienne">Bolivian <em>Cooking</em> Class</h3>
-      <div class="entry-meta">
-        <span data-en="Every Tuesday" data-es="Cada martes" data-fr="Chaque mardi">Every Tuesday</span>
-        <span data-en="3 hours" data-es="3 horas" data-fr="3 heures">3 hours</span>
-        <span data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span>
-      </div>
-      <p class="entry-desc" data-en="Cook a traditional Bolivian meal from scratch in the Me Gusta café kitchen. Your teacher guides you through shopping vocabulary, recipe steps, and food culture — entirely in Spanish. Then you eat what you made." data-es="Prepara una comida boliviana tradicional desde cero en la cocina del café Me Gusta. Tu profesor te guía por el vocabulario de compras, los pasos de la receta y la cultura gastronómica — todo en español. Después te comes lo que hiciste." data-fr="Cuisinez un repas bolivien traditionnel dans la cuisine du café Me Gusta. Votre professeur vous guide en espagnol — vocabulaire des courses, étapes de la recette, culture culinaire. Puis vous mangez ce que vous avez préparé.">Cook a traditional Bolivian meal from scratch in the Me Gusta café kitchen. Your teacher guides you through shopping vocabulary, recipe steps, and food culture — entirely in Spanish. Then you eat what you made.</p>
+      <p class="entry-desc" data-en="Cook a traditional Bolivian meal in our café kitchen — shopping vocabulary, recipe steps, food culture, all in Spanish." data-es="Prepara una comida boliviana tradicional en la cocina del café — vocabulario de compras, pasos de receta y cultura gastronómica, todo en español." data-fr="Cuisinez un repas bolivien traditionnel dans la cuisine du café — vocabulaire des courses, étapes de la recette, culture culinaire, le tout en espagnol.">Cook a traditional Bolivian meal in our café kitchen — shopping vocabulary, recipe steps, food culture, all in Spanish.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.04s;">
-      <div class="entry-top">
-        <span class="entry-num">ii.</span>
+    <article class="entry">
+      <span class="entry-num">ii.</span>
+      <h3 class="entry-name" data-en="<em>Market</em> Morning" data-es="Mañana en el <em>Mercado</em>" data-fr="<em>Matinée</em> au marché"><em>Market</em> Morning</h3>
+      <div>
+        <div class="entry-meta"><span data-en="Saturdays 8am" data-es="Sábados 8am" data-fr="Samedis 8h">Saturdays 8am</span><span class="dot">·</span><span data-en="2 hrs" data-es="2 hrs" data-fr="2h">2 hrs</span></div>
         <span class="entry-tag" data-en="City &amp; Culture" data-es="Ciudad y Cultura" data-fr="Ville &amp; Culture">City &amp; Culture</span>
       </div>
-      <h3 class="entry-name" data-en="<em>Market</em> Morning" data-es="Mañana en el <em>Mercado</em>" data-fr="<em>Matinée</em> au marché"><em>Market</em> Morning</h3>
-      <div class="entry-meta">
-        <span data-en="Saturday 8am" data-es="Sábado 8am" data-fr="Samedi 8h">Saturday 8am</span>
-        <span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span>
-      </div>
-      <p class="entry-desc" data-en="An early-morning guided walk through Sucre's Mercado Central with one of our teachers. You'll learn the names of every vegetable, spice, and cut of meat — and how to haggle politely in Spanish." data-es="Un paseo guiado por la mañana temprano por el Mercado Central de Sucre con uno de nuestros profesores. Aprenderás los nombres de cada verdura, especia y corte de carne — y cómo regatear con educación en español." data-fr="Une promenade matinale guidée à travers le Mercado Central de Sucre avec l'un de nos professeurs. Vous apprendrez le nom de chaque légume, épice et morceau de viande — et à marchander poliment en espagnol.">An early-morning guided walk through Sucre's Mercado Central with one of our teachers. You'll learn the names of every vegetable, spice, and cut of meat — and how to haggle politely in Spanish.</p>
+      <p class="entry-desc" data-en="A guided wander through Sucre's Mercado Central — vegetables, spices, cuts of meat, and the art of polite haggling." data-es="Paseo guiado por el Mercado Central de Sucre — verduras, especias, cortes de carne y el arte de regatear con cortesía." data-fr="Une promenade guidée au Mercado Central de Sucre — légumes, épices, morceaux de viande et l'art de marchander poliment.">A guided wander through Sucre's Mercado Central — vegetables, spices, cuts of meat, and the art of polite haggling.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.08s;">
-      <div class="entry-top">
-        <span class="entry-num">iii.</span>
+    <article class="entry">
+      <span class="entry-num">iii.</span>
+      <h3 class="entry-name" data-en="Sucre <em>City Walk</em>" data-es="<em>Paseo</em> por Sucre" data-fr="<em>Visite</em> de Sucre">Sucre <em>City Walk</em></h3>
+      <div>
+        <div class="entry-meta"><span data-en="Mon &amp; Thu" data-es="Lun &amp; Jue" data-fr="Lun &amp; Jeu">Mon &amp; Thu</span><span class="dot">·</span><span data-en="2 hrs" data-es="2 hrs" data-fr="2h">2 hrs</span></div>
         <span class="entry-tag" data-en="History &amp; Architecture" data-es="Historia y Arquitectura" data-fr="Histoire &amp; Architecture">History &amp; Architecture</span>
       </div>
-      <h3 class="entry-name" data-en="Sucre <em>City Walk</em>" data-es="<em>Paseo</em> por Sucre" data-fr="<em>Visite</em> de Sucre">Sucre <em>City Walk</em></h3>
-      <div class="entry-meta">
-        <span data-en="Mon &amp; Thursday" data-es="Lunes y Jueves" data-fr="Lun &amp; Jeudi">Mon &amp; Thursday</span>
-        <span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span>
-      </div>
-      <p class="entry-desc" data-en="Walk the White City with a teacher-guide who brings its colonial history to life — entirely in Spanish. From the Plaza 25 de Mayo to hidden courtyards and rooftop views over red-tiled roofs." data-es="Camina por la Ciudad Blanca con un profesor-guía que da vida a su historia colonial — completamente en español. Desde la Plaza 25 de Mayo hasta patios ocultos y vistas desde las azoteas sobre tejados rojos." data-fr="Parcourez la Ville Blanche avec un professeur-guide qui donne vie à son histoire coloniale — entièrement en espagnol. De la Plaza 25 de Mayo aux cours cachées et vues sur les toits rouges.">Walk the White City with a teacher-guide who brings its colonial history to life — entirely in Spanish. From the Plaza 25 de Mayo to hidden courtyards and rooftop views over red-tiled roofs.</p>
+      <p class="entry-desc" data-en="The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views." data-es="La Ciudad Blanca con un profesor-guía que da vida a su historia colonial — Plaza 25, patios ocultos, vistas desde azoteas." data-fr="La Ville Blanche avec un professeur-guide qui fait vivre son histoire coloniale — Plaza 25, cours cachées, vues sur les toits.">The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.12s;">
-      <div class="entry-top">
-        <span class="entry-num">iv.</span>
+    <article class="entry">
+      <span class="entry-num">iv.</span>
+      <h3 class="entry-name" data-en="<em>Salsa</em> &amp; Cumbia Night" data-es="Noche de <em>Salsa</em> y Cumbia" data-fr="Soirée <em>Salsa</em> &amp; Cumbia"><em>Salsa</em> &amp; Cumbia Night</h3>
+      <div>
+        <div class="entry-meta"><span data-en="Fridays" data-es="Viernes" data-fr="Vendredis">Fridays</span><span class="dot">·</span><span data-en="2 hrs" data-es="2 hrs" data-fr="2h">2 hrs</span></div>
         <span class="entry-tag" data-en="Music &amp; Dance" data-es="Música y Baile" data-fr="Musique &amp; Danse">Music &amp; Dance</span>
       </div>
-      <h3 class="entry-name" data-en="<em>Salsa</em> &amp; Cumbia Night" data-es="Noche de <em>Salsa</em> y Cumbia" data-fr="Soirée <em>Salsa</em> &amp; Cumbia"><em>Salsa</em> &amp; Cumbia Night</h3>
-      <div class="entry-meta">
-        <span data-en="Every Friday" data-es="Cada viernes" data-fr="Chaque vendredi">Every Friday</span>
-        <span data-en="2 hours" data-es="2 horas" data-fr="2 heures">2 hours</span>
-        <span data-en="All welcome" data-es="Todos bienvenidos" data-fr="Tous bienvenus">All welcome</span>
-      </div>
-      <p class="entry-desc" data-en="Weekly dance session with a local instructor. Your teacher translates moves and cultural context. No experience needed — just be ready to laugh, stumble, and move." data-es="Sesión de baile semanal con un instructor local. Tu profesor traduce los movimientos y el contexto cultural. No se necesita experiencia — solo estar listo para reír, tropezar y moverte." data-fr="Session de danse hebdomadaire avec un instructeur local. Votre professeur traduit les mouvements et le contexte culturel. Aucune expérience requise — il suffit d'être prêt à rire et à bouger.">Weekly dance session with a local instructor. Your teacher translates moves and cultural context. No experience needed — just be ready to laugh, stumble, and move.</p>
+      <p class="entry-desc" data-en="Weekly dance session with a local instructor — no experience required, just a readiness to laugh and move." data-es="Sesión de baile semanal con un instructor local — no se necesita experiencia, solo ganas de reír y moverte." data-fr="Session de danse hebdomadaire avec un instructeur local — aucune expérience requise, juste l'envie de rire et de bouger.">Weekly dance session with a local instructor — no experience required, just a readiness to laugh and move.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.16s;">
-      <div class="entry-top">
-        <span class="entry-num">v.</span>
+    <article class="entry">
+      <span class="entry-num">v.</span>
+      <h3 class="entry-name" data-en="Cinema &amp; <em>Conversation</em>" data-es="Cine y <em>Conversación</em>" data-fr="Cinéma &amp; <em>Conversation</em>">Cinema &amp; <em>Conversation</em></h3>
+      <div>
+        <div class="entry-meta"><span data-en="Wednesdays 7pm" data-es="Miércoles 7pm" data-fr="Mercredis 19h">Wednesdays 7pm</span><span class="dot">·</span><span data-en="Intermediate+" data-es="Intermedio+" data-fr="Intermédiaire+">Intermediate+</span></div>
         <span class="entry-tag" data-en="Film &amp; Discussion" data-es="Cine y Debate" data-fr="Film &amp; Discussion">Film &amp; Discussion</span>
       </div>
-      <h3 class="entry-name" data-en="Cinema &amp; <em>Conversation</em>" data-es="Cine y <em>Conversación</em>" data-fr="Cinéma &amp; <em>Conversation</em>">Cinema &amp; <em>Conversation</em></h3>
-      <div class="entry-meta">
-        <span data-en="Wednesday 7pm" data-es="Miércoles 7pm" data-fr="Mercredi 19h">Wednesday 7pm</span>
-        <span data-en="Intermediate+" data-es="Intermedio+" data-fr="Intermédiaire+">Intermediate+</span>
-      </div>
-      <p class="entry-desc" data-en="A Latin American film screened in the café, followed by an open discussion in Spanish. A brilliant way to hear natural speech, absorb vocabulary in context, and talk about things that matter." data-es="Una película latinoamericana proyectada en el café, seguida de un debate abierto en español. Una forma brillante de escuchar habla natural, absorber vocabulario en contexto y hablar de lo que importa." data-fr="Un film latino-américain projeté au café, suivi d'une discussion ouverte en espagnol. Une excellente façon d'entendre la langue naturelle, d'absorber du vocabulaire en contexte et de parler de ce qui compte.">A Latin American film screened in the café, followed by an open discussion in Spanish. A brilliant way to hear natural speech, absorb vocabulary in context, and talk about things that matter.</p>
+      <p class="entry-desc" data-en="A Latin American film at the café, followed by open discussion — natural speech, context-rich vocabulary, real opinions." data-es="Una película latinoamericana en el café, seguida de un debate abierto — habla natural, vocabulario con contexto, opiniones reales." data-fr="Un film latino-américain au café, suivi d'une discussion ouverte — langue naturelle, vocabulaire en contexte, vrais échanges.">A Latin American film at the café, followed by open discussion — natural speech, context-rich vocabulary, real opinions.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.2s;">
-      <div class="entry-top">
-        <span class="entry-num">vi.</span>
-        <span class="entry-tag" data-en="Speaking Practice" data-es="Práctica de Conversación" data-fr="Pratique orale">Speaking Practice</span>
-      </div>
+    <article class="entry">
+      <span class="entry-num">vi.</span>
       <h3 class="entry-name" data-en="<em>Conversation</em> Evening" data-es="Tarde de <em>Conversación</em>" data-fr="Soirée <em>conversation</em>"><em>Conversation</em> Evening</h3>
-      <div class="entry-meta">
-        <span data-en="Every Thursday" data-es="Cada jueves" data-fr="Chaque jeudi">Every Thursday</span>
-        <span data-en="From 6pm" data-es="Desde las 6pm" data-fr="À partir de 18h">From 6pm</span>
-        <span data-en="Free" data-es="Gratis" data-fr="Gratuit">Free</span>
+      <div>
+        <div class="entry-meta"><span data-en="Thursdays 6pm" data-es="Jueves 6pm" data-fr="Jeudis 18h">Thursdays 6pm</span><span class="dot">·</span><span data-en="Free" data-es="Gratis" data-fr="Gratuit">Free</span></div>
+        <span class="entry-tag" data-en="Speaking Practice" data-es="Práctica Oral" data-fr="Pratique orale">Speaking Practice</span>
       </div>
-      <p class="entry-desc" data-en="Informal gathering at the café with teachers, students, and local guests. No formal structure — just real conversation, great coffee, and the kind of connections that stay with you long after you've left Sucre." data-es="Encuentro informal en el café con profesores, estudiantes e invitados locales. Sin estructura formal — solo conversación real, buen café y el tipo de conexiones que permanecen contigo mucho después de dejar Sucre." data-fr="Rassemblement informel au café avec des professeurs, étudiants et invités locaux. Pas de structure formelle — juste de vraies conversations, un excellent café, et des liens qui durent bien après votre départ.">Informal gathering at the café with teachers, students, and local guests. No formal structure — just real conversation, great coffee, and the kind of connections that stay with you long after you've left Sucre.</p>
+      <p class="entry-desc" data-en="Informal café meet-up with teachers, students and local guests. No structure — just real conversation and great coffee." data-es="Encuentro informal en el café con profesores, estudiantes e invitados locales. Sin estructura — solo conversación real y buen café." data-fr="Rencontre informelle au café avec professeurs, étudiants et invités locaux. Sans structure — juste de vraies conversations et un bon café.">Informal café meet-up with teachers, students and local guests. No structure — just real conversation and great coffee.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.24s;">
-      <div class="entry-top">
-        <span class="entry-num">vii.</span>
+    <article class="entry">
+      <span class="entry-num">vii.</span>
+      <h3 class="entry-name" data-en="<em>Tarabuco</em> Day Trip" data-es="Excursión a <em>Tarabuco</em>" data-fr="Excursion à <em>Tarabuco</em>"><em>Tarabuco</em> Day Trip</h3>
+      <div>
+        <div class="entry-meta"><span data-en="Sundays" data-es="Domingos" data-fr="Dimanches">Sundays</span><span class="dot">·</span><span data-en="Full day" data-es="Día completo" data-fr="Journée entière">Full day</span></div>
         <span class="entry-tag" data-en="Excursion" data-es="Excursión" data-fr="Excursion">Excursion</span>
       </div>
-      <h3 class="entry-name" data-en="<em>Tarabuco</em> Day Trip" data-es="Excursión a <em>Tarabuco</em>" data-fr="Excursion à <em>Tarabuco</em>"><em>Tarabuco</em> Day Trip</h3>
-      <div class="entry-meta">
-        <span data-en="Every Sunday" data-es="Cada domingo" data-fr="Chaque dimanche">Every Sunday</span>
-        <span data-en="Full day" data-es="Día completo" data-fr="Journée entière">Full day</span>
-        <span data-en="Transport included" data-es="Transporte incluido" data-fr="Transport inclus">Transport included</span>
-      </div>
-      <p class="entry-desc" data-en="A full-day Sunday excursion to Tarabuco, one hour from Sucre. One of Bolivia's most vibrant indigenous markets — Jalq'a and Yampara communities gather here in traditional dress. Your teacher guides you through, Spanish only." data-es="Excursión de un día a Tarabuco, a una hora de Sucre. Uno de los mercados indígenas más vibrantes de Bolivia — las comunidades Jalq'a y Yampara se reúnen aquí en traje tradicional. Tu profesor te guía, solo en español." data-fr="Excursion du dimanche à Tarabuco, à une heure de Sucre. L'un des marchés indigènes les plus vibrants de Bolivie — les communautés Jalq'a et Yampara s'y rassemblent en tenue traditionnelle. Votre professeur vous guide, uniquement en espagnol.">A full-day Sunday excursion to Tarabuco, one hour from Sucre. One of Bolivia's most vibrant indigenous markets — Jalq'a and Yampara communities gather here in traditional dress. Your teacher guides you through, Spanish only.</p>
+      <p class="entry-desc" data-en="An hour from Sucre — one of Bolivia's most vibrant indigenous markets, guided in Spanish. Transport included." data-es="A una hora de Sucre — uno de los mercados indígenas más vibrantes de Bolivia, guiado en español. Transporte incluido." data-fr="À une heure de Sucre — l'un des marchés indigènes les plus vibrants de Bolivie, guidé en espagnol. Transport inclus.">An hour from Sucre — one of Bolivia's most vibrant indigenous markets, guided in Spanish. Transport included.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.28s;">
-      <div class="entry-top">
-        <span class="entry-num">viii.</span>
+    <article class="entry">
+      <span class="entry-num">viii.</span>
+      <h3 class="entry-name" data-en="<em>Photography</em> Walk" data-es="Paseo <em>Fotográfico</em>" data-fr="<em>Promenade</em> photo"><em>Photography</em> Walk</h3>
+      <div>
+        <div class="entry-meta"><span data-en="By arrangement" data-es="Bajo petición" data-fr="Sur demande">By arrangement</span><span class="dot">·</span><span data-en="2–3 hrs" data-es="2–3 hrs" data-fr="2–3h">2–3 hrs</span></div>
         <span class="entry-tag" data-en="Language &amp; Art" data-es="Idioma y Arte" data-fr="Langue &amp; Art">Language &amp; Art</span>
       </div>
-      <h3 class="entry-name" data-en="<em>Photography</em> Walk" data-es="Paseo <em>Fotográfico</em>" data-fr="<em>Promenade</em> photo"><em>Photography</em> Walk</h3>
-      <div class="entry-meta">
-        <span data-en="Flexible scheduling" data-es="Horario flexible" data-fr="Horaires flexibles">Flexible scheduling</span>
-        <span data-en="2–3 hours" data-es="2–3 horas" data-fr="2–3 heures">2–3 hours</span>
-        <span data-en="Small groups" data-es="Grupos pequeños" data-fr="Petits groupes">Small groups</span>
-      </div>
-      <p class="entry-desc" data-en="A Spanish-language photography walk through Sucre. You describe what you see, what light does to a wall, what a stranger's expression makes you feel. Descriptive vocabulary, adjectives, storytelling — all without feeling like a lesson." data-es="Un paseo fotográfico en español por Sucre. Describes lo que ves, lo que la luz hace a una pared, lo que la expresión de un desconocido te hace sentir. Vocabulario descriptivo, adjetivos, narrativa — todo sin parecer una clase." data-fr="Une promenade photo en espagnol à travers Sucre. Vous décrivez ce que vous voyez, la lumière sur un mur, l'expression d'un inconnu. Vocabulaire descriptif, adjectifs, narration — sans jamais avoir l'impression d'une leçon.">A Spanish-language photography walk through Sucre. You describe what you see, what light does to a wall, what a stranger's expression makes you feel. Descriptive vocabulary, adjectives, storytelling — all without feeling like a lesson.</p>
+      <p class="entry-desc" data-en="Describe Sucre in Spanish — light, faces, textures. Vocabulary, adjectives and storytelling without ever feeling like a lesson." data-es="Describe Sucre en español — la luz, los rostros, las texturas. Vocabulario, adjetivos y narrativa sin parecer una clase." data-fr="Décrivez Sucre en espagnol — la lumière, les visages, les textures. Vocabulaire, adjectifs et narration, sans jamais faire leçon.">Describe Sucre in Spanish — light, faces, textures. Vocabulary, adjectives and storytelling without ever feeling like a lesson.</p>
     </article>
 
-    <article class="entry reveal" style="transition-delay:0.32s;">
-      <div class="entry-top">
-        <span class="entry-num">ix.</span>
+    <article class="entry">
+      <span class="entry-num">ix.</span>
+      <h3 class="entry-name" data-en="<em>Wallyball</em>" data-es="<em>Wallyball</em>" data-fr="<em>Wallyball</em>"><em>Wallyball</em></h3>
+      <div>
+        <div class="entry-meta"><span data-en="Wednesdays" data-es="Miércoles" data-fr="Mercredis">Wednesdays</span><span class="dot">·</span><span data-en="1.5 hrs" data-es="1.5 hrs" data-fr="1h30">1.5 hrs</span></div>
         <span class="entry-tag" data-en="Sport &amp; Social" data-es="Deporte y Social" data-fr="Sport &amp; Social">Sport &amp; Social</span>
       </div>
-      <h3 class="entry-name" data-en="<em>Wallyball</em>" data-es="<em>Wallyball</em>" data-fr="<em>Wallyball</em>"><em>Wallyball</em></h3>
-      <div class="entry-meta">
-        <span data-en="Every Wednesday" data-es="Cada miércoles" data-fr="Chaque mercredi">Every Wednesday</span>
-        <span data-en="1.5 hours" data-es="1.5 horas" data-fr="1h30">1.5 hours</span>
-        <span data-en="All levels" data-es="Todos los niveles" data-fr="Tous niveaux">All levels</span>
-      </div>
-      <p class="entry-desc" data-en="Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could." data-es="Voleibol entre cuatro paredes — rápido, ruidoso e imposible de jugar sin gritar en español. Estudiantes y locales mezclan equipos, y el vocabulario que aprendes en pleno juego se queda de una forma que ninguna tarjeta podría." data-fr="Du volley entre quatre murs — rapide, bruyant, et impossible à jouer sans crier en espagnol. Étudiants et locaux mélangent les équipes, et le vocabulaire appris en plein match reste gravé comme aucune fiche ne pourrait.">Volleyball meets four walls — fast, loud, and impossible to play without shouting in Spanish. Students and locals mix teams, and the vocabulary you pick up mid-game sticks in a way no flashcard ever could.</p>
+      <p class="entry-desc" data-en="Volleyball meets four walls. Impossible to play without shouting in Spanish — the vocabulary sticks, fast." data-es="Voleibol entre cuatro paredes. Imposible jugar sin gritar en español — el vocabulario se queda, rápido." data-fr="Du volley entre quatre murs. Impossible d'y jouer sans crier en espagnol — le vocabulaire se fixe, vite.">Volleyball meets four walls. Impossible to play without shouting in Spanish — the vocabulary sticks, fast.</p>
     </article>
 
   </div>
