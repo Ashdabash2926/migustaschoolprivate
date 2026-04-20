@@ -1,0 +1,17 @@
+name = "migusta-register"
+main = "src/index.js"
+compatibility_date = "2025-01-15"
+
+# Public, non-secret config. Edit these to match the school.
+[vars]
+ALLOWED_ORIGIN = "https://ashdabash2926.github.io"
+STAFF_EMAIL    = "info@megustaspanish.com"
+FROM_EMAIL     = "noreply@megustaspanish.com"
+FROM_NAME      = "Me Gusta Spanish"
+SCHOOL_WHATSAPP = "59173425725"
+PAYPAL_USERNAME = "megustaspanish"
+MODEL          = "claude-haiku-4-5-20251001"
+
+# Secrets are set via `wrangler secret put`:
+#   wrangler secret put ANTHROPIC_API_KEY
+#   wrangler secret put RESEND_API_KEY

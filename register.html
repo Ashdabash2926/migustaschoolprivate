@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Me Gusta Spanish</title>
+  <meta name="description" content="Register for Me Gusta Spanish in Sucre, Bolivia. Take a free 5-minute placement test and get matched to the right class.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAF7; --bg-warm: #F5F0E8; --cream: #FFF9F4;
+      --ink: #1C1410; --ink-soft: #4A3A2C; --muted: #9A8878;
+      --terra: #C8572D; --terra-dark: #8C3419; --terra-pale: #FAEEE8;
+      --gold: #C4913A; --gold-pale: #FAF3E4;
+      --coffee: #3D2314;
+      --border: rgba(74,58,44,0.12);
+      --shadow-warm: 0 6px 28px rgba(200,87,45,0.10), 0 2px 8px rgba(28,20,16,0.06);
+      --shadow-soft: 0 4px 20px rgba(28,20,16,0.08);
+      --r: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Lora', serif; font-weight: 400; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+
+    /* ─── NAV ─── */
+    #main-nav { position: fixed; inset: 0 0 auto 0; z-index: 200; padding: 0 3.5rem; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: rgba(250,250,247,0.95); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo { text-decoration: none; flex-shrink: 0; display: flex; align-items: center; align-self: stretch; }
+    .nav-logo b { color: var(--terra); font-weight: 600; font-style: normal; }
+    .nav-logo-img { height: 100%; width: auto; display: block; }
+    .nav-center { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-center a { color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; white-space: nowrap; transition: color 0.2s; }
+    .nav-center a:hover, .nav-center a.active { color: var(--terra); }
+    .nav-cafe-link { font-family: 'Caveat', cursive !important; font-size: 1.3rem !important; font-weight: 600 !important; color: var(--terra) !important; font-style: normal !important; }
+    .nav-more-item { position: relative; }
+    .nav-more-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--ink-soft); font-family: 'Lora', serif; font-size: 0.78rem; font-style: italic; padding: 0; line-height: 1; transition: color 0.2s; }
+    .nav-more-btn:hover, .nav-more-btn.active { color: var(--terra); }
+    .nav-more-btn svg { transition: transform 0.2s; flex-shrink: 0; }
+    .nav-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 0.5rem; list-style: none; box-shadow: 0 8px 32px rgba(28,20,16,0.12); min-width: 175px; z-index: 300; }
+    .nav-dropdown.open { display: block; animation: dropIn 0.18s ease; }
+    @keyframes dropIn { from { opacity: 0; transform: translateX(-50%) translateY(-6px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    .nav-dropdown li a { display: block; padding: 0.5rem 0.9rem; color: var(--ink-soft); text-decoration: none; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic; border-radius: 8px; white-space: nowrap; transition: background 0.15s, color 0.15s; }
+    .nav-dropdown li a:hover, .nav-dropdown li a.active { background: var(--terra-pale); color: var(--terra); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .lang-select { position: relative; }
+    .lang-current { display: flex; align-items: center; gap: 0.4rem; background: #E8E3DB; border: none; border-radius: 50px; padding: 0.3rem 0.7rem 0.3rem 0.5rem; cursor: pointer; font-family: 'Lora', serif; font-size: 0.72rem; font-weight: 500; color: var(--ink-soft); line-height: 1; transition: background 0.2s; }
+    .lang-current:hover { background: #DDD8CF; }
+    .lang-flag { font-size: 0.95rem; line-height: 1; }
+    .lang-current svg { width: 8px; height: 5px; transition: transform 0.2s; flex-shrink: 0; }
+    .lang-current[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .lang-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 0.35rem; list-style: none; box-shadow: 0 8px 28px rgba(28,20,16,0.12); min-width: 130px; z-index: 300; }
+    .lang-menu.open { display: block; animation: langDrop 0.15s ease; }
+    @keyframes langDrop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .lang-option { display: flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.7rem; border-radius: 8px; border: none; background: none; width: 100%; cursor: pointer; font-family: 'Lora', serif; font-size: 0.78rem; color: var(--ink-soft); transition: background 0.15s, color 0.15s; }
+    .lang-option:hover, .lang-option.active { background: var(--terra-pale); color: var(--terra); }
+    .lang-option .lang-flag { font-size: 1rem; }
+    .lang-bubble { position: absolute; top: calc(100% + 12px); right: 0; background: #fff; border: 1.5px solid var(--terra); border-radius: 10px; padding: 0.55rem 2rem 0.55rem 0.85rem; white-space: nowrap; font-size: 0.82rem; font-family: 'Lora', serif; color: var(--ink); box-shadow: 0 4px 16px rgba(0,0,0,0.10); z-index: 200; animation: bubblePop 0.25s ease; }
+    .lang-bubble::before { content: ''; position: absolute; top: -8px; right: 22px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid var(--terra); }
+    .lang-bubble::after { content: ''; position: absolute; top: -6px; right: 23px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid #fff; }
+    .lang-bubble-close { position: absolute; top: 5px; right: 7px; background: none; border: none; cursor: pointer; font-size: 0.7rem; color: #aaa; line-height: 1; padding: 0; }
+    .lang-bubble-close:hover { color: var(--terra); }
+    .lang-bubble.hidden { display: none; }
+    @keyframes bubblePop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .nav-cta { font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 600; color: #fff !important; background: var(--terra); padding: 0.45rem 1.2rem; border-radius: 50px; text-decoration: none !important; white-space: nowrap; box-shadow: 0 3px 12px rgba(200,87,45,0.3); transition: background 0.2s, transform 0.2s !important; font-style: normal !important; }
+    .nav-cta:hover { background: var(--terra-dark) !important; transform: translateY(-1px); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
+    .nav-mobile { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 190; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { font-family: 'Cormorant', serif; font-size: 2rem; font-style: italic; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+    .nav-mobile a:hover { color: var(--terra); }
+    .nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--ink-soft); }
+    @media (max-width: 1100px) { #main-nav { padding: 0 1.5rem; } .nav-center, .nav-cta { display: none; } .nav-burger { display: flex; } }
+
+    /* ─── HERO ─── */
+    .page-hero {
+      padding: 8rem 2rem 3rem;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: -20%;
+      transform: translateX(-50%);
+      width: 90%; height: 140%;
+      background: radial-gradient(ellipse at 30% 60%, rgba(196,145,58,0.14), transparent 55%),
+                  radial-gradient(ellipse at 70% 40%, rgba(200,87,45,0.09), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-hand {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--terra);
+      display: block;
+      transform: rotate(-1deg);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(3rem, 6.5vw, 6rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title em { font-style: italic; color: var(--terra); font-weight: 400; }
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      max-width: 34rem;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+    }
+    .hero-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+
+    /* ─── FORM ─── */
+    .register-section {
+      padding: 3rem 2rem 6rem;
+      background: var(--bg);
+      position: relative;
+    }
+    .register-shell {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--cream);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 2.5rem 2.5rem 2.2rem;
+      position: relative;
+    }
+
+    /* progress */
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 2.2rem;
+      flex-wrap: wrap;
+    }
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Lora', serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      transition: color 0.3s;
+    }
+    .progress-step .num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--muted);
+      background: #fff;
+      transition: all 0.3s;
+    }
+    .progress-step.active { color: var(--terra); }
+    .progress-step.active .num { border-color: var(--terra); background: var(--terra); color: #fff; }
+    .progress-step.done { color: var(--ink-soft); }
+    .progress-step.done .num { border-color: var(--gold); background: var(--gold); color: #fff; }
+    .progress-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      min-width: 1rem;
+    }
+
+    /* step cards */
+    .step { display: none; animation: stepIn 0.4s ease; }
+    .step.active { display: block; }
+    @keyframes stepIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .step-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--terra);
+      display: block;
+      margin-bottom: 0.3rem;
+      transform: rotate(-0.5deg);
+      transform-origin: left;
+    }
+    .step-title {
+      font-family: 'Cormorant', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .step-title em { font-style: italic; color: var(--terra); }
+    .step-lead {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 1.6rem;
+      font-style: italic;
+    }
+
+    /* inputs */
+    .field { margin-bottom: 1.1rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field label {
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.01em;
+    }
+    .field label .opt {
+      font-family: 'Caveat', cursive;
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-left: 0.3rem;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--terra);
+      box-shadow: 0 0 0 4px rgba(200,87,45,0.08);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); font-style: italic; }
+    .field .error-msg {
+      display: none;
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: var(--terra-dark);
+      margin-top: 0.25rem;
+    }
+    .field.error input, .field.error textarea, .field.error select { border-color: var(--terra-dark); background: rgba(200,87,45,0.03); }
+    .field.error .error-msg { display: block; }
+
+    /* chip group */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+    .chip {
+      position: relative;
+      display: inline-flex;
+    }
+    .chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: #fff;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip input:checked + span {
+      border-color: var(--terra);
+      background: var(--terra-pale);
+      color: var(--terra);
+      font-weight: 500;
+    }
+    .chip:hover span { border-color: var(--terra); }
+
+    /* question block */
+    .q-block { margin-bottom: 1.4rem; }
+    .q-tag {
+      display: inline-block;
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .q-prompt {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 0.6rem;
+    }
+
+    .note {
+      background: var(--gold-pale);
+      border-left: 2px solid var(--gold);
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--coffee);
+      margin-bottom: 1.4rem;
+      line-height: 1.4;
+    }
+
+    /* actions */
+    .step-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.8rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .btn {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.75rem 1.8rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-soft);
+      font-style: italic;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+    .btn-ghost:hover { color: var(--terra); }
+    .btn-primary {
+      background: var(--terra);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(200,87,45,0.3);
+    }
+    .btn-primary:hover { background: var(--terra-dark); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* success state */
+    .success-state {
+      text-align: center;
+      padding: 2rem 0.5rem;
+      display: none;
+      animation: stepIn 0.5s ease;
+    }
+    .success-state.active { display: block; }
+    .success-check {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--terra-pale);
+      color: var(--terra);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      animation: pop 0.5s cubic-bezier(0.16,1.36,0.56,1) 0.1s both;
+    }
+    @keyframes pop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-title {
+      font-family: 'Cormorant', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+    .success-title em { font-style: italic; color: var(--terra); }
+    .success-text {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      max-width: 26rem;
+      margin: 0 auto 1.8rem;
+      font-style: italic;
+    }
+    .success-level {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 1rem 2rem;
+      background: var(--cream);
+      border: 1px dashed var(--gold);
+      border-radius: 14px;
+      margin-bottom: 1.8rem;
+    }
+    .success-level .kicker {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .success-level .value {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--terra);
+    }
+
+    /* error state */
+    .submit-error {
+      display: none;
+      background: rgba(200,87,45,0.06);
+      border: 1px solid var(--terra-pale);
+      color: var(--terra-dark);
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .submit-error.active { display: block; }
+
+    /* mobile */
+    @media (max-width: 680px) {
+      .register-shell { padding: 1.8rem 1.4rem; border-radius: 18px; }
+      .field-row { grid-template-columns: 1fr; }
+      .step-title { font-size: 1.55rem; }
+      .progress-step .label { display: none; }
+      .page-hero { padding: 7rem 1.25rem 2rem; }
+      .register-section { padding: 2rem 1.25rem 5rem; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--ink); color: rgba(242,232,212,0.8); padding: 5rem 4.5rem 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-logo { font-family: 'Cormorant', serif; font-style: italic; font-size: 1.5rem; color: #fff; display: block; margin-bottom: 0.75rem; }
+    .footer-logo b { color: var(--terra); font-style: normal; }
+    .footer-tagline { font-size: 0.85rem; line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
+    .footer-social { display: flex; gap: 0.8rem; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .footer-social a:hover { background: var(--terra); color: #fff; }
+    .footer-col-title { font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--terra); }
+    .footer-contact-item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.85rem; margin-bottom: 0.9rem; }
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 0.55rem; background: var(--terra); color: #fff; padding: 0.65rem 1.4rem; font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 600; text-decoration: none; border-radius: 50px; transition: background 0.2s, transform 0.2s; }
+    .whatsapp-btn:hover { background: var(--terra-dark); transform: translateY(-2px); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: 'Caveat', cursive; font-size: 0.85rem; color: rgba(255,255,255,0.3); }
+    @media (max-width: 960px) { footer { padding: 4rem 1.5rem 2rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo"><img src="images/megustalogoclear.webp" alt="Me Gusta Spanish" class="nav-logo-img"></a>
+  <ul class="nav-center">
+    <li><a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a></li>
+    <li><a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a></li>
+    <li><a href="kids.html" data-en="Kids" data-es="Niños" data-fr="Enfants">Kids</a></li>
+    <li><a href="cafe.html" class="nav-cafe-link" data-en="Café" data-es="Café" data-fr="Café">Café</a></li>
+    <li><a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a></li>
+    <li class="nav-more-item">
+      <button class="nav-more-btn" id="navMoreBtn" aria-expanded="false">
+        <span data-en="More" data-es="Más" data-fr="Plus">More</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="nav-dropdown" id="navDropdown">
+        <li><a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a></li>
+        <li><a href="activities.html" data-en="Activities" data-es="Actividades" data-fr="Activités">Activities</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a></li>
+        <li><a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a></li>
+        <li><a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle-wrap" style="position:relative;">
+      <div class="lang-select" id="langSelect">
+        <button class="lang-current" id="langCurrentBtn" aria-expanded="false">
+          <span class="lang-flag" id="langCurrentFlag">🇬🇧</span>
+          <span id="langCurrentCode">EN</span>
+          <svg viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu">
+          <li><button class="lang-option active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</button></li>
+          <li><button class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</button></li>
+          <li><button class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+        </ul>
+      </div>
+      <div class="lang-bubble" id="langBubble">
+        <button class="lang-bubble-close" id="langBubbleClose" aria-label="Close">&#x2715;</button>
+        ¿Quieres este sitio en español?
+      </div>
+    </div>
+    <a href="register.html" class="nav-cta active" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile" id="navMobile">
+  <button class="nav-mobile-close" id="navClose" aria-label="Close menu">&times;</button>
+  <a href="index.html" data-en="Home" data-es="Inicio" data-fr="Accueil">Home</a>
+  <a href="classes.html" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</a>
+  <a href="kids.html" data-en="Kids" data-es="Niños" data-fr="Enfants">Kids</a>
+  <a href="teachers.html" data-en="Teachers" data-es="Profesores" data-fr="Professeurs">Teachers</a>
+  <a href="activities.html" data-en="Activities" data-es="Actividades" data-fr="Activités">Activities</a>
+  <a href="methodology.html" data-en="Methodology" data-es="Metodología" data-fr="Méthodologie">Methodology</a>
+  <a href="cafe.html" data-en="Café" data-es="Café" data-fr="Café">Café</a>
+  <a href="about.html" data-en="About" data-es="Sobre Nosotros" data-fr="À propos">About</a>
+  <a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a>
+  <a href="faqs.html" data-en="FAQs" data-es="Preguntas" data-fr="FAQ">FAQs</a>
+  <a href="blog.html" data-en="Blog" data-es="Blog" data-fr="Blog">Blog</a>
+  <a href="contact.html" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</a>
+  <a href="register.html" class="btn-primary" data-en="Register Now" data-es="Regístrate" data-fr="S'inscrire">Register Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="hero-hand" data-en="free · takes about 5 minutes" data-es="gratis · unos 5 minutos" data-fr="gratuit · environ 5 minutes">free · takes about 5 minutes</span>
+  <h1 class="hero-title" data-en="Register &amp; <em>placement test</em>" data-es="Regístrate y <em>prueba de nivel</em>" data-fr="Inscription &amp; <em>test de niveau</em>">Register &amp; <em>placement test</em></h1>
+  <p class="hero-sub" data-en="Tell us a bit about you, write a few lines in Spanish, and we'll come back within 24 hours with your level, your class and a price. No commitment until you're ready." data-es="Cuéntanos algo de ti, escribe unas líneas en español y en menos de 24 horas te contestamos con tu nivel, tu clase y el precio. Sin compromiso hasta que tú quieras." data-fr="Parlez-nous un peu de vous, écrivez quelques lignes en espagnol, et sous 24h nous revenons avec votre niveau, votre classe et le prix. Aucun engagement avant que vous soyez prêt.">Tell us a bit about you, write a few lines in Spanish, and we'll come back within 24 hours with your level, your class and a price. No commitment until you're ready.</p>
+  <div class="hero-meta">
+    <span data-en="3 steps" data-es="3 pasos" data-fr="3 étapes">3 steps</span>
+    <span class="dot"></span>
+    <span data-en="auto-graded" data-es="corrección automática" data-fr="correction automatique">auto-graded</span>
+    <span class="dot"></span>
+    <span data-en="we reply within 24h" data-es="respondemos en 24h" data-fr="réponse sous 24h">we reply within 24h</span>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="register-section">
+  <div class="register-shell">
+
+    <!-- progress -->
+    <div class="progress" id="progress">
+      <div class="progress-step active" data-step="1">
+        <span class="num">1</span>
+        <span class="label" data-en="About you" data-es="Sobre ti" data-fr="Vous">About you</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="2">
+        <span class="num">2</span>
+        <span class="label" data-en="Your Spanish" data-es="Tu español" data-fr="Votre espagnol">Your Spanish</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="3">
+        <span class="num">3</span>
+        <span class="label" data-en="Your plan" data-es="Tu plan" data-fr="Votre plan">Your plan</span>
+      </div>
+    </div>
+
+    <form id="registerForm" novalidate>
+
+      <!-- STEP 1 · CONTACT -->
+      <div class="step active" data-step="1">
+        <span class="step-eyebrow" data-en="step one" data-es="paso uno" data-fr="étape un">step one</span>
+        <h2 class="step-title" data-en="A little bit <em>about you</em>" data-es="Un poco <em>sobre ti</em>" data-fr="Un peu <em>sur vous</em>">A little bit <em>about you</em></h2>
+        <p class="step-lead" data-en="So we know who we're talking to and where to find you." data-es="Para saber con quién hablamos y dónde encontrarte." data-fr="Pour savoir à qui nous parlons et où vous joindre.">So we know who we're talking to and where to find you.</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fName" data-en="First name" data-es="Nombre" data-fr="Prénom">First name</label>
+            <input id="fName" name="firstName" type="text" required autocomplete="given-name" placeholder="María">
+            <span class="error-msg" data-en="we need your name" data-es="necesitamos tu nombre" data-fr="nous avons besoin de votre prénom">we need your name</span>
+          </div>
+          <div class="field">
+            <label for="lName" data-en="Last name" data-es="Apellido" data-fr="Nom">Last name</label>
+            <input id="lName" name="lastName" type="text" autocomplete="family-name" placeholder="García">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="email" data-en="Email" data-es="Correo" data-fr="E-mail">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+            <span class="error-msg" data-en="please give us a valid email" data-es="dinos un correo válido" data-fr="un e-mail valide s'il vous plaît">please give us a valid email</span>
+          </div>
+          <div class="field">
+            <label for="whatsapp" data-en="WhatsApp number" data-es="WhatsApp" data-fr="WhatsApp">WhatsApp number</label>
+            <input id="whatsapp" name="whatsapp" type="tel" required placeholder="+44 7000 000 000">
+            <span class="error-msg" data-en="we reply on WhatsApp — we need a number" data-es="respondemos por WhatsApp — necesitamos un número" data-fr="nous répondons sur WhatsApp — donnez un numéro">we reply on WhatsApp — we need a number</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="country" data-en="Country" data-es="País" data-fr="Pays">Country</label>
+            <input id="country" name="country" type="text" required autocomplete="country-name" placeholder="United Kingdom">
+            <span class="error-msg" data-en="tell us where you're from" data-es="dinos de dónde eres" data-fr="dites-nous d'où vous venez">tell us where you're from</span>
+          </div>
+          <div class="field">
+            <label for="age" data-en="Age" data-es="Edad" data-fr="Âge"><span>Age</span><span class="opt" data-en="(optional)" data-es="(opcional)" data-fr="(facultatif)">(optional)</span></label>
+            <input id="age" name="age" type="number" min="4" max="99" placeholder="28">
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <span></span>
+          <button type="button" class="btn btn-primary" data-next="2" data-en="Next: your Spanish →" data-es="Siguiente: tu español →" data-fr="Suivant : votre espagnol →">Next: your Spanish →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 · PLACEMENT TEST -->
+      <div class="step" data-step="2">
+        <span class="step-eyebrow" data-en="step two" data-es="paso dos" data-fr="étape deux">step two</span>
+        <h2 class="step-title" data-en="Your <em>Spanish</em>, in your words" data-es="Tu <em>español</em>, a tu manera" data-fr="Votre <em>espagnol</em>, à votre manière">Your <em>Spanish</em>, in your words</h2>
+        <p class="step-lead" data-en="Answer in Spanish as best you can. If a question feels too hard, write what you can or leave it blank. No pressure — that's exactly how we figure out your level." data-es="Responde en español lo mejor que puedas. Si una pregunta es difícil, escribe lo que puedas o déjala en blanco. Sin presión — así descubrimos tu nivel." data-fr="Répondez en espagnol du mieux que vous pouvez. Si une question est trop difficile, écrivez ce que vous pouvez ou laissez vide. Sans pression — c'est comme ça qu'on évalue votre niveau.">Answer in Spanish as best you can. If a question feels too hard, write what you can or leave it blank. No pressure — that's exactly how we figure out your level.</p>
+
+        <div class="note" data-en="Tip: if you don't know any Spanish yet, that's fine — just write &quot;soy principiante&quot; (I'm a beginner) in question one." data-es="Consejo: si todavía no sabes español, está bien — escribe &quot;soy principiante&quot; en la pregunta uno." data-fr="Astuce : si vous ne parlez pas encore espagnol, écrivez simplement « soy principiante » (je suis débutant) à la question un.">Tip: if you don't know any Spanish yet, that's fine — just write "soy principiante" (I'm a beginner) in question one.</div>
+
+        <div class="q-block">
+          <span class="q-tag">01</span>
+          <p class="q-prompt">Escribe una oración en español. Puede ser muy sencilla — tu nombre, un saludo, cualquier cosa.</p>
+          <div class="field"><textarea id="q1" name="q1" rows="2" placeholder="Hola, me llamo..."></textarea></div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-tag">02</span>
+          <p class="q-prompt">¿Cómo te llamas, de dónde eres, cuántos años tienes y qué te gusta hacer?</p>
+          <div class="field"><textarea id="q2" name="q2" rows="3" placeholder="Me llamo..."></textarea></div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-tag">03</span>
+          <p class="q-prompt">Cuéntanos qué hiciste ayer, desde que te despertaste hasta que te acostaste.</p>
+          <div class="field"><textarea id="q3" name="q3" rows="3" placeholder="Ayer..."></textarea></div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-tag">04</span>
+          <p class="q-prompt">Si pudieras cambiar una cosa del lugar donde vives, ¿qué cambiarías y por qué?</p>
+          <div class="field"><textarea id="q4" name="q4" rows="3" placeholder="Si pudiera..."></textarea></div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-tag">05</span>
+          <p class="q-prompt">Describe una situación en la que hayas tenido que adaptarte a una cultura diferente. ¿Qué aprendiste y cómo cambió tu forma de ver el mundo?</p>
+          <div class="field"><textarea id="q5" name="q5" rows="4" placeholder="Cuando..."></textarea></div>
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" data-prev="1" data-en="← Back" data-es="← Atrás" data-fr="← Retour">← Back</button>
+          <button type="button" class="btn btn-primary" data-next="3" data-en="Next: your plan →" data-es="Siguiente: tu plan →" data-fr="Suivant : votre plan →">Next: your plan →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 · PLAN -->
+      <div class="step" data-step="3">
+        <span class="step-eyebrow" data-en="step three" data-es="paso tres" data-fr="étape trois">step three</span>
+        <h2 class="step-title" data-en="Your <em>plan</em> with us" data-es="Tu <em>plan</em> con nosotros" data-fr="Votre <em>plan</em> avec nous">Your <em>plan</em> with us</h2>
+        <p class="step-lead" data-en="Just a few last questions so we can match you to the right class and schedule." data-es="Unas últimas preguntas para ponerte en la clase y el horario correctos." data-fr="Quelques dernières questions pour vous placer dans le bon cours et horaire.">Just a few last questions so we can match you to the right class and schedule.</p>
+
+        <div class="field">
+          <label data-en="What kind of class?" data-es="¿Qué tipo de clase?" data-fr="Quel type de cours ?">What kind of class?</label>
+          <div class="chips" data-chipgroup="classType">
+            <label class="chip"><input type="radio" name="classType" value="group" checked><span data-en="Group class" data-es="Clase grupal" data-fr="Cours en groupe">Group class</span></label>
+            <label class="chip"><input type="radio" name="classType" value="private"><span data-en="Private one-on-one" data-es="Clases privadas" data-fr="Cours particuliers">Private one-on-one</span></label>
+            <label class="chip"><input type="radio" name="classType" value="online"><span data-en="Online" data-es="Online" data-fr="En ligne">Online</span></label>
+            <label class="chip"><input type="radio" name="classType" value="undecided"><span data-en="Not sure yet" data-es="Todavía no lo sé" data-fr="Je ne sais pas encore">Not sure yet</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-en="How long do you want to study?" data-es="¿Cuánto tiempo quieres estudiar?" data-fr="Combien de temps voulez-vous étudier ?">How long do you want to study?</label>
+          <div class="chips" data-chipgroup="duration">
+            <label class="chip"><input type="radio" name="duration" value="1w"><span data-en="1 week" data-es="1 semana" data-fr="1 semaine">1 week</span></label>
+            <label class="chip"><input type="radio" name="duration" value="2w" checked><span data-en="2 weeks" data-es="2 semanas" data-fr="2 semaines">2 weeks</span></label>
+            <label class="chip"><input type="radio" name="duration" value="1m"><span data-en="1 month" data-es="1 mes" data-fr="1 mois">1 month</span></label>
+            <label class="chip"><input type="radio" name="duration" value="longer"><span data-en="Longer" data-es="Más tiempo" data-fr="Plus longtemps">Longer</span></label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="startDate" data-en="Preferred start date" data-es="Fecha preferida de inicio" data-fr="Date de début préférée"><span>Preferred start date</span><span class="opt" data-en="(optional)" data-es="(opcional)" data-fr="(facultatif)">(optional)</span></label>
+            <input id="startDate" name="startDate" type="date">
+          </div>
+          <div class="field">
+            <label data-en="Host family stay?" data-es="¿Alojamiento con familia?" data-fr="Famille d'accueil ?">Host family stay?</label>
+            <div class="chips" data-chipgroup="accommodation" style="gap:0.4rem;">
+              <label class="chip"><input type="radio" name="accommodation" value="yes"><span data-en="Yes please" data-es="Sí, por favor" data-fr="Oui">Yes please</span></label>
+              <label class="chip"><input type="radio" name="accommodation" value="no" checked><span data-en="No, thanks" data-es="No, gracias" data-fr="Non merci">No, thanks</span></label>
+              <label class="chip"><input type="radio" name="accommodation" value="info"><span data-en="Tell me more" data-es="Cuéntame más" data-fr="Dites-m'en plus">Tell me more</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes" data-en="Anything else we should know?" data-es="¿Algo más que debamos saber?" data-fr="Autre chose à savoir ?"><span>Anything else we should know?</span><span class="opt" data-en="(optional)" data-es="(opcional)" data-fr="(facultatif)">(optional)</span></label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Dietary needs, travel companions, specific goals..."></textarea>
+        </div>
+
+        <div class="submit-error" id="submitError" data-en="Something went wrong — please try again, or email info@megustaspanish.com." data-es="Algo salió mal — inténtalo de nuevo o escríbenos a info@megustaspanish.com." data-fr="Un problème est survenu — réessayez ou écrivez-nous à info@megustaspanish.com.">Something went wrong — please try again, or email info@megustaspanish.com.</div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" data-prev="2" data-en="← Back" data-es="← Atrás" data-fr="← Retour">← Back</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn" data-en="Submit &amp; get my level" data-es="Enviar y ver mi nivel" data-fr="Envoyer et voir mon niveau">Submit &amp; get my level</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS -->
+    <div class="success-state" id="successState">
+      <div class="success-check">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 L14 24 L27 10"/></svg>
+      </div>
+      <h2 class="success-title" data-en="Got it — <em>gracias</em>!" data-es="¡Recibido — <em>gracias</em>!" data-fr="Bien reçu — <em>gracias</em> !">Got it — <em>gracias</em>!</h2>
+      <div class="success-level" id="successLevel" hidden>
+        <span class="kicker" data-en="your provisional level" data-es="tu nivel provisional" data-fr="votre niveau provisoire">your provisional level</span>
+        <span class="value" id="successLevelValue">—</span>
+      </div>
+      <p class="success-text" data-en="We've got your answers. A teacher will look through them and WhatsApp you within 24 hours with your class, schedule and price." data-es="Ya tenemos tus respuestas. Un profesor las revisará y te escribirá por WhatsApp en menos de 24 horas con tu clase, horario y precio." data-fr="Nous avons vos réponses. Un professeur les examine et vous écrit sur WhatsApp sous 24h avec votre cours, horaire et prix.">We've got your answers. A teacher will look through them and WhatsApp you within 24 hours with your class, schedule and price.</p>
+      <a href="index.html" class="btn btn-primary" data-en="Back to site" data-es="Volver al sitio" data-fr="Retour au site">Back to site</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-logo">Me <b>Gusta</b> Spanish</span>
+      <p class="footer-tagline" data-en="Probably the most fun and friendly Spanish school in Sucre, Bolivia. Helping students speak with confidence since 2005." data-es="Probablemente la escuela de español más divertida y amigable de Sucre, Bolivia. Ayudando a los estudiantes a hablar con confianza desde 2005." data-fr="Probablement l'école d'espagnol la plus amusante et accueillante de Sucre, Bolivie. Nous aidons les étudiants à parler avec confiance depuis 2005.">Probably the most fun and friendly Spanish school in Sucre, Bolivia. Helping students speak with confidence since 2005.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/Me-Gusta-Spanish-School-242207979133242" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/megustaspanishschool" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://wa.me/59173425725" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <span class="footer-col-title" data-en="Pages" data-es="Páginas" data-fr="Pages">Pages</span>
+      <ul class="footer-links">
+        <li><a href="about.html" data-en="About Us" data-es="Sobre Nosotros" data-fr="À propos de nous">About Us</a></li>
+        <li><a href="classes.html" data-en="Types of Classes" data-es="Tipos de Clases" data-fr="Types de cours">Types of Classes</a></li>
+        <li><a href="kids.html" data-en="Kids" data-es="Niños" data-fr="Enfants">Kids</a></li>
+        <li><a href="methodology.html" data-en="Methodology" data-fr="Méthodologie" data-es="Metodología">Methodology</a></li>
+        <li><a href="accommodation.html" data-en="Accommodation" data-es="Alojamiento" data-fr="Hébergement">Accommodation</a></li>
+        <li><a href="teachers.html" data-en="Our Teachers" data-es="Nuestros Profesores" data-fr="Nos professeurs">Our Teachers</a></li>
+        <li><a href="faqs.html" data-en="FAQs" data-es="Preguntas Frecuentes" data-fr="FAQ">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title" data-en="Classes" data-es="Clases" data-fr="Cours">Classes</span>
+      <ul class="footer-links">
+        <li><a href="classes.html" data-en="Face-to-Face" data-es="Presenciales" data-fr="En présentiel">Face-to-Face</a></li>
+        <li><a href="classes.html#online" data-en="Online Classes" data-es="Clases Online" data-fr="Cours en ligne">Online Classes</a></li>
+        <li><a href="accommodation.html" data-en="Host Families" data-es="Familias de Acogida" data-fr="Familles d'accueil">Host Families</a></li>
+        <li><a href="classes.html" data-en="Private Lessons" data-es="Clases Privadas" data-fr="Cours particuliers">Private Lessons</a></li>
+        <li><a href="classes.html" data-en="Group Classes" data-es="Clases Grupales" data-fr="Cours en groupe">Group Classes</a></li>
+        <li><a href="register.html" data-en="Free Placement Test" data-es="Prueba de Nivel Gratis" data-fr="Test de niveau gratuit">Free Placement Test</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title" data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</span>
+      <div class="footer-contact-item"><span data-en="Junín 333, Sucre, Bolivia" data-es="Junín 333, Sucre, Bolivia" data-fr="Junín 333, Sucre, Bolivie">Junín 333, Sucre, Bolivia</span></div>
+      <div class="footer-contact-item"><span>+591 734 25725<br>+591 734 00447</span></div>
+      <a href="https://wa.me/59173425725" class="whatsapp-btn" target="_blank" rel="noopener" style="margin-top:1rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-en="WhatsApp Us" data-es="Escríbenos" data-fr="WhatsApp">WhatsApp Us</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-en="© 2025 Me Gusta Spanish School, Sucre, Bolivia " data-es="© 2025 Me Gusta Spanish School, Sucre, Bolivia " data-fr="© 2025 Me Gusta Spanish School, Sucre, Bolivie ">© 2025 Me Gusta Spanish School, Sucre, Bolivia </span>
+    <span class="footer-copy" data-en="Made with  in Sucre" data-es="Hecho con  en Sucre" data-fr="Fait avec  à Sucre">Made with  in Sucre</span>
+  </div>
+</footer>
+
+<script>
+  /* ────── CONFIG ────── */
+  // Point this at the Cloudflare Worker once deployed.
+  // Until then, submissions log to console and show the success state.
+  const REGISTER_ENDPOINT = '';
+
+  /* ────── LANG ────── */
+  const FLAGS = { en: '\u{1F1EC}\u{1F1E7}', es: '\u{1F1EA}\u{1F1F8}', fr: '\u{1F1EB}\u{1F1F7}' };
+  const CODES = { en: 'EN', es: 'ES', fr: 'FR' };
+  const langCurrentBtn = document.getElementById('langCurrentBtn');
+  const langCurrentFlag = document.getElementById('langCurrentFlag');
+  const langCurrentCode = document.getElementById('langCurrentCode');
+  const langMenu = document.getElementById('langMenu');
+  const langOptions = document.querySelectorAll('.lang-option');
+  let currentLang = localStorage.getItem('mgLang') || 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('mgLang', lang);
+    document.documentElement.lang = lang;
+    langCurrentFlag.textContent = FLAGS[lang];
+    langCurrentCode.textContent = CODES[lang];
+    langOptions.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const val = el.dataset[lang] || el.dataset['en'];
+      if (val !== undefined) {
+        if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
+      }
+    });
+  }
+  langCurrentBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = langMenu.classList.contains('open');
+    langMenu.classList.toggle('open', !open);
+    langCurrentBtn.setAttribute('aria-expanded', String(!open));
+  });
+  document.addEventListener('click', () => { langMenu.classList.remove('open'); langCurrentBtn.setAttribute('aria-expanded','false'); });
+  langOptions.forEach(btn => btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setLang(btn.dataset.lang);
+    langMenu.classList.remove('open');
+    langCurrentBtn.setAttribute('aria-expanded','false');
+  }));
+  setLang(currentLang);
+
+  // lang bubble
+  const langBubble = document.getElementById('langBubble');
+  const langBubbleClose = document.getElementById('langBubbleClose');
+  if (localStorage.getItem('mgBubbleDismissed')) langBubble.classList.add('hidden');
+  langBubbleClose.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed','1'); });
+  langOptions.forEach(b => b.addEventListener('click', () => { langBubble.classList.add('hidden'); localStorage.setItem('mgBubbleDismissed','1'); }));
+
+  /* ────── NAV ────── */
+  document.getElementById('navBurger').addEventListener('click', () => document.getElementById('navMobile').classList.add('open'));
+  document.getElementById('navClose').addEventListener('click', () => document.getElementById('navMobile').classList.remove('open'));
+  const navMoreBtn = document.getElementById('navMoreBtn');
+  const navDropdown = document.getElementById('navDropdown');
+  navMoreBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = navDropdown.classList.contains('open');
+    navDropdown.classList.toggle('open', !open);
+    navMoreBtn.setAttribute('aria-expanded', String(!open));
+  });
+  document.addEventListener('click', () => { navDropdown.classList.remove('open'); navMoreBtn.setAttribute('aria-expanded','false'); });
+
+  /* ────── FORM STEPS ────── */
+  const form = document.getElementById('registerForm');
+  const steps = document.querySelectorAll('.step');
+  const progressSteps = document.querySelectorAll('.progress-step');
+
+  function goToStep(n) {
+    const target = String(n);
+    steps.forEach(s => s.classList.toggle('active', s.dataset.step === target));
+    progressSteps.forEach(p => {
+      const ps = Number(p.dataset.step);
+      p.classList.toggle('active', ps === n);
+      p.classList.toggle('done', ps < n);
+    });
+    window.scrollTo({ top: document.querySelector('.register-shell').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  function validateStep(n) {
+    const stepEl = document.querySelector(`.step[data-step="${n}"]`);
+    const required = stepEl.querySelectorAll('input[required], textarea[required], select[required]');
+    let ok = true;
+    required.forEach(el => {
+      const wrap = el.closest('.field');
+      let valid = el.value.trim().length > 0;
+      if (valid && el.type === 'email') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      wrap.classList.toggle('error', !valid);
+      if (!valid) ok = false;
+    });
+    return ok;
+  }
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = Number(btn.closest('.step').dataset.step);
+      if (!validateStep(current)) return;
+      goToStep(Number(btn.dataset.next));
+    });
+  });
+  document.querySelectorAll('[data-prev]').forEach(btn => {
+    btn.addEventListener('click', () => goToStep(Number(btn.dataset.prev)));
+  });
+
+  /* ────── SUBMIT ────── */
+  const submitBtn = document.getElementById('submitBtn');
+  const submitError = document.getElementById('submitError');
+  const successState = document.getElementById('successState');
+  const successLevel = document.getElementById('successLevel');
+  const successLevelValue = document.getElementById('successLevelValue');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateStep(1) || !validateStep(3)) return;
+
+    submitError.classList.remove('active');
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.textContent;
+    submitBtn.textContent = ({ en: 'Sending…', es: 'Enviando…', fr: 'Envoi…' })[currentLang];
+
+    const payload = {
+      firstName: document.getElementById('fName').value.trim(),
+      lastName: document.getElementById('lName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      whatsapp: document.getElementById('whatsapp').value.trim(),
+      country: document.getElementById('country').value.trim(),
+      age: document.getElementById('age').value.trim() || null,
+      answers: {
+        q1: document.getElementById('q1').value.trim(),
+        q2: document.getElementById('q2').value.trim(),
+        q3: document.getElementById('q3').value.trim(),
+        q4: document.getElementById('q4').value.trim(),
+        q5: document.getElementById('q5').value.trim(),
+      },
+      classType: (document.querySelector('input[name="classType"]:checked') || {}).value || null,
+      duration: (document.querySelector('input[name="duration"]:checked') || {}).value || null,
+      accommodation: (document.querySelector('input[name="accommodation"]:checked') || {}).value || null,
+      startDate: document.getElementById('startDate').value || null,
+      notes: document.getElementById('notes').value.trim() || null,
+      language: currentLang,
+      submittedAt: new Date().toISOString(),
+    };
+
+    try {
+      let data = { ok: true };
+      if (REGISTER_ENDPOINT) {
+        const res = await fetch(REGISTER_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('bad status: ' + res.status);
+        data = await res.json();
+      } else {
+        // No backend yet — log for testing.
+        console.info('[register] payload (no endpoint configured):', payload);
+      }
+
+      form.style.display = 'none';
+      document.getElementById('progress').style.display = 'none';
+      successState.classList.add('active');
+      if (data.level) {
+        successLevel.hidden = false;
+        successLevelValue.textContent = data.level;
+      }
+    } catch (err) {
+      console.error(err);
+      submitError.classList.add('active');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+
+  // live-clear errors as user types
+  form.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', () => el.closest('.field') && el.closest('.field').classList.remove('error'));
+  });
+</script>
+</body>
+</html>
