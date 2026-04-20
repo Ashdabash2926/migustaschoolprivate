@@ -685,106 +685,148 @@
     .classes-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3px;
+      gap: 2.2rem;
       margin-top: 3rem;
       position: relative;
       z-index: 1;
+    }
+
+    .class-card {
+      background: #fff;
+      border: 1px solid rgba(200,87,45,0.16);
       border-radius: var(--r);
-      overflow: hidden;
-      box-shadow: 0 12px 48px rgba(28,20,16,0.18);
-    }
-
-    .class-pane {
+      padding: 1.5rem 1.5rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 26px rgba(28,20,16,0.06);
+      transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
       position: relative;
-      height: 500px;
-      overflow: hidden;
-      cursor: pointer;
+    }
+    .class-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 44px rgba(28,20,16,0.14);
+      border-color: rgba(200,87,45,0.4);
     }
 
-    .class-pane img {
+    .class-card-media {
+      position: relative;
+      border-radius: calc(var(--r) - 8px);
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      margin-bottom: 1.75rem;
+    }
+    .class-card-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .class-pane:hover img { transform: scale(1.06); }
+    .class-card:hover .class-card-media img { transform: scale(1.06); }
 
-    .class-pane-overlay {
+    .class-card-tag {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(28,20,16,0.90) 0%,
-        rgba(28,20,16,0.50) 45%,
-        rgba(28,20,16,0.10) 70%,
-        transparent 100%
-      );
+      top: 0.9rem; left: 0.9rem;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(4px);
+      color: var(--ink);
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      padding: 0.2rem 0.75rem 0.1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(200,87,45,0.25);
+      letter-spacing: 0.02em;
+    }
+
+    .class-card-body {
+      padding: 0 0.4rem;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 2.8rem;
-      transition: background 0.4s ease;
-    }
-    .class-pane:hover .class-pane-overlay {
-      background: linear-gradient(
-        to top,
-        rgba(28,20,16,0.95) 0%,
-        rgba(28,20,16,0.60) 50%,
-        rgba(28,20,16,0.15) 75%,
-        transparent 100%
-      );
+      flex: 1;
     }
 
-    .card-label {
-      font-family: 'Caveat', cursive;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--terra);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-title {
-      font-family: 'Cormorant', serif;
-      font-size: 2.2rem;
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 0.8rem;
-      line-height: 1.1;
-    }
-
-    .card-desc {
-      font-size: 0.88rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.78);
-      margin-bottom: 1.6rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+    .class-card-eyebrow {
       font-family: 'Caveat', cursive;
       font-size: 1.05rem;
-      font-weight: 600;
-      color: #fff;
-      border: 1.5px solid rgba(255,255,255,0.5);
-      border-radius: 50px;
-      padding: 0.5rem 1.4rem;
+      color: var(--terra);
+      margin-bottom: 0.45rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .class-card-eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: var(--terra);
+      opacity: 0.6;
+    }
+
+    .class-card-title {
+      font-family: 'Cormorant', serif;
+      font-size: 2.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .class-card-title em { font-style: italic; color: var(--terra); }
+
+    .class-card-desc {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      margin-bottom: 1.4rem;
+    }
+
+    .class-card-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .class-card-features li {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .class-card-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 10px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .class-card-link {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--terra);
       text-decoration: none;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
       align-self: flex-start;
+      margin-top: auto;
+      padding: 0.15rem 0 2px;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.25s, gap 0.25s;
     }
-    .btn-ghost:hover {
-      border-color: #fff;
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-1px);
+    .class-card-link::after {
+      content: '→';
+      font-family: inherit;
+      transition: transform 0.25s;
     }
+    .class-card-link:hover { border-bottom-color: var(--terra); }
+    .class-card-link:hover::after { transform: translateX(5px); }
 
     /*  STATS  */
     .stats-section {
@@ -1293,9 +1335,10 @@
       .polaroid-mini { display: none; }
 
       .classes { padding: 5rem 1.5rem; }
-      .classes-grid { grid-template-columns: 1fr; gap: 3px; }
-      .class-pane { height: 420px; }
-      .class-pane-overlay { padding: 2rem; }
+      .classes-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; }
+      .class-card { padding: 1.2rem 1.2rem 1.8rem; }
+      .class-card-title { font-size: 1.8rem; }
+      .class-card-media { aspect-ratio: 5 / 3; margin-bottom: 1.4rem; }
 
       .stats-section { padding: 0 1rem; flex-wrap: wrap; }
       .stat-card { flex: 1 1 30%; padding: 1.4rem 1rem; }
@@ -1455,7 +1498,7 @@
         <img src="images/school/DSC05880.webp" alt="Students learning together" loading="eager" style="object-fit: cover; object-position: 100% 45%;">
         <span class="polaroid-caption" data-en="our students, learning &amp; laughing " data-es="nuestros estudiantes, aprendiendo y riendo " data-fr="nos étudiants, apprenant &amp; riant ">our students, learning &amp; laughing </span>
         <div class="hero-badge">
-          <span class="hero-badge-num">750<sup>+</sup></span>
+          <span class="hero-badge-num">15k<sup>+</sup></span>
           <span class="hero-badge-label" data-en="happy students" data-es="estudiantes felices" data-fr="étudiants heureux">happy students</span>
         </div>
       </div>
@@ -1512,43 +1555,60 @@
       <h2 class="section-title" data-en="Two ways to <em>learn</em>" data-es="Dos formas de <em>aprender</em>" data-fr="Deux façons d'<em>apprendre</em>">Two ways to <em>learn</em></h2>
     </div>
     <div class="classes-grid">
-      <div class="class-pane reveal">
-        <img src="images/school/DSC06027.webp" alt="Face to face Spanish classes in Sucre" loading="lazy">
-        <div class="class-pane-overlay">
-          <span class="card-label" data-en=" in sucre, bolivia" data-fr=" à sucre, bolivie" data-es=" en sucre, bolivia" data-fr=" à sucre, bolivie"> in sucre, bolivia</span>
-          <h3 class="card-title" data-en="Face-to-Face Classes" data-fr="Cours en présentiel" data-es="Clases Presenciales" data-fr="Cours en présentiel">Face-to-Face Classes</h3>
-          <p class="card-desc" data-en="Learn Spanish in Sucre — the heart of language and culture. Join our in-person classes and live the language every day alongside native teachers and an international community of students." data-es="Aprende español en Sucre — el corazón del idioma y la cultura. Únete a nuestras clases presenciales y vive el idioma cada día junto a profesores nativos y una comunidad internacional de estudiantes." data-fr="Apprenez l'espagnol à Sucre. Rejoignez nos cours en présentiel et vivez la langue chaque jour." data-fr="Apprenez l'espagnol à Sucre — le cœur de la langue et de la culture. Rejoignez nos cours en présentiel et vivez la langue chaque jour.">
-            Learn Spanish in Sucre — the heart of language and culture. Join our in-person classes and live the language every day alongside native teachers and an international community of students.
-          </p>
-          <a href="classes.html" class="btn-ghost" data-en="Learn More →" data-es="Saber Más →" data-fr="En savoir plus →">Learn More →</a>
+      <article class="class-card reveal">
+        <div class="class-card-media">
+          <img src="images/school/DSC06027.webp" alt="Face to face Spanish classes in Sucre" loading="lazy">
+          <span class="class-card-tag" data-en="since 2011" data-es="desde 2011" data-fr="depuis 2011">since 2011</span>
         </div>
-      </div>
-      <div class="class-pane reveal">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=82" alt="Online Spanish classes" loading="lazy">
-        <div class="class-pane-overlay">
-          <span class="card-label" data-en=" learn from anywhere" data-fr=" apprenez de partout" data-es=" aprende desde cualquier lugar" data-fr=" apprenez de partout"> learn from anywhere</span>
-          <h3 class="card-title" data-en="Online Classes" data-fr="Cours en ligne" data-es="Clases Online" data-fr="Cours en ligne">Online Classes</h3>
-          <p class="card-desc" data-en="Millions of people around the world are learning Spanish online. Our interactive sessions with native Bolivian teachers bring the same warmth and results — directly to your screen." data-es="Millones de personas en todo el mundo aprenden español online. Nuestras sesiones interactivas con profesores nativos bolivianos brindan la misma calidez y resultados — directamente a tu pantalla." data-fr="Des millions de personnes apprennent l'espagnol en ligne. Nos sessions offrent la même chaleur — directement sur votre écran." data-fr="Des millions de personnes apprennent l'espagnol en ligne. Nos sessions interactives avec des professeurs boliviens natifs offrent la même chaleur et les mêmes résultats — directement sur votre écran.">
-            Millions of people around the world are learning Spanish online. Our interactive sessions with native Bolivian teachers bring the same warmth and results — directly to your screen.
+        <div class="class-card-body">
+          <span class="class-card-eyebrow" data-en="in sucre, bolivia" data-es="en sucre, bolivia" data-fr="à sucre, bolivie">in sucre, bolivia</span>
+          <h3 class="class-card-title" data-en="Face-to-Face <em>Classes</em>" data-es="Clases <em>Presenciales</em>" data-fr="Cours <em>en présentiel</em>">Face-to-Face <em>Classes</em></h3>
+          <p class="class-card-desc" data-en="Live the language in the heart of Bolivia. Walk into our patio each morning, sit down with native teachers, and spend the rest of the day in the city they love." data-es="Vive el idioma en el corazón de Bolivia. Entra a nuestro patio cada mañana, siéntate con profesores nativos y pasa el resto del día en la ciudad que aman." data-fr="Vivez la langue au cœur de la Bolivie. Entrez chaque matin dans notre patio, asseyez-vous avec des professeurs natifs et passez le reste de la journée dans la ville qu'ils aiment.">
+            Live the language in the heart of Bolivia. Walk into our patio each morning, sit down with native teachers, and spend the rest of the day in the city they love.
           </p>
-          <a href="classes.html#online" class="btn-ghost" data-en="Learn More →" data-es="Saber Más →" data-fr="En savoir plus →">Learn More →</a>
+          <ul class="class-card-features">
+            <li data-en="Small groups — max 6 students" data-es="Grupos pequeños — máx. 6 estudiantes" data-fr="Petits groupes — 6 élèves max">Small groups — max 6 students</li>
+            <li data-en="Native Bolivian teachers" data-es="Profesores bolivianos nativos" data-fr="Professeurs boliviens natifs">Native Bolivian teachers</li>
+            <li data-en="Salsa, cooking &amp; city life included" data-es="Salsa, cocina y vida local incluidas" data-fr="Salsa, cuisine et vie locale inclus">Salsa, cooking &amp; city life included</li>
+          </ul>
+          <a href="classes.html" class="class-card-link" data-en="See class options" data-es="Ver opciones" data-fr="Voir les options">See class options</a>
         </div>
-      </div>
+      </article>
+
+      <article class="class-card reveal">
+        <div class="class-card-media">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=82" alt="Online Spanish classes" loading="lazy">
+          <span class="class-card-tag" data-en="any timezone" data-es="cualquier zona horaria" data-fr="tout fuseau horaire">any timezone</span>
+        </div>
+        <div class="class-card-body">
+          <span class="class-card-eyebrow" data-en="learn from your sofa" data-es="aprende desde tu sofá" data-fr="depuis votre canapé">learn from your sofa</span>
+          <h3 class="class-card-title" data-en="Online <em>Classes</em>" data-es="Clases <em>Online</em>" data-fr="Cours <em>en ligne</em>">Online <em>Classes</em></h3>
+          <p class="class-card-desc" data-en="Can't make it to Sucre? The same teachers, the same warmth — on your screen. One-to-one or small groups, scheduled around your life." data-es="¿No puedes venir a Sucre? Los mismos profesores, la misma calidez — en tu pantalla. Individual o en grupos pequeños, adaptadas a tu vida." data-fr="Vous ne pouvez pas venir à Sucre ? Les mêmes professeurs, la même chaleur — sur votre écran. En individuel ou en petits groupes, selon votre emploi du temps.">
+            Can't make it to Sucre? The same teachers, the same warmth — on your screen. One-to-one or small groups, scheduled around your life.
+          </p>
+          <ul class="class-card-features">
+            <li data-en="One-to-one or small groups" data-es="Individual o grupos pequeños" data-fr="Individuel ou petits groupes">One-to-one or small groups</li>
+            <li data-en="Flexible hours, any timezone" data-es="Horarios flexibles, cualquier zona" data-fr="Horaires flexibles, tout fuseau">Flexible hours, any timezone</li>
+            <li data-en="Same native Bolivian teachers" data-es="Los mismos profesores nativos" data-fr="Les mêmes professeurs natifs">Same native Bolivian teachers</li>
+          </ul>
+          <a href="classes.html#online" class="class-card-link" data-en="Start online" data-es="Empezar online" data-fr="Commencer en ligne">Start online</a>
+        </div>
+      </article>
     </div>
   </section>
 
   <!--  STATS  -->
   <div class="stats-section">
     <div class="stat-card reveal">
-      <span class="stat-number">20<sup>+</sup></span>
+      <span class="stat-number">15<sup>+</sup></span>
       <span class="stat-label" data-en="years of teaching" data-es="años de enseñanza" data-fr="années d'enseignement">years of teaching</span>
     </div>
     <div class="stat-card reveal">
-      <span class="stat-number">750<sup>+</sup></span>
-      <span class="stat-label" data-en="students registered" data-es="estudiantes registrados" data-fr="étudiants inscrits">students registered</span>
+      <span class="stat-number">15,000<sup>+</sup></span>
+      <span class="stat-label" data-en="students taught" data-es="estudiantes enseñados" data-fr="étudiants formés">students taught</span>
     </div>
     <div class="stat-card reveal">
-      <span class="stat-number">8</span>
+      <span class="stat-number">12</span>
       <span class="stat-label" data-en="native Bolivian teachers" data-es="profesores bolivianos nativos" data-fr="professeurs boliviens natifs">native Bolivian teachers</span>
     </div>
   </div>
@@ -1602,7 +1662,7 @@
     </div>
     <div class="testimonials-cta reveal">
       <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-primary" data-en="Read our Google Reviews" data-es="Ver nuestras reseñas en Google" data-fr="Lire nos avis Google">Read our Google Reviews</a>
-      <span class="testimonials-note" data-en="hundreds of happy students — see what they're saying " data-es="cientos de estudiantes felices — mira lo que dicen " data-fr="des centaines d'étudiants satisfaits — lisez leurs avis ">hundreds of happy students — see what they're saying </span>
+      <span class="testimonials-note" data-en="thousands of happy students — see what they're saying " data-es="miles de estudiantes felices — mira lo que dicen " data-fr="des milliers d'étudiants satisfaits — lisez leurs avis ">thousands of happy students — see what they're saying </span>
     </div>
   </section>
 
