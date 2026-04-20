@@ -5,7 +5,7 @@ compatibility_date = "2025-01-15"
 # Public, non-secret config. Edit these to match the school.
 [vars]
 ALLOWED_ORIGIN = "https://ashdabash2926.github.io"
-STAFF_EMAIL    = "lewisashley.t@outlook.com"
+STAFF_EMAIL    = "lewisashleybutterfield@googlemail.com"
 FROM_EMAIL     = "onboarding@resend.dev"
 FROM_NAME      = "Me Gusta Spanish"
 SCHOOL_WHATSAPP = "59173425725"
