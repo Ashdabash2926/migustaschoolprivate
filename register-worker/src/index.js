@@ -91,25 +91,25 @@ async function gradeWithClaude(answers, env) {
   const prompt = `You are a CEFR Spanish placement examiner for a language school in Sucre, Bolivia.
 Assess the student's Spanish level from their free-text answers to a 5-question placement test.
 
-Questions and answers:
-1. "Escribe una oración en español. Puede ser muy sencilla."
+Questions and answers (each question targets a specific CEFR level):
+1. (pre-A1) "¿Cómo te llamas? ¿De dónde eres?"
    → ${a('q1')}
-2. "¿Cómo te llamas, de dónde eres, cuántos años tienes y qué te gusta hacer?"
+2. (A1) "Háblanos un poco de ti: edad, trabajo/estudios, familia, aficiones."
    → ${a('q2')}
-3. "Cuéntanos qué hiciste ayer, desde que te despertaste hasta que te acostaste."
+3. (A2) "Describe un día normal y cuenta qué hiciste el fin de semana pasado."
    → ${a('q3')}
-4. "Si pudieras cambiar una cosa del lugar donde vives, ¿qué cambiarías y por qué?"
+4. (B1) "Cuéntanos sobre un viaje o experiencia importante. ¿Qué pasó, cómo te sentiste, cambiarías algo?"
    → ${a('q4')}
-5. "Describe una situación en la que hayas tenido que adaptarte a una cultura diferente. ¿Qué aprendiste?"
+5. (B2–C2) "¿Viajar o vivir en otro país cambia la forma de pensar? Opinión con ejemplos y reflexión cultural."
    → ${a('q5')}
 
 Rubric — pick the single best-fit CEFR level based on the highest question they handle competently:
-- A1: can form a simple sentence, basic self-introduction. Q1-Q2 partial.
-- A2: Q2 clean. Q3 attempted with broken/mixed tenses.
-- B1: Q3 coherent narrative, preterite/imperfect mostly correct, some errors.
-- B2: Q4 handled with conditional + subjunctive, mostly natural.
-- C1: Q5 nuanced, idiomatic, complex tenses correct.
-- C2: native-level fluency, no errors, rich vocabulary.
+- A1: handles Q1 and parts of Q2. Present tense only, simple vocabulary, frequent errors.
+- A2: Q2 clean, Q3 attempted — daily routine in present tense plus basic past (preterite) with mixed/broken tenses.
+- B1: Q3 coherent narrative with preterite and imperfect mostly correct. Q4 attempted but limited.
+- B2: Q4 handled naturally — narrative past, conditional, some subjunctive. Begins Q5 with clear opinion.
+- C1: Q5 nuanced and idiomatic, complex tenses correct, well-argued with connectors.
+- C2: native-level fluency across all questions, no errors, rich vocabulary, sophisticated argumentation.
 If the student wrote in English or left everything blank or only wrote "I don't know any Spanish" → return level "A1" (absolute beginner).
 
 Return ONLY a JSON object, no prose, in exactly this shape:
@@ -277,11 +277,11 @@ async function sendEmail({ env, to, subject, html, replyTo }) {
 
 function renderAnswers(a = {}) {
   const prompts = {
-    q1: 'Escribe una oración en español. Puede ser muy sencilla.',
-    q2: '¿Cómo te llamas, de dónde eres, cuántos años tienes y qué te gusta hacer?',
-    q3: 'Cuéntanos qué hiciste ayer, desde que te despertaste hasta que te acostaste.',
-    q4: 'Si pudieras cambiar una cosa del lugar donde vives, ¿qué cambiarías y por qué?',
-    q5: 'Describe una situación en la que hayas tenido que adaptarte a una cultura diferente.',
+    q1: '¿Cómo te llamas? ¿De dónde eres?',
+    q2: 'Háblanos un poco de ti: edad, trabajo/estudios, familia, aficiones.',
+    q3: 'Describe un día normal y cuenta qué hiciste el fin de semana pasado.',
+    q4: 'Cuéntanos sobre un viaje o experiencia importante. ¿Qué pasó, cómo te sentiste, cambiarías algo?',
+    q5: '¿Viajar o vivir en otro país cambia la forma de pensar? Opinión con ejemplos y reflexión cultural.',
   };
   return Object.keys(prompts).map(k => `
     <div style="margin-bottom:12px;">

@@ -654,32 +654,32 @@
 
         <div class="q-block">
           <span class="q-tag">01</span>
-          <p class="q-prompt">Escribe una oración en español. Puede ser muy sencilla — tu nombre, un saludo, cualquier cosa.</p>
-          <div class="field"><textarea id="q1" name="q1" rows="2" placeholder="Hola, me llamo..."></textarea></div>
+          <p class="q-prompt">¿Cómo te llamas? ¿De dónde eres?</p>
+          <div class="field"><textarea id="q1" name="q1" rows="2" placeholder="Me llamo... Soy de..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">02</span>
-          <p class="q-prompt">¿Cómo te llamas, de dónde eres, cuántos años tienes y qué te gusta hacer?</p>
-          <div class="field"><textarea id="q2" name="q2" rows="3" placeholder="Me llamo..."></textarea></div>
+          <p class="q-prompt">Háblanos un poco de ti. ¿Cuántos años tienes? ¿A qué te dedicas? ¿Tienes familia o hermanos? ¿Qué te gusta hacer en tu tiempo libre?</p>
+          <div class="field"><textarea id="q2" name="q2" rows="4" placeholder="Tengo... años. Trabajo como... Me gusta..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">03</span>
-          <p class="q-prompt">Cuéntanos qué hiciste ayer, desde que te despertaste hasta que te acostaste.</p>
-          <div class="field"><textarea id="q3" name="q3" rows="3" placeholder="Ayer..."></textarea></div>
+          <p class="q-prompt">Describe un día normal en tu vida: ¿a qué hora te levantas, qué haces durante el día y qué comes normalmente? Después, cuéntanos qué hiciste el fin de semana pasado.</p>
+          <div class="field"><textarea id="q3" name="q3" rows="5" placeholder="Normalmente me levanto a las... El fin de semana pasado..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">04</span>
-          <p class="q-prompt">Si pudieras cambiar una cosa del lugar donde vives, ¿qué cambiarías y por qué?</p>
-          <div class="field"><textarea id="q4" name="q4" rows="3" placeholder="Si pudiera..."></textarea></div>
+          <p class="q-prompt">Cuéntanos sobre un viaje o una experiencia importante en tu vida. ¿Qué pasó, cómo te sentiste y por qué fue importante para ti? Si pudieras repetir la experiencia, ¿cambiarías algo?</p>
+          <div class="field"><textarea id="q4" name="q4" rows="6" placeholder="Hace unos años..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">05</span>
-          <p class="q-prompt">Describe una situación en la que hayas tenido que adaptarte a una cultura diferente. ¿Qué aprendiste y cómo cambió tu forma de ver el mundo?</p>
-          <div class="field"><textarea id="q5" name="q5" rows="4" placeholder="Cuando..."></textarea></div>
+          <p class="q-prompt">¿Crees que viajar o vivir en otro país cambia realmente la forma de pensar de una persona? Desarrolla tu opinión con ejemplos concretos y reflexiona sobre cómo las diferencias culturales pueden influir en nuestra visión del mundo y en las decisiones que tomamos.</p>
+          <div class="field"><textarea id="q5" name="q5" rows="8" placeholder="En mi opinión..."></textarea></div>
         </div>
 
         <div class="step-actions">
@@ -888,6 +888,7 @@
   const steps = document.querySelectorAll('.step');
   const progressSteps = document.querySelectorAll('.progress-step');
 
+  let navLocked = false;
   function goToStep(n) {
     const target = String(n);
     steps.forEach(s => s.classList.toggle('active', s.dataset.step === target));
@@ -897,6 +898,8 @@
       p.classList.toggle('done', ps < n);
     });
     window.scrollTo({ top: document.querySelector('.register-shell').offsetTop - 80, behavior: 'smooth' });
+    navLocked = true;
+    setTimeout(() => { navLocked = false; }, 600);
   }
 
   function validateStep(n) {
@@ -915,13 +918,23 @@
 
   document.querySelectorAll('[data-next]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const current = Number(btn.closest('.step').dataset.step);
+      if (navLocked) return;
+      const stepEl = btn.closest('.step');
+      if (!stepEl.classList.contains('active')) return;
+      const current = Number(stepEl.dataset.step);
       if (!validateStep(current)) return;
       goToStep(Number(btn.dataset.next));
+      btn.blur();
     });
   });
   document.querySelectorAll('[data-prev]').forEach(btn => {
-    btn.addEventListener('click', () => goToStep(Number(btn.dataset.prev)));
+    btn.addEventListener('click', () => {
+      if (navLocked) return;
+      const stepEl = btn.closest('.step');
+      if (!stepEl.classList.contains('active')) return;
+      goToStep(Number(btn.dataset.prev));
+      btn.blur();
+    });
   });
 
   /* ────── SUBMIT ────── */
