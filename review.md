@@ -319,6 +319,69 @@ All captions EN/ES/FR.
 
 All commits pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
 
+### 36. Kids page — scrapbook-editorial redesign
+Swapped the emoji-led age-group cards for a polaroid-and-handwriting aesthetic. Client dropped 3 JPGs (10–19MB) into `images/kids/`; converted all to WebP at 1200px / q82 and deleted originals.
+
+- **Hero**: cream two-col layout with a tilted polaroid of DSC07157 (smiling learners), washi tape, handwritten "real kids, real laughs" callout + hand-drawn dashed-arrow SVG pointing at the photo. Large italic title "Spanish, but make it *playful*" with a gold SVG squiggle under "playful".
+- **Three age-group cards** ("Little Explorers" 4–7, "Young Adventurers" 8–11, "Teen Travellers" 12–15) now use numbered `01 / 02 / 03` chapter marks and custom inline-SVG glyphs (face, mountain, globe) instead of emoji.
+- **"Spanish in the wild"** activities section rebuilt as a split layout: left = polaroid of DSC07149 (cereal-box grammar lesson) with an orange pull-quote "Turns out breakfast cereal is the fastest route to the preterite tense. — Señora Carla"; right = 6-item tick-list of off-site activities.
+- **Family experience** section: 3 blocks with roman numerals (i., ii., iii.) + the DSC07111 goody-bag polaroid with a "nobody left empty-handed" sticky note in Caveat.
+- All copy EN/ES/FR. Nav + footer kept identical per the headbar rule.
+
+### 37. Activities page — three-phase rebuild
+Started as an editorial redesign with descriptions + gallery; client pushed back on complexity each iteration until it landed at the final simple form.
+
+**Phase A — editorial rewrite + unified gallery**
+Replaced the old hover-overlay card grid with:
+- A 9-entry description index (tag chip + roman numeral + schedule meta + blurb per activity, in bordered rounded cards)
+- A "Real moments" gallery section grouping all 11 real photos from `images/activities/` — 6 cooking + 5 wallyball — in two mixed-size CSS-grid masonry arrangements, hooked up to the existing lightbox.
+
+**Phase B — compact list**
+Client wanted cards gone. Rebuilt the 9 entries as a single hairline-divided typographic list: 4-column grid per row (roman numeral · name · meta+tag · one-line description), no card chrome. Shortened all blurbs from 3 sentences to 1. Trimmed the intro head to a single sentence ("Led by teachers or local guides. Everything runs in Spanish.").
+
+**Phase C — narrowed to 4 weekly activities**
+Client clarified the real weekly schedule: Mon city walking tour, Tue & Thu cooking class, Wed wallyball, Fri beer tour. Dropped Market Morning, Salsa Night, Cinema & Conversation, Conversation Evening, Tarabuco Day Trip, Photography Walk. Replaced the roman-numeral left column with **weekday labels** (Mon / Tue & Thu / Wed / Fri) in italic gold Cormorant. New "Sucre Beer Tour" entry written fresh (EN/ES/FR). Hero ticker rewritten to the same Mon–Fri rhythm.
+
+**Phase D — hero update**
+Simplified the hero: single large italic "Activities" wordmark (EN/ES/FR) over a background image (DSC06219, cooking ingredients in baskets) with a warm terra/gold radial gradient overlay and a subtle SVG noise layer. Eyebrow and subtitle kept for trilingual context.
+
+### 38. Registration + auto-graded placement test (the big one)
+Client wanted students to register online, take an auto-graded exam, and have staff pre-prepared with a class + price to confirm — because most enquiries come in on weekends when no one's around to respond.
+
+**Design sketched in chat:**
+- 3-step online form (contact → test → preferences) on a new `register.html`
+- 5 open-ended Spanish questions, weighted low (absolute beginner → A1 → A2 → B1/B2 → C1/C2) because most customers are beginners
+- Cloudflare Worker backend: Claude Haiku grades answers → CEFR level + teacher note → looks up suggested class/price → emails staff a pre-filled WhatsApp reply template → emails student a confirmation
+- Staff opens Monday to a list of drafts ready to copy-paste; no grading work on their side
+
+**Built:**
+- **`register.html`** — trilingual 3-step form with progress indicator, chip-based preference selection, inline validation, animated step transitions, and a success state that shows the student their provisional level instantly after submit
+- **`register-worker/`** — full Cloudflare Worker (`src/index.js` + `wrangler.toml` + `package.json` + `README.md` with full setup walk-through)
+  - POST handler with CORS for the GH Pages origin + `*.pages.dev` previews + localhost
+  - Calls Anthropic API directly via `fetch` (no SDK — keeps bundle small). Model: `claude-haiku-4-5-20251001`. Prompt includes the 5 questions, the student's answers, and a level-by-level rubric. Returns strict JSON parsed with a `{...}` regex fallback.
+  - Hardcoded `PRICE_TABLE` at top of file — weekly prices per class type × duration. Placeholder numbers (group $150, private $350, online $180 per week) pending client's real pricing.
+  - Emails via Resend HTTP API (also plain `fetch`). Two emails per submission: staff-facing HTML with contact table, plan summary, teacher note, answers, and a pre-filled WhatsApp reply in a dashed-border box + a one-click `wa.me/{number}` button; student-facing confirmation with the level + "we'll WhatsApp within 24h".
+  - `ANTHROPIC_API_KEY` and `RESEND_API_KEY` set as wrangler secrets. Interactive secret prompts don't work via Claude Code's `!` bash wrapper (the secret gets set to empty string) — had to run `wrangler secret put` in a real Terminal window.
+- **Nav CTA swapped across all 12 pages** — every `href="classes.html"` on a `.nav-cta`, mobile `.btn-primary` "Register Now", and the index "Register now and save!" link now points to `register.html`. Used a `sed` loop over all HTML files.
+
+**Deployment gotchas encountered:**
+- Cwd persists between Bash tool calls, so `cd register-worker && <cmd>` on a second call failed with "no such file or directory" — once in, stay in.
+- Resend's sandbox (`onboarding@resend.dev`) **only delivers to the account-owner's signup email**. Client signed up with `lewisashleybutterfield@googlemail.com`; had initially set `STAFF_EMAIL = "lewisashley.t@outlook.com"` which got a 403 `validation_error` from Resend. Fixed by pointing `STAFF_EMAIL` at the googlemail address and telling client to fill in that same address as their "student" email during testing.
+
+**Deployed worker URL:** `https://migusta-register.ashscms.workers.dev`
+
+**End-to-end tested and working:** form submits → Claude returns CEFR level → staff email lands in Gmail with pre-filled reply template → student confirmation email lands in Gmail.
+
+**Open items for next session (before handing to the school):**
+1. **Verify `megustaspanish.com` in Resend** — so the worker can send to *any* student email, not just Ash's gmail. Swap `FROM_EMAIL = "noreply@megustaspanish.com"` and `STAFF_EMAIL = "info@megustaspanish.com"` in `wrangler.toml` once green; redeploy.
+2. **Price table audit** — `PRICE_TABLE` at top of `register-worker/src/index.js` uses placeholder numbers. Review with client and replace.
+3. **Anthropic spend cap** — set a $5/month cap at https://console.anthropic.com/settings/limits.
+4. **Service ownership for handover** — decided to have the school sign up for Resend + Anthropic themselves when they're ready to take over billing. Ash swaps in their API keys via `wrangler secret put`, zero code change. Cloudflare stays in Ash's account (developer-owned).
+
+**Also sketched but not built:** 5 placement questions went through 3 iterations — first multiple-choice CEFR-calibrated, then open-ended "forces the grammar", then weighted low for the school's actual customer base (mostly beginners). Final 5 questions live in both `register.html` (for the student) and `register-worker/src/index.js` (for Claude's rubric).
+
+All commits pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
+
 ---
 
 ## Rules & Conventions
