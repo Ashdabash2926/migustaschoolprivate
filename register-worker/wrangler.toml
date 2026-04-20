@@ -5,8 +5,8 @@ compatibility_date = "2025-01-15"
 # Public, non-secret config. Edit these to match the school.
 [vars]
 ALLOWED_ORIGIN = "https://ashdabash2926.github.io"
-STAFF_EMAIL    = "info@megustaspanish.com"
-FROM_EMAIL     = "noreply@megustaspanish.com"
+STAFF_EMAIL    = "lewisashley.t@outlook.com"
+FROM_EMAIL     = "onboarding@resend.dev"
 FROM_NAME      = "Me Gusta Spanish"
 SCHOOL_WHATSAPP = "59173425725"
 PAYPAL_USERNAME = "megustaspanish"
