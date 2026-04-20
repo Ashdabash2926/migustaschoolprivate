@@ -89,28 +89,30 @@ function validate(p) {
 async function gradeWithClaude(answers, env) {
   const a = (k) => (answers[k] || '').trim() || '(blank)';
   const prompt = `You are a CEFR Spanish placement examiner for a language school in Sucre, Bolivia.
-Assess the student's Spanish level from their free-text answers to a 5-question placement test.
+Assess the student's Spanish level from their free-text answers to a 6-question placement test.
 
 Questions and answers (each question targets a specific CEFR level):
-1. (pre-A1) "¿Cómo te llamas? ¿De dónde eres?"
+1. (pre-A1) "¿Cómo te llamas y de dónde eres?"
    → ${a('q1')}
-2. (A1) "Háblanos un poco de ti: edad, trabajo/estudios, familia, aficiones."
+2. (A1) "¿Qué haces un día normal? Mañana, tarde y noche."
    → ${a('q2')}
-3. (A2) "Describe un día normal y cuenta qué hiciste el fin de semana pasado."
+3. (A2) "¿Qué hiciste el fin de semana pasado? ¿Qué te gustó más y por qué?"
    → ${a('q3')}
-4. (B1) "Cuéntanos sobre un viaje o experiencia importante. ¿Qué pasó, cómo te sentiste, cambiarías algo?"
+4. (B1) "Si pudieras vivir un año en otro país, ¿cuál elegirías y cómo cambiaría tu vida?"
    → ${a('q4')}
-5. (B2–C2) "¿Viajar o vivir en otro país cambia la forma de pensar? Opinión con ejemplos y reflexión cultural."
+5. (B2) "¿Qué ventajas y desventajas tiene el trabajo remoto? Opinión con ejemplos."
    → ${a('q5')}
+6. (C1/C2) "¿Hasta qué punto las redes sociales han transformado la manera en que nos relacionamos? Argumenta."
+   → ${a('q6')}
 
 Rubric — pick the single best-fit CEFR level based on the highest question they handle competently:
 - A1: handles Q1 and parts of Q2. Present tense only, simple vocabulary, frequent errors.
-- A2: Q2 clean, Q3 attempted — daily routine in present tense plus basic past (preterite) with mixed/broken tenses.
-- B1: Q3 coherent narrative with preterite and imperfect mostly correct. Q4 attempted but limited.
-- B2: Q4 handled naturally — narrative past, conditional, some subjunctive. Begins Q5 with clear opinion.
-- C1: Q5 nuanced and idiomatic, complex tenses correct, well-argued with connectors.
-- C2: native-level fluency across all questions, no errors, rich vocabulary, sophisticated argumentation.
-If the student wrote in English or left everything blank or only wrote "I don't know any Spanish" → return level "A1" (absolute beginner).
+- A2: Q2 clean in present tense. Q3 attempted with basic preterite, some mixed/broken tenses.
+- B1: Q3 coherent narrative with preterite/imperfect mostly correct. Q4 attempted with conditional, limited complexity.
+- B2: Q4 handled naturally — conditional + some subjunctive. Q5 gives clear opinion with connectors, occasional errors.
+- C1: Q5 nuanced and well-argued. Q6 attempted with abstract vocabulary and complex structures, mostly accurate.
+- C2: Q6 handled with native-level fluency, idiomatic, sophisticated argumentation, no errors.
+If the student wrote in English, left everything blank, or only wrote "I don't know any Spanish" → return level "A1" (absolute beginner).
 
 Return ONLY a JSON object, no prose, in exactly this shape:
 {"level":"A1|A2|B1|B2|C1|C2","note":"one sentence teacher-facing observation about strengths and gaps"}`;
@@ -277,11 +279,12 @@ async function sendEmail({ env, to, subject, html, replyTo }) {
 
 function renderAnswers(a = {}) {
   const prompts = {
-    q1: '¿Cómo te llamas? ¿De dónde eres?',
-    q2: 'Háblanos un poco de ti: edad, trabajo/estudios, familia, aficiones.',
-    q3: 'Describe un día normal y cuenta qué hiciste el fin de semana pasado.',
-    q4: 'Cuéntanos sobre un viaje o experiencia importante. ¿Qué pasó, cómo te sentiste, cambiarías algo?',
-    q5: '¿Viajar o vivir en otro país cambia la forma de pensar? Opinión con ejemplos y reflexión cultural.',
+    q1: '¿Cómo te llamas y de dónde eres?',
+    q2: '¿Qué haces un día normal? Mañana, tarde y noche.',
+    q3: '¿Qué hiciste el fin de semana pasado? ¿Qué te gustó más y por qué?',
+    q4: 'Si pudieras vivir un año en otro país, ¿cuál elegirías y cómo cambiaría tu vida?',
+    q5: '¿Qué ventajas y desventajas tiene el trabajo remoto? Opinión con ejemplos.',
+    q6: '¿Hasta qué punto las redes sociales han transformado la manera en que nos relacionamos? Argumenta.',
   };
   return Object.keys(prompts).map(k => `
     <div style="margin-bottom:12px;">

@@ -654,32 +654,38 @@
 
         <div class="q-block">
           <span class="q-tag">01</span>
-          <p class="q-prompt">¿Cómo te llamas? ¿De dónde eres?</p>
+          <p class="q-prompt">¿Cómo te llamas y de dónde eres?</p>
           <div class="field"><textarea id="q1" name="q1" rows="2" placeholder="Me llamo... Soy de..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">02</span>
-          <p class="q-prompt">Háblanos un poco de ti. ¿Cuántos años tienes? ¿A qué te dedicas? ¿Tienes familia o hermanos? ¿Qué te gusta hacer en tu tiempo libre?</p>
-          <div class="field"><textarea id="q2" name="q2" rows="4" placeholder="Tengo... años. Trabajo como... Me gusta..."></textarea></div>
+          <p class="q-prompt">¿Qué haces un día normal? Escribe sobre tu mañana, tu tarde y tu noche.</p>
+          <div class="field"><textarea id="q2" name="q2" rows="5" placeholder="Por la mañana... Por la tarde... Por la noche..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">03</span>
-          <p class="q-prompt">Describe un día normal en tu vida: ¿a qué hora te levantas, qué haces durante el día y qué comes normalmente? Después, cuéntanos qué hiciste el fin de semana pasado.</p>
-          <div class="field"><textarea id="q3" name="q3" rows="5" placeholder="Normalmente me levanto a las... El fin de semana pasado..."></textarea></div>
+          <p class="q-prompt">Cuéntame qué hiciste el fin de semana pasado. ¿Qué te gustó más y por qué?</p>
+          <div class="field"><textarea id="q3" name="q3" rows="5" placeholder="El fin de semana pasado..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">04</span>
-          <p class="q-prompt">Cuéntanos sobre un viaje o una experiencia importante en tu vida. ¿Qué pasó, cómo te sentiste y por qué fue importante para ti? Si pudieras repetir la experiencia, ¿cambiarías algo?</p>
-          <div class="field"><textarea id="q4" name="q4" rows="6" placeholder="Hace unos años..."></textarea></div>
+          <p class="q-prompt">Si pudieras vivir un año en otro país, ¿cuál elegirías y cómo crees que cambiaría tu vida?</p>
+          <div class="field"><textarea id="q4" name="q4" rows="6" placeholder="Si pudiera vivir..."></textarea></div>
         </div>
 
         <div class="q-block">
           <span class="q-tag">05</span>
-          <p class="q-prompt">¿Crees que viajar o vivir en otro país cambia realmente la forma de pensar de una persona? Desarrolla tu opinión con ejemplos concretos y reflexiona sobre cómo las diferencias culturales pueden influir en nuestra visión del mundo y en las decisiones que tomamos.</p>
-          <div class="field"><textarea id="q5" name="q5" rows="8" placeholder="En mi opinión..."></textarea></div>
+          <p class="q-prompt">¿Qué ventajas y desventajas tiene el trabajo remoto? Explica tu opinión con ejemplos.</p>
+          <div class="field"><textarea id="q5" name="q5" rows="7" placeholder="En mi opinión..."></textarea></div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-tag">06</span>
+          <p class="q-prompt">¿Hasta qué punto consideras que las redes sociales han transformado la manera en que nos relacionamos? Argumenta tu postura.</p>
+          <div class="field"><textarea id="q6" name="q6" rows="8" placeholder="Considero que..."></textarea></div>
         </div>
 
         <div class="step-actions">
@@ -966,6 +972,7 @@
         q3: document.getElementById('q3').value.trim(),
         q4: document.getElementById('q4').value.trim(),
         q5: document.getElementById('q5').value.trim(),
+        q6: document.getElementById('q6').value.trim(),
       },
       classType: (document.querySelector('input[name="classType"]:checked') || {}).value || null,
       duration: (document.querySelector('input[name="duration"]:checked') || {}).value || null,
