@@ -225,6 +225,38 @@
       text-align: center;
       margin-top: 1rem;
     }
+    .form-error {
+      background: rgba(200,87,45,0.08);
+      border: 1px solid rgba(200,87,45,0.25);
+      color: var(--terra-dark, #8a3a18);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    .form-error[hidden] { display: none; }
+    .form-success {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: #FFF9F4;
+      border: 1px dashed var(--terra);
+      border-radius: 14px;
+    }
+    .form-success[hidden] { display: none; }
+    .form-success h3 {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--terra);
+      margin: 0 0 0.75rem;
+      font-weight: 400;
+    }
+    .form-success p {
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
     @media (max-width: 600px) {
       .form-section { padding: 5rem 1.5rem; }
       .form-row { grid-template-columns: 1fr; }
@@ -555,48 +587,53 @@
       <p class="form-subtitle" data-en="Fill in the details below and we'll get back to you personally." data-fr="Remplissez les informations ci-dessous et nous vous répondrons personnellement." data-es="Completa los datos y te responderemos personalmente." data-fr="Remplissez les informations ci-dessous et nous vous répondrons personnellement.">Fill in the details below and we'll get back to you personally.</p>
     </div>
 
-    <form>
+    <form id="contactForm" novalidate>
       <div class="form-row">
         <div class="form-field">
-          <label class="form-label" data-en="First name" data-fr="Prénom" data-es="Nombre" data-fr="Prénom">First name</label>
-          <input type="text" class="form-input" placeholder="Maria" autocomplete="given-name">
+          <label class="form-label" for="cFirstName" data-en="First name" data-fr="Prénom" data-es="Nombre">First name</label>
+          <input id="cFirstName" name="firstName" type="text" class="form-input" placeholder="Maria" autocomplete="given-name" required>
         </div>
         <div class="form-field">
-          <label class="form-label" data-en="Last name" data-es="Apellido" data-fr="Nom">Last name</label>
-          <input type="text" class="form-input" placeholder="García" autocomplete="family-name">
+          <label class="form-label" for="cLastName" data-en="Last name" data-es="Apellido" data-fr="Nom">Last name</label>
+          <input id="cLastName" name="lastName" type="text" class="form-input" placeholder="García" autocomplete="family-name">
         </div>
       </div>
       <div class="form-field">
-        <label class="form-label" data-en="Email address" data-es="Correo electrónico" data-fr="Adresse email">Email address</label>
-        <input type="email" class="form-input" placeholder="maria@email.com" autocomplete="email">
+        <label class="form-label" for="cEmail" data-en="Email address" data-es="Correo electrónico" data-fr="Adresse email">Email address</label>
+        <input id="cEmail" name="email" type="email" class="form-input" placeholder="maria@email.com" autocomplete="email" required>
       </div>
       <div class="form-row">
         <div class="form-field">
-          <label class="form-label" data-en="I'm interested in..." data-fr="Je suis intéressé(e) par..." data-es="Me interesa..." data-fr="Je suis intéressé(e) par...">I'm interested in...</label>
-          <select class="form-input">
-            <option data-en="Face-to-face classes" data-fr="Cours en présentiel" data-es="Clases presenciales" data-fr="Cours en présentiel">Face-to-face classes</option>
-            <option data-en="Online classes" data-es="Clases online" data-fr="Cours en ligne">Online classes</option>
-            <option data-en="Both" data-fr="Les deux" data-es="Ambas" data-fr="Les deux">Both</option>
-            <option data-en="Just asking a question" data-fr="Juste une question" data-es="Solo una pregunta" data-fr="Juste une question">Just asking a question</option>
+          <label class="form-label" for="cInterest" data-en="I'm interested in..." data-fr="Je suis intéressé(e) par..." data-es="Me interesa...">I'm interested in...</label>
+          <select id="cInterest" name="interest" class="form-input">
+            <option value="in-person" data-en="Face-to-face classes" data-fr="Cours en présentiel" data-es="Clases presenciales">Face-to-face classes</option>
+            <option value="online" data-en="Online classes" data-es="Clases online" data-fr="Cours en ligne">Online classes</option>
+            <option value="both" data-en="Both" data-fr="Les deux" data-es="Ambas">Both</option>
+            <option value="question" data-en="Just asking a question" data-fr="Juste une question" data-es="Solo una pregunta">Just asking a question</option>
           </select>
         </div>
         <div class="form-field">
-          <label class="form-label" data-en="My level" data-fr="Mon niveau" data-es="Mi nivel" data-fr="Mon niveau">My level</label>
-          <select class="form-input">
-            <option data-en="Complete beginner" data-fr="Débutant complet" data-es="Principiante absoluto" data-fr="Débutant complet">Complete beginner</option>
-            <option data-en="Elementary (A1–A2)" data-fr="Élémentaire (A1–A2)" data-es="Elemental (A1–A2)" data-fr="Élémentaire (A1–A2)">Elementary (A1–A2)</option>
-            <option data-en="Intermediate (B1–B2)" data-fr="Intermédiaire (B1–B2)" data-es="Intermedio (B1–B2)" data-fr="Intermédiaire (B1–B2)">Intermediate (B1–B2)</option>
-            <option data-en="Advanced (C1–C2)" data-fr="Avancé (C1–C2)" data-es="Avanzado (C1–C2)" data-fr="Avancé (C1–C2)">Advanced (C1–C2)</option>
+          <label class="form-label" for="cLevel" data-en="My level" data-fr="Mon niveau" data-es="Mi nivel">My level</label>
+          <select id="cLevel" name="level" class="form-input">
+            <option value="beginner" data-en="Complete beginner" data-fr="Débutant complet" data-es="Principiante absoluto">Complete beginner</option>
+            <option value="a1-a2" data-en="Elementary (A1–A2)" data-fr="Élémentaire (A1–A2)" data-es="Elemental (A1–A2)">Elementary (A1–A2)</option>
+            <option value="b1-b2" data-en="Intermediate (B1–B2)" data-fr="Intermédiaire (B1–B2)" data-es="Intermedio (B1–B2)">Intermediate (B1–B2)</option>
+            <option value="c1-c2" data-en="Advanced (C1–C2)" data-fr="Avancé (C1–C2)" data-es="Avanzado (C1–C2)">Advanced (C1–C2)</option>
           </select>
         </div>
       </div>
       <div class="form-field">
-        <label class="form-label" data-en="Your message" data-fr="Votre message" data-es="Tu mensaje" data-fr="Votre message">Your message</label>
-        <textarea class="form-input" placeholder="Tell us when you're thinking of starting, how many hours a week you'd like, any questions you have..."></textarea>
+        <label class="form-label" for="cMessage" data-en="Your message" data-fr="Votre message" data-es="Tu mensaje">Your message</label>
+        <textarea id="cMessage" name="message" class="form-input" placeholder="Tell us when you're thinking of starting, how many hours a week you'd like, any questions you have..." required></textarea>
       </div>
-      <button type="submit" class="form-btn" data-en="Send message →" data-fr="Envoyer le message →" data-es="Enviar mensaje →" data-fr="Envoyer le message →">Send message →</button>
-      <p class="form-note" data-en="We reply within 24 hours, usually much sooner." data-fr="Nous répondons sous 24 heures, généralement bien plus vite." data-es="Respondemos en 24 horas, generalmente mucho antes." data-fr="Nous répondons sous 24 heures, généralement bien plus vite.">We reply within 24 hours, usually much sooner.</p>
+      <div class="form-error" id="contactError" hidden data-en="Something went wrong — please try again, or email info@megustaspanish.com." data-es="Algo salió mal — inténtalo de nuevo o escríbenos a info@megustaspanish.com." data-fr="Un problème est survenu — réessayez ou écrivez-nous à info@megustaspanish.com.">Something went wrong — please try again, or email info@megustaspanish.com.</div>
+      <button type="submit" class="form-btn" id="contactSubmit" data-en="Send message →" data-fr="Envoyer le message →" data-es="Enviar mensaje →">Send message →</button>
+      <p class="form-note" data-en="We reply within 24 hours, usually much sooner." data-fr="Nous répondons sous 24 heures, généralement bien plus vite." data-es="Respondemos en 24 horas, generalmente mucho antes.">We reply within 24 hours, usually much sooner.</p>
     </form>
+    <div class="form-success" id="contactSuccess" hidden>
+      <h3 data-en="Message sent — ¡gracias!" data-es="Mensaje enviado — ¡gracias!" data-fr="Message envoyé — ¡gracias !">Message sent — ¡gracias!</h3>
+      <p data-en="We'll reply within 24 hours (usually much sooner). Check your inbox for a confirmation." data-es="Te responderemos en 24 horas (normalmente mucho antes). Revisa tu bandeja de entrada para la confirmación." data-fr="Nous vous répondrons sous 24 heures (généralement bien plus vite). Vérifiez votre boîte mail pour la confirmation.">We'll reply within 24 hours (usually much sooner). Check your inbox for a confirmation.</p>
+    </div>
   </div>
 </section>
 
@@ -809,6 +846,59 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Contact form submission
+  const CONTACT_ENDPOINT = 'https://migusta-register.ashscms.workers.dev/contact';
+  const contactForm = document.getElementById('contactForm');
+  const contactError = document.getElementById('contactError');
+  const contactSuccess = document.getElementById('contactSuccess');
+  const contactSubmit = document.getElementById('contactSubmit');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      contactError.hidden = true;
+
+      const firstName = document.getElementById('cFirstName').value.trim();
+      const email = document.getElementById('cEmail').value.trim();
+      const message = document.getElementById('cMessage').value.trim();
+      if (!firstName || !email || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        contactError.hidden = false;
+        return;
+      }
+
+      const payload = {
+        firstName,
+        lastName: document.getElementById('cLastName').value.trim(),
+        email,
+        interest: document.getElementById('cInterest').value,
+        level: document.getElementById('cLevel').value,
+        message,
+        language: currentLang,
+        submittedAt: new Date().toISOString(),
+      };
+
+      const originalLabel = contactSubmit.textContent;
+      contactSubmit.disabled = true;
+      contactSubmit.textContent = ({ en: 'Sending…', es: 'Enviando…', fr: 'Envoi…' })[currentLang] || 'Sending…';
+
+      try {
+        const res = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('status ' + res.status);
+        contactForm.hidden = true;
+        contactSuccess.hidden = false;
+        contactSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        console.error(err);
+        contactError.hidden = false;
+        contactSubmit.disabled = false;
+        contactSubmit.textContent = originalLabel;
+      }
+    });
+  }
 </script>
 </body>
 </html>

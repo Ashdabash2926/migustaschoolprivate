@@ -35,25 +35,130 @@ export default {
     try { payload = await request.json(); }
     catch { return json({ error: 'invalid json' }, 400, cors); }
 
-    const err = validate(payload);
-    if (err) return json({ error: err }, 400, cors);
-
-    try {
-      const grade = await gradeWithClaude(payload.answers, env);
-      const plan  = suggestPlan(grade.level, payload.classType, payload.duration);
-
-      await Promise.all([
-        emailStaff({ payload, grade, plan, env }),
-        emailStudent({ payload, grade, plan, env }),
-      ]);
-
-      return json({ ok: true, level: grade.level }, 200, cors);
-    } catch (e) {
-      console.error('register error', e);
-      return json({ error: 'server error' }, 500, cors);
-    }
+    const path = new URL(request.url).pathname;
+    if (path === '/contact') return handleContact(payload, env, cors);
+    return handleRegister(payload, env, cors);
   },
 };
+
+async function handleRegister(payload, env, cors) {
+  const err = validate(payload);
+  if (err) return json({ error: err }, 400, cors);
+
+  try {
+    const grade = await gradeWithClaude(payload.answers, env);
+    const plan  = suggestPlan(grade.level, payload.classType, payload.duration);
+
+    await Promise.all([
+      emailStaff({ payload, grade, plan, env }),
+      emailStudent({ payload, grade, plan, env }),
+    ]);
+
+    return json({ ok: true, level: grade.level }, 200, cors);
+  } catch (e) {
+    console.error('register error', e);
+    return json({ error: 'server error' }, 500, cors);
+  }
+}
+
+async function handleContact(payload, env, cors) {
+  const err = validateContact(payload);
+  if (err) return json({ error: err }, 400, cors);
+
+  try {
+    await Promise.all([
+      emailStaffContact({ payload, env }),
+      emailStudentContact({ payload, env }),
+    ]);
+    return json({ ok: true }, 200, cors);
+  } catch (e) {
+    console.error('contact error', e);
+    return json({ error: 'server error' }, 500, cors);
+  }
+}
+
+function validateContact(p) {
+  if (!p || typeof p !== 'object') return 'missing body';
+  if (!p.firstName || !p.email || !p.message) return 'missing required fields';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) return 'invalid email';
+  return null;
+}
+
+const CONTACT_INTEREST_LABELS = {
+  'in-person': 'Face-to-face classes',
+  'online':    'Online classes',
+  'both':      'Both face-to-face and online',
+  'question':  'Just asking a question',
+};
+const CONTACT_LEVEL_LABELS = {
+  'beginner': 'Complete beginner',
+  'a1-a2':    'Elementary (A1–A2)',
+  'b1-b2':    'Intermediate (B1–B2)',
+  'c1-c2':    'Advanced (C1–C2)',
+};
+
+async function emailStaffContact({ payload, env }) {
+  const interest = CONTACT_INTEREST_LABELS[payload.interest] || payload.interest || '—';
+  const level    = CONTACT_LEVEL_LABELS[payload.level] || payload.level || '—';
+  const subject  = `New enquiry · ${payload.firstName} ${payload.lastName || ''}`.trim();
+  const html = `
+    <div style="font-family:system-ui,-apple-system,sans-serif;color:#1C1410;max-width:640px;">
+      <h2 style="font-family:Georgia,serif;font-weight:400;color:#C8572D;margin:0 0 12px;">
+        New contact-form enquiry · ${escapeHtml(payload.firstName)} ${escapeHtml(payload.lastName || '')}
+      </h2>
+      <table cellpadding="4" style="font-size:14px;border-collapse:collapse;">
+        <tr><td><b>Email</b></td><td>${escapeHtml(payload.email)}</td></tr>
+        <tr><td><b>Interested in</b></td><td>${escapeHtml(interest)}</td></tr>
+        <tr><td><b>Self-reported level</b></td><td>${escapeHtml(level)}</td></tr>
+        <tr><td><b>Language</b></td><td>${escapeHtml(payload.language || 'en')}</td></tr>
+      </table>
+      <h3 style="margin:18px 0 6px;">Message</h3>
+      <div style="background:#FFF9F4;border-left:3px solid #C8572D;padding:12px 16px;white-space:pre-wrap;font-size:14px;line-height:1.6;">${escapeHtml(payload.message)}</div>
+      <p style="margin-top:16px;">
+        <a href="mailto:${escapeHtml(payload.email)}" style="display:inline-block;background:#C8572D;color:#fff;text-decoration:none;padding:8px 14px;border-radius:50px;font-weight:600;">Reply by email →</a>
+      </p>
+    </div>
+  `;
+  return sendEmail({ env, to: env.STAFF_EMAIL, replyTo: payload.email, subject, html });
+}
+
+const CONTACT_STUDENT_COPY = {
+  en: {
+    subject: "Thanks — we've got your message",
+    greeting: "Gracias",
+    lead: "We've received your message and a member of the Me Gusta team will reply personally within 24 hours, usually much sooner.",
+    whatsappPrompt: "If you'd rather chat now, WhatsApp us:",
+    sign: "— Me Gusta Spanish, Sucre, Bolivia",
+  },
+  es: {
+    subject: "Gracias — recibimos tu mensaje",
+    greeting: "Gracias",
+    lead: "Hemos recibido tu mensaje y un miembro del equipo Me Gusta te responderá personalmente en menos de 24 horas, generalmente mucho antes.",
+    whatsappPrompt: "Si prefieres escribirnos ahora, WhatsApp:",
+    sign: "— Me Gusta Spanish, Sucre, Bolivia",
+  },
+  fr: {
+    subject: "Merci — nous avons bien reçu votre message",
+    greeting: "¡Gracias",
+    lead: "Nous avons bien reçu votre message. Un membre de l'équipe Me Gusta vous répondra personnellement sous 24 heures, généralement bien plus vite.",
+    whatsappPrompt: "Si vous préférez discuter tout de suite, WhatsApp :",
+    sign: "— Me Gusta Spanish, Sucre, Bolivie",
+  },
+};
+
+async function emailStudentContact({ payload, env }) {
+  const copy = CONTACT_STUDENT_COPY[payload.language] || CONTACT_STUDENT_COPY.en;
+  const waUrl = `https://wa.me/${escapeHtml(env.SCHOOL_WHATSAPP)}`;
+  const html = `
+    <div style="font-family:Georgia,serif;color:#1C1410;max-width:560px;line-height:1.7;">
+      <p style="font-size:18px;font-style:italic;color:#C8572D;margin:0 0 12px;">${copy.greeting}, ${escapeHtml(payload.firstName)}!</p>
+      <p>${copy.lead}</p>
+      <p style="margin-top:24px;">${copy.whatsappPrompt} <a href="${waUrl}">+${escapeHtml(env.SCHOOL_WHATSAPP)}</a></p>
+      <p style="margin-top:24px;color:#9A8878;font-size:14px;">${copy.sign}</p>
+    </div>
+  `;
+  return sendEmail({ env, to: payload.email, subject: copy.subject, html });
+}
 
 function corsHeaders(origin, allowed) {
   // Allow the configured origin + any *.pages.dev preview + local dev.
