@@ -384,6 +384,54 @@ All commits pushed to `origin/main` → live on `ashdabash2926.github.io/migusta
 
 ---
 
+## Session — 20/21 April 2026
+
+### Register page — placement test polish
+- **Double-click bug fix.** The "Next" buttons on each step sit at the same screen position, so a single mouse double-click was cascading the student straight through to step 3. Added a 600 ms `navLocked` flag set by `goToStep()`, an active-step guard on next/prev handlers, and `btn.blur()` on navigation so keyboard repeats don't re-fire either.
+- **Questions rebuilt by CEFR level.** First pass went to six questions (pre-A1 → C2). Then trimmed to five when the client noted B2+ is rare in practice, so C1/C2 collapses into one top-tier question:
+  - Q1 **BEGINNER** — `¿Cómo te llamas y de dónde eres?`
+  - Q2 **A1** — daily routine (morning/afternoon/night)
+  - Q3 **A2** — what you did last weekend + what you liked most
+  - Q4 **B1** — hypothetical year abroad + how it would change your life
+  - Q5 **B2+** — remote-work pros/cons with a nudge for advanced speakers to go deeper
+- **Worker graded-level set** is now `BEGINNER | A1 | A2 | B1 | B2+`. Updated `LEVEL_COPY`, the Claude rubric, and the validation regex (`/^(BEGINNER|A1|A2|B1|B2\+)$/`). Staff-email question labels in `renderAnswers()` match the new prompts.
+
+### Index — "Two ways to learn" redesign + stats refresh
+- Scrapped the dark photo-overlay panes (they fought the cream/terra palette and doubled-up the `→` on the Learn More buttons — CSS was adding `::after '→'` on top of the literal arrow in the label).
+- New editorial **"postcard" cards** on cream background: white card with subtle terra border, image at top with a small Caveat chip ("since 2011" / "any timezone"), Cormorant italic title, Lora body, 3-item feature list with gold dashes, underlined terra CTA with a single arrow.
+- **Site-wide stats refreshed** for the new client numbers (15 years teaching, 15,000 students, 12 tutors):
+  - `index.html` hero badge `750+` → `15k+`
+  - stats strip `20+ years / 750+ students / 8 teachers` → `15+ / 15,000+ / 12`
+  - label "students registered" → "students taught"
+  - testimonials note "hundreds of happy students" → "thousands of"
+  - `methodology.html` "17 years" → "15 years" across EN/ES/FR (hero handwritten, hero sub, big blockquote)
+  - `about.html` timeline "Now" node `756 students & counting` → `15,000 students & counting` across EN/ES/FR
+- Left `756 members / 8 class types / 34 video lessons` untouched — that block is the online-course product card, not school-wide stats.
+
+### Register page — pricing section
+Designed and shipped a 4-tier pricing grid between the hero and the form: Private Excellence ($160/wk), Duo Dynamics ($145/person/wk, badged "most popular"), Small Group Immersion ($135, max 4), Cultural Connection ($110, large group). USD + BOB prices, schedule + hours-per-week meta rows, "choose this plan" CTAs scrolling to `#registerForm`, a chip row summarising what's included (textbook / workbook / pen & notebook / cultural activities), and a footnote about the 3-person activity minimum. EN/ES/FR throughout.
+
+**Reverted on request** — client said "remove last push please", so used `git revert HEAD && git push` (non-destructive) rather than force-pushing main. Pricing section is out of the live register page but fully preserved in commit `58dbf43` if it needs to come back.
+
+### Register page — automations (Phase 1 + 3 from the small-business starter pack)
+- **Instant auto-reply localised EN/ES/FR.** Pulled the copy into a `STUDENT_COPY` table keyed by `payload.language` — subject, greeting, body, level block, WhatsApp prompt and sign-off all localise. Level string itself stays as the raw code.
+- **T-24h pre-class reminder via Resend `scheduled_at`.** If the student gave a `startDate` on the form and the reminder slot is more than 12 h away, the worker schedules a warm "see you tomorrow" email on submission: day-one checklist (arrive 10 min early, bring a notebook, don't stress the level), WhatsApp fallback, all three languages. Fires at 08:30 Bolivia time (12:30 UTC) the day before. No KV or cron trigger needed — Resend holds the message server-side.
+- Helper `buildReminderIso(startDateString)` parses the form's `YYYY-MM-DD` and returns an ISO timestamp for 08:30 Bolivia on that date minus 24 h.
+- `sendEmail()` extended with an optional `scheduledAt` parameter that maps to Resend's `scheduled_at` body field.
+
+**Resend caveat logged for later:** free tier's `scheduled_at` window is 30 days. If a student picks a start date beyond that, the instant confirmation still lands but the reminder send errors out. If it becomes a pattern, swap to Workers KV + a daily cron trigger.
+
+### Deferred / not shipped this session
+- **Turnstile captcha** on the registration submit — sketched the integration (Cloudflare free tier, sitekey on form, Worker-side `siteverify` check, secret via `wrangler secret put TURNSTILE_SECRET`). Waiting on the client to create the site in the Cloudflare dashboard and paste back the sitekey.
+- **Other two automations** from the starter pack — missed-call text-back (WhatsApp auto-reply equivalent) and drip follow-up for unconverted leads — not implemented; user only asked for #1 and #3.
+
+### Worker deploy notes
+Worker redeployed twice this session (5-question rubric, then localised emails + reminder). Version IDs: `074f40bc-…` and `9f3be7d3-…`. Still on wrangler 3.114.17 — out-of-date warning ignored, safe to leave for now.
+
+All commits pushed to `origin/main`. Worker deployed to `https://migusta-register.ashscms.workers.dev`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
