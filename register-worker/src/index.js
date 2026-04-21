@@ -16,12 +16,11 @@ const PRICE_TABLE = {
 };
 
 const LEVEL_COPY = {
-  A1: 'beginner — perfect starting point',
-  A2: 'elementary — ready to build on what you know',
-  B1: 'intermediate — working toward real fluency',
-  B2: 'upper-intermediate — refining and expanding',
-  C1: 'advanced — fine-tuning',
-  C2: 'advanced / near-native',
+  BEGINNER: 'absolute beginner — perfect starting point',
+  A1: 'A1 — basic phrases and self-introduction',
+  A2: 'A2 — elementary, ready to build on what you know',
+  B1: 'B1 — intermediate, working toward real fluency',
+  'B2+': 'B2+ — upper-intermediate and above',
 };
 
 export default {
@@ -88,11 +87,11 @@ function validate(p) {
 
 async function gradeWithClaude(answers, env) {
   const a = (k) => (answers[k] || '').trim() || '(blank)';
-  const prompt = `You are a CEFR Spanish placement examiner for a language school in Sucre, Bolivia.
-Assess the student's Spanish level from their free-text answers to a 6-question placement test.
+  const prompt = `You are a Spanish placement examiner for a language school in Sucre, Bolivia.
+Assess the student's Spanish level from their free-text answers to a 5-question placement test.
 
-Questions and answers (each question targets a specific CEFR level):
-1. (pre-A1) "¿Cómo te llamas y de dónde eres?"
+Questions and answers (each question targets a specific level):
+1. (beginner) "¿Cómo te llamas y de dónde eres?"
    → ${a('q1')}
 2. (A1) "¿Qué haces un día normal? Mañana, tarde y noche."
    → ${a('q2')}
@@ -100,22 +99,20 @@ Questions and answers (each question targets a specific CEFR level):
    → ${a('q3')}
 4. (B1) "Si pudieras vivir un año en otro país, ¿cuál elegirías y cómo cambiaría tu vida?"
    → ${a('q4')}
-5. (B2) "¿Qué ventajas y desventajas tiene el trabajo remoto? Opinión con ejemplos."
+5. (B2+) "¿Qué ventajas y desventajas tiene el trabajo remoto? Opinión con ejemplos."
    → ${a('q5')}
-6. (C1/C2) "¿Hasta qué punto las redes sociales han transformado la manera en que nos relacionamos? Argumenta."
-   → ${a('q6')}
 
-Rubric — pick the single best-fit CEFR level based on the highest question they handle competently:
+Rubric — pick the single best-fit level from: BEGINNER, A1, A2, B1, B2+.
+Students at upper-intermediate level or above are rare, so bucket everyone at B2 and higher into B2+.
+- BEGINNER: can barely handle Q1, writes in English, or leaves most answers blank.
 - A1: handles Q1 and parts of Q2. Present tense only, simple vocabulary, frequent errors.
 - A2: Q2 clean in present tense. Q3 attempted with basic preterite, some mixed/broken tenses.
 - B1: Q3 coherent narrative with preterite/imperfect mostly correct. Q4 attempted with conditional, limited complexity.
-- B2: Q4 handled naturally — conditional + some subjunctive. Q5 gives clear opinion with connectors, occasional errors.
-- C1: Q5 nuanced and well-argued. Q6 attempted with abstract vocabulary and complex structures, mostly accurate.
-- C2: Q6 handled with native-level fluency, idiomatic, sophisticated argumentation, no errors.
-If the student wrote in English, left everything blank, or only wrote "I don't know any Spanish" → return level "A1" (absolute beginner).
+- B2+: Q4 handled naturally — conditional + some subjunctive. Q5 gives a clear, well-structured opinion with connectors. Covers B2, C1, and C2 since these are uncommon.
+If the student wrote in English, left everything blank, or only wrote "I don't know any Spanish" → return level "BEGINNER".
 
 Return ONLY a JSON object, no prose, in exactly this shape:
-{"level":"A1|A2|B1|B2|C1|C2","note":"one sentence teacher-facing observation about strengths and gaps"}`;
+{"level":"BEGINNER|A1|A2|B1|B2+","note":"one sentence teacher-facing observation about strengths and gaps"}`;
 
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -142,9 +139,9 @@ Return ONLY a JSON object, no prose, in exactly this shape:
   const match = raw.match(/\{[\s\S]*\}/);
   if (!match) throw new Error('no json in model response: ' + raw);
   const parsed = JSON.parse(match[0]);
-  const level = String(parsed.level || 'A1').toUpperCase();
+  const level = String(parsed.level || 'BEGINNER').toUpperCase();
   const note  = String(parsed.note || '').slice(0, 400);
-  if (!/^(A1|A2|B1|B2|C1|C2)$/.test(level)) throw new Error('bad level: ' + level);
+  if (!/^(BEGINNER|A1|A2|B1|B2\+)$/.test(level)) throw new Error('bad level: ' + level);
   return { level, note };
 }
 
@@ -284,7 +281,6 @@ function renderAnswers(a = {}) {
     q3: '¿Qué hiciste el fin de semana pasado? ¿Qué te gustó más y por qué?',
     q4: 'Si pudieras vivir un año en otro país, ¿cuál elegirías y cómo cambiaría tu vida?',
     q5: '¿Qué ventajas y desventajas tiene el trabajo remoto? Opinión con ejemplos.',
-    q6: '¿Hasta qué punto las redes sociales han transformado la manera en que nos relacionamos? Argumenta.',
   };
   return Object.keys(prompts).map(k => `
     <div style="margin-bottom:12px;">
