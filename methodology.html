@@ -179,7 +179,7 @@
       position: relative;
       overflow: hidden;
     }
-    .intro-quote-section::before {
+    .intro-quote-section::after {
       content: '\201C';
       position: absolute;
       left: 3rem; top: 0;
@@ -294,7 +294,10 @@
       padding: 5rem 4.5rem 4.5rem;
       overflow: hidden;
     }
-    .two-part::before {
+    /* Shared lined-paper background for white-bg sections */
+    .two-part::before,
+    .intro-quote-section::before,
+    .cta-strip::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -562,59 +565,127 @@
       .lesson-photo img { height: 175px; }
     }
 
-    /* ── MEMORY TECHNIQUES ────────────────────────────────── */
+    /* ── MEMORY TECHNIQUES (compact 3-up) ─────────────────── */
     .memory-section {
-      padding: 9rem 4.5rem;
+      padding: 4.5rem 4.5rem 5rem;
       background: var(--bg-warm);
-      display: grid;
-      grid-template-columns: 1fr 1.35fr;
-      gap: 7rem;
-      align-items: center;
+      position: relative;
+      overflow: hidden;
     }
-    .memory-photo { position: relative; z-index: 1; }
-    .polaroid-sm { background: #fff; padding: 12px 12px 48px; box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06); transform: rotate(-2deg); transition: transform 0.4s ease; position: relative; }
-    .polaroid-sm:hover { transform: rotate(-0.5deg); }
-    .polaroid-sm img { width: 100%; aspect-ratio: 1 / 1.1; object-fit: cover; display: block; }
-    .polaroid-sm-caption { position: absolute; bottom: 10px; left: 12px; right: 12px; text-align: center; font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 500; color: var(--ink-soft); }
-    .memory-text { position: relative; z-index: 1; }
-    .memory-text p { font-size: 0.95rem; line-height: 1.9; color: var(--ink-soft); margin-bottom: 1.5rem; }
-    .technique-list { display: flex; flex-direction: column; gap: 0; margin-top: 1.5rem; }
+    .memory-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .memory-header .section-label { transform: rotate(-0.6deg); }
+    .memory-header h2 { margin-bottom: 1.1rem; }
+    .memory-header p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .memory-grid {
+      position: relative;
+      z-index: 1;
+      margin: 2.6rem auto 0;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .memory-photo { position: relative; }
+    .polaroid-sm {
+      background: #fff;
+      padding: 10px 10px 38px;
+      max-width: 220px;
+      box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06);
+      transform: rotate(-2.4deg);
+      transition: transform 0.5s ease;
+      position: relative;
+    }
+    .polaroid-sm:hover { transform: rotate(-0.6deg) translateY(-2px); }
+    .polaroid-sm img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
+    .polaroid-sm-caption {
+      position: absolute;
+      bottom: 9px;
+      left: 10px;
+      right: 10px;
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
     .technique {
-      padding: 1.8rem 0;
-      border-top: 1px solid var(--border);
+      padding: 0;
       background: transparent;
-      border-radius: 0;
+      border: none;
       box-shadow: none;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-      display: flex;
-      flex-direction: column;
+      display: block;
       transition: none;
     }
-    .technique:last-child { border-bottom: 1px solid var(--border); }
     .technique:hover { transform: none; }
     .technique-icon { display: none; }
+    .technique-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--terra);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+      display: inline-block;
+      transform: rotate(-0.8deg);
+      transform-origin: left center;
+    }
     .technique-title {
       font-family: 'Cormorant', serif;
-      font-size: 1.4rem;
-      font-weight: 500;
+      font-style: italic;
+      font-size: 1.55rem;
+      font-weight: 400;
       color: var(--ink);
-      margin-bottom: 0.6rem;
+      margin: 0 0 0.55rem;
+      line-height: 1.05;
       display: flex;
-      align-items: center;
-      gap: 0.9rem;
+      align-items: baseline;
+      gap: 0.6rem;
     }
     .technique-title::before {
       content: '';
       display: inline-block;
-      width: 1.5rem;
-      height: 2px;
+      width: 22px;
+      height: 1px;
       background: var(--terra);
       flex-shrink: 0;
+      transform: translateY(-0.45em);
     }
-    .technique-desc { font-size: 0.87rem; line-height: 1.8; color: var(--ink-soft); padding-left: 2.4rem; }
-    @media (max-width: 960px) { .memory-section { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 3rem; } }
+    .technique-desc {
+      font-family: 'Lora', serif;
+      font-size: 0.87rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      padding-left: 1.95rem;
+      margin: 0;
+    }
+    @media (max-width: 960px) {
+      .memory-section { padding: 4rem 1.5rem 4rem; }
+      .memory-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 2.2rem;
+      }
+      .memory-photo { display: flex; justify-content: center; }
+      .polaroid-sm { max-width: 200px; }
+    }
+    @media (max-width: 520px) {
+      .memory-grid { gap: 1.6rem; }
+      .technique-desc { padding-left: 1.6rem; }
+    }
 
     /* ── ANALOGY ──────────────────────────────────────────── */
     .analogy-section {
@@ -641,6 +712,8 @@
 
     /* ── CTA STRIP ────────────────────────────────────────── */
     .cta-strip {
+      position: relative;
+      overflow: hidden;
       padding: 8rem 4.5rem;
       background: var(--bg);
       display: grid;
@@ -649,6 +722,7 @@
       align-items: center;
       border-top: 1px solid var(--border);
     }
+    .cta-strip > * { position: relative; z-index: 1; }
     .cta-strip-text h2 { font-family: 'Cormorant', serif; font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 300; color: var(--ink); margin-bottom: 0.8rem; line-height: 1.15; }
     .cta-strip-text h2 em { font-style: italic; color: var(--terra); }
     .cta-strip-text p { font-size: 0.93rem; line-height: 1.85; color: var(--ink-soft); max-width: 34rem; }
@@ -905,33 +979,29 @@
 
   <!-- MEMORY TECHNIQUES -->
   <section class="memory-section">
-    <div class="memory-photo reveal">
-      <div class="polaroid-sm">
-        <img src="images/school/DSC06035.webp" alt="Memory and learning techniques" loading="lazy" style="object-fit: cover; object-position: 50% 50%;">
-        <span class="polaroid-sm-caption" data-en="little tricks, big results " data-es="pequeños trucos, grandes resultados " data-fr="petites astuces, grands résultats ">little tricks, big results </span>
-      </div>
-    </div>
-    <div class="memory-text reveal">
+    <div class="memory-header reveal">
       <span class="section-label" data-en="Memory techniques we love" data-es="Técnicas de memoria que usamos" data-fr="Techniques de mémoire que nous adorons">Memory techniques we love</span>
-      <h2 class="section-title" style="margin-bottom:1.5rem;" data-en="Making new words <em>stick</em>" data-es="Haciendo que las nuevas palabras <em>se queden</em>" data-fr="Faire <em>retenir</em> les nouveaux mots" data-fr="Faire <em>retenir</em> les nouveaux mots">Making new words <em>stick</em></h2>
-      <p data-en="We teach you how to build a personal vocabulary that stays with you — using techniques drawn from memory science and our own years of experience in the classroom." data-es="Te enseñamos a construir un vocabulario personal que se quede contigo — usando técnicas de la ciencia de la memoria y nuestros propios años de experiencia en el aula." data-fr="Nous vous apprenons à construire un vocabulaire personnel qui reste — en utilisant des techniques issues de la science de la mémoire et de notre expérience.">
-        We teach you how to build a personal vocabulary that stays with you — using techniques drawn from memory science and our own years of experience in the classroom.
+      <h2 class="section-title" data-en="Making new words <em>stick</em>" data-es="Haciendo que las nuevas palabras <em>se queden</em>" data-fr="Faire <em>retenir</em> les nouveaux mots">Making new words <em>stick</em></h2>
+      <p data-en="We teach you how to build a personal vocabulary that stays with you — drawn from memory science and years in the classroom." data-es="Te enseñamos a construir un vocabulario personal que se quede contigo — desde la ciencia de la memoria y años en el aula." data-fr="Nous vous aidons à construire un vocabulaire personnel qui reste — issu de la science de la mémoire et d'années en classe.">
+        We teach you how to build a personal vocabulary that stays with you — drawn from memory science and years in the classroom.
       </p>
-      <div class="technique-list">
-        <div class="technique">
-          <span class="technique-icon"></span>
-          <div>
-            <div class="technique-title" data-en="Mental Associations" data-es="Asociaciones Mentales" data-fr="Associations mentales">Mental Associations</div>
-            <p class="technique-desc" data-en="Connect new Spanish words to sounds, images or stories that already mean something to you. Your brain remembers meaning far better than isolated vocabulary lists." data-es="Conecta nuevas palabras en español con sonidos, imágenes o historias que ya signifiquen algo para ti. Tu cerebro recuerda el significado mucho mejor que las listas de vocabulario aisladas." data-fr="Connectez les nouveaux mots à des sons, images ou histoires. Votre cerveau retient le sens bien mieux que des listes de vocabulaire." data-fr="Connectez les nouveaux mots espagnols à des sons, images ou histoires qui ont déjà un sens pour vous. Votre cerveau retient le sens bien mieux que des listes de vocabulaire isolées.">Connect new Spanish words to sounds, images or stories that already mean something to you. Your brain remembers meaning far better than isolated vocabulary lists.</p>
-          </div>
+    </div>
+    <div class="memory-grid">
+      <div class="memory-photo reveal">
+        <div class="polaroid-sm">
+          <img src="images/school/DSC06035.webp" alt="Memory and learning techniques" loading="lazy" style="object-fit: cover; object-position: 50% 50%;">
+          <span class="polaroid-sm-caption" data-en="little tricks, big results" data-es="pequeños trucos, grandes resultados" data-fr="petites astuces, grands résultats">little tricks, big results</span>
         </div>
-        <div class="technique">
-          <span class="technique-icon"></span>
-          <div>
-            <div class="technique-title" data-en="Flashcards with Context" data-es="Tarjetas con Contexto" data-fr="Cartes mémoire avec contexte">Flashcards with Context</div>
-            <p class="technique-desc" data-en="Not simple translation cards — but two-sided cards with the word used in a real sentence. Context is everything. You remember how a word feels, not just what it means." data-es="No son simples tarjetas de traducción — sino tarjetas de dos caras con la palabra usada en una oración real. El contexto lo es todo. Recuerdas cómo se siente una palabra, no solo lo que significa." data-fr="Pas de simples cartes — mais des cartes avec le mot dans une vraie phrase. Le contexte est tout." data-fr="Pas de simples cartes de traduction — mais des cartes avec le mot utilisé dans une vraie phrase. Le contexte est tout. Vous retenez comment un mot se ressent, pas seulement ce qu'il signifie.">Not simple translation cards — but two-sided cards with the word used in a real sentence. Context is everything. You remember how a word feels, not just what it means.</p>
-          </div>
-        </div>
+      </div>
+      <div class="technique reveal">
+        <span class="technique-tag" data-en="trick one" data-es="truco uno" data-fr="astuce un">trick one</span>
+        <h3 class="technique-title" data-en="Mental Associations" data-es="Asociaciones Mentales" data-fr="Associations mentales">Mental Associations</h3>
+        <p class="technique-desc" data-en="Connect new Spanish words to sounds, images or stories that already mean something to you. Your brain remembers meaning far better than isolated vocabulary lists." data-es="Conecta nuevas palabras en español con sonidos, imágenes o historias que ya signifiquen algo para ti. Tu cerebro recuerda el significado mucho mejor que las listas de vocabulario aisladas." data-fr="Connectez les nouveaux mots espagnols à des sons, images ou histoires qui ont déjà un sens pour vous. Votre cerveau retient le sens bien mieux que des listes de vocabulaire isolées.">Connect new Spanish words to sounds, images or stories that already mean something to you. Your brain remembers meaning far better than isolated vocabulary lists.</p>
+      </div>
+      <div class="technique reveal">
+        <span class="technique-tag" data-en="trick two" data-es="truco dos" data-fr="astuce deux">trick two</span>
+        <h3 class="technique-title" data-en="Flashcards with Context" data-es="Tarjetas con Contexto" data-fr="Cartes mémoire avec contexte">Flashcards with Context</h3>
+        <p class="technique-desc" data-en="Not simple translation cards — but two-sided cards with the word used in a real sentence. Context is everything. You remember how a word feels, not just what it means." data-es="No son simples tarjetas de traducción — sino tarjetas de dos caras con la palabra usada en una oración real. El contexto lo es todo. Recuerdas cómo se siente una palabra, no solo lo que significa." data-fr="Pas de simples cartes de traduction — mais des cartes avec le mot utilisé dans une vraie phrase. Le contexte est tout. Vous retenez comment un mot se ressent, pas seulement ce qu'il signifie.">Not simple translation cards — but two-sided cards with the word used in a real sentence. Context is everything. You remember how a word feels, not just what it means.</p>
       </div>
     </div>
   </section>
