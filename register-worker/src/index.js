@@ -87,6 +87,12 @@ function validate(p) {
 
 async function gradeWithClaude(answers, env) {
   const a = (k) => (answers[k] || '').trim() || '(blank)';
+  // Absolute beginners often leave the test empty. Short-circuit rather than
+  // asking Claude to grade air — the model refuses and the whole submit 500s.
+  const allBlank = ['q1','q2','q3','q4','q5'].every(k => !(answers[k] || '').trim());
+  if (allBlank) {
+    return { level: 'BEGINNER', note: 'No placement answers provided — treated as absolute beginner.' };
+  }
   const prompt = `You are a Spanish placement examiner for a language school in Sucre, Bolivia.
 Assess the student's Spanish level from their free-text answers to a 5-question placement test.
 
@@ -137,11 +143,16 @@ Return ONLY a JSON object, no prose, in exactly this shape:
   const raw = (data.content?.[0]?.text || '').trim();
   // Claude sometimes wraps JSON in prose or fences; extract the first {...} block.
   const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error('no json in model response: ' + raw);
-  const parsed = JSON.parse(match[0]);
-  const level = String(parsed.level || 'BEGINNER').toUpperCase();
-  const note  = String(parsed.note || '').slice(0, 400);
-  if (!/^(BEGINNER|A1|A2|B1|B2\+)$/.test(level)) throw new Error('bad level: ' + level);
+  let parsed = {};
+  if (match) {
+    try { parsed = JSON.parse(match[0]); } catch { /* fall through to BEGINNER */ }
+  }
+  const note = String(parsed.note || '').slice(0, 400);
+  // Normalise the level: strip whitespace/punctuation, match the first valid token.
+  const rawLevel = String(parsed.level || '').toUpperCase();
+  const levelMatch = rawLevel.match(/\b(BEGINNER|A1|A2|B1|B2\+?)\b/);
+  let level = levelMatch ? levelMatch[1] : 'BEGINNER';
+  if (level === 'B2') level = 'B2+';
   return { level, note };
 }
 
