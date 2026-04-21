@@ -287,11 +287,11 @@
       .char-grid { grid-template-columns: 1fr; }
     }
 
-    /* ── TWO-PART CLASS STRUCTURE (teacher's notebook diptych) ── */
+    /* ── TWO-PART CLASS STRUCTURE (compact notebook notelets) ── */
     .two-part {
       position: relative;
       background: var(--bg);
-      padding: 8rem 4.5rem 6rem;
+      padding: 5rem 4.5rem 4.5rem;
       overflow: hidden;
     }
     .two-part::before {
@@ -301,157 +301,158 @@
       background-image: repeating-linear-gradient(
         to bottom,
         transparent 0,
-        transparent 39px,
-        rgba(74,58,44,0.045) 39px,
-        rgba(74,58,44,0.045) 40px
+        transparent 33px,
+        rgba(74,58,44,0.045) 33px,
+        rgba(74,58,44,0.045) 34px
       );
       pointer-events: none;
       z-index: 0;
-      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
     }
     .two-part-header {
       position: relative;
       z-index: 2;
       text-align: center;
-      max-width: 780px;
+      max-width: 760px;
       margin: 0 auto;
     }
     .two-part-header .section-label { transform: rotate(-0.6deg); }
     .two-part-lede {
       display: block;
-      margin: 1.5rem auto 0;
+      margin: 1rem auto 0;
       max-width: 520px;
       font-family: 'Lora', serif;
       font-style: italic;
-      font-size: 1rem;
-      line-height: 1.65;
+      font-size: 0.95rem;
+      line-height: 1.55;
       color: var(--ink-soft);
     }
     .two-part-spread {
       position: relative;
       z-index: 2;
-      margin: 5rem auto 0;
-      max-width: 1280px;
+      margin: 2.8rem auto 0;
+      max-width: 1180px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
-      gap: 3rem;
-      align-items: start;
+      gap: 2.5rem;
+      align-items: center;
     }
     .lesson-half {
       position: relative;
-      padding: 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.6rem;
+      align-items: center;
     }
     .lesson-half--practice {
-      padding-top: 5.5rem;
+      grid-template-columns: 1fr auto;
     }
-    .lesson-numeral {
-      font-family: 'Cormorant', serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(6rem, 10vw, 9.5rem);
-      line-height: 0.85;
-      color: var(--terra);
-      letter-spacing: -0.03em;
-      margin-bottom: 1.6rem;
-      user-select: none;
-      display: flex;
-      align-items: flex-end;
-      gap: 0.08em;
-    }
-    .lesson-numeral-dot {
-      color: var(--gold);
-      -webkit-text-fill-color: var(--gold);
-      font-size: 0.5em;
-      line-height: 1;
-      margin-bottom: 0.1em;
-    }
-    .lesson-half--practice .lesson-numeral {
-      justify-content: flex-end;
-      color: var(--ink);
-    }
-    .lesson-half--practice .lesson-numeral-dot { color: var(--terra); }
-    .lesson-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 2.4rem;
-      max-width: 460px;
-    }
-    .lesson-half--practice .lesson-stack {
-      margin-left: auto;
-      align-items: flex-end;
+    .lesson-half--practice .lesson-copy {
       text-align: right;
+      order: 1;
+    }
+    .lesson-half--practice .lesson-photo {
+      order: 2;
     }
     .lesson-photo {
       position: relative;
       background: #fff;
-      padding: 14px 14px 14px;
+      padding: 10px;
       box-shadow:
-        0 22px 44px -18px rgba(28,20,16,0.35),
-        0 6px 14px -6px rgba(28,20,16,0.18),
+        0 14px 28px -14px rgba(28,20,16,0.32),
+        0 4px 8px -4px rgba(28,20,16,0.16),
         inset 0 0 0 1px rgba(28,20,16,0.04);
-      max-width: 440px;
-      width: 100%;
-      transform: rotate(-2.2deg);
+      width: 178px;
+      transform: rotate(-2.4deg);
       transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .lesson-half--practice .lesson-photo {
-      transform: rotate(2deg);
+      transform: rotate(2.2deg);
     }
     .lesson-half:hover .lesson-photo {
-      transform: rotate(-0.4deg) translateY(-5px);
+      transform: rotate(-0.5deg) translateY(-3px);
     }
     .lesson-half--practice:hover .lesson-photo {
-      transform: rotate(0.4deg) translateY(-5px);
+      transform: rotate(0.5deg) translateY(-3px);
     }
     .lesson-photo img {
       width: 100%;
-      height: 340px;
+      height: 210px;
       object-fit: cover;
       display: block;
       filter: saturate(1.02);
     }
     .lesson-tape {
       position: absolute;
-      top: -14px;
+      top: -11px;
       left: 50%;
       transform: translateX(-50%) rotate(-3.5deg);
-      background: rgba(196,145,58,0.82);
+      background: rgba(196,145,58,0.85);
       color: #FFF6E3;
       font-family: 'Caveat', cursive;
-      font-size: 1.05rem;
+      font-size: 0.92rem;
       font-weight: 500;
-      padding: 0.28rem 1.5rem;
-      letter-spacing: 0.03em;
-      box-shadow:
-        0 2px 6px rgba(28,20,16,0.12),
-        inset 0 0 0 100vmax rgba(255,255,255,0.03);
-      backdrop-filter: blur(1px);
+      padding: 0.2rem 1.05rem;
+      letter-spacing: 0.02em;
+      box-shadow: 0 2px 5px rgba(28,20,16,0.12);
+      white-space: nowrap;
     }
     .lesson-tape::before, .lesson-tape::after {
       content: '';
       position: absolute;
       top: 50%;
-      width: 12px;
+      width: 10px;
       height: 100%;
       background: inherit;
-      opacity: 0.6;
+      opacity: 0.55;
     }
-    .lesson-tape::before { left: -10px; transform: translateY(-50%) skewX(18deg); border-radius: 2px 0 0 2px; }
-    .lesson-tape::after { right: -10px; transform: translateY(-50%) skewX(-18deg); border-radius: 0 2px 2px 0; }
+    .lesson-tape::before { left: -9px; transform: translateY(-50%) skewX(18deg); border-radius: 2px 0 0 2px; }
+    .lesson-tape::after { right: -9px; transform: translateY(-50%) skewX(-18deg); border-radius: 0 2px 2px 0; }
     .lesson-tape--terra {
-      background: rgba(200,87,45,0.85);
+      background: rgba(200,87,45,0.88);
       color: #FDF4EE;
       transform: translateX(-50%) rotate(3deg);
     }
-    .lesson-copy { max-width: 440px; }
+    .lesson-copy {
+      max-width: 360px;
+    }
+    .lesson-half--practice .lesson-copy {
+      margin-left: auto;
+    }
+    .lesson-numeral {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 3.4vw, 3.6rem);
+      line-height: 0.85;
+      color: var(--terra);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.35rem;
+      user-select: none;
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 0.06em;
+    }
+    .lesson-numeral-dot {
+      color: var(--gold);
+      font-size: 0.42em;
+      line-height: 1;
+      margin-bottom: 0.1em;
+    }
+    .lesson-half--practice .lesson-numeral {
+      color: var(--ink);
+    }
+    .lesson-half--practice .lesson-numeral-dot {
+      color: var(--terra);
+    }
     .lesson-kicker {
       display: inline-block;
       font-family: 'Caveat', cursive;
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 500;
       color: var(--terra);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.15rem;
       letter-spacing: 0.02em;
       transform: rotate(-0.8deg);
       transform-origin: left center;
@@ -464,27 +465,27 @@
       font-family: 'Cormorant', serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(2.6rem, 3.6vw, 3.4rem);
-      line-height: 0.98;
+      font-size: clamp(1.9rem, 2.3vw, 2.3rem);
+      line-height: 1;
       color: var(--ink);
-      margin-bottom: 1rem;
+      margin-bottom: 0.6rem;
     }
     .lesson-rule {
       display: block;
-      width: 68px;
+      width: 44px;
       height: 1px;
       background: var(--terra);
-      margin: 0 0 1.6rem;
+      margin: 0 0 0.8rem;
       opacity: 0.85;
       position: relative;
     }
     .lesson-rule::after {
       content: '';
       position: absolute;
-      left: 72px;
-      top: -2px;
-      width: 5px;
-      height: 5px;
+      left: 48px;
+      top: -1.5px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
       background: var(--gold);
     }
@@ -493,56 +494,72 @@
     }
     .lesson-half--practice .lesson-rule::after {
       left: auto;
-      right: 72px;
+      right: 48px;
     }
     .lesson-body {
       font-family: 'Lora', serif;
-      font-size: 0.98rem;
-      line-height: 1.9;
+      font-size: 0.88rem;
+      line-height: 1.7;
       color: var(--ink-soft);
     }
     .lesson-bridge {
-      align-self: center;
-      padding-top: 4rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.25rem;
       color: var(--terra);
-      min-width: 90px;
+      min-width: 56px;
     }
     .lesson-bridge-word {
       font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
+      font-size: 1.25rem;
       font-weight: 500;
       color: var(--terra);
       transform: rotate(-4deg);
       letter-spacing: 0.02em;
     }
     .lesson-bridge-svg {
-      width: 52px;
-      height: 120px;
-      opacity: 0.75;
+      width: 38px;
+      height: 58px;
+      opacity: 0.7;
     }
     @media (max-width: 960px) {
-      .two-part { padding: 5rem 1.5rem 3rem; }
+      .two-part { padding: 4rem 1.5rem 3.5rem; }
       .two-part-spread {
         grid-template-columns: 1fr;
-        gap: 3.5rem;
-        margin-top: 3rem;
+        gap: 2rem;
+        margin-top: 2.5rem;
       }
-      .lesson-half--practice { padding-top: 0; }
-      .lesson-half--practice .lesson-numeral { justify-content: flex-start; }
-      .lesson-half--practice .lesson-stack { margin-left: 0; align-items: flex-start; text-align: left; }
+      .lesson-half {
+        grid-template-columns: auto 1fr;
+        gap: 1.2rem;
+      }
+      .lesson-half--practice {
+        grid-template-columns: auto 1fr;
+      }
+      .lesson-half--practice .lesson-copy {
+        text-align: left;
+        order: 0;
+        margin-left: 0;
+      }
+      .lesson-half--practice .lesson-photo {
+        order: -1;
+      }
       .lesson-half--practice .lesson-rule { margin-left: 0; }
-      .lesson-half--practice .lesson-rule::after { left: 72px; right: auto; }
+      .lesson-half--practice .lesson-rule::after { left: 48px; right: auto; }
       .lesson-half--practice .lesson-kicker { transform: rotate(-0.8deg); transform-origin: left center; }
-      .lesson-photo { max-width: 100%; }
-      .lesson-photo img { height: 280px; }
-      .lesson-numeral { font-size: clamp(5rem, 22vw, 7rem); }
-      .lesson-bridge { padding-top: 0; flex-direction: row; gap: 0.8rem; }
-      .lesson-bridge-svg { width: 110px; height: 36px; transform: rotate(-90deg); }
-      .lesson-bridge-word { transform: rotate(-2deg); }
+      .lesson-photo { width: 130px; }
+      .lesson-photo img { height: 160px; }
+      .lesson-bridge { flex-direction: row; gap: 0.7rem; justify-content: center; }
+      .lesson-bridge-svg { width: 80px; height: 28px; transform: rotate(-90deg); }
+      .lesson-bridge-word { transform: rotate(-2deg); font-size: 1.1rem; }
+    }
+    @media (max-width: 520px) {
+      .lesson-half { grid-template-columns: 1fr; gap: 1rem; }
+      .lesson-half--practice { grid-template-columns: 1fr; }
+      .lesson-photo { width: 150px; justify-self: start; }
+      .lesson-half--practice .lesson-photo { justify-self: end; }
+      .lesson-photo img { height: 175px; }
     }
 
     /* ── MEMORY TECHNIQUES ────────────────────────────────── */
@@ -844,20 +861,18 @@
 
     <div class="two-part-spread">
       <article class="lesson-half lesson-half--theory reveal">
-        <div class="lesson-numeral" aria-hidden="true">I<span class="lesson-numeral-dot">.</span></div>
-        <div class="lesson-stack">
-          <div class="lesson-photo">
-            <span class="lesson-tape" data-en="grammar first" data-es="gramática primero" data-fr="d'abord la grammaire">grammar first</span>
-            <img src="images/school/DSC05977.webp" alt="Theoretical grammar learning" loading="lazy" style="object-position: 50% 46%;">
-          </div>
-          <div class="lesson-copy">
-            <span class="lesson-kicker" data-en="Part One" data-es="Primera Parte" data-fr="Première partie">Part One</span>
-            <h3 class="lesson-heading" data-en="Theoretical" data-es="Teórico" data-fr="Théorique">Theoretical</h3>
-            <span class="lesson-rule" aria-hidden="true"></span>
-            <p class="lesson-body" data-en="Every lesson opens with grammar explanation and targeted practice. Topics are organised by logical progression and difficulty, so you always build on what you already know — never jumping ahead before you're ready." data-es="Cada clase comienza con explicación gramatical y práctica dirigida. Los temas están organizados por progresión lógica y dificultad, para que siempre construyas sobre lo que ya sabes — sin saltar adelante antes de estar listo." data-fr="Chaque cours commence par une explication grammaticale et de la pratique ciblée. Les sujets sont organisés par progression logique, donc vous construisez toujours sur ce que vous savez déjà.">
-              Every lesson opens with grammar explanation and targeted practice. Topics are organised by logical progression and difficulty, so you always build on what you already know — never jumping ahead before you're ready.
-            </p>
-          </div>
+        <div class="lesson-photo">
+          <span class="lesson-tape" data-en="grammar first" data-es="gramática primero" data-fr="d'abord la grammaire">grammar first</span>
+          <img src="images/school/DSC05977.webp" alt="Theoretical grammar learning" loading="lazy" style="object-position: 50% 46%;">
+        </div>
+        <div class="lesson-copy">
+          <div class="lesson-numeral" aria-hidden="true">I<span class="lesson-numeral-dot">.</span></div>
+          <span class="lesson-kicker" data-en="Part One" data-es="Primera Parte" data-fr="Première partie">Part One</span>
+          <h3 class="lesson-heading" data-en="Theoretical" data-es="Teórico" data-fr="Théorique">Theoretical</h3>
+          <span class="lesson-rule" aria-hidden="true"></span>
+          <p class="lesson-body" data-en="Every lesson opens with grammar explanation and targeted practice. Topics are organised by logical progression and difficulty, so you always build on what you already know — never jumping ahead before you're ready." data-es="Cada clase comienza con explicación gramatical y práctica dirigida. Los temas están organizados por progresión lógica y dificultad, para que siempre construyas sobre lo que ya sabes — sin saltar adelante antes de estar listo." data-fr="Chaque cours commence par une explication grammaticale et de la pratique ciblée. Les sujets sont organisés par progression logique, donc vous construisez toujours sur ce que vous savez déjà.">
+            Every lesson opens with grammar explanation and targeted practice. Topics are organised by logical progression and difficulty, so you always build on what you already know — never jumping ahead before you're ready.
+          </p>
         </div>
       </article>
 
@@ -871,20 +886,18 @@
       </div>
 
       <article class="lesson-half lesson-half--practice reveal">
-        <div class="lesson-numeral" aria-hidden="true">II<span class="lesson-numeral-dot">.</span></div>
-        <div class="lesson-stack">
-          <div class="lesson-photo">
-            <span class="lesson-tape lesson-tape--terra" data-en="let's play" data-es="¡a jugar!" data-fr="on joue !">let's play</span>
-            <img src="images/school/DSC05992.webp" alt="Practical conversation practice" loading="lazy">
-          </div>
-          <div class="lesson-copy">
-            <span class="lesson-kicker" data-en="Part Two" data-es="Segunda Parte" data-fr="Deuxième partie">Part Two</span>
-            <h3 class="lesson-heading" data-en="Practical" data-es="Práctico" data-fr="Pratique">Practical</h3>
-            <span class="lesson-rule" aria-hidden="true"></span>
-            <p class="lesson-body" data-en="The second half brings the language to life through reading, songs, games, real-life situations and cultural notes. These activities engage your memory in a way that dry repetition never could — because you're actually using the language." data-es="La segunda mitad da vida al idioma a través de lecturas, canciones, juegos, situaciones de la vida real y notas culturales. Estas actividades comprometen tu memoria de una manera que la repetición seca nunca podría — porque realmente estás usando el idioma." data-fr="La seconde moitié donne vie à la langue à travers la lecture, les chansons, les jeux, des situations réelles et des notes culturelles — parce que vous utilisez vraiment la langue.">
-              The second half brings the language to life through reading, songs, games, real-life situations and cultural notes. These activities engage your memory in a way that dry repetition never could — because you're actually using the language.
-            </p>
-          </div>
+        <div class="lesson-photo">
+          <span class="lesson-tape lesson-tape--terra" data-en="let's play" data-es="¡a jugar!" data-fr="on joue !">let's play</span>
+          <img src="images/school/DSC05992.webp" alt="Practical conversation practice" loading="lazy">
+        </div>
+        <div class="lesson-copy">
+          <div class="lesson-numeral" aria-hidden="true">II<span class="lesson-numeral-dot">.</span></div>
+          <span class="lesson-kicker" data-en="Part Two" data-es="Segunda Parte" data-fr="Deuxième partie">Part Two</span>
+          <h3 class="lesson-heading" data-en="Practical" data-es="Práctico" data-fr="Pratique">Practical</h3>
+          <span class="lesson-rule" aria-hidden="true"></span>
+          <p class="lesson-body" data-en="The second half brings the language to life through reading, songs, games, real-life situations and cultural notes. These activities engage your memory in a way that dry repetition never could — because you're actually using the language." data-es="La segunda mitad da vida al idioma a través de lecturas, canciones, juegos, situaciones de la vida real y notas culturales. Estas actividades comprometen tu memoria de una manera que la repetición seca nunca podría — porque realmente estás usando el idioma." data-fr="La seconde moitié donne vie à la langue à travers la lecture, les chansons, les jeux, des situations réelles et des notes culturelles — parce que vous utilisez vraiment la langue.">
+            The second half brings the language to life through reading, songs, games, real-life situations and cultural notes. These activities engage your memory in a way that dry repetition never could — because you're actually using the language.
+          </p>
         </div>
       </article>
     </div>
