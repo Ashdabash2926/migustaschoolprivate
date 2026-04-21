@@ -232,25 +232,119 @@ Reply here with any questions, or let us know your preferred start date. ¡Nos v
 — The Me Gusta Spanish team`;
 }
 
+const STUDENT_COPY = {
+  en: {
+    subject: "We've got your Me Gusta Spanish registration",
+    greeting: "Gracias",
+    lead: "We've received your placement test and all your details. A teacher will look through your answers and message you on WhatsApp within 24 hours with your class, schedule and price.",
+    levelLabel: "Your provisional level:",
+    levelNote: "This is our first read — your teacher will confirm the level on day one. No payment needed yet; we'll send a secure link when you're ready.",
+    whatsappPrompt: "Any questions in the meantime? WhatsApp us directly:",
+    sign: "— Me Gusta Spanish, Sucre, Bolivia",
+    reminderSubject: "See you tomorrow at Me Gusta Spanish!",
+    reminderHeader: "¡Nos vemos mañana!",
+    reminderLead: "A friendly reminder — you told us you'd like to start your Spanish classes tomorrow. Here's what to expect on day one:",
+    reminderPoints: [
+      "Arrive about 10 minutes early — your teacher will meet you and show you around.",
+      "Check your WhatsApp if you haven't — we sent the address and exact time there.",
+      "Bring a notebook and pen, and maybe a snack for the break.",
+      "Don't worry about your level — day one is all about getting comfortable.",
+    ],
+    reminderOutro: "If anything changed on your side, just reply here or send us a WhatsApp. ¡Hasta mañana!",
+  },
+  es: {
+    subject: "Recibimos tu registro — Me Gusta Spanish",
+    greeting: "Gracias",
+    lead: "Ya tenemos tu prueba de nivel y todos tus datos. Un profesor revisará tus respuestas y te escribirá por WhatsApp en menos de 24 horas con tu clase, horario y precio.",
+    levelLabel: "Tu nivel provisional:",
+    levelNote: "Esto es solo una primera lectura — tu profesor confirmará el nivel el primer día. No hace falta pagar todavía; te enviaremos un enlace seguro cuando estés listo.",
+    whatsappPrompt: "¿Tienes alguna duda mientras tanto? Escríbenos por WhatsApp:",
+    sign: "— Me Gusta Spanish, Sucre, Bolivia",
+    reminderSubject: "¡Nos vemos mañana en Me Gusta Spanish!",
+    reminderHeader: "¡Nos vemos mañana!",
+    reminderLead: "Un recordatorio amistoso — nos dijiste que querías empezar tus clases mañana. Esto es lo que puedes esperar el primer día:",
+    reminderPoints: [
+      "Llega unos 10 minutos antes — tu profesor te recibirá y te mostrará la escuela.",
+      "Si aún no lo has hecho, revisa tu WhatsApp — te enviamos la dirección y la hora exacta.",
+      "Trae un cuaderno y un bolígrafo, y quizás un snack para el descanso.",
+      "No te preocupes por tu nivel — el primer día es para sentirte cómodo.",
+    ],
+    reminderOutro: "Si algo cambió por tu parte, responde aquí o escríbenos por WhatsApp. ¡Hasta mañana!",
+  },
+  fr: {
+    subject: "Nous avons reçu votre inscription — Me Gusta Spanish",
+    greeting: "¡Gracias",
+    lead: "Nous avons reçu votre test de niveau et toutes vos informations. Un professeur examinera vos réponses et vous écrira sur WhatsApp sous 24 heures avec votre cours, votre horaire et le prix.",
+    levelLabel: "Votre niveau provisoire :",
+    levelNote: "Ce n'est qu'une première lecture — votre professeur confirmera le niveau le premier jour. Aucun paiement n'est requis pour l'instant ; nous vous enverrons un lien sécurisé lorsque vous serez prêt.",
+    whatsappPrompt: "Des questions entre-temps ? Écrivez-nous sur WhatsApp :",
+    sign: "— Me Gusta Spanish, Sucre, Bolivie",
+    reminderSubject: "¡Nos vemos mañana ! Votre premier cours à Me Gusta Spanish",
+    reminderHeader: "À demain !",
+    reminderLead: "Un petit rappel amical — vous nous avez dit que vous souhaitiez commencer vos cours demain. Voici à quoi vous attendre le premier jour :",
+    reminderPoints: [
+      "Arrivez une dizaine de minutes en avance — votre professeur vous accueillera et vous fera visiter.",
+      "Si ce n'est pas déjà fait, vérifiez votre WhatsApp — nous y avons envoyé l'adresse et l'heure exacte.",
+      "Apportez un carnet et un stylo, et peut-être un en-cas pour la pause.",
+      "Ne vous inquiétez pas pour votre niveau — le premier jour sert à prendre vos marques.",
+    ],
+    reminderOutro: "Si quelque chose a changé de votre côté, répondez ici ou écrivez-nous sur WhatsApp. À demain !",
+  },
+};
+
 async function emailStudent({ payload, grade, plan, env }) {
-  const subject = `We've got your Me Gusta Spanish registration`;
+  const copy = STUDENT_COPY[payload.language] || STUDENT_COPY.en;
+  const waUrl = `https://wa.me/${escapeHtml(env.SCHOOL_WHATSAPP)}`;
   const html = `
     <div style="font-family:Georgia,serif;color:#1C1410;max-width:560px;line-height:1.7;">
-      <p style="font-size:18px;font-style:italic;color:#C8572D;margin:0 0 12px;">Gracias, ${escapeHtml(payload.firstName)}!</p>
-      <p>We've received your placement test and all your details. A teacher will look through your answers and message you on WhatsApp within 24 hours with your class, schedule, and price.</p>
+      <p style="font-size:18px;font-style:italic;color:#C8572D;margin:0 0 12px;">${copy.greeting}, ${escapeHtml(payload.firstName)}!</p>
+      <p>${copy.lead}</p>
       <p style="margin-top:20px;padding:14px 18px;background:#FFF9F4;border-left:3px solid #C4913A;">
-        <b>Your provisional level:</b> ${grade.level}<br>
+        <b>${copy.levelLabel}</b> ${grade.level}<br>
         <span style="font-style:italic;color:#4A3A2C;">${escapeHtml(LEVEL_COPY[grade.level] || '')}</span>
       </p>
-      <p>This is our first read — your teacher will confirm the level on day one. No payment needed yet; we'll send a secure link when you're ready.</p>
-      <p style="margin-top:24px;">Any questions in the meantime? WhatsApp us directly: <a href="https://wa.me/${escapeHtml(env.SCHOOL_WHATSAPP)}">+${escapeHtml(env.SCHOOL_WHATSAPP)}</a></p>
-      <p style="margin-top:24px;color:#9A8878;font-size:14px;">— Me Gusta Spanish, Sucre, Bolivia</p>
+      <p>${copy.levelNote}</p>
+      <p style="margin-top:24px;">${copy.whatsappPrompt} <a href="${waUrl}">+${escapeHtml(env.SCHOOL_WHATSAPP)}</a></p>
+      <p style="margin-top:24px;color:#9A8878;font-size:14px;">${copy.sign}</p>
     </div>
   `;
-  return sendEmail({ env, to: payload.email, subject, html });
+  await sendEmail({ env, to: payload.email, subject: copy.subject, html });
+
+  // Schedule a T-24h pre-class reminder if they told us a start date at least ~36h away.
+  const reminderIso = payload.startDate ? buildReminderIso(payload.startDate) : null;
+  if (reminderIso && Date.parse(reminderIso) > Date.now() + 12 * 60 * 60 * 1000) {
+    const points = copy.reminderPoints.map(p => `<li style="margin-bottom:6px;">${p}</li>`).join('');
+    const reminderHtml = `
+      <div style="font-family:Georgia,serif;color:#1C1410;max-width:560px;line-height:1.7;">
+        <p style="font-size:20px;font-style:italic;color:#C8572D;margin:0 0 12px;">${copy.reminderHeader}</p>
+        <p>${copy.reminderLead}</p>
+        <ul style="padding-left:20px;margin:12px 0 18px;">${points}</ul>
+        <p>${copy.reminderOutro} <a href="${waUrl}">+${escapeHtml(env.SCHOOL_WHATSAPP)}</a></p>
+        <p style="margin-top:24px;color:#9A8878;font-size:14px;">${copy.sign}</p>
+      </div>
+    `;
+    await sendEmail({
+      env,
+      to: payload.email,
+      subject: copy.reminderSubject,
+      html: reminderHtml,
+      scheduledAt: reminderIso,
+    });
+  }
 }
 
-async function sendEmail({ env, to, subject, html, replyTo }) {
+// Resend's scheduled_at takes an ISO 8601 timestamp. We fire the reminder
+// 24h before the student's preferred start date, at 08:30 Bolivia time
+// (UTC-4) — i.e. 12:30 UTC the previous day.
+function buildReminderIso(startDateString) {
+  const [y, m, d] = String(startDateString).split('-').map(Number);
+  if (!y || !m || !d) return null;
+  const startUtc = Date.UTC(y, m - 1, d, 12, 30, 0); // 08:30 Bolivia time
+  const reminderUtc = startUtc - 24 * 60 * 60 * 1000;
+  return new Date(reminderUtc).toISOString();
+}
+
+async function sendEmail({ env, to, subject, html, replyTo, scheduledAt }) {
   const body = {
     from: `${env.FROM_NAME} <${env.FROM_EMAIL}>`,
     to: [to],
@@ -258,6 +352,7 @@ async function sendEmail({ env, to, subject, html, replyTo }) {
     html,
   };
   if (replyTo) body.reply_to = replyTo;
+  if (scheduledAt) body.scheduled_at = scheduledAt;
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
