@@ -484,6 +484,56 @@ All commits pushed to `origin/main`.
 
 ---
 
+## Session — 21 April 2026 (afternoon, methodology page polish)
+
+### Theory & Practice section — ground-up redesign
+The two-part "Theory & Practice — every single lesson" block on `methodology.html` was a flat edge-to-edge two-card grid with one Unsplash placeholder. Rebuilt twice in this session:
+
+**v1 — editorial "teacher's notebook" diptych:**
+- Outlined italic Cormorant numerals **I.** / **II.** at ~10rem with a small gold full-stop accent
+- Tilted polaroid photos (-2.2° / +2°) with multi-layer shadows and white paper borders
+- Paper-tape labels in Caveat ("grammar first" / "let's play") with notched pseudo-element ends so they read as actual masking tape
+- Thin terra rule + gold dot under each heading
+- Handwritten **"then →"** bridge in the gap between halves with a hand-drawn SVG arrow
+- Faint horizontal **ruled-paper background** on the section (`repeating-linear-gradient`, ~4.5% opacity, masked at top/bottom for soft fade)
+- Asymmetric drop on Part II (`padding-top: 5.5rem`) to break the grid
+
+**v2 — compacted to ~half the height:**
+Client liked the ruled-paper background but the section was ~1000px tall. Each half collapsed from a vertical numeral-photo-text stack into a single horizontal row: small 178px polaroid beside an inline copy column. Numerals dropped to ~3.5rem and now sit above the kicker. Asymmetric drop removed. Section is now ~648px on desktop. Mobile keeps photo-above-text stacking under 520px so neither column gets cramped.
+
+### Practical photo swap
+Replaced the Unsplash placeholder on the practical side with a real classroom shot — `images/school/DSC05992.webp`, sourced from `~/Desktop/Edit/JPEG/migusta/school/DSC05992.jpg` (33 MB JPG → 36 KB WebP via `cwebp -q 82 -resize 800 0`).
+
+### Memory section — "Making new words stick" redesign
+Original `.memory-section` was a tall two-column layout (square polaroid on left, label + heading + intro paragraph + two stacked technique cards with bordered separators on right) measuring 876px tall.
+
+Restructured to centred-header-on-top + 3-up grid below:
+- Centred header (label / `<em>stick</em>` Cormorant title / one-sentence italic intro) — trimmed the original two-paragraph intro to a single focused line
+- 3-column grid: tilted polaroid + two technique notelets side-by-side
+- Each technique now has a small Caveat **"trick one" / "trick two"** tag in terra above an italic Cormorant title, with a 22px terra rule prefixing the title
+- Section dropped from ~876px → ~611px (~30% shorter)
+
+### Lined-paper background extracted as shared utility
+Promoted the `::before` ruled-paper rule that was scoped to `.two-part` into a shared selector covering all white-bg sections on the methodology page:
+- `.two-part::before, .intro-quote-section::before, .cta-strip::before` now share one declaration
+- Moved the giant decorative `\201C` quote glyph on `.intro-quote-section` from `::before` → `::after` to free the `::before` slot
+- `.cta-strip` got `position: relative; overflow: hidden; > * { z-index: 1 }` so its content sits above the lines
+- `.memory-section` (which uses `--bg-warm` cream, not `--bg` white) was left without lines per the rule "white-bg only"
+
+### Conventions reinforced this session
+- **Image workflow** — sourced JPG from Desktop, ran `cwebp -q 82 -resize 800 0` to drop into `images/school/`, no original to delete from the project tree.
+- **Headbar untouched** — all redesigns kept the existing `#main-nav` HTML/CSS/JS verbatim per the project rule.
+- **Tri-language coverage** — every new string (`grammar first`, `let's play`, `then`, `trick one`, `trick two`, lede sentences) added with `data-en` / `data-es` / `data-fr`.
+
+### Commits
+- `7409782` — methodology: redesign Theory & Practice diptych + swap practical image
+- `4824538` — methodology: compact the Theory & Practice diptych
+- `ca6b697` — methodology: compact memory section + lined-paper on all white-bg sections
+
+All pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
