@@ -432,6 +432,58 @@ All commits pushed to `origin/main`. Worker deployed to `https://migusta-registe
 
 ---
 
+## Session — 21 April 2026 (continued)
+
+### Register — blank-answers bug + lenient grading
+Real client test surfaced a 500 on submit with the message "Something went wrong — please try again". Root cause: the 5 placement-test textareas have no `required` attribute and the submit handler only calls `validateStep(1) || validateStep(3)` — step 2 is never validated, so a user who clicks through without typing posts all-blank answers. Claude refuses to grade an empty test and responds with prose ("all five questions are blank, please provide the student's actual responses..."). The regex-based JSON extractor in `gradeWithClaude` then throws `no json in model response`, the outer try/catch 500s, and the frontend shows the error.
+
+Two fixes in `register-worker/src/index.js`:
+- **Short-circuit** when all five answers are blank → return `{ level: 'BEGINNER', note: '...' }` without calling Claude.
+- **Lenient parser** — strip the strict regex check on `parsed.level`. Match the first valid token (`BEGINNER|A1|A2|B1|B2+?`) anywhere in the model's reply, default to `BEGINNER` if nothing recognisable. Prose-wrapped or lightly mangled JSON now falls back gracefully instead of 500ing.
+
+Worker redeployed (`860d0dd7-…`). Debugged by running `npx wrangler tail --format=pretty` in the background while the client re-submitted; real submission at 12:05:22 came back clean. Left the left-field choice to not add `required` to Q1 etc. on the front end — server fix is sufficient and beginners who genuinely can't answer shouldn't be blocked.
+
+### Café hero — bigger polaroid, no caption
+`cafe.html` `.float-polaroid` width `340px → 460px`, and the `<span class="float-polaroid-cap">nuestro café</span>` removed. Kept the existing 52px bottom white strip so the card still reads as a polaroid — the caption was the only bit client wanted gone.
+
+### Contact page — real data in
+Swapped the placeholder `+591 7000 1234` for the real `+591 73425725` (matches `register.html`) in both the WhatsApp method pill and the CTA-strip link, and extended the address line from "Sucre, Bolivia" to "Bolivar #603, Sucre, Bolivia" to match what the café page already displays.
+
+### Contact form — fully wired to worker
+The form on `contact.html` was visual-only: no `action`, no `method`, no submit handler. Extended `register-worker` with a second route rather than standing up new infra.
+
+**Worker changes (`register-worker/src/index.js`):**
+- `fetch()` now routes on `new URL(request.url).pathname`. `/contact` → `handleContact`; everything else → `handleRegister` (renamed from inline body).
+- `validateContact` — requires `firstName`, `email`, `message`; same email regex as the register path.
+- `emailStaffContact` — sends an enquiry email with a clean `Contact` table (email, interest, self-reported level, language), a terra-bordered message block, and a single "Reply by email" CTA button. Uses `reply_to: payload.email` so hitting reply in gmail goes to the student.
+- `emailStudentContact` — trilingual auto-reply keyed off `payload.language` (`CONTACT_STUDENT_COPY` table with `en/es/fr` subject, greeting, lead, WhatsApp prompt, sign-off). Falls back to `en`.
+- Shares `sendEmail()`, `escapeHtml()`, `corsHeaders()` with the registration path — no duplication.
+
+**Frontend (`contact.html`):**
+- `<form id="contactForm" novalidate>` with `name=` + `id=` on every field, `required` on first name / email / message, explicit `value=` on the interest and level `<option>`s (mapped to worker-side label tables).
+- New submit handler in the existing `<script>` block: reads `currentLang` off the lang toggle, POSTs JSON to `/contact`, swaps the form for a success state on 2xx, shows an inline terra-tinted error banner otherwise. Submit button shows a localised "Sending…" label while the call is in flight.
+- Added `.form-error` and `.form-success` CSS — matches the register page's aesthetic (cream bg, terra dashed border, italic Cormorant heading).
+
+Worker redeployed (`519b4238-…`). Verified both routes live: `/contact` with the owner gmail returned `{ok:true}`; the register path still grades and returns `{ok:true,level:"BEGINNER"}` on a minimal payload.
+
+### Resend sandbox — still the deliverability blocker
+Watched a real registration email land for the client today but go straight to Gmail's junk folder. Cause is unchanged from the last session's notes — sending from `onboarding@resend.dev` with `Me Gusta Spanish` branding triggers Gmail's SPF/DKIM/DMARC mismatch heuristics. Per the tail logs, Resend also 403s any `to:` address that isn't `lewisashleybutterfield@googlemail.com` (the sandbox account owner), though `sendEmail()` swallows the error so the worker still returns 200.
+
+The fix for both the junk-folder problem and the silent student-side failures is the same: verify `megustaspanish.com` in Resend, swap `FROM_EMAIL` / `STAFF_EMAIL` to domain addresses, redeploy. Still open — needs the client to paste DNS records at the registrar.
+
+### Deferred / carried forward
+- **Resend domain verification** — still open (item #1 from the last session, now blocks both registration and contact deliverability).
+- **Turnstile captcha** — still waiting on client sitekey.
+- **Price table audit** — unchanged; placeholder numbers still in `PRICE_TABLE`.
+- **Anthropic $5/mo spend cap** — still needs setting at console.anthropic.com/settings/limits.
+
+### Worker deploy notes
+Worker redeployed twice this session (blank-answer guard + lenient parser; then `/contact` route). Version IDs: `860d0dd7-…` and `519b4238-…`. Wrangler 3.114.17 warning ignored again.
+
+All commits pushed to `origin/main`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
