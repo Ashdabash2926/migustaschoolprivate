@@ -534,6 +534,43 @@ All pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolpr
 
 ---
 
+## Session — 23 April 2026 (Fernando's data audit — unify address, phones, founding date)
+
+### Context
+Fernando sent a full error list over WhatsApp flagging inconsistent school data across the site (three different addresses, four different phone numbers, two different founding dates) plus a handful of smaller bugs. Clear correct values he supplied:
+- **School address:** Calle Real Audiencia #97 (replaces `Junín 333` and `Calle Dalence 146`)
+- **Café address:** Bolivar #603 (unchanged — this stays)
+- **Phones:** +591 734 25725 and +591 734 00447
+- **Email:** info@megustaspanish.com
+
+### Errors corrected
+1. **Founding date** — hero handwritten / hero meta / ticker / every footer tagline now read `est. 2011` or `since 2011`. The about.html timeline (`2005 – methodology is born` / `2011 – school opens`) and the index.html story paragraph stay intact since they explicitly tell the 2005 → 2011 story. Methodology page's `since 2005` tag relabelled to `methodology since 2005` so the distinction is unambiguous.
+2. **School address** — replaced `Junín 333` and `Calle Dalence 146` with `Calle Real Audiencia #97` everywhere they appeared (index hero/footer, classes tag + step copy + footer, methodology footer, kids/accommodation/register/activities/blog/faqs/teachers footers, cafe footer school line, contact page's "Visit our school" block which was previously showing the café address).
+3. **Phones** — dropped placeholder `+591 7000 1234` and stale `+591 4 644 1008` (appeared as a "landline" on contact.html and in every secondary footer). All phone values across contact methods and footers now read `+591 734 25725` / `+591 734 00447`. Normalised the spaced variant `+591 7 342 5725` to match.
+4. **Email** — added `info@megustaspanish.com` as a fourth contact row in the index.html footer (already present elsewhere).
+5. **Fernando's bio** (about.html) — swapped the inaccurate "studied linguistics in Buenos Aires" for "holds a Licenciatura en Pedagogía y Ciencias de la Educación". Translated across EN/ES/FR.
+6. **Sessions dropdown** (classes.html trial form) — options reformatted onto one line each with explicit `value=""` attributes, a disabled/selected `Select…` placeholder (tri-language), and a new `10+` option at the bottom.
+7. **Contact form error div** — already had the `hidden` attribute and `.form-error[hidden] { display: none }` CSS. Hardened with `!important` so nothing can override the default hidden state.
+8. **About.html footer socials** — the three `href="#"` placeholders (f / ig / w) now link to the real Facebook page, Instagram handle, and `wa.me/59173425725` respectively, matching the pattern used on the other pages.
+
+### Pages touched
+`about.html`, `accommodation.html`, `activities.html`, `blog.html`, `cafe.html`, `classes.html`, `contact.html`, `faqs.html`, `index.html`, `kids.html`, `methodology.html`, `register.html`, `teachers.html` — 13 files.
+
+### Approach notes
+- Used `sed` for the repeated footer strings (founding tagline, two address variants, three phone variants) across the eight pages that share identical markup — faster than editing each file manually and guaranteed consistency.
+- Verified with grep passes after each batch: `Junín`, `Dalence`, `644 1008`, `7000 1234`, `7 342 5725`, `est. 2005`, `linguistics in Buenos Aires`, `href="#" aria-label` all return zero matches. The only `since 2005` remaining is the deliberately-relabelled methodology tag.
+- On the contact.html "Visit our school" block I added `data-en/es/fr` attributes where previously none existed — used `&lt;br&gt;` entity encoding so the existing lang-toggle JS (which routes through `innerHTML` when it sees a `<`) renders the line break correctly.
+
+### Designer suggestions — deferred
+Fernando also sent a yellow-list of design suggestions (no pricing visible, generic Unsplash laptop photo on online classes hero, "15k+ students" stat to verify, no WhatsApp CTA on homepage, "12 native teachers" count to verify, blog/activities menu items that may be thin). None of these are wrong-data errors — they're editorial calls. Left untouched pending Fernando's say-so on each.
+
+### Commit
+- `a9daba2` — fix: unify school data across all pages — address, phones, founding date, Fernando bio
+
+Pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
