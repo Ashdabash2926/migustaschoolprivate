@@ -15,7 +15,7 @@
       --bg: #FAFAF7; --bg-warm: #F5F0E8; --cream: #FFF9F4;
       --ink: #1C1410; --ink-soft: #4A3A2C; --muted: #9A8878;
       --terra: #C8572D; --terra-dark: #8C3419; --terra-pale: #FAEEE8;
-      --gold: #C4913A; --border: rgba(74,58,44,0.12);
+      --gold: #C4913A; --coffee: #2E1A10; --border: rgba(74,58,44,0.12);
       --shadow-warm: 0 6px 28px rgba(200,87,45,0.10), 0 2px 8px rgba(28,20,16,0.06);
       --shadow-soft: 0 4px 20px rgba(28,20,16,0.08);
       --r: 20px;
@@ -764,17 +764,17 @@
     .wt-title em { font-style: italic; color: var(--terra); font-weight: 400; }
     .wt-sub {
       font-family: 'Lora', serif;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       font-style: italic;
       line-height: 1.75;
       max-width: 26rem;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,250,242,0.82);
       margin: 0 0 2.6rem;
     }
     .wt-progress { max-width: 26rem; margin-bottom: 2rem; }
     .wt-line {
       height: 1px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.22);
       position: relative;
       margin-bottom: 1.1rem;
     }
@@ -799,8 +799,8 @@
     .wt-days li {
       font-family: 'Cormorant', serif;
       font-style: italic;
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.32);
+      font-size: 1.1rem;
+      color: rgba(255,250,242,0.55);
       letter-spacing: 0.02em;
       transition: color 0.4s ease, transform 0.4s ease;
       position: relative;
@@ -808,11 +808,12 @@
     .wt-days li.active {
       color: #fff;
       transform: translateY(-2px);
+      text-shadow: 0 1px 12px rgba(200,87,45,0.45);
     }
     .wt-hint {
       font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: rgba(255,255,255,0.4);
+      font-size: 1.05rem;
+      color: rgba(255,250,242,0.7);
       letter-spacing: 0.02em;
       margin-top: 1.6rem;
     }
@@ -872,26 +873,27 @@
     .wt-scene-name em { font-style: italic; color: var(--terra); }
     .wt-scene-meta {
       font-family: 'Lora', serif;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-style: italic;
-      letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.1em;
+      color: rgba(255,250,242,0.72);
       text-transform: uppercase;
       margin-bottom: 0.7rem;
     }
-    .wt-scene-meta .dot { color: var(--terra); margin: 0 0.5rem; font-style: normal; }
+    .wt-scene-meta .dot { color: var(--gold); margin: 0 0.5rem; font-style: normal; }
     .wt-scene-tag {
       font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      color: var(--terra);
+      font-size: 1.18rem;
+      color: var(--gold);
       display: inline-block;
       margin-bottom: 1.1rem;
+      letter-spacing: 0.02em;
     }
     .wt-scene-desc {
       font-family: 'Lora', serif;
-      font-size: 0.93rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.78);
+      font-size: 0.96rem;
+      line-height: 1.78;
+      color: rgba(255,250,242,0.94);
       max-width: 28rem;
     }
 
@@ -1306,14 +1308,8 @@
             <p class="wt-scene-desc" data-en="The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views." data-es="La Ciudad Blanca con un profesor-guía que da vida a su historia colonial — Plaza 25, patios ocultos, vistas desde azoteas." data-fr="La Ville Blanche avec un professeur-guide qui fait vivre son histoire coloniale — Plaza 25, cours cachées, vues sur les toits.">The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views.</p>
           </div>
           <div class="wt-collage wt-collage--mon">
-            <div class="wt-photo placeholder">
-              <div class="ph-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 56h48M14 56V28l8-6 8 6v28M30 56V20l10-8 10 8v36M22 36h0M22 44h0M38 28h0M38 38h0M38 48h0M46 28h0M46 38h0M46 48h0"/></svg></div>
-              <span class="ph-label" data-en="The White City<small>photos coming soon</small>" data-es="La Ciudad Blanca<small>fotos muy pronto</small>" data-fr="La Ville Blanche<small>photos bientôt</small>">The White City<small>photos coming soon</small></span>
-            </div>
-            <div class="wt-photo placeholder gold">
-              <div class="ph-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="32" cy="32" r="20"/><path d="M32 12v40M12 32h40M18 18l28 28M46 18L18 46"/></svg></div>
-              <span class="ph-label" data-en="Plaza 25<small>de mayo</small>" data-es="Plaza 25<small>de mayo</small>" data-fr="Plaza 25<small>de mayo</small>">Plaza 25<small>de mayo</small></span>
-            </div>
+            <div class="wt-photo"><img src="images/activities/Sucre/sucre-cathedral.webp" alt="Sucre's white colonial buildings against the Andean foothills" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Sucre/sucre-clocktower.webp" alt="Sucre cathedral clock tower in the white city" loading="lazy" data-lightbox></div>
           </div>
         </article>
 
@@ -1360,13 +1356,8 @@
             <p class="wt-scene-desc" data-en="Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language." data-es="Paso, vuelta, cuenta hasta ocho en español — un instructor local te lleva del primer básico a tu primera canción completa. No necesitas pareja ni experiencia, solo ganas de reírte de ti mismo en otro idioma." data-fr="Pas, tour, compter jusqu'à huit en espagnol — un instructeur local vous emmène du premier pas de base à votre première chanson complète. Pas besoin de partenaire ni d'expérience, juste l'envie de rire de soi-même dans une autre langue.">Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language.</p>
           </div>
           <div class="wt-collage wt-collage--thu">
-            <div class="wt-photo placeholder">
-              <div class="ph-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="22" cy="14" r="4"/><path d="M22 18v18l-6 14M22 28h12l8 22M28 32l8-6M14 50h6M44 50h6"/></svg></div>
-              <span class="ph-label" data-en="One, two<small>step &amp; turn</small>" data-es="Uno, dos<small>paso y vuelta</small>" data-fr="Un, deux<small>pas &amp; tour</small>">One, two<small>step &amp; turn</small></span>
-            </div>
-            <div class="wt-photo placeholder coffee">
-              <span class="ph-label" data-en="photos<small>coming soon</small>" data-es="fotos<small>muy pronto</small>" data-fr="photos<small>bientôt</small>">photos<small>coming soon</small></span>
-            </div>
+            <div class="wt-photo"><img src="images/activities/Salsa/salsa-group.webp" alt="A group salsa dancing class in motion" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Salsa/salsa-couple.webp" alt="A couple dancing salsa together" loading="lazy" data-lightbox></div>
           </div>
         </article>
 
