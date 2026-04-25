@@ -698,98 +698,326 @@
     @media (max-width: 960px) { footer { padding: 4rem 1.5rem 2rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; } }
     @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
 
-    /* ─── ACTIVITIES INDEX (editorial listing) ─── */
-    .act-index {
-      padding: 7rem 4.5rem 5rem;
-      background: var(--bg);
+    /* ─── WEEK TIMELINE (cinematic horizontal pin-scroll) ─── */
+    .week-timeline {
+      background: var(--coffee);
+      position: relative;
+      color: rgba(255,255,255,0.92);
+      isolation: isolate;
+    }
+    .week-timeline::before {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.13'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+    @media (min-width: 901px) {
+      .week-timeline { height: 500vh; }
+    }
+    .week-pin {
+      position: sticky; top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 38vw 1fr;
+      z-index: 2;
+    }
+    .week-left {
+      padding: 4.5rem 3rem 4.5rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      background:
+        radial-gradient(ellipse at 8% 110%, rgba(200,87,45,0.20), transparent 55%),
+        radial-gradient(ellipse at 95% -5%, rgba(196,145,58,0.10), transparent 60%);
+    }
+    .week-left::after {
+      content: '';
+      position: absolute;
+      bottom: 3rem; left: 4.5rem; right: 3rem;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0.4;
+    }
+    .wt-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--gold);
+      transform: rotate(-1deg);
+      display: inline-block;
+      margin-bottom: 1.4rem;
+      letter-spacing: 0.02em;
+    }
+    .wt-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.4rem, 4vw, 4.4rem);
+      font-weight: 300;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin: 0 0 1.4rem;
+      color: #fff;
+    }
+    .wt-title em { font-style: italic; color: var(--terra); font-weight: 400; }
+    .wt-sub {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.75;
+      max-width: 26rem;
+      color: rgba(255,255,255,0.55);
+      margin: 0 0 2.6rem;
+    }
+    .wt-progress { max-width: 26rem; margin-bottom: 2rem; }
+    .wt-line {
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      position: relative;
+      margin-bottom: 1.1rem;
+    }
+    .wt-line-fill {
+      position: absolute; inset: 0 auto 0 0;
+      width: 0%;
+      background: var(--terra);
+      box-shadow: 0 0 12px rgba(200,87,45,0.5);
+    }
+    .wt-line-fill::after {
+      content: '';
+      position: absolute; right: -3px; top: -3px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--terra);
+      box-shadow: 0 0 0 3px rgba(200,87,45,0.25);
+    }
+    .wt-days {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; justify-content: space-between;
+    }
+    .wt-days li {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.32);
+      letter-spacing: 0.02em;
+      transition: color 0.4s ease, transform 0.4s ease;
       position: relative;
     }
-    .act-index-head {
-      max-width: 1200px;
-      margin: 0 auto 4rem;
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 3rem;
-      align-items: end;
+    .wt-days li.active {
+      color: #fff;
+      transform: translateY(-2px);
     }
-    .act-index-head .section-label { font-family: 'Caveat', cursive; font-size: 1.15rem; color: var(--terra); transform: rotate(-0.8deg); display: inline-block; margin-bottom: 0.8rem; }
-    .act-index-head .section-title { font-family: 'Cormorant', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; line-height: 1.08; color: var(--ink); }
-    .act-index-head .section-title em { font-style: italic; color: var(--terra); font-weight: 400; }
-    .act-index-head p { font-size: 1rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 34rem; }
-
-    .act-index-list {
-      max-width: 1080px;
-      margin: 0 auto;
-      border-top: 1px solid var(--border);
-    }
-    .entry {
-      display: grid;
-      grid-template-columns: 5rem 1.2fr 1fr 1.8fr;
-      gap: 1.6rem;
-      align-items: baseline;
-      padding: 1.1rem 0.4rem;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.3s ease, padding 0.3s ease;
-    }
-    .entry:hover { background: rgba(255,249,244,0.7); padding-left: 1rem; padding-right: 1rem; }
-    .entry-num {
-      font-family: 'Cormorant', serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 1.25rem;
-      color: var(--gold);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .entry-name {
-      font-family: 'Cormorant', serif;
-      font-size: 1.55rem;
-      font-weight: 400;
-      line-height: 1.15;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-    .entry-name em { font-style: italic; color: var(--terra); }
-    .entry-meta {
-      font-family: 'Lora', serif;
-      font-size: 0.82rem;
-      color: var(--muted);
-      font-style: italic;
-      line-height: 1.5;
-    }
-    .entry-meta .dot {
-      display: inline-block;
-      margin: 0 0.35rem;
-      color: var(--gold);
-      font-style: normal;
-    }
-    .entry-tag {
-      display: inline-block;
+    .wt-hint {
       font-family: 'Caveat', cursive;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.02em;
+      margin-top: 1.6rem;
+    }
+    .wt-hint .arrow { display: inline-block; transform: translateY(-1px); margin-left: 0.3rem; transition: transform 0.4s ease; animation: wtNudge 2.4s ease-in-out infinite; }
+    @keyframes wtNudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+    .week-right { position: relative; overflow: hidden; }
+    .wt-track {
+      display: flex;
+      height: 100%;
+      width: max-content;
+      will-change: transform;
+    }
+    .wt-scene {
+      width: 62vw;
+      flex-shrink: 0;
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(280px, 0.85fr) 1.15fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 4.5rem 4.5rem 4.5rem 3rem;
+      position: relative;
+    }
+    .wt-scene::before {
+      content: attr(data-num);
+      position: absolute;
+      top: 1.5rem; left: 2rem;
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 13rem;
+      font-weight: 200;
+      line-height: 0.8;
+      color: rgba(200,87,45,0.07);
+      pointer-events: none;
+      user-select: none;
+    }
+    .wt-scene-text { position: relative; z-index: 1; }
+    .wt-scene-day {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      transform: rotate(-0.8deg);
+      display: inline-block;
+      margin-bottom: 0.7rem;
+    }
+    .wt-scene-name {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2rem, 3vw, 3.1rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin: 0 0 1.1rem;
+      color: #fff;
+    }
+    .wt-scene-name em { font-style: italic; color: var(--terra); }
+    .wt-scene-meta {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-style: italic;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .wt-scene-meta .dot { color: var(--terra); margin: 0 0.5rem; font-style: normal; }
+    .wt-scene-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
       color: var(--terra);
-      margin-top: 0.3rem;
+      display: inline-block;
+      margin-bottom: 1.1rem;
     }
-    .entry-desc {
-      font-size: 0.9rem;
-      line-height: 1.65;
-      color: var(--ink-soft);
+    .wt-scene-desc {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.78);
+      max-width: 28rem;
     }
+
+    .wt-collage {
+      position: relative;
+      height: min(70vh, 540px);
+    }
+    .wt-photo {
+      position: absolute;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04);
+      transition: transform 0.5s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease;
+      cursor: pointer;
+    }
+    .wt-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .wt-photo:hover {
+      transform: rotate(0) scale(1.03) !important;
+      z-index: 5;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(196,145,58,0.4);
+    }
+    .wt-photo.placeholder {
+      background: linear-gradient(135deg, var(--terra) 0%, #6e2c17 100%);
+      display: flex; align-items: center; justify-content: center;
+      cursor: default;
+    }
+    .wt-photo.placeholder.gold {
+      background: linear-gradient(135deg, var(--gold) 0%, #735420 100%);
+    }
+    .wt-photo.placeholder.coffee {
+      background: linear-gradient(135deg, #5a3320 0%, #2a1709 100%);
+    }
+    .wt-photo.placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+    .wt-photo.placeholder:hover { transform: none !important; box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+    .ph-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.2;
+      text-align: center;
+      transform: rotate(-3deg);
+      padding: 1.5rem;
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .ph-label small {
+      display: block;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.4rem;
+      transform: rotate(3deg);
+    }
+    .ph-icon {
+      position: absolute;
+      inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .ph-icon svg { width: 60%; height: 60%; }
+
+    /* Per-day collage layouts (each one different) */
+    .wt-collage--mon .wt-photo:nth-child(1) { top: 4%; left: 0; width: 64%; height: 68%; transform: rotate(-1.4deg); }
+    .wt-collage--mon .wt-photo:nth-child(2) { top: 50%; right: 0; width: 48%; height: 46%; transform: rotate(1.8deg); }
+
+    .wt-collage--tue .wt-photo:nth-child(1) { top: 0; left: 0; width: 58%; height: 52%; transform: rotate(-1deg); }
+    .wt-collage--tue .wt-photo:nth-child(2) { top: 6%; right: 0; width: 38%; height: 38%; transform: rotate(1.5deg); }
+    .wt-collage--tue .wt-photo:nth-child(3) { bottom: 0; left: 10%; width: 44%; height: 42%; transform: rotate(0.8deg); }
+    .wt-collage--tue .wt-photo:nth-child(4) { bottom: 4%; right: 4%; width: 44%; height: 50%; transform: rotate(-1.3deg); }
+
+    .wt-collage--wed .wt-photo:nth-child(1) { top: 0; left: 4%; width: 56%; height: 50%; transform: rotate(-1.6deg); }
+    .wt-collage--wed .wt-photo:nth-child(2) { top: 28%; right: 0; width: 50%; height: 50%; transform: rotate(1.2deg); }
+    .wt-collage--wed .wt-photo:nth-child(3) { bottom: 0; left: 0; width: 46%; height: 40%; transform: rotate(-0.8deg); }
+
+    .wt-collage--thu .wt-photo:nth-child(1) { top: 4%; left: 6%; width: 68%; height: 62%; transform: rotate(-2deg); }
+    .wt-collage--thu .wt-photo:nth-child(2) { bottom: 4%; right: 0; width: 42%; height: 38%; transform: rotate(2.2deg); }
+
+    .wt-collage--fri .wt-photo:nth-child(1) { top: 0; left: 0; width: 54%; height: 54%; transform: rotate(-1deg); }
+    .wt-collage--fri .wt-photo:nth-child(2) { top: 14%; right: 4%; width: 42%; height: 46%; transform: rotate(1.5deg); }
+    .wt-collage--fri .wt-photo:nth-child(3) { bottom: 0; left: 16%; width: 60%; height: 42%; transform: rotate(-0.6deg); }
 
     @media (max-width: 900px) {
-      .act-index { padding: 5.5rem 1.5rem 4rem; }
-      .act-index-head { grid-template-columns: 1fr; gap: 1.2rem; }
-      .entry {
-        grid-template-columns: 3.2rem 1fr;
-        gap: 0.4rem 1rem;
-        padding: 1.2rem 0.2rem;
+      .week-timeline { height: auto; }
+      .week-pin {
+        position: static;
+        height: auto;
+        grid-template-columns: 1fr;
       }
-      .entry:hover { padding-left: 0.2rem; padding-right: 0.2rem; }
-      .entry-name { grid-column: 2; font-size: 1.35rem; }
-      .entry-meta { grid-column: 2; margin-top: 0.2rem; }
-      .entry-tag { grid-column: 2; margin-top: 0.05rem; }
-      .entry-desc { grid-column: 2; margin-top: 0.3rem; font-size: 0.86rem; }
+      .week-left {
+        padding: 3.5rem 1.5rem 2.5rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .week-left::after { display: none; }
+      .wt-hint { display: none; }
+      .week-right { overflow: visible; }
+      .wt-track {
+        flex-direction: column;
+        width: 100%;
+        transform: none !important;
+      }
+      .wt-scene {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+        padding: 3rem 1.5rem 3.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        height: auto;
+      }
+      .wt-scene::before { font-size: 7rem; top: 0.8rem; left: 1rem; }
+      .wt-collage { height: 56vh; max-height: 380px; }
     }
 
     /* ─── GALLERY (unified scrapbook field) ─── */
@@ -1044,68 +1272,122 @@
   </div>
 </section>
 
-<!-- ACTIVITIES INDEX -->
-<section class="act-index">
-  <div class="act-index-head">
-    <div class="reveal">
-      <span class="section-label" data-en="your week with us" data-es="tu semana con nosotros" data-fr="votre semaine chez nous">your week with us</span>
-      <h2 class="section-title" data-en="Five days, <em>something</em> on each" data-es="Cinco días, <em>algo</em> en cada uno" data-fr="Cinq jours, <em>quelque chose</em> chaque jour">Five days, <em>something</em> on each</h2>
+<!-- WEEK TIMELINE — pinned horizontal scroll -->
+<section class="week-timeline" id="weekTimeline">
+  <div class="week-pin">
+    <aside class="week-left">
+      <span class="wt-eyebrow" data-en="your week with us" data-es="tu semana con nosotros" data-fr="votre semaine chez nous">your week with us</span>
+      <h2 class="wt-title" data-en="Five <em>days</em>,<br>something on each" data-es="Cinco <em>días</em>,<br>algo en cada uno" data-fr="Cinq <em>jours</em>,<br>quelque chose chaque jour">Five <em>days</em>,<br>something on each</h2>
+      <p class="wt-sub" data-en="Led by teachers or local guides. Everything runs in Spanish." data-es="Dirigidas por profesores o guías locales. Todo se realiza en español." data-fr="Menées par nos professeurs ou des guides locaux. Tout se déroule en espagnol.">Led by teachers or local guides. Everything runs in Spanish.</p>
+
+      <div class="wt-progress">
+        <div class="wt-line"><div class="wt-line-fill"></div></div>
+        <ul class="wt-days">
+          <li class="active" data-en="Mon" data-es="Lun" data-fr="Lun">Mon</li>
+          <li data-en="Tue" data-es="Mar" data-fr="Mar">Tue</li>
+          <li data-en="Wed" data-es="Mié" data-fr="Mer">Wed</li>
+          <li data-en="Thu" data-es="Jue" data-fr="Jeu">Thu</li>
+          <li data-en="Fri" data-es="Vie" data-fr="Ven">Fri</li>
+        </ul>
+      </div>
+      <span class="wt-hint" data-en="scroll to wander the week<span class='arrow'>→</span>" data-es="desliza para recorrer la semana<span class='arrow'>→</span>" data-fr="faites défiler pour parcourir la semaine<span class='arrow'>→</span>">scroll to wander the week<span class="arrow">→</span></span>
+    </aside>
+
+    <div class="week-right">
+      <div class="wt-track" id="wtTrack">
+
+        <!-- MON — City Walk -->
+        <article class="wt-scene" data-num="01">
+          <div class="wt-scene-text">
+            <span class="wt-scene-day" data-en="Monday" data-es="Lunes" data-fr="Lundi">Monday</span>
+            <h3 class="wt-scene-name" data-en="Sucre <em>City</em> Walking Tour" data-es="<em>Paseo</em> por Sucre" data-fr="<em>Visite</em> de Sucre">Sucre <em>City</em> Walking Tour</h3>
+            <div class="wt-scene-meta"><span data-en="Afternoon" data-es="Tarde" data-fr="Après-midi">Afternoon</span><span class="dot">·</span><span data-en="2 hrs" data-es="2 hrs" data-fr="2h">2 hrs</span></div>
+            <span class="wt-scene-tag" data-en="History &amp; Architecture" data-es="Historia y Arquitectura" data-fr="Histoire &amp; Architecture">History &amp; Architecture</span>
+            <p class="wt-scene-desc" data-en="The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views." data-es="La Ciudad Blanca con un profesor-guía que da vida a su historia colonial — Plaza 25, patios ocultos, vistas desde azoteas." data-fr="La Ville Blanche avec un professeur-guide qui fait vivre son histoire coloniale — Plaza 25, cours cachées, vues sur les toits.">The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views.</p>
+          </div>
+          <div class="wt-collage wt-collage--mon">
+            <div class="wt-photo placeholder">
+              <div class="ph-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 56h48M14 56V28l8-6 8 6v28M30 56V20l10-8 10 8v36M22 36h0M22 44h0M38 28h0M38 38h0M38 48h0M46 28h0M46 38h0M46 48h0"/></svg></div>
+              <span class="ph-label" data-en="The White City<small>photos coming soon</small>" data-es="La Ciudad Blanca<small>fotos muy pronto</small>" data-fr="La Ville Blanche<small>photos bientôt</small>">The White City<small>photos coming soon</small></span>
+            </div>
+            <div class="wt-photo placeholder gold">
+              <div class="ph-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="32" cy="32" r="20"/><path d="M32 12v40M12 32h40M18 18l28 28M46 18L18 46"/></svg></div>
+              <span class="ph-label" data-en="Plaza 25<small>de mayo</small>" data-es="Plaza 25<small>de mayo</small>" data-fr="Plaza 25<small>de mayo</small>">Plaza 25<small>de mayo</small></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- TUE — Cooking -->
+        <article class="wt-scene" data-num="02">
+          <div class="wt-scene-text">
+            <span class="wt-scene-day" data-en="Tuesday" data-es="Martes" data-fr="Mardi">Tuesday</span>
+            <h3 class="wt-scene-name" data-en="Bolivian <em>Cooking</em> Class" data-es="Clase de <em>Cocina</em> Boliviana" data-fr="Cours de <em>cuisine</em> bolivienne">Bolivian <em>Cooking</em> Class</h3>
+            <div class="wt-scene-meta"><span data-en="Afternoon" data-es="Tarde" data-fr="Après-midi">Afternoon</span><span class="dot">·</span><span data-en="3 hrs" data-es="3 hrs" data-fr="3h">3 hrs</span></div>
+            <span class="wt-scene-tag" data-en="Food &amp; Culture" data-es="Comida y Cultura" data-fr="Gastronomie &amp; Culture">Food &amp; Culture</span>
+            <p class="wt-scene-desc" data-en="Step into a Sucre local's kitchen, cook a traditional Bolivian meal together, then stay for board games and a proper Bolivian evening — all in Spanish, the way locals actually spend their nights." data-es="Entra en la cocina de un local sucrense, cocinen juntos una comida boliviana tradicional y quédate después para juegos de mesa y una verdadera noche boliviana — todo en español, tal como los locales pasan realmente sus tardes." data-fr="Entrez dans la cuisine d'un Sucrense, cuisinez ensemble un repas bolivien traditionnel, puis restez pour des jeux de société et une vraie soirée à la bolivienne — le tout en espagnol, comme les locaux passent vraiment leurs soirées.">Step into a Sucre local's kitchen, cook a traditional Bolivian meal together, then stay for board games and a proper Bolivian evening — all in Spanish, the way locals actually spend their nights.</p>
+          </div>
+          <div class="wt-collage wt-collage--tue">
+            <div class="wt-photo"><img src="images/activities/Cooking/DSC06219.webp" alt="Fresh ingredients laid out for the cooking class" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Cooking/DSC06342.webp" alt="Teacher guiding a student through cooking" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Cooking/DSC06392.webp" alt="Playing board games while food cooks" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Cooking/DSC06425.webp" alt="Eating the finished Bolivian meal together" loading="lazy" data-lightbox></div>
+          </div>
+        </article>
+
+        <!-- WED — Wallyball -->
+        <article class="wt-scene" data-num="03">
+          <div class="wt-scene-text">
+            <span class="wt-scene-day" data-en="Wednesday" data-es="Miércoles" data-fr="Mercredi">Wednesday</span>
+            <h3 class="wt-scene-name" data-en="<em>Wallyball</em> Night" data-es="Noche de <em>Wallyball</em>" data-fr="Soirée <em>Wallyball</em>"><em>Wallyball</em> Night</h3>
+            <div class="wt-scene-meta"><span data-en="Evening" data-es="Noche" data-fr="Soir">Evening</span><span class="dot">·</span><span data-en="1.5 hrs" data-es="1.5 hrs" data-fr="1h30">1.5 hrs</span></div>
+            <span class="wt-scene-tag" data-en="Sport &amp; Social" data-es="Deporte y Social" data-fr="Sport &amp; Social">Sport &amp; Social</span>
+            <p class="wt-scene-desc" data-en="Volleyball meets four walls. Impossible to play without shouting in Spanish — the vocabulary sticks, fast." data-es="Voleibol entre cuatro paredes. Imposible jugar sin gritar en español — el vocabulario se queda, rápido." data-fr="Du volley entre quatre murs. Impossible d'y jouer sans crier en espagnol — le vocabulaire se fixe, vite.">Volleyball meets four walls. Impossible to play without shouting in Spanish — the vocabulary sticks, fast.</p>
+          </div>
+          <div class="wt-collage wt-collage--wed">
+            <div class="wt-photo"><img src="images/activities/Wallyball/DSC06505.webp" alt="Students mid-game on the wallyball court" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Wallyball/DSC06554.webp" alt="A spike during the wallyball night" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Wallyball/DSC06589.webp" alt="Laughing together after a rally" loading="lazy" data-lightbox></div>
+          </div>
+        </article>
+
+        <!-- THU — Salsa -->
+        <article class="wt-scene" data-num="04">
+          <div class="wt-scene-text">
+            <span class="wt-scene-day" data-en="Thursday" data-es="Jueves" data-fr="Jeudi">Thursday</span>
+            <h3 class="wt-scene-name" data-en="<em>Salsa</em> Dancing" data-es="Clase de <em>Salsa</em>" data-fr="Cours de <em>Salsa</em>"><em>Salsa</em> Dancing</h3>
+            <div class="wt-scene-meta"><span data-en="Evening" data-es="Noche" data-fr="Soir">Evening</span><span class="dot">·</span><span data-en="1.5 hrs" data-es="1.5 hrs" data-fr="1h30">1.5 hrs</span></div>
+            <span class="wt-scene-tag" data-en="Music &amp; Movement" data-es="Música y Movimiento" data-fr="Musique &amp; Mouvement">Music &amp; Movement</span>
+            <p class="wt-scene-desc" data-en="Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language." data-es="Paso, vuelta, cuenta hasta ocho en español — un instructor local te lleva del primer básico a tu primera canción completa. No necesitas pareja ni experiencia, solo ganas de reírte de ti mismo en otro idioma." data-fr="Pas, tour, compter jusqu'à huit en espagnol — un instructeur local vous emmène du premier pas de base à votre première chanson complète. Pas besoin de partenaire ni d'expérience, juste l'envie de rire de soi-même dans une autre langue.">Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language.</p>
+          </div>
+          <div class="wt-collage wt-collage--thu">
+            <div class="wt-photo placeholder">
+              <div class="ph-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="22" cy="14" r="4"/><path d="M22 18v18l-6 14M22 28h12l8 22M28 32l8-6M14 50h6M44 50h6"/></svg></div>
+              <span class="ph-label" data-en="One, two<small>step &amp; turn</small>" data-es="Uno, dos<small>paso y vuelta</small>" data-fr="Un, deux<small>pas &amp; tour</small>">One, two<small>step &amp; turn</small></span>
+            </div>
+            <div class="wt-photo placeholder coffee">
+              <span class="ph-label" data-en="photos<small>coming soon</small>" data-es="fotos<small>muy pronto</small>" data-fr="photos<small>bientôt</small>">photos<small>coming soon</small></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- FRI — Beer Tour -->
+        <article class="wt-scene" data-num="05">
+          <div class="wt-scene-text">
+            <span class="wt-scene-day" data-en="Friday" data-es="Viernes" data-fr="Vendredi">Friday</span>
+            <h3 class="wt-scene-name" data-en="Sucre <em>Beer</em> Tour" data-es="Ruta de la <em>Cerveza</em>" data-fr="Tour des <em>Bières</em>">Sucre <em>Beer</em> Tour</h3>
+            <div class="wt-scene-meta"><span data-en="Evening" data-es="Noche" data-fr="Soir">Evening</span><span class="dot">·</span><span data-en="2–3 hrs" data-es="2–3 hrs" data-fr="2–3h">2–3 hrs</span></div>
+            <span class="wt-scene-tag" data-en="Drinks &amp; Social" data-es="Bebidas y Social" data-fr="Boissons &amp; Social">Drinks &amp; Social</span>
+            <p class="wt-scene-desc" data-en="End the week inside one of Sucre's craft breweries — stainless tanks, hand-labelled tasting flights, and the brewer walking you through malt, fermentation and the pint in your hand, all in Spanish." data-es="Termina la semana dentro de una de las cervecerías artesanales de Sucre — tanques de acero, tablas de cata escritas a mano y el cervecero que te lleva por la malta, la fermentación y la pinta que tienes en la mano, todo en español." data-fr="Terminez la semaine dans l'une des brasseries artisanales de Sucre — cuves en inox, planches de dégustation écrites à la main et le brasseur qui vous explique le malt, la fermentation et la pinte que vous tenez, le tout en espagnol.">End the week inside one of Sucre's craft breweries — stainless tanks, hand-labelled tasting flights, and the brewer walking you through malt, fermentation and the pint in your hand, all in Spanish.</p>
+          </div>
+          <div class="wt-collage wt-collage--fri">
+            <div class="wt-photo"><img src="images/activities/Beer tour/DSC08567.webp" alt="Inside a Sucre craft brewery" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Beer tour/DSC08593.webp" alt="A tasting flight on the bar" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/Beer tour/DSC08619.webp" alt="The brewer walking students through fermentation" loading="lazy" data-lightbox></div>
+          </div>
+        </article>
+
+      </div>
     </div>
-    <p class="reveal" data-en="Led by teachers or local guides. Everything runs in Spanish." data-es="Dirigidas por profesores o guías locales. Todo se realiza en español." data-fr="Menées par nos professeurs ou des guides locaux. Tout se déroule en espagnol.">Led by teachers or local guides. Everything runs in Spanish.</p>
-  </div>
-
-  <div class="act-index-list reveal">
-
-    <article class="entry">
-      <span class="entry-num" data-en="Mon" data-es="Lun" data-fr="Lun">Mon</span>
-      <h3 class="entry-name" data-en="Sucre <em>City</em> Walking Tour" data-es="<em>Paseo</em> por Sucre" data-fr="<em>Visite</em> de Sucre">Sucre <em>City</em> Walking Tour</h3>
-      <div>
-        <div class="entry-meta"><span data-en="Afternoon" data-es="Tarde" data-fr="Après-midi">Afternoon</span><span class="dot">·</span><span data-en="2 hrs" data-es="2 hrs" data-fr="2h">2 hrs</span></div>
-        <span class="entry-tag" data-en="History &amp; Architecture" data-es="Historia y Arquitectura" data-fr="Histoire &amp; Architecture">History &amp; Architecture</span>
-      </div>
-      <p class="entry-desc" data-en="The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views." data-es="La Ciudad Blanca con un profesor-guía que da vida a su historia colonial — Plaza 25, patios ocultos, vistas desde azoteas." data-fr="La Ville Blanche avec un professeur-guide qui fait vivre son histoire coloniale — Plaza 25, cours cachées, vues sur les toits.">The White City with a teacher-guide who brings its colonial history to life — Plaza 25, hidden courtyards, rooftop views.</p>
-    </article>
-
-    <article class="entry">
-      <span class="entry-num" data-en="Tue" data-es="Mar" data-fr="Mar">Tue</span>
-      <h3 class="entry-name" data-en="Bolivian <em>Cooking</em> Class" data-es="Clase de <em>Cocina</em> Boliviana" data-fr="Cours de <em>cuisine</em> bolivienne">Bolivian <em>Cooking</em> Class</h3>
-      <div>
-        <div class="entry-meta"><span data-en="Afternoon" data-es="Tarde" data-fr="Après-midi">Afternoon</span><span class="dot">·</span><span data-en="3 hrs" data-es="3 hrs" data-fr="3h">3 hrs</span></div>
-        <span class="entry-tag" data-en="Food &amp; Culture" data-es="Comida y Cultura" data-fr="Gastronomie &amp; Culture">Food &amp; Culture</span>
-      </div>
-      <p class="entry-desc" data-en="Step into a Sucre local's kitchen, cook a traditional Bolivian meal together, then stay for board games and a proper Bolivian evening — all in Spanish, the way locals actually spend their nights." data-es="Entra en la cocina de un local sucrense, cocinen juntos una comida boliviana tradicional y quédate después para juegos de mesa y una verdadera noche boliviana — todo en español, tal como los locales pasan realmente sus tardes." data-fr="Entrez dans la cuisine d'un Sucrense, cuisinez ensemble un repas bolivien traditionnel, puis restez pour des jeux de société et une vraie soirée à la bolivienne — le tout en espagnol, comme les locaux passent vraiment leurs soirées.">Step into a Sucre local's kitchen, cook a traditional Bolivian meal together, then stay for board games and a proper Bolivian evening — all in Spanish, the way locals actually spend their nights.</p>
-    </article>
-
-    <article class="entry">
-      <span class="entry-num" data-en="Wed" data-es="Mié" data-fr="Mer">Wed</span>
-      <h3 class="entry-name" data-en="<em>Wallyball</em>" data-es="<em>Wallyball</em>" data-fr="<em>Wallyball</em>"><em>Wallyball</em></h3>
-      <div>
-        <div class="entry-meta"><span data-en="Evening" data-es="Noche" data-fr="Soir">Evening</span><span class="dot">·</span><span data-en="1.5 hrs" data-es="1.5 hrs" data-fr="1h30">1.5 hrs</span></div>
-        <span class="entry-tag" data-en="Sport &amp; Social" data-es="Deporte y Social" data-fr="Sport &amp; Social">Sport &amp; Social</span>
-      </div>
-      <p class="entry-desc" data-en="Volleyball meets four walls. Impossible to play without shouting in Spanish — the vocabulary sticks, fast." data-es="Voleibol entre cuatro paredes. Imposible jugar sin gritar en español — el vocabulario se queda, rápido." data-fr="Du volley entre quatre murs. Impossible d'y jouer sans crier en espagnol — le vocabulaire se fixe, vite.">Volleyball meets four walls. Impossible to play without shouting in Spanish — the vocabulary sticks, fast.</p>
-    </article>
-
-    <article class="entry">
-      <span class="entry-num" data-en="Thu" data-es="Jue" data-fr="Jeu">Thu</span>
-      <h3 class="entry-name" data-en="<em>Salsa</em> Dancing" data-es="Clase de <em>Salsa</em>" data-fr="Cours de <em>Salsa</em>"><em>Salsa</em> Dancing</h3>
-      <div>
-        <div class="entry-meta"><span data-en="Evening" data-es="Noche" data-fr="Soir">Evening</span><span class="dot">·</span><span data-en="1.5 hrs" data-es="1.5 hrs" data-fr="1h30">1.5 hrs</span></div>
-        <span class="entry-tag" data-en="Music &amp; Movement" data-es="Música y Movimiento" data-fr="Musique &amp; Mouvement">Music &amp; Movement</span>
-      </div>
-      <p class="entry-desc" data-en="Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language." data-es="Paso, vuelta, cuenta hasta ocho en español — un instructor local te lleva del primer básico a tu primera canción completa. No necesitas pareja ni experiencia, solo ganas de reírte de ti mismo en otro idioma." data-fr="Pas, tour, compter jusqu'à huit en espagnol — un instructeur local vous emmène du premier pas de base à votre première chanson complète. Pas besoin de partenaire ni d'expérience, juste l'envie de rire de soi-même dans une autre langue.">Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language.</p>
-    </article>
-
-    <article class="entry">
-      <span class="entry-num" data-en="Fri" data-es="Vie" data-fr="Ven">Fri</span>
-      <h3 class="entry-name" data-en="Sucre <em>Beer</em> Tour" data-es="Ruta de la <em>Cerveza</em>" data-fr="Tour des <em>Bières</em>">Sucre <em>Beer</em> Tour</h3>
-      <div>
-        <div class="entry-meta"><span data-en="Evening" data-es="Noche" data-fr="Soir">Evening</span><span class="dot">·</span><span data-en="2–3 hrs" data-es="2–3 hrs" data-fr="2–3h">2–3 hrs</span></div>
-        <span class="entry-tag" data-en="Drinks &amp; Social" data-es="Bebidas y Social" data-fr="Boissons &amp; Social">Drinks &amp; Social</span>
-      </div>
-      <p class="entry-desc" data-en="End the week inside one of Sucre's craft breweries — stainless tanks, hand-labelled tasting flights, and the brewer walking you through malt, fermentation and the pint in your hand, all in Spanish. Tasting notes, brewing vocabulary, and the kind of Friday-night conversation no textbook teaches." data-es="Termina la semana dentro de una de las cervecerías artesanales de Sucre — tanques de acero, tablas de cata escritas a mano y el cervecero que te lleva por la malta, la fermentación y la pinta que tienes en la mano, todo en español. Notas de cata, vocabulario cervecero y el tipo de conversación de viernes por la noche que ningún libro de texto enseña." data-fr="Terminez la semaine dans l'une des brasseries artisanales de Sucre — cuves en inox, planches de dégustation écrites à la main et le brasseur qui vous explique le malt, la fermentation et la pinte que vous tenez, le tout en espagnol. Notes de dégustation, vocabulaire brassicole et ce genre de conversation du vendredi soir qu'aucun manuel n'enseigne.">End the week inside one of Sucre's craft breweries — stainless tanks, hand-labelled tasting flights, and the brewer walking you through malt, fermentation and the pint in your hand, all in Spanish. Tasting notes, brewing vocabulary, and the kind of Friday-night conversation no textbook teaches.</p>
-    </article>
-
   </div>
 </section>
 
@@ -1359,6 +1641,43 @@
     lightboxImg.src = lbImages[lbIndex].src;
     lightboxImg.alt = lbImages[lbIndex].alt;
   }
+
+  // Week timeline — vertical scroll drives horizontal pan
+  (function initWeekTimeline() {
+    const section = document.getElementById('weekTimeline');
+    const track = document.getElementById('wtTrack');
+    if (!section || !track) return;
+    const scenes = track.querySelectorAll('.wt-scene');
+    const days = document.querySelectorAll('.wt-days li');
+    const fill = document.querySelector('.wt-line-fill');
+    if (!scenes.length) return;
+
+    let ticking = false;
+    function update() {
+      ticking = false;
+      // disable on small screens
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        track.style.transform = '';
+        return;
+      }
+      const rect = section.getBoundingClientRect();
+      const scrollable = section.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+      const maxIndex = scenes.length - 1;
+      const sceneWidth = scenes[0].offsetWidth;
+      track.style.transform = 'translate3d(' + (-progress * maxIndex * sceneWidth) + 'px, 0, 0)';
+      const activeIdx = Math.min(maxIndex, Math.round(progress * maxIndex));
+      days.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+      if (fill) fill.style.width = (progress * 100) + '%';
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
 
   lbImages.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
