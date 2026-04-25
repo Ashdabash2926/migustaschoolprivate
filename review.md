@@ -643,6 +643,71 @@ All pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolpr
 
 ---
 
+## Session — 25 April 2026 (activities page — Thursday salsa swap + cinematic week timeline)
+
+### Thursday timeline change
+Replaced the second weekly cooking-class slot with a new **Salsa Dancing** entry. Tue stays Cooking; Thu becomes Salsa.
+- Split the old shared "Tue & Thu — Bolivian Cooking Class" entry into a Tue-only entry (Afternoon · 3 hrs · Food & Culture).
+- Added a new Thu entry: *Salsa Dancing* (Evening · 1.5 hrs · Music & Movement) with EN/ES/FR description — "Step, turn, count to eight in Spanish…".
+- Updated the hero ticker: all three "Thu — Cooking Class" tokens now read "Thu — Salsa Dancing".
+
+### Cooking-class description rewrite
+Per Fernando's note that the class actually happens in a Sucre local's home, not the café: rewrote the description across EN/ES/FR — "Step into a Sucre local's kitchen, cook a traditional Bolivian meal together, then stay for board games and a proper Bolivian evening — all in Spanish, the way locals actually spend their nights."
+
+### Hero shortened 10 %
+Activities page hero felt too tall. Reduced padding by ~10 %:
+- Desktop: `9rem 4.5rem 7rem` → `8.1rem 4.5rem 6.3rem`
+- Mobile: `7rem 1.5rem 5rem` → `6.3rem 1.5rem 4.5rem`
+
+### Week timeline — cinematic redesign (commit `b360d0f`)
+Replaced the static `.act-index` row-list with a **pinned horizontal-scroll** section: vertical scroll drives a horizontal pan through the five days. Left column stays sticky throughout; right column is a flex track that translates as you scroll.
+
+**Aesthetic direction** — editorial cinema. Dark coffee bg, paper-grain noise overlay, terra/gold radial glows on the left. Each scene has a 13rem ghosted Cormorant numeral (01–05) behind it as decorative chrome.
+
+**Layout & behaviour**
+- Section: `500vh` tall on desktop, sticky 100vh inner pin (`#weekTimeline` → `#wtTrack`).
+- Grid: `38vw` left + `1fr` right; scenes are `62vw` each.
+- JS reads `getBoundingClientRect()` against `requestAnimationFrame`, computes scroll progress 0→1, applies `translate3d(-progress × 4 × sceneWidth, 0, 0)` to the track. Active day in the indicator highlights via `Math.round(progress × 4)`.
+- Progress fill-line on the left tracks scroll progress (terra with a glowing dot pseudo-element).
+- Mobile (≤900px): pin disabled — section auto-height, track stacks vertically, scenes full-width.
+
+**Per-day photo collages** — each day uses a different `wt-collage--{mon|tue|wed|thu|fri}` layout with absolute-positioned photos at varying rotations (-2° to +2.2°), depths and z-indexes. Hover snaps each photo to `rotate(0) scale(1.03)` with a gold ring. Real photos use existing `data-lightbox` hooks.
+
+### Stock photos — Mon (Sucre walking tour) + Thu (Salsa)
+First version shipped with hand-drawn SVG placeholder cards for Mon and Thu. Fernando asked for actual stock photos.
+- Pulled 3 Sucre-specific shots from Unsplash (Peter Burdon's white-city + foothills, Paola Hernandez's cathedral clock tower, Pedro Basagoitia's bell — verified all are Sucre, not Quito or another colonial white city).
+- Pulled 2 salsa photos (Ardian Lumi's group class, Scott Broome's couple).
+- Compressed via `cwebp -q 82 -resize 1200 0`, saved as `images/activities/Sucre/{sucre-cathedral, sucre-clocktower, sucre-bell}.webp` and `images/activities/Salsa/{salsa-group, salsa-couple}.webp`. 65–221 KB each.
+- Mon scene now uses cathedral + clocktower; Thu uses group + couple. Placeholder CSS left in the stylesheet for future reuse.
+
+### Bug — `--coffee` variable was undefined (commit `134e009`)
+Initial timeline shipped with `background: var(--coffee)` but the variable was never declared in `:root` — the `--coffee: #3D2314` token is documented in `CLAUDE.md` but had no CSS counterpart, so the dark bg fell through to transparent → the section rendered with the body's cream `--bg`, making the white text near-invisible. Fix:
+- Added `--coffee: #2E1A10` to `:root` (a notch darker than the documented value to give text more punch against the section's terra/gold accents).
+- Boosted text contrast across the whole timeline:
+  - Subtitle 55 % → 82 % white, slightly larger.
+  - Day list (inactive) 32 % → 55 %; active state gained a soft terra `text-shadow` glow.
+  - Description text 78 % → 94 % white.
+  - Meta line 45 % → 72 %, dot now gold (was terra — fought with the title accent).
+  - Tag (Caveat) terra → **gold** so it stops competing with the terra-italic title.
+  - Progress-line track 12 % → 22 % so the line is visible before scroll fills it.
+
+### Commits
+- `2f608fc` — activities: replace Thursday cooking with Salsa Dancing in timeline + ticker
+- `c23a066` — activities: update cooking class description — Sucre local's kitchen + board games + Bolivian evening
+- `42e51dc` — activities: shorten hero padding by 10% (desktop + mobile)
+- `b360d0f` — activities: redesign timeline as cinematic horizontal pin-scroll
+- `134e009` — activities: define --coffee var, boost text contrast, swap Mon/Thu placeholders for real Sucre + salsa stock photos
+
+All pushed to `origin/main`.
+
+### Notes / follow-ups
+- The original three-photo gallery chapters (`<section class="gallery-section">` further down activities.html) still exist below the new timeline — they show the same photos used in the timeline collages plus extras. Likely now redundant; worth asking Fernando whether he wants both, or wants to drop the lower gallery section.
+- Mon/Thu photos are stock fallbacks. When Fernando captures real walking-tour and salsa-class shots, drop them into `images/activities/Sucre/` and `images/activities/Salsa/` and replace the `src` attributes — no other code changes needed.
+- Unsplash license requires no attribution but appreciates it. None added; flag if Fernando wants credits in a footer somewhere.
+- The `_animation: wtNudge` on `.wt-hint .arrow` runs on a 2.4s loop forever — fine on desktop but never visible on mobile (`.wt-hint { display: none }` at ≤900px). No action needed, just noting.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
