@@ -571,6 +571,78 @@ Pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivat
 
 ---
 
+## Session — 24 April 2026 (Fernando's review feedback applied + site polish pass)
+
+### What happened
+Fernando ran a full review pass on the staged copy at `migusta-review.pages.dev` using the `website-reviewer` tool, leaving 23 annotations across `index.html` and `about.html` (plus a few duplicates from a stale mirror). Cross-checked each against the live `main` branch, applied the genuine ones, redeployed staging, then did a broader yellow/green polish across all 13 pages.
+
+### Client-feedback edits (commits `07a41a8`, `cfb4aa9`, `2ea4e3c`)
+**Home page (`index.html`):**
+- Eyebrow tags capitalised on the "Two ways to learn" cards: `since 2011` → `Since 2011`, `in sucre, bolivia` → `In Sucre, Bolivia`, `learn from your sofa` → `Learn from your sofa`. (Other eyebrows on the site stayed lowercase — Fernando flagged only these three.)
+- Stat: `12` native Bolivian teachers → `12<sup>+</sup>` to match the `15,000<sup>+</sup>` style.
+- "Why Choose Us" paragraph rewritten — old version said "Founded in 2005…six years developing methodology…opened 2011" which contradicted Fernando's new about-page narrative. New copy: *"Me Gusta Spanish opened its doors in 2011, founded by Elizabeth and Fernando on a simple belief…"*
+- Added a "View class types" secondary button next to "Register now and save!" on the courses promo (links to `classes.html`).
+
+**About page (`about.html`):**
+- Page hero retitled: "A school born from passion" → "More than Spanish. A home in Sucre."
+- Page hero sub: rewritten with Fernando's "building bridges / open the doors of our community" copy.
+- Eyebrow `our story` capitalised; `¿Cómo llegamos hasta aquí?` and `¿Qué nos impulsa?` got their Spanish question marks.
+- **Elizabeth bio rewritten** — origin **Padilla** (was "grew up in Sucre"), studied **Social Communication at USFX** (was vague), role **Administrative Director** (was Academic Director). Bio focuses on her admin/organisational role.
+- **Fernando bio rewritten** — kept Sucre origin + School Director, but degree is **Pedagogy and Educational Sciences from USFX**, credit for **co-developing methodology with Elizabeth**, and the strong claim that Me Gusta is **the only Spanish school in Bolivia with its own six-level textbook series**. *Fernando confirmed this claim was accurate.*
+- Timeline rewrites:
+  - **2003** — they met in their **Christian community** in Sucre (was "shared love of languages"); collaborated on business ventures before founding the school.
+  - **2005** — *"Where the dream began"* — Elizabeth and Fernando worked side-by-side as instructors at **Academia Latinoamericana de Español** (was "developing the Me Gusta method from their living room"). Important factual change: methodology origin is at another school, not at-home.
+  - **2011** — *"Me Gusta officially opens its doors"* — first students were **missionaries from Brazil** (was "students from 28 countries in first year").
+  - **2018 → 2020** — *"Going global with online learning"* — pandemic-driven, not just demand-driven.
+  - **Now** — *"15,000 alumni and a world of connection"* — global hub framing.
+- "We're not a factory" para → *"Personal, not processed."* tone rewrite.
+- Welcome closer: *"we'll put the kettle on"* → *"we'll have the coffee brewing"* across EN/ES/FR.
+
+**Cross-page corrections (commit `2ea4e3c`):**
+- `teachers.html`: Elizabeth's mini-card role updated to **Administrative Director** to match about.
+- `contact.html`: Instagram link `instagram.com/megustaspanish` → `instagram.com/megustaspanishschool` (the unified handle).
+
+**Spanish + French translations** (commit `cfb4aa9`) — translated the long English rewrites (page hero sub, both bios, all five timeline descriptions, the values lead, welcome closer) into ES + FR. Updates the `data-es` / `data-fr` attributes the lang-toggle JS reads.
+
+### Site-wide polish pass (commit `8d66fdc`)
+Bulk Python script across all 13 HTML files:
+- **215 duplicate `data-fr` attributes** removed (every element with multiple `data-fr=` had only its first attribute parsed by browsers — kept the longest variant per element).
+- **52 footer copyrights** updated 2025 → 2026.
+- **26 eyebrows / section-labels lowercased** for consistency with the dominant handwritten-eyebrow style: "Don't just take our word for it", "Why Choose Us", "Our philosophy", "What we offer", "Memory techniques we love", "First class on us", "How every class is structured", "Learn from anywhere", "Learn online, anytime", "The secret ingredients" — plus their ES/FR equivalents. Kept "In Sucre, Bolivia" + "Since 2011" + "Learn from your sofa" capitalised per Fernando's explicit direction.
+
+Per-page polish:
+- `index.html` `<title>`: "Me Gusta Spanish" → "Me Gusta Spanish School" (better SERP match for "spanish school sucre").
+- `cafe.html` `<title>`: dropped street number — "Me Gusta Café — Bolivar #603, Sucre" → "Me Gusta Café — Sucre, Bolivia".
+- All 13 pages: added `<link rel="icon">` + `<link rel="apple-touch-icon">` pointing to `megustalogoclear.webp`.
+
+New SEO files:
+- `robots.txt` — allow-all + sitemap reference.
+- `sitemap.xml` — all 13 reviewable URLs with priorities.
+
+### What's still outstanding
+- **12 of 13 pages missing `<meta name="description">`** (only `register.html` has one). High-impact SEO gap not tackled this session.
+- **Zero Open Graph tags** anywhere — `og:title`, `og:description`, `og:image`, `og:url`. Social-share previews on WhatsApp/iMessage/Facebook will be poor or missing. Critical for a marketing site, also untouched.
+- **`contact.html:677`** still has `facebook.com/megustaspanish` (likely stale, parallel to the Instagram fix). Couldn't cross-check the correct handle from elsewhere on the site.
+- **Some Spanish translations are slightly shorter than English** (e.g. `index.html:1534` — Spanish drops the "and haven't looked back" clause). Left as-is — needs a translator pass, not a mechanical fix.
+- **Designer items from previous session** (Unsplash laptop photo on online classes hero, missing pricing, no homepage WhatsApp CTA) still deferred.
+
+### Review tool state — fully cleared
+- All 23 client annotations resolved or marked duplicate.
+- `client-reviews/migusta/latest.json` wiped to zero pins on every page (commit `65a1bd4`).
+- Staging mirror `migusta-review.pages.dev` resynced 1:1 with current `main` after each push.
+- The merged review branch `review/2026-04-24-client-feedback` deleted locally.
+
+### Commits
+- `07a41a8` — review: apply 2026-04-24 client feedback (home + about)
+- `69f2420` — index: 12 native teachers → 12+
+- `cfb4aa9` — about: add ES + FR translations for client-rewritten copy
+- `2ea4e3c` — site: align with client's about-page rewrites
+- `8d66fdc` — site: yellow/green polish pass (post-client-feedback)
+
+All pushed to `origin/main` → live on `ashdabash2926.github.io/migustaschoolprivate` and mirrored on `migusta-review.pages.dev`.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
