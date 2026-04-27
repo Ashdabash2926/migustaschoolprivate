@@ -708,6 +708,80 @@ All pushed to `origin/main`.
 
 ---
 
+## Session — 27 April 2026 (accommodation catalogue — HTML→PDF for WhatsApp)
+
+### Brief (from Fernando)
+> Accommodation catalog (VERY URGENT) — needed to respond to student inquiries. Include new room photos, types of rooms (short descriptions), prices (he'll send), WhatsApp number for reservations. Style: visual, clean, attractive, easy to read. PDF format to send via WhatsApp. Goal: someone sees it and immediately thinks "I want to stay here."
+
+Ash asked for an HTML doc that exports cleanly to PDF — boutique-magazine treatment of the existing brand (Cormorant + Lora + Caveat, terra/gold/coffee palette), heavy on images. Cover + intro page with side index + room sections + tariffs + closing reservations page.
+
+### What was built — `accommodation-catalog.html` (commit `a4824c9`)
+A standalone 13-page A4-portrait HTML document, separate from the website. Self-contained (no shared CSS), all images pulled from existing `images/rooms/` set + `images/megustalogoclear.webp`. No nav, no language toggle — single language (English) at Fernando's direction.
+
+**Structure** (each page is an `<article class="page">` with `page-break-after: always`)
+1. **Cover** — full-bleed `DSC08332-HDR.webp`, dark gradient overlay, white-inverted logo top-left, "Vol. I · MMXXVI" top-right, big Cormorant italic *Casa Migusta* title, Sucre/altitude rule footer.
+2. **Welcome + Index** — two-column. Left: 3-paragraph letter with Cormorant drop-cap + Caveat sign-off. Right: cream-boxed index with terra rule, all 4 rooms listed with page numbers + amenity sublines, tariffs/contact pointers below. Bottom strip: 4 meta cells (location, altitude, rooms, best for).
+3-10. **Four rooms × 2 pages each.** Hero page = full-bleed photo, dark gradient bottom, vertical "CASA MIGUSTA · SUCRE · BOLIVIA" rotated rule on the right edge, big italic title, sub, then sleeps/bathroom/linen pills + price tag. Detail page = banner header → 14mm Cormorant title with rotated 16mm Caveat number stamp on the right → 2-column body (prose with drop-cap + 2-col amenity list with terra-dot bullets on left, 1 large + 2 small photo collage on right) → terra-rule footer with pull-quote + dark coffee-color price card with terra-tab triangle on top.
+11. **Tariffs** — single page table (room / per night / per week / per month) + "Always included" 8-item ✓ panel with terra left-rule + Caveat fineprint footer.
+12. **Reservations close** — `--coffee-deep` bg with terra/gold radial glows + screen-blend grain overlay, gold Caveat eyebrow, 36mm italic *Stay with us.*, sub-paragraph, full-width WhatsApp tile (real WA gradient #25D366→#128C7E, official WA glyph SVG, the existing `+591 73425725` number formatted as +591 734 257 25, "tap to chat" Caveat CTA on the right), 3-cell contact grid, logo + MMXXVI footer.
+
+### Aesthetic direction — boutique magazine
+Brand-faithful (Cormorant italic display + Lora body + Caveat hand) but composed for a printed page rather than a viewport. Editorial moves throughout:
+- Generous margins (14mm interior, 18mm on hero/cover bottom).
+- Italic Cormorant for every voice header; **non-italic** + terra colour for emphasised words inside a title (`<em>` is restyled `font-style: normal`).
+- Caveat used three ways: rotated handwritten eyebrows, price tags, and section page-number footers. Always slightly off-axis (`rotate(-1deg)` to `-2deg`).
+- Banner header on every interior page: thin 18mm strip with logo + brand mark on the left, tracked-out section title centred, Caveat tag on the right.
+- Folio at the bottom: brand · italic section name · page number, all in tracked uppercase Lora.
+- Drop-caps on intro and each room's first paragraph (22mm cover-letter cap, 14mm room cap).
+- Paper-grain noise SVG on every page (multiply blend, 5% opacity), screen-blend grain on the dark close page.
+- Hero pages have a vertical rotated rule running down the right edge — pure editorial chrome.
+
+### Print engineering
+- `@page { size: A4 portrait; margin: 0; }` — full-bleed cover/hero pages need zero page margin.
+- `.page { width: 210mm; height: 297mm; page-break-after: always; }` — explicit mm dims so layout doesn't drift between viewports.
+- Every measurement in `mm` to keep the screen preview pixel-perfect with the PDF output (Chrome's "Save as PDF" preserves mm-based geometry exactly when margins=None).
+- `-webkit-print-color-adjust: exact; print-color-adjust: exact;` on every element so dark coffee backgrounds + terra accents render in PDF (Chrome strips colour by default for "ink saving").
+- `@media print` strips the screen-only box-shadow + dark backdrop.
+- `@media screen` adds a `body::before` cream-italic strip ("Casa Migusta · Accommodation Catalogue · Print preview at A4 portrait") so it's clear in-browser what you're looking at.
+- Logo is white-inverted via `filter: brightness(0) invert(1)` on dark pages.
+
+### Photo assignments (placeholders — need Fernando's input)
+Without per-photo metadata, photos were assigned by sequential filename ranges:
+- **6-bed dorm:** `images/rooms/6bed/DSC08489, 08494, 08519, 08539` (correct — that subfolder is the dorm)
+- **Private single:** `images/rooms/DSC08147-HDR-2, 08157, 08167, 08177` (lowest-numbered, guess)
+- **Family room:** `images/rooms/DSC08217, 08232, 08242, 08257` (mid-range, guess)
+- **Ensuite trio:** `images/rooms/DSC08332, 08342, 08367, 08412` (high-range, guess; 08332 already used as the website's accommodation hero)
+
+Fernando will need to swap any mis-assigned photos. Each `background-image: url('...')` is on its own line — one-line edits.
+
+### Placeholder prices (Fernando will replace)
+- Dorm bed: **$12/night, $72/wk, $260/mo**
+- Private single: **$28/night, $168/wk, $580/mo**
+- Family room: **$55/night, $330/wk, $1,150/mo**
+- Ensuite room: **$42/night, $252/wk, $880/mo**
+
+Per-night prices appear in 4 places per room (hero pill, hero price tag, detail price card, tariffs table) — a "real prices" sweep needs to update all of them, ideally via a find-and-replace per room.
+
+### Placeholder copy (low-confidence, ask Fernando)
+- Email: `hola@migustaspanish.com` — guess based on domain conventions, not pulled from anywhere on the site.
+- Handles: `migusta.school`, `@migustasucre` — guesses.
+- WhatsApp number: `+591 73425725` — pulled verbatim from `accommodation.html` and `contact.html`, confirmed across the site. Linked correctly to `wa.me/59173425725`. Display-formatted as `+591 734 257 25` for the close page.
+
+### How to export
+Chrome → ⌘P → Destination *Save as PDF* → Margins **None** → enable **Background graphics** → Save. File should land at ~5–8 MB depending on photo subset.
+
+### Commits
+- `a4824c9` — accommodation-catalog: 13-page A4 PDF catalogue — boutique magazine layout, cover + welcome/index + 4 rooms (hero+detail per room) + tariffs + WA reservations close. Placeholder USD prices.
+
+### Open follow-ups for next session
+- Real prices (Fernando is sending) — sweep the 4 hero pills, 4 hero price tags, 4 detail price cards, 4 tariff table rows.
+- Photo reassignment — Fernando to confirm which `DSC*-HDR*.webp` files belong to which room type, then swap.
+- Confirm email + social handles before the catalogue is sent to a real student.
+- Decide whether to host this at `migustaschoolprivate/accommodation-catalog.html` (currently pushed to `origin/main`, will be live at `ashdabash2926.github.io/migustaschoolprivate/accommodation-catalog.html`) or keep local-only as a PDF source.
+- Spanish version? Fernando picked English-only at brief; may want a parallel `accommodation-catalog-es.html` once the EN one is approved.
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
