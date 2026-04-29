@@ -782,6 +782,34 @@ Chrome → ⌘P → Destination *Save as PDF* → Margins **None** → enable **
 
 ---
 
+## Session — 28 April 2026 (apply 2nd client review — methodology / classes / kids / teachers + free-trial sweep)
+
+Client returned the website-reviewer link with 46 new annotations across 4 previously-unreviewed pages: methodology (2), classes (14), kids (11), teachers (19). Pulled via `/apply-review`-style flow from `Ashdabash2926/client-reviews/migusta/latest.json`.
+
+### Round 1 — `675db5a`
+- **methodology** — replaced the trial CTA with a generic "Register Now" CTA (client: "no tenemos clases gratis"). Removed `Request a Free Trial` button + "first class completely free" cta-note; new copy points at `register.html`.
+- **classes** — hero handwritten "find a class made for you / encuentra una clase a tu medida"; "adaptamos a ti cada clase" word order; Groups card now states explicit sizes (up to 4 / up to 8); Companies card → "Empresas en Línea" + online-flavoured desc; **face-to-face how-to-start steps fully replaced** with the client's 4 steps (register + program → exam → evaluation call → come to Audiencia #97); online step 4 → "¡Empieza a aprender en línea! Desde la comodidad de tu hogar..."; "Buy your sessions" range 1–10 → 8–30; trial form section rebranded as **Register Online / ¡Regístrate ahora! / Send (Enviar)**, including section-label, h2, paragraph, tags, form-title, submit button, plus the section's tab-button, online step 1, and footer link.
+- **kids** — hero chapter shortened to "Programa infantil" (cap P); h1 → "Aprendo, jugando" / "I learn, playing"; "Sin libros" → "Con libros adecuados" in hero paragraph; capitalisations on "Three ways in / Tres maneras de entrar", "Spanish in the wild / Español en la calle", and "Niños reales, risas reales"; "actividades adecuadas para ellos" appended to the lead; "una mesa compartida al mediodía / one shared lunch table after" struck from the family lead.
+- **teachers** — hero hand "Las personas que lo hacen posible" capitalised; level fixes: Becky → Intermedio + Avanzado, Angel/Kiara/Erik → Básicos + Intermedio, Clara → Niños y Jóvenes + Principiantes e Intermedios; **Solidad → Soledad** (display only, image filename kept this round); **Ghiselle → Guisela** as "Coordinación General" with new bio (admin/coordination, not teaching); Luz → Presencial y Online + Todos los niveles; Raquel → Presencial y Online + Principiantes + new bio (dance dynamics, group games, DELE); founders intro replaced with the "artesanos del español" framing; Elizabeth bio → cofundadora + Directora Administrativa; Fernando bio → Cofundador + Director General Académico + 6-level textbook authorship; teachers grid container shrunk (max-width 1400 → 1100px) per "reducir el tamaño de estas fotos".
+
+### Round 2 — `6a7ae11`
+- **Free-trial sweep, site-wide.** Footer "Free Trial Class / Clase de Prueba Gratis / cours d'essai gratuit" links on `index.html`, `kids.html`, `methodology.html` all retargeted to `classes.html#trial` as "Register Online / Regístrate Online / Inscription en ligne". Stray "Book a trial class →" CTA on `teachers.html` likewise. Final grep — zero remaining "free trial / clase de prueba / essai gratuit / first class on us" strings across the repo.
+- **kids hero badge.** `<strong>No</strong> textbooks` → `<strong>With</strong> books / Con libros / Avec des livres`.
+- **classes hero polaroid stack — redesigned.** Original layout had `hero-polaroid-main` at 62% wide with `translateX(-45%)` over two equally-sized back polaroids at left:0 / right:0 — they piled on top of each other. New layout is a clean staggered cascade: back-left (38%, top:0, left:0, rotate(-5deg)), main (42%, top:30%, left:38%, rotate(2deg)), back-right (38%, bottom:0, right:0, rotate(5deg)). `.page-hero-img` min-height 520 → 620px; mobile breakpoint 340 → 480px. Hover state lifts the focused card to `z-index: 4` so it isn't permanently obscured.
+- **kids cereal-quote breathing room.** `.wild-pullquote` max-width 230 → 290px (desktop) and 200 → 240px (mobile), font 1.1 → 1.05rem, right offset -3rem → -1.5rem so the orange "fastest route to the preterite tense" quote stops getting clipped by the polaroid edge.
+- **Image renames via `git mv`** (history preserved): `images/Teachers/Ghiselle.webp` → `Guisela.webp`, `images/Teachers/Solidad.jpg` → `Soledad.jpg`. All `<img src>` references updated.
+
+### Outstanding (for next time)
+- **classes.html trial-section h2 "On line" annotation.** Pin pointed at the "Solicita tu clase de prueba gratuita" h2 with the comment "On line". Currently lives as **Register Online / Regístrate online / Inscris-toi en ligne** — interpreted as part of the broader "rename this section" cluster. Ash deferred confirmation ("i dont know, save for later, will ask"). Confirm or correct next session.
+- **classes.html annotation 11 — "N" capitalisation.** Pin sat in the trial-section near "Primera clase de nuestra parte / no sabes / no commitment". Because that whole section was rebuilt as the registration form, the lowercase tag "no commitment" did get capitalised to "No commitment" — but it was never confirmed that's the N the client meant. Ask the client (or Ash) which N if a different one is in mind.
+- **Teacher photo size — extent.** Round-1 fix shrank the **container** (grid max-width 1100px); the founders' Elizabeth/Fernando mini-photos in the bottom section weren't touched. If the client meant individual cards rather than the whole grid, that's where the next pass would land.
+
+### Commits
+- `675db5a` — review: apply 2026-04-28 client feedback (methodology + classes + kids + teachers)
+- `6a7ae11` — review: round 2 — strip free-trial framing site-wide, kids 'con libros', polaroid stack redesign, pullquote breathing room, rename Ghiselle→Guisela + Solidad→Soledad images
+
+---
+
 ## Rules & Conventions
 
 ### Image Workflow
