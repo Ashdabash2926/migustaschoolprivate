@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Casa Migusta — Accommodation Catalogue 2026</title>
+<title>Casa Migusta — Accommodation Catalogue · Vol. II · MMXXVI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@
     --bg:          #FAFAF7;
     --paper:       #F5EFE4;
     --paper-warm:  #EFE6D6;
+    --paper-deep:  #E8DCC4;
     --cream:       #FFF9F1;
     --ink:         #1C1410;
     --ink-soft:    #4A3A2C;
@@ -36,9 +37,12 @@
     --terra-pale:  #FAEEE8;
     --gold:        #C4913A;
     --gold-pale:   #F2E5C7;
+    --gold-warm:   #E8A767;
+    --gold-cream:  #f0c98c;
     --coffee:      #3D2314;
     --coffee-deep: #261308;
     --rule:        rgba(60,35,20,0.18);
+    --rule-strong: rgba(60,35,20,0.32);
     --display: 'Cormorant', 'Times New Roman', serif;
     --body:    'Lora', Georgia, serif;
     --hand:    'Caveat', cursive;
@@ -118,7 +122,7 @@
     font-weight: 600;
   }
 
-  /* footer folio */
+  /* footer folio with ornament */
   .folio {
     position: absolute;
     bottom: 8mm; left: 14mm; right: 14mm;
@@ -140,10 +144,115 @@
     color: var(--ink-soft);
     letter-spacing: 0;
   }
+  .folio em::before, .folio em::after {
+    content: '❦';
+    color: var(--terra);
+    font-size: 2.6mm;
+    margin: 0 2mm;
+    opacity: 0.7;
+  }
 
-  /* ─────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
+     POSTAL STAMP — the unifying motif
+     ────────────────────────────────────────────────────────── */
+  .stamp {
+    position: absolute;
+    width: 34mm;
+    height: 34mm;
+    border-radius: 50%;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(20,12,6,0.55);
+    border: 0.5mm solid rgba(240,201,140,0.85);
+    color: var(--gold-cream);
+    transform: rotate(-7deg);
+  }
+  .stamp::before {
+    content: '';
+    position: absolute;
+    inset: 1.6mm;
+    border: 0.25mm dashed rgba(240,201,140,0.55);
+    border-radius: 50%;
+  }
+  .stamp::after {
+    content: 'CASA · MIGUSTA · SUCRE · BOLIVIA · ';
+    position: absolute;
+    inset: -2mm;
+    font-family: var(--body);
+    font-size: 1.9mm;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(240,201,140,0.45);
+    /* poor-man's circular text via slight kerning + rotation; the visual reads as a stamp ring */
+    display: none;
+  }
+  .stamp-num {
+    font-family: var(--body);
+    font-size: 2.3mm;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 0.5mm;
+    opacity: 0.9;
+  }
+  .stamp-big {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13mm;
+    line-height: 0.88;
+    font-weight: 500;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+  .stamp-label {
+    font-family: var(--hand);
+    font-size: 4.4mm;
+    line-height: 1;
+    margin-top: 1mm;
+    color: var(--gold-warm);
+    transform: rotate(-1deg);
+  }
+  /* light-paper variant for inside spreads */
+  .stamp--paper {
+    background: var(--cream);
+    border-color: var(--terra);
+    color: var(--terra-dark);
+  }
+  .stamp--paper .stamp-big { color: var(--terra-dark); }
+  .stamp--paper .stamp-label { color: var(--terra); }
+  .stamp--paper::before { border-color: rgba(140,52,25,0.45); }
+
+  /* ──────────────────────────────────────────────────────────
+     MARGIN NOTES — handwritten, rotated, intimate
+     ────────────────────────────────────────────────────────── */
+  .margin-note {
+    position: absolute;
+    font-family: var(--hand);
+    font-size: 5.2mm;
+    line-height: 1.05;
+    color: var(--terra-dark);
+    z-index: 11;
+    max-width: 50mm;
+  }
+  .margin-note--bright { color: var(--gold-cream); }
+  .margin-note::before {
+    content: '— ';
+    margin-right: 0.5mm;
+  }
+  .margin-note-arrow {
+    display: inline-block;
+    margin-top: 1mm;
+    font-size: 7mm;
+    line-height: 1;
+    transform: rotate(-12deg);
+  }
+
+  /* ──────────────────────────────────────────────────────────
      PAGE 1 — COVER
-     ───────────────────────────────────────────── */
+     ────────────────────────────────────────────────────────── */
   .page-cover {
     background: var(--coffee-deep);
     color: #f7ecd9;
@@ -151,14 +260,14 @@
   }
   .cover-image {
     position: absolute; inset: 0;
-    background: url('images/rooms/room4-familyroom/DSC08332-HDR.webp') center/cover no-repeat;
-    filter: saturate(0.92) contrast(1.02);
+    background: url('images/rooms/rooftop/DSC08462-HDR.webp') center/cover no-repeat;
+    filter: saturate(0.95) contrast(1.04);
   }
   .cover-image::after {
     content: '';
     position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(20,12,6,0.38) 0%, rgba(20,12,6,0.05) 28%, rgba(20,12,6,0.05) 55%, rgba(20,12,6,0.85) 100%),
+      linear-gradient(180deg, rgba(20,12,6,0.50) 0%, rgba(20,12,6,0.05) 32%, rgba(20,12,6,0.10) 55%, rgba(20,12,6,0.92) 100%),
       linear-gradient(90deg, rgba(20,12,6,0.30) 0%, rgba(20,12,6,0) 40%);
   }
   .cover-frame {
@@ -168,6 +277,14 @@
     pointer-events: none;
     z-index: 5;
   }
+  .cover-frame::before, .cover-frame::after {
+    content: '';
+    position: absolute;
+    width: 8mm; height: 8mm;
+    border: 0.5mm solid rgba(247,236,217,0.55);
+  }
+  .cover-frame::before { top: -1mm; left: -1mm; border-right: none; border-bottom: none; }
+  .cover-frame::after  { bottom: -1mm; right: -1mm; border-left: none; border-top: none; }
   .cover-top {
     position: absolute;
     top: 14mm; left: 18mm; right: 18mm;
@@ -193,16 +310,20 @@
   }
   .cover-vol b { color: #f7ecd9; font-weight: 500; display: block; font-size: 3mm; }
 
+  .cover-stamp {
+    top: 40mm; right: 26mm;
+  }
+
   .cover-bottom {
     position: absolute;
-    bottom: 22mm;
+    bottom: 26mm;
     left: 18mm; right: 18mm;
     z-index: 10;
   }
   .cover-eyebrow {
     font-family: var(--hand);
-    font-size: 7mm;
-    color: #f0c98c;
+    font-size: 7.5mm;
+    color: var(--gold-cream);
     font-weight: 500;
     line-height: 1;
     margin-bottom: 4mm;
@@ -213,23 +334,23 @@
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
-    font-size: 36mm;
-    line-height: 0.92;
+    font-size: 38mm;
+    line-height: 0.90;
     letter-spacing: -0.02em;
     color: #fff9f1;
     margin-bottom: 6mm;
-    text-shadow: 0 2mm 6mm rgba(0,0,0,0.4);
+    text-shadow: 0 2mm 6mm rgba(0,0,0,0.45);
   }
   .cover-title em {
     font-style: normal;
-    color: #e8a767;
+    color: var(--gold-warm);
   }
   .cover-sub {
-    max-width: 110mm;
+    max-width: 120mm;
     font-family: var(--body);
     font-style: italic;
     font-size: 4.2mm;
-    line-height: 1.5;
+    line-height: 1.55;
     color: rgba(247,236,217,0.92);
     font-weight: 400;
   }
@@ -249,19 +370,26 @@
     padding-top: 4mm;
     border-top: 0.3mm solid rgba(247,236,217,0.35);
   }
-  .cover-rule span:nth-child(2) { color: #f0c98c; }
+  .cover-rule span:nth-child(2) {
+    color: var(--gold-cream);
+    font-family: var(--display);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    font-size: 3.6mm;
+  }
 
-  /* ─────────────────────────────────────────────
-     PAGE 2 — WELCOME + INDEX
-     ───────────────────────────────────────────── */
+  /* ──────────────────────────────────────────────────────────
+     PAGE 2 — WELCOME + INDEX (with house diagram)
+     ────────────────────────────────────────────────────────── */
   .page-intro {
     padding: 28mm 14mm 18mm;
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 12mm;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 11mm;
     background: var(--paper);
   }
-  .intro-left { padding-top: 4mm; padding-right: 4mm; }
+  .intro-left { padding-top: 4mm; padding-right: 2mm; }
   .intro-eyebrow {
     font-family: var(--body);
     font-size: 2.6mm;
@@ -274,16 +402,16 @@
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
-    font-size: 22mm;
+    font-size: 21mm;
     line-height: 0.95;
     color: var(--ink);
-    margin-bottom: 10mm;
+    margin-bottom: 9mm;
     letter-spacing: -0.01em;
   }
   .intro-title em { font-style: normal; color: var(--terra); }
   .intro-body p {
     font-family: var(--body);
-    font-size: 3.6mm;
+    font-size: 3.5mm;
     line-height: 1.65;
     color: var(--ink-soft);
     margin-bottom: 4mm;
@@ -301,7 +429,7 @@
     color: var(--terra);
   }
   .intro-sig {
-    margin-top: 6mm;
+    margin-top: 5mm;
     font-family: var(--hand);
     font-size: 6mm;
     color: var(--terra-dark);
@@ -319,7 +447,7 @@
 
   .intro-right {
     background: var(--cream);
-    padding: 10mm 9mm;
+    padding: 10mm 9mm 8mm;
     border: 0.3mm solid var(--rule);
     position: relative;
     align-self: start;
@@ -347,27 +475,28 @@
     font-size: 8mm;
     line-height: 1;
     color: var(--ink);
-    margin-bottom: 8mm;
+    margin-bottom: 7mm;
   }
   .index-list { list-style: none; }
   .index-item {
     display: grid;
-    grid-template-columns: 6mm 1fr auto;
+    grid-template-columns: 7mm 1fr auto;
     gap: 2mm;
     align-items: baseline;
-    padding: 3mm 0;
+    padding: 2.6mm 0;
     border-bottom: 0.2mm dotted var(--rule);
   }
   .index-num {
-    font-family: var(--hand);
-    font-size: 4.5mm;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 4.4mm;
     color: var(--terra);
-    font-weight: 600;
+    font-weight: 500;
   }
   .index-name {
     font-family: var(--display);
     font-style: italic;
-    font-size: 4.6mm;
+    font-size: 4.4mm;
     color: var(--ink);
     line-height: 1.1;
   }
@@ -387,12 +516,12 @@
     font-weight: 500;
   }
   .index-foot {
-    margin-top: 8mm;
-    padding-top: 5mm;
+    margin-top: 6mm;
+    padding-top: 4mm;
     border-top: 0.3mm solid var(--rule);
     font-family: var(--body);
     font-style: italic;
-    font-size: 3mm;
+    font-size: 2.9mm;
     color: var(--muted);
     line-height: 1.5;
   }
@@ -402,8 +531,8 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    margin-top: 6mm;
-    padding-top: 6mm;
+    margin-top: 5mm;
+    padding-top: 5mm;
     border-top: 0.3mm solid var(--rule);
   }
   .meta-cell {
@@ -428,9 +557,106 @@
   }
   .meta-cell-value b { font-style: normal; color: var(--terra); font-weight: 500; }
 
-  /* ─────────────────────────────────────────────
-     ROOM HERO PAGES
-     ───────────────────────────────────────────── */
+  .intro-margin-note {
+    bottom: 28mm;
+    left: 14mm;
+    transform: rotate(-3deg);
+    color: var(--terra-dark);
+    font-size: 5.4mm;
+    max-width: 70mm;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     FULL-BLEED ATMOSPHERIC PAGE (Shared spaces hero, Rooftop)
+     ────────────────────────────────────────────────────────── */
+  .page-bleed {
+    background: var(--coffee-deep);
+    color: var(--cream);
+    padding: 0;
+  }
+  .bleed-image {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .bleed-image::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(20,12,6,0.42) 0%, rgba(20,12,6,0) 30%, rgba(20,12,6,0.05) 55%, rgba(20,12,6,0.88) 100%);
+  }
+  .bleed-tag {
+    position: absolute;
+    top: 16mm; left: 18mm;
+    z-index: 10;
+    font-family: var(--body);
+    font-size: 2.6mm;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,249,241,0.85);
+  }
+  .bleed-tag b {
+    color: var(--gold-cream);
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 3mm;
+    font-size: 3mm;
+  }
+  .bleed-vertical {
+    position: absolute;
+    top: 50%;
+    right: 14mm;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+    font-family: var(--body);
+    font-size: 2.4mm;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: rgba(255,249,241,0.55);
+    z-index: 10;
+    white-space: nowrap;
+  }
+  .bleed-bottom {
+    position: absolute;
+    bottom: 22mm;
+    left: 18mm;
+    right: 18mm;
+    z-index: 10;
+  }
+  .bleed-eyebrow {
+    font-family: var(--hand);
+    font-size: 7.5mm;
+    color: var(--gold-cream);
+    transform: rotate(-1deg);
+    display: inline-block;
+    margin-bottom: 3mm;
+  }
+  .bleed-title {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28mm;
+    line-height: 0.92;
+    color: #fff9f1;
+    letter-spacing: -0.01em;
+    margin-bottom: 6mm;
+    max-width: 160mm;
+  }
+  .bleed-title em { font-style: normal; color: var(--gold-warm); }
+  .bleed-sub {
+    max-width: 130mm;
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 4mm;
+    line-height: 1.55;
+    color: rgba(255,249,241,0.92);
+    font-weight: 400;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     ROOM HERO PAGES (re-uses bleed but with stamp + meta + price)
+     ────────────────────────────────────────────────────────── */
   .page-room-hero {
     background: var(--coffee-deep);
     color: #fff9f1;
@@ -446,7 +672,7 @@
     content: '';
     position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(20,12,6,0.45) 0%, rgba(20,12,6,0) 32%, rgba(20,12,6,0.05) 55%, rgba(20,12,6,0.92) 100%);
+      linear-gradient(180deg, rgba(20,12,6,0.45) 0%, rgba(20,12,6,0) 32%, rgba(20,12,6,0.08) 55%, rgba(20,12,6,0.94) 100%);
   }
   .room-hero-tag {
     position: absolute;
@@ -459,7 +685,7 @@
     color: rgba(255,249,241,0.85);
   }
   .room-hero-tag b {
-    color: #f0c98c;
+    color: var(--gold-cream);
     font-weight: 500;
     display: inline-block;
     margin-right: 3mm;
@@ -486,10 +712,14 @@
     right: 18mm;
     z-index: 10;
   }
+  .room-hero-stamp {
+    top: 36mm;
+    right: 22mm;
+  }
   .room-hero-eyebrow {
     font-family: var(--hand);
-    font-size: 7mm;
-    color: #f0c98c;
+    font-size: 7.5mm;
+    color: var(--gold-cream);
     transform: rotate(-1deg);
     display: inline-block;
     margin-bottom: 3mm;
@@ -498,14 +728,14 @@
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
-    font-size: 26mm;
+    font-size: 27mm;
     line-height: 0.92;
     color: #fff9f1;
     letter-spacing: -0.01em;
     margin-bottom: 6mm;
     max-width: 150mm;
   }
-  .room-hero-title em { font-style: normal; color: #e8a767; }
+  .room-hero-title em { font-style: normal; color: var(--gold-warm); }
   .room-hero-sub {
     max-width: 130mm;
     font-family: var(--body);
@@ -548,7 +778,7 @@
   .hero-price-label {
     font-family: var(--hand);
     font-size: 5mm;
-    color: #f0c98c;
+    color: var(--gold-cream);
     transform: rotate(-1deg);
     display: inline-block;
     margin-bottom: 1mm;
@@ -567,7 +797,7 @@
     vertical-align: top;
     margin-right: 1mm;
     font-style: normal;
-    color: #f0c98c;
+    color: var(--gold-cream);
   }
   .hero-price-amount small {
     font-size: 3.4mm;
@@ -578,9 +808,9 @@
     letter-spacing: 0.1em;
   }
 
-  /* ─────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      ROOM DETAIL PAGES
-     ───────────────────────────────────────────── */
+     ────────────────────────────────────────────────────────── */
   .page-room-detail {
     padding: 28mm 14mm 18mm;
     background: var(--paper);
@@ -615,23 +845,24 @@
   }
   .detail-title em { font-style: normal; color: var(--terra); }
   .detail-no {
-    font-family: var(--hand);
-    font-size: 16mm;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 18mm;
     color: var(--terra);
     line-height: 0.85;
     text-align: right;
-    transform: rotate(-2deg);
     align-self: end;
-    font-weight: 600;
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
   .detail-no small {
     display: block;
     font-family: var(--body);
+    font-style: normal;
     font-size: 2.4mm;
     letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--muted);
-    transform: rotate(2deg);
     margin-top: 1mm;
     font-weight: 400;
   }
@@ -786,7 +1017,7 @@
     font-size: 5mm;
     vertical-align: top;
     margin-right: 0.5mm;
-    color: #f0c98c;
+    color: var(--gold-cream);
     font-style: normal;
   }
   .price-card-amount small {
@@ -800,19 +1031,306 @@
   .price-card-note {
     font-family: var(--hand);
     font-size: 4.2mm;
-    color: #f0c98c;
+    color: var(--gold-cream);
     margin-top: 1mm;
   }
 
-  /* ─────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
+     SHARED SPACES — interior detail page
+     ────────────────────────────────────────────────────────── */
+  .page-shared {
+    padding: 28mm 14mm 18mm;
+    background: var(--paper-warm);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 8mm;
+  }
+  .shared-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3mm;
+  }
+  .shared-tile {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .shared-tile-cap {
+    position: absolute;
+    bottom: 2.5mm; left: 3mm;
+    font-family: var(--hand);
+    font-size: 4mm;
+    color: #fff;
+    text-shadow: 0 1mm 2mm rgba(0,0,0,0.65);
+    transform: rotate(-1deg);
+  }
+  .shared-tile--tall { grid-row: span 2; }
+  .shared-prose {
+    background: var(--cream);
+    padding: 7mm 8mm;
+    border-left: 0.8mm solid var(--terra);
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 3.4mm;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .shared-prose b {
+    display: block;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 7mm;
+    line-height: 1;
+    color: var(--terra);
+    margin-bottom: 3mm;
+    font-weight: 400;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     ROOM 5 — text-only spread (no photos yet)
+     ────────────────────────────────────────────────────────── */
+  .page-r5 {
+    background: var(--paper-deep);
+    padding: 32mm 18mm 22mm;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 10mm;
+  }
+  .r5-display {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 130mm;
+    line-height: 0.85;
+    color: var(--terra);
+    letter-spacing: -0.04em;
+    position: absolute;
+    top: 70mm;
+    left: 14mm;
+    opacity: 0.18;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+  }
+  .r5-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 14mm;
+  }
+  .r5-left .detail-eyebrow { color: var(--terra); }
+  .r5-title {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24mm;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 8mm;
+    letter-spacing: -0.01em;
+  }
+  .r5-title em { font-style: normal; color: var(--terra); }
+  .r5-prose p {
+    font-family: var(--body);
+    font-size: 3.6mm;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 4mm;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .r5-prose p:first-child::first-letter {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18mm;
+    float: left;
+    line-height: 0.85;
+    margin: 1mm 2.5mm -1mm 0;
+    color: var(--terra);
+  }
+  .r5-aside {
+    background: var(--cream);
+    border: 0.3mm solid var(--rule);
+    padding: 9mm 8mm;
+    align-self: start;
+    position: relative;
+  }
+  .r5-aside::before {
+    content: '';
+    position: absolute;
+    top: -0.5mm; left: 0; right: 0;
+    height: 0.8mm;
+    background: var(--terra);
+  }
+  .r5-aside-label {
+    font-family: var(--body);
+    font-size: 2.4mm;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3mm;
+  }
+  .r5-aside-amount {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 22mm;
+    color: var(--terra);
+    line-height: 0.9;
+    margin-bottom: 3mm;
+    font-weight: 500;
+  }
+  .r5-aside-amount sup {
+    font-size: 7mm;
+    vertical-align: top;
+    color: var(--gold);
+    font-style: normal;
+  }
+  .r5-aside-meta {
+    font-family: var(--body);
+    font-size: 2.8mm;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    padding-top: 4mm;
+    border-top: 0.3mm solid var(--rule);
+  }
+  .r5-aside-meta b { color: var(--ink); }
+  .r5-amenities {
+    margin-top: 5mm;
+    padding-top: 4mm;
+    border-top: 0.3mm solid var(--rule);
+  }
+  .r5-photo-pending {
+    font-family: var(--hand);
+    font-size: 6mm;
+    color: var(--terra-dark);
+    margin-top: 4mm;
+    transform: rotate(-1.2deg);
+    display: inline-block;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     ROOFTOP PAGE — vertical typography on full bleed
+     ────────────────────────────────────────────────────────── */
+  .page-rooftop {
+    background: var(--coffee-deep);
+    padding: 0;
+  }
+  .rooftop-image {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .rooftop-image::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(95deg, rgba(20,12,6,0.78) 0%, rgba(20,12,6,0.35) 50%, rgba(20,12,6,0.18) 100%);
+  }
+  .rooftop-content {
+    position: absolute;
+    top: 24mm;
+    left: 18mm;
+    bottom: 22mm;
+    width: 110mm;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    color: var(--cream);
+  }
+  .rooftop-eyebrow {
+    font-family: var(--hand);
+    font-size: 8mm;
+    color: var(--gold-cream);
+    transform: rotate(-1deg);
+    display: inline-block;
+    margin-bottom: 4mm;
+  }
+  .rooftop-title {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 50mm;
+    line-height: 0.85;
+    color: #fff9f1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8mm;
+  }
+  .rooftop-title em { font-style: normal; color: var(--gold-warm); font-weight: 400; }
+  .rooftop-prose {
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 4.2mm;
+    line-height: 1.6;
+    color: rgba(255,249,241,0.92);
+    margin-bottom: auto;
+    max-width: 100mm;
+  }
+  .rooftop-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-top: 5mm;
+    border-top: 0.3mm solid rgba(255,249,241,0.35);
+  }
+  .rooftop-meta-cell {
+    padding-right: 5mm;
+    border-right: 0.3mm solid rgba(255,249,241,0.18);
+  }
+  .rooftop-meta-cell:last-child { border-right: none; padding-right: 0; padding-left: 5mm; }
+  .rooftop-meta-cell-label {
+    font-family: var(--body);
+    font-size: 2.2mm;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,249,241,0.6);
+    margin-bottom: 2mm;
+  }
+  .rooftop-meta-cell-value {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 5mm;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .rooftop-meta-cell-value b { color: var(--gold-cream); font-style: normal; font-weight: 500; }
+  .rooftop-vertical-num {
+    position: absolute;
+    right: 22mm;
+    top: 30mm;
+    bottom: 26mm;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    color: rgba(247,236,217,0.4);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 8mm;
+    letter-spacing: 0.4em;
+    writing-mode: vertical-rl;
+  }
+  .rooftop-vertical-num em { color: var(--gold-cream); font-weight: 500; font-style: normal; }
+  .rooftop-stamp {
+    top: 22mm;
+    right: 28mm;
+    transform: rotate(8deg);
+  }
+
+  /* ──────────────────────────────────────────────────────────
      PRICING SUMMARY
-     ───────────────────────────────────────────── */
+     ────────────────────────────────────────────────────────── */
   .page-pricing {
     background: var(--paper-warm);
     padding: 28mm 14mm 18mm;
   }
   .pricing-head {
-    margin-bottom: 12mm;
+    margin-bottom: 10mm;
   }
   .pricing-eyebrow {
     font-family: var(--body);
@@ -862,7 +1380,7 @@
   .pricing-table tbody tr { border-bottom: 0.2mm dotted var(--rule); }
   .pricing-table tbody tr:last-child { border-bottom: none; }
   .pricing-table tbody td {
-    padding: 5mm 6mm;
+    padding: 4.5mm 6mm;
     font-family: var(--body);
     font-size: 3.4mm;
     color: var(--ink-soft);
@@ -901,7 +1419,7 @@
     margin-left: 1mm;
   }
   .pricing-includes {
-    margin-top: 10mm;
+    margin-top: 9mm;
     padding: 7mm 8mm;
     background: var(--cream);
     border-left: 1mm solid var(--terra);
@@ -956,9 +1474,9 @@
     transform: rotate(-0.6deg);
   }
 
-  /* ─────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      CLOSING / CONTACT
-     ───────────────────────────────────────────── */
+     ────────────────────────────────────────────────────────── */
   .page-close {
     background: var(--coffee-deep);
     color: #fff9f1;
@@ -993,7 +1511,7 @@
   .close-eyebrow {
     font-family: var(--hand);
     font-size: 7mm;
-    color: #f0c98c;
+    color: var(--gold-cream);
     transform: rotate(-1deg);
     display: inline-block;
     margin-bottom: 5mm;
@@ -1008,7 +1526,7 @@
     letter-spacing: -0.02em;
     margin-bottom: 8mm;
   }
-  .close-title em { font-style: normal; color: #e8a767; }
+  .close-title em { font-style: normal; color: var(--gold-warm); }
   .close-sub {
     font-family: var(--body);
     font-style: italic;
@@ -1103,7 +1621,7 @@
     color: #fff9f1;
     line-height: 1.3;
   }
-  .close-cell-value b { font-weight: 500; font-style: normal; color: #f0c98c; }
+  .close-cell-value b { font-weight: 500; font-style: normal; color: var(--gold-cream); }
 
   .close-foot {
     margin-top: 10mm;
@@ -1128,7 +1646,7 @@
     text-align: center;
   }
   .close-foot-mark b {
-    color: #f0c98c;
+    color: var(--gold-cream);
     font-weight: 500;
     margin: 0 1mm;
   }
@@ -1142,7 +1660,7 @@
   /* screen-only nicety: a faint footer note above the page stack */
   @media screen {
     body::before {
-      content: 'Casa Migusta · Accommodation Catalogue · Print preview at A4 portrait';
+      content: 'Casa Migusta · Accommodation Catalogue · Vol. II · Print preview at A4 portrait';
       display: block;
       text-align: center;
       color: rgba(247,236,217,0.5);
@@ -1166,18 +1684,25 @@
   <div class="cover-top">
     <img src="images/megustalogoclear.webp" alt="Me Gusta" class="cover-logo">
     <div class="cover-vol">
-      Volume <b>I · MMXXVI</b>
+      Volume <b>II · MMXXVI</b>
       A catalogue of rooms
     </div>
   </div>
+
+  <div class="stamp cover-stamp">
+    <span class="stamp-num">Casa</span>
+    <span class="stamp-big">II</span>
+    <span class="stamp-label">Sucre</span>
+  </div>
+
   <div class="cover-bottom">
     <div class="cover-eyebrow">a place to stay in Sucre —</div>
     <h1 class="cover-title">Casa<br><em>Migusta.</em></h1>
-    <p class="cover-sub">A small whitewashed house in the old city of Sucre, with four kinds of rooms and a courtyard that catches the morning sun. This is our 2026 accommodation catalogue.</p>
+    <p class="cover-sub">A small whitewashed house in the old city of Sucre — three en-suite rooms, a family room, a private single, a sociable six-bed dorm, and a rooftop that holds the best light in town. This is our 2026 accommodation catalogue.</p>
   </div>
   <div class="cover-rule">
     <span>Sucre · Bolivia · 2,810 m</span>
-    <span>— Vol. I —</span>
+    <span>— a catalogue of rooms —</span>
     <span>For inquiries via WhatsApp</span>
   </div>
 </article>
@@ -1197,11 +1722,11 @@
 
   <div class="intro-left">
     <div class="intro-eyebrow">— a few words before you scroll on</div>
-    <h2 class="intro-title">A house, a<br>courtyard, &amp; <em>four</em><br>kinds of rooms.</h2>
+    <h2 class="intro-title">A house, a<br>courtyard, &amp; <em>six</em><br>kinds of rooms.</h2>
     <div class="intro-body">
-      <p>Casa Migusta sits a few cobbled blocks from Sucre's main square, in a colonial-era building we've slowly stripped back to its best self — whitewashed walls, original wooden beams, a courtyard that catches the sun in the morning and stays cool through the long afternoons. It's the home of our small Spanish school, and a place to actually sleep while you're studying with us.</p>
-      <p>We keep things simple on purpose. There are four kinds of rooms in the house — a sociable six-bed dorm, a snug private single, family rooms that fit a small group comfortably, and three private rooms with their own ensuite bathrooms. All of them share the same courtyard, the same kitchen, the same hot water, and the same morning light.</p>
-      <p>Whatever you book, you get real keys, a proper mattress, a desk to lay your notebooks on, and the kind of quiet you only find in old colonial walls. The pages that follow show each room in detail, with the rates we offer to our students.</p>
+      <p>Casa Migusta sits a few cobbled blocks from Sucre's main square, in a colonial-era building we've slowly stripped back to its best self — whitewashed walls, original wooden beams, a courtyard that catches the morning sun and stays cool through the long afternoons. It's the home of our small Spanish school, and a place to actually sleep while you're studying with us.</p>
+      <p>There are six rooms in the house. Three of them are private with their own en-suite bathrooms. One is a family room built for groups; another is a quieter private single; and the last is a sociable six-bed dorm. Above them all, two rooftop terraces hold the best light in Sucre at dusk.</p>
+      <p>Whatever you book, you get real keys, a proper mattress, a desk for your notebooks, and the quiet you only find in old colonial walls. The pages that follow show each room in detail, with the rates we offer to our students.</p>
     </div>
     <div class="intro-sig">— with warmth from Sucre</div>
     <div class="intro-sig-line">the casa migusta team</div>
@@ -1209,40 +1734,50 @@
 
   <aside class="intro-right">
     <div class="index-eyebrow">Inside this catalogue</div>
-    <h3 class="index-title">The four<br>rooms.</h3>
+    <h3 class="index-title">A short<br>itinerary.</h3>
     <ul class="index-list">
       <li class="index-item">
-        <span class="index-num">01</span>
-        <span class="index-name">The six-bed dorm<small>shared · sociable · light</small></span>
-        <span class="index-page">04</span>
+        <span class="index-num">I</span>
+        <span class="index-name">The shared spaces<small>courtyard · kitchen · lounge</small></span>
+        <span class="index-page">03</span>
       </li>
       <li class="index-item">
-        <span class="index-num">02</span>
-        <span class="index-name">The private single<small>solo · snug · quiet</small></span>
-        <span class="index-page">06</span>
+        <span class="index-num">II</span>
+        <span class="index-name">The en-suite trio<small>rooms 1, 2 &amp; 3 · private bath</small></span>
+        <span class="index-page">05</span>
       </li>
       <li class="index-item">
-        <span class="index-num">03</span>
-        <span class="index-name">The family room<small>up to 4 · shared bath</small></span>
-        <span class="index-page">08</span>
+        <span class="index-num">III</span>
+        <span class="index-name">The family room<small>room 4 · sleeps up to 4</small></span>
+        <span class="index-page">07</span>
       </li>
       <li class="index-item">
-        <span class="index-num">04</span>
-        <span class="index-name">The ensuite trio<small>three rooms · private bath</small></span>
+        <span class="index-num">IV</span>
+        <span class="index-name">The private single<small>room 5 · solo · shared bath</small></span>
+        <span class="index-page">09</span>
+      </li>
+      <li class="index-item">
+        <span class="index-num">V</span>
+        <span class="index-name">The six-bed dorm<small>room 6 · sociable · shared bath</small></span>
         <span class="index-page">10</span>
       </li>
       <li class="index-item">
-        <span class="index-num">·</span>
-        <span class="index-name">Tariffs &amp; what's<br>included<small>rates · breakfast · stays</small></span>
+        <span class="index-num">VI</span>
+        <span class="index-name">The rooftop<small>two terraces · best light</small></span>
         <span class="index-page">12</span>
       </li>
       <li class="index-item">
         <span class="index-num">·</span>
-        <span class="index-name">Reservations<small>WhatsApp &amp; contact</small></span>
+        <span class="index-name">Tariffs &amp; what's<br>included<small>rates · breakfast · stays</small></span>
         <span class="index-page">13</span>
       </li>
+      <li class="index-item">
+        <span class="index-num">·</span>
+        <span class="index-name">Reservations<small>WhatsApp &amp; contact</small></span>
+        <span class="index-page">14</span>
+      </li>
     </ul>
-    <div class="index-foot">All rates are per room, per night, in US dollars. Longer stays are gently discounted — just ask.</div>
+    <div class="index-foot">All rates are per room (or per bed, in the dorm), per night, in US dollars. Stays of a week or month are gently discounted — just ask.</div>
   </aside>
 
   <div class="intro-meta">
@@ -1256,13 +1791,15 @@
     </div>
     <div class="meta-cell">
       <div class="meta-cell-label">Rooms</div>
-      <div class="meta-cell-value">Four <b>distinct</b> kinds</div>
+      <div class="meta-cell-value">Six <b>distinct</b> kinds</div>
     </div>
     <div class="meta-cell">
       <div class="meta-cell-label">Best for</div>
       <div class="meta-cell-value"><b>Spanish</b> students</div>
     </div>
   </div>
+
+  <div class="margin-note intro-margin-note">the courtyard catches the morning sun <span class="margin-note-arrow">↘</span></div>
 
   <div class="folio">
     <span>Casa Migusta</span>
@@ -1272,184 +1809,190 @@
 </article>
 
 <!-- ═══════════════════════════════════════════════════════════
-     ROOM 01 — SIX-BED DORM (HERO + DETAIL)
+     PAGE 3 — SHARED SPACES (HERO)
      ═══════════════════════════════════════════════════════════ -->
-<article class="page page-room-hero">
-  <div class="room-hero-image" style="background-image: url('images/rooms/6bed/DSC08489-HDR.webp');"></div>
-  <div class="room-hero-tag"><b>No. 01</b> The shared dorm · sleeps six</div>
-  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA</div>
-  <div class="room-hero-bottom">
-    <div class="room-hero-eyebrow">the sociable one —</div>
-    <h2 class="room-hero-title">The <em>six-bed</em><br>dorm.</h2>
-    <p class="room-hero-sub">Solid wooden bunks, proper mattresses, a locker each, and morning light through tall windows. The sociable option, without the hostel-grimness.</p>
-    <div class="room-hero-meta">
-      <div class="hero-pill">Sleeps<b>6 guests</b></div>
-      <div class="hero-pill">Bathroom<b>shared</b></div>
-      <div class="hero-pill">Linen<b>included</b></div>
-      <div class="hero-price">
-        <div class="hero-price-label">from</div>
-        <div class="hero-price-amount"><sup>$</sup>12<small>/ night / bed</small></div>
-      </div>
-    </div>
+<article class="page page-bleed">
+  <div class="bleed-image" style="background-image: url('images/rooms/sharedspace/DSC08272-HDR.webp');"></div>
+  <div class="bleed-tag"><b>Chapter I</b> The shared spaces</div>
+  <div class="bleed-vertical">CASA MIGUSTA · SUCRE · BOLIVIA · MMXXVI</div>
+
+  <div class="stamp room-hero-stamp">
+    <span class="stamp-num">Chapter</span>
+    <span class="stamp-big">I</span>
+    <span class="stamp-label">la casa</span>
+  </div>
+
+  <div class="bleed-bottom">
+    <div class="bleed-eyebrow">where the day begins —</div>
+    <h2 class="bleed-title">The <em>shared</em><br>spaces.</h2>
+    <p class="bleed-sub">A courtyard that catches the morning sun. A kitchen you can cook in. A lounge that stays warm through the long afternoons. The rooms in this house are private; everything else is shared, on purpose.</p>
   </div>
 </article>
 
-<article class="page page-room-detail">
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 4 — SHARED SPACES (DETAIL)
+     ═══════════════════════════════════════════════════════════ -->
+<article class="page page-shared">
   <div class="banner">
     <div class="banner-left">
       <img src="images/megustalogoclear.webp" alt="" class="banner-logo">
-      <span class="banner-mark">No. 01</span>
+      <span class="banner-mark">Chapter I</span>
     </div>
-    <div class="banner-center">The Six-bed Dorm</div>
-    <div class="banner-right">shared</div>
+    <div class="banner-center">The Shared Spaces</div>
+    <div class="banner-right">la casa entera —</div>
   </div>
 
   <div class="detail-head">
     <div>
-      <div class="detail-eyebrow">— the rooms · in detail</div>
-      <h2 class="detail-title">A bunk, a locker,<br>and good <em>morning</em> light.</h2>
+      <div class="detail-eyebrow">— the house · in detail</div>
+      <h2 class="detail-title">A kitchen,<br>a lounge, &amp; <em>good</em> light.</h2>
     </div>
-    <div class="detail-no">01<small>of four</small></div>
+    <div class="detail-no">I<small>capítulo uno</small></div>
   </div>
 
-  <div class="detail-body">
-    <div class="detail-prose">
-      <p>Our biggest shared room sleeps six in three sets of solid wooden bunks. Mattresses are proper — not the foam-and-prayer mattresses you'll find elsewhere — and each bed has its own reading light, a power outlet, and a curtain you can pull for a bit of privacy when the rest of the room is asleep.</p>
-      <p>There's a locker per person (bring a padlock or borrow one from us), a long shared desk against the window, and a chest of drawers in the corner. The bathroom is shared with the rest of the floor, with two showers and three WCs — there's never really a queue.</p>
-      <div class="amenities">
-        <div class="amenities-label">In the room</div>
-        <ul class="amenities-list">
-          <li>3 × wooden bunk beds</li>
-          <li>Lockers (one per bed)</li>
-          <li>Reading lights &amp; outlets</li>
-          <li>Privacy curtains</li>
-          <li>Long shared desk</li>
-          <li>Tall arched window</li>
-          <li>Linen &amp; towel included</li>
-          <li>Heating in cold months</li>
-        </ul>
-      </div>
+  <div class="shared-grid">
+    <div class="shared-prose">
+      <b>The lounge</b>
+      The common areas are where the Spanish quietly keeps happening — long after class ends. The lounge has soft chairs and a low table, the kitchen is yours to cook in, and there's always someone willing to swap a recipe.<br><br>
+      <span style="font-style: normal; color: var(--terra);">— bring your notebook.</span>
     </div>
-    <div class="detail-photos">
-      <div class="detail-photo detail-photo--lg" style="background-image: url('images/rooms/6bed/DSC08494-HDR.webp');">
-        <span class="detail-photo-cap">the bunks</span>
-      </div>
-      <div class="detail-photo" style="background-image: url('images/rooms/6bed/DSC08519-HDR.webp');"></div>
-      <div class="detail-photo" style="background-image: url('images/rooms/6bed/DSC08539-HDR.webp');"></div>
+    <div class="shared-tile shared-tile--tall" style="background-image: url('images/rooms/sharedspace/DSC08297-HDR.webp');">
+      <span class="shared-tile-cap">the kitchen</span>
     </div>
-  </div>
-
-  <div class="detail-foot">
-    <div class="quote">A real bed, a real key, and someone in the kitchen who knows your name by day three.</div>
-    <div class="price-card">
-      <div class="price-card-label">From</div>
-      <div class="price-card-amount"><sup>$</sup>12<small>USD</small></div>
-      <div class="price-card-note">per bed, per night</div>
+    <div class="shared-tile" style="background-image: url('images/rooms/sharedspace/DSC08307-HDR.webp');">
+      <span class="shared-tile-cap">afternoon light</span>
+    </div>
+    <div class="shared-tile" style="background-image: url('images/rooms/sharedspace/DSC08317-HDR.webp');">
+      <span class="shared-tile-cap">where the day slows</span>
+    </div>
+    <div class="shared-tile" style="background-image: url('images/rooms/sharedspace/DSC08312-HDR.webp');">
+      <span class="shared-tile-cap">a corner table</span>
     </div>
   </div>
 
   <div class="folio">
     <span>Casa Migusta</span>
-    <em>The six-bed dorm</em>
+    <em>The shared spaces</em>
     <span>04</span>
   </div>
 </article>
 
 <!-- ═══════════════════════════════════════════════════════════
-     ROOM 02 — PRIVATE SINGLE (HERO + DETAIL)
+     PAGE 5 — EN-SUITE TRIO (HERO)
      ═══════════════════════════════════════════════════════════ -->
 <article class="page page-room-hero">
   <div class="room-hero-image" style="background-image: url('images/rooms/room1/DSC08147-HDR-2.webp');"></div>
-  <div class="room-hero-tag"><b>No. 02</b> The private single · for one</div>
-  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA</div>
+  <div class="room-hero-tag"><b>Chapter II</b> Rooms 1, 2 &amp; 3 · en-suite · private</div>
+  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA · MMXXVI</div>
+
+  <div class="stamp room-hero-stamp">
+    <span class="stamp-num">Chapter</span>
+    <span class="stamp-big">II</span>
+    <span class="stamp-label">en-suite</span>
+  </div>
+
   <div class="room-hero-bottom">
-    <div class="room-hero-eyebrow">a quiet corner —</div>
-    <h2 class="room-hero-title">The <em>private</em><br>single.</h2>
-    <p class="room-hero-sub">A room of one's own — a proper single bed, a desk under the window, a wardrobe with actual hangers, and a door that closes on the rest of the world when you need it to.</p>
+    <div class="room-hero-eyebrow">a bath of one's own —</div>
+    <h2 class="room-hero-title">The <em>en-suite</em><br>trio.</h2>
+    <p class="room-hero-sub">Three private rooms — Rooms 1, 2 &amp; 3 — each with its own bathroom. Hot rainfall shower, proper towels, your own door that locks. The most comfortable way to stay with us, and the first to book up most months.</p>
     <div class="room-hero-meta">
-      <div class="hero-pill">Sleeps<b>1 guest</b></div>
-      <div class="hero-pill">Bathroom<b>shared</b></div>
-      <div class="hero-pill">Desk<b>yes</b></div>
+      <div class="hero-pill">Sleeps<b>1–2 guests</b></div>
+      <div class="hero-pill">Bathroom<b>private</b></div>
+      <div class="hero-pill">Available<b>×3 rooms</b></div>
       <div class="hero-price">
         <div class="hero-price-label">from</div>
-        <div class="hero-price-amount"><sup>$</sup>28<small>/ night</small></div>
+        <div class="hero-price-amount"><sup>$</sup>42<small>/ night</small></div>
       </div>
     </div>
   </div>
 </article>
 
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 6 — EN-SUITE TRIO (DETAIL — three rooms shown)
+     ═══════════════════════════════════════════════════════════ -->
 <article class="page page-room-detail">
   <div class="banner">
     <div class="banner-left">
       <img src="images/megustalogoclear.webp" alt="" class="banner-logo">
-      <span class="banner-mark">No. 02</span>
+      <span class="banner-mark">Chapter II</span>
     </div>
-    <div class="banner-center">The Private Single</div>
-    <div class="banner-right">solo</div>
+    <div class="banner-center">The En-suite Trio · Rooms 1, 2 &amp; 3</div>
+    <div class="banner-right">private —</div>
   </div>
 
   <div class="detail-head">
     <div>
       <div class="detail-eyebrow">— the rooms · in detail</div>
-      <h2 class="detail-title">A door<br>that <em>closes</em>.</h2>
+      <h2 class="detail-title">A door<br>that closes, a bath<br>that's <em>yours</em>.</h2>
     </div>
-    <div class="detail-no">02<small>of four</small></div>
+    <div class="detail-no">II<small>capítulo dos</small></div>
   </div>
 
   <div class="detail-body">
     <div class="detail-prose">
-      <p>Sometimes you don't want a bunk and a roommate; sometimes you want the door shut, your books on a desk that's yours, and your own quiet corner of the house. The private single is exactly that — a small but well-made room with a proper single bed, a writing desk under the window, and a wardrobe big enough for whatever you packed.</p>
-      <p>The bathroom is shared with two other rooms on the same hallway, and is rarely busy. We keep the room warm in the cold months and bright in the warm ones, and the courtyard is two doors away when you want company again.</p>
+      <p>Three rooms in the house come with a private en-suite bathroom — a rainfall shower with reliably hot water, proper towels, a basin tucked into a small wood vanity, and a door that locks behind you. Each room is slightly different in shape and outlook, but all three sleep one or two: a queen bed, a desk under the window, and storage enough for a longer stay.</p>
+      <p>Room 1 is the bright one, with morning light through a tall window and a writing desk we've come to love. Room 2 is the quietest of the three, set deeper in the house. Room 3 catches the corner-light at the end of the afternoon. These are the rooms we recommend to anyone staying more than a fortnight, anyone travelling as a couple, and anyone who simply prefers their own bathroom — and they're the first to book.</p>
       <div class="amenities">
-        <div class="amenities-label">In the room</div>
+        <div class="amenities-label">In each en-suite room</div>
         <ul class="amenities-list">
-          <li>Proper single bed</li>
-          <li>Desk &amp; chair</li>
-          <li>Wardrobe with hangers</li>
-          <li>Bedside lamp</li>
-          <li>Power outlets at the desk</li>
-          <li>Tall window, courtyard view</li>
-          <li>Linen &amp; towel included</li>
+          <li>Queen bed</li>
+          <li>Private rainfall shower</li>
+          <li>Hot water, around the clock</li>
+          <li>Wood vanity &amp; basin</li>
+          <li>Desk under the window</li>
+          <li>Wardrobe + drawers</li>
+          <li>All linen &amp; towels</li>
           <li>Heating in cold months</li>
         </ul>
       </div>
     </div>
     <div class="detail-photos">
       <div class="detail-photo detail-photo--lg" style="background-image: url('images/rooms/room2/DSC08157-HDR-2.webp');">
-        <span class="detail-photo-cap">the desk</span>
+        <span class="detail-photo-cap">room 2 — the morning</span>
       </div>
-      <div class="detail-photo" style="background-image: url('images/rooms/room2/DSC08167-HDR-2.webp');"></div>
-      <div class="detail-photo" style="background-image: url('images/rooms/room2/DSC08177-HDR-2.webp');"></div>
+      <div class="detail-photo" style="background-image: url('images/rooms/room1/DSC08112.webp');">
+        <span class="detail-photo-cap">room 1</span>
+      </div>
+      <div class="detail-photo" style="background-image: url('images/rooms/room3/DSC08217-HDR.webp');">
+        <span class="detail-photo-cap">room 3</span>
+      </div>
     </div>
   </div>
 
   <div class="detail-foot">
-    <div class="quote">Made for a long evening with a notebook open and the rest of the world an hour or two away.</div>
+    <div class="quote">A long shower, a soft towel, and the kind of door that closes properly behind you.</div>
     <div class="price-card">
       <div class="price-card-label">From</div>
-      <div class="price-card-amount"><sup>$</sup>28<small>USD</small></div>
+      <div class="price-card-amount"><sup>$</sup>42<small>USD</small></div>
       <div class="price-card-note">per room, per night</div>
     </div>
   </div>
 
   <div class="folio">
     <span>Casa Migusta</span>
-    <em>The private single</em>
+    <em>The en-suite trio</em>
     <span>06</span>
   </div>
 </article>
 
 <!-- ═══════════════════════════════════════════════════════════
-     ROOM 03 — FAMILY ROOM (HERO + DETAIL)
+     PAGE 7 — FAMILY ROOM (HERO)
      ═══════════════════════════════════════════════════════════ -->
 <article class="page page-room-hero">
-  <div class="room-hero-image" style="background-image: url('images/rooms/room3/DSC08217-HDR.webp');"></div>
-  <div class="room-hero-tag"><b>No. 03</b> The family room · sleeps up to four</div>
-  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA</div>
+  <div class="room-hero-image" style="background-image: url('images/rooms/room4-familyroom/DSC08332-HDR.webp');"></div>
+  <div class="room-hero-tag"><b>Chapter III</b> Room 4 · family · sleeps up to 4</div>
+  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA · MMXXVI</div>
+
+  <div class="stamp room-hero-stamp">
+    <span class="stamp-num">Chapter</span>
+    <span class="stamp-big">III</span>
+    <span class="stamp-label">familia</span>
+  </div>
+
   <div class="room-hero-bottom">
     <div class="room-hero-eyebrow">space to spread out —</div>
     <h2 class="room-hero-title">The <em>family</em><br>room.</h2>
-    <p class="room-hero-sub">A larger room with a double bed and a pair of singles — room enough for parents and two children, or three friends travelling together. Wardrobe space, a small sofa, and a window onto the patio.</p>
+    <p class="room-hero-sub">Our largest non-en-suite room — a double bed and a pair of singles, room enough for parents and two children, or three friends travelling together. Wardrobe space, a small sofa, and a window onto the patio.</p>
     <div class="room-hero-meta">
       <div class="hero-pill">Sleeps<b>up to 4</b></div>
       <div class="hero-pill">Bathroom<b>shared</b></div>
@@ -1462,14 +2005,17 @@
   </div>
 </article>
 
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 8 — FAMILY ROOM (DETAIL)
+     ═══════════════════════════════════════════════════════════ -->
 <article class="page page-room-detail">
   <div class="banner">
     <div class="banner-left">
       <img src="images/megustalogoclear.webp" alt="" class="banner-logo">
-      <span class="banner-mark">No. 03</span>
+      <span class="banner-mark">Chapter III</span>
     </div>
-    <div class="banner-center">The Family Room</div>
-    <div class="banner-right">together</div>
+    <div class="banner-center">The Family Room · No. 4</div>
+    <div class="banner-right">together —</div>
   </div>
 
   <div class="detail-head">
@@ -1477,15 +2023,15 @@
       <div class="detail-eyebrow">— the rooms · in detail</div>
       <h2 class="detail-title">A whole<br>family <em>fits</em>.</h2>
     </div>
-    <div class="detail-no">03<small>of four</small></div>
+    <div class="detail-no">III<small>capítulo tres</small></div>
   </div>
 
   <div class="detail-body">
     <div class="detail-prose">
-      <p>Our largest non-ensuite room is built for groups travelling together — parents with children, a small group of friends, anyone who wants to share a room without sharing a bunk. There's a proper double bed on one side, two singles tucked against the opposite wall, and a small sofa in the corner that doubles as a fifth seat at homework time.</p>
-      <p>Storage is generous: a wide wardrobe, a chest of drawers, and a luggage rack. The bathroom is shared with one other room on the floor — most weeks, that other room is empty or also a family, and the rhythm just works. Linens and towels for everyone are included.</p>
+      <p>Our largest room is built for groups travelling together — parents with children, a small group of friends, anyone who wants to share a room without sharing a bunk. There's a proper double bed on one side, two singles tucked against the opposite wall, and a small sofa in the corner that doubles as a fifth seat at homework time.</p>
+      <p>Storage is generous: a wide wardrobe, a chest of drawers, and a luggage rack. The bathroom — pictured below — is shared with the private single (Room 5) and the dorm, downstairs. Most weeks the rhythm just works. Linens and towels for everyone are included.</p>
       <div class="amenities">
-        <div class="amenities-label">In the room</div>
+        <div class="amenities-label">In the room &amp; bathroom</div>
         <ul class="amenities-list">
           <li>1 × double bed</li>
           <li>2 × single beds</li>
@@ -1493,17 +2039,21 @@
           <li>Wide wardrobe</li>
           <li>Chest of drawers</li>
           <li>Luggage rack</li>
-          <li>All linen &amp; towels</li>
+          <li>Shared rainfall shower</li>
           <li>Heating in cold months</li>
         </ul>
       </div>
     </div>
     <div class="detail-photos">
-      <div class="detail-photo detail-photo--lg" style="background-image: url('images/rooms/room3/DSC08232-HDR.webp');">
+      <div class="detail-photo detail-photo--lg" style="background-image: url('images/rooms/room4-familyroom/DSC08342-HDR.webp');">
         <span class="detail-photo-cap">the family room</span>
       </div>
-      <div class="detail-photo" style="background-image: url('images/rooms/room3/DSC08242-HDR.webp');"></div>
-      <div class="detail-photo" style="background-image: url('images/rooms/room3/DSC08257-HDR.webp');"></div>
+      <div class="detail-photo" style="background-image: url('images/rooms/room4-familyroom/DSC08347-HDR.webp');">
+        <span class="detail-photo-cap">bedside</span>
+      </div>
+      <div class="detail-photo" style="background-image: url('images/rooms/sharedbathroom/DSC08367-HDR.webp');">
+        <span class="detail-photo-cap">the shared bath</span>
+      </div>
     </div>
   </div>
 
@@ -1524,91 +2074,203 @@
 </article>
 
 <!-- ═══════════════════════════════════════════════════════════
-     ROOM 04 — ENSUITE TRIO (HERO + DETAIL)
+     PAGE 9 — PRIVATE SINGLE (Room 5, no photos yet)
+     ═══════════════════════════════════════════════════════════ -->
+<article class="page page-r5">
+  <div class="banner">
+    <div class="banner-left">
+      <img src="images/megustalogoclear.webp" alt="" class="banner-logo">
+      <span class="banner-mark">Chapter IV</span>
+    </div>
+    <div class="banner-center">The Private Single · Room 5</div>
+    <div class="banner-right">solo —</div>
+  </div>
+
+  <div class="r5-display">5</div>
+
+  <div class="r5-content">
+    <div class="r5-left">
+      <div class="detail-eyebrow">— a quiet corner</div>
+      <h2 class="r5-title">A door<br>that <em>closes.</em></h2>
+      <div class="r5-prose">
+        <p>Sometimes you don't want a bunk and a roommate; sometimes you want the door shut, your books on a desk that's yours, and your own quiet corner of the house. Room 5 is exactly that — a small but well-made single room with a proper bed, a writing desk under the window, and a wardrobe big enough for whatever you packed.</p>
+        <p>The bathroom is shared with the family room and the dorm, downstairs, and is rarely busy. We keep the room warm in the cold months and bright in the warm ones. The courtyard is two doors away when you want company again.</p>
+      </div>
+      <div class="r5-photo-pending">— photos arriving soon. ask us for a video tour by WhatsApp.</div>
+    </div>
+
+    <aside class="r5-aside">
+      <div class="r5-aside-label">— per room, per night</div>
+      <div class="r5-aside-amount"><sup>$</sup>28</div>
+      <div class="r5-aside-meta">
+        <b>Sleeps</b> 1 guest<br>
+        <b>Bathroom</b> shared<br>
+        <b>Desk</b> yes, under the window<br>
+        <b>Wardrobe</b> with hangers<br>
+        <b>Heating</b> in the cold months
+      </div>
+      <div class="r5-amenities">
+        <div class="amenities-label">In the room</div>
+        <ul class="amenities-list" style="grid-template-columns: 1fr;">
+          <li>Proper single bed</li>
+          <li>Desk &amp; chair</li>
+          <li>Wardrobe with hangers</li>
+          <li>Bedside lamp</li>
+          <li>Power outlets at the desk</li>
+          <li>All linen &amp; towels</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="margin-note" style="bottom: 30mm; right: 22mm; transform: rotate(2deg); color: var(--terra-dark); max-width: 60mm;">
+    not always free — ask us first <span class="margin-note-arrow">↗</span>
+  </div>
+
+  <div class="folio">
+    <span>Casa Migusta</span>
+    <em>The private single</em>
+    <span>09</span>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 10 — SIX-BED DORM (HERO)
      ═══════════════════════════════════════════════════════════ -->
 <article class="page page-room-hero">
-  <div class="room-hero-image" style="background-image: url('images/rooms/room4-familyroom/DSC08332-HDR.webp');"></div>
-  <div class="room-hero-tag"><b>No. 04</b> Three rooms with ensuite bathrooms</div>
-  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA</div>
+  <div class="room-hero-image" style="background-image: url('images/rooms/6bed/DSC08489-HDR.webp');"></div>
+  <div class="room-hero-tag"><b>Chapter V</b> Room 6 · the dorm · sleeps six</div>
+  <div class="room-hero-vertical">CASA MIGUSTA · SUCRE · BOLIVIA · MMXXVI</div>
+
+  <div class="stamp room-hero-stamp">
+    <span class="stamp-num">Chapter</span>
+    <span class="stamp-big">V</span>
+    <span class="stamp-label">dormitorio</span>
+  </div>
+
   <div class="room-hero-bottom">
-    <div class="room-hero-eyebrow">a private bath —</div>
-    <h2 class="room-hero-title">The <em>ensuite</em><br>trio.</h2>
-    <p class="room-hero-sub">Three private rooms, each with its own bathroom — hot rainfall shower, proper towels, your own door that locks. The most comfortable way to stay with us, and the first to book up most months.</p>
+    <div class="room-hero-eyebrow">the sociable one —</div>
+    <h2 class="room-hero-title">The <em>six-bed</em><br>dorm.</h2>
+    <p class="room-hero-sub">Solid wooden bunks, proper mattresses, a locker each, and morning light through tall windows. The sociable option, without the hostel-grimness — and our most affordable bed in the house.</p>
     <div class="room-hero-meta">
-      <div class="hero-pill">Sleeps<b>1–2 guests</b></div>
-      <div class="hero-pill">Bathroom<b>private</b></div>
-      <div class="hero-pill">Available<b>×3 rooms</b></div>
+      <div class="hero-pill">Sleeps<b>6 guests</b></div>
+      <div class="hero-pill">Bathroom<b>shared</b></div>
+      <div class="hero-pill">Linen<b>included</b></div>
       <div class="hero-price">
         <div class="hero-price-label">from</div>
-        <div class="hero-price-amount"><sup>$</sup>42<small>/ night</small></div>
+        <div class="hero-price-amount"><sup>$</sup>12<small>/ night / bed</small></div>
       </div>
     </div>
   </div>
 </article>
 
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 11 — SIX-BED DORM (DETAIL)
+     ═══════════════════════════════════════════════════════════ -->
 <article class="page page-room-detail">
   <div class="banner">
     <div class="banner-left">
       <img src="images/megustalogoclear.webp" alt="" class="banner-logo">
-      <span class="banner-mark">No. 04</span>
+      <span class="banner-mark">Chapter V</span>
     </div>
-    <div class="banner-center">The Ensuite Trio</div>
-    <div class="banner-right">private</div>
+    <div class="banner-center">The Six-bed Dorm · No. 6</div>
+    <div class="banner-right">shared —</div>
   </div>
 
   <div class="detail-head">
     <div>
       <div class="detail-eyebrow">— the rooms · in detail</div>
-      <h2 class="detail-title">A bath of<br>your <em>own</em>.</h2>
+      <h2 class="detail-title">A bunk, a locker,<br>and good <em>morning</em> light.</h2>
     </div>
-    <div class="detail-no">04<small>of four</small></div>
+    <div class="detail-no">V<small>capítulo cinco</small></div>
   </div>
 
   <div class="detail-body">
     <div class="detail-prose">
-      <p>Three of the rooms in the house come with a private ensuite bathroom — a rainfall shower with reliably hot water, proper towels, a basin tucked into a small wood vanity, and a door that locks behind you. Each room is slightly different, but all three sleep one or two: a queen bed, a desk under the window, and storage enough for a longer stay.</p>
-      <p>These are the rooms we recommend to anyone staying more than a fortnight, anyone travelling as a couple, and anyone who simply prefers their own bathroom. They are also the first to be booked, so we always recommend asking by WhatsApp before you settle on dates.</p>
+      <p>Our biggest shared room sleeps six in three sets of solid wooden bunks. Mattresses are proper — not the foam-and-prayer mattresses you'll find elsewhere — and each bed has its own reading light, a power outlet, and a curtain you can pull for a bit of privacy when the rest of the room is asleep.</p>
+      <p>There's a locker per person (bring a padlock or borrow one from us), a small kitchenette with a hob and a sink, and a shared bathroom on the same floor with two basins, a WC and a hot rainfall shower. Linens and a towel are included.</p>
       <div class="amenities">
-        <div class="amenities-label">In each ensuite room</div>
+        <div class="amenities-label">In the room &amp; bathroom</div>
         <ul class="amenities-list">
-          <li>Queen bed</li>
-          <li>Private rainfall shower</li>
-          <li>Hot water, always</li>
-          <li>Wood vanity &amp; basin</li>
-          <li>Desk under the window</li>
-          <li>Wardrobe + drawers</li>
-          <li>All linen &amp; towels</li>
+          <li>3 × wooden bunk beds</li>
+          <li>Lockers (one per bed)</li>
+          <li>Reading lights &amp; outlets</li>
+          <li>Privacy curtains</li>
+          <li>Kitchenette: hob &amp; sink</li>
+          <li>Shared rainfall shower</li>
+          <li>Linen &amp; towel included</li>
           <li>Heating in cold months</li>
         </ul>
       </div>
     </div>
     <div class="detail-photos">
-      <div class="detail-photo detail-photo--lg" style="background-image: url('images/rooms/room4-familyroom/DSC08342-HDR.webp');">
-        <span class="detail-photo-cap">ensuite no. 1</span>
+      <div class="detail-photo detail-photo--lg" style="background-image: url('images/rooms/6bed/DSC08494-HDR.webp');">
+        <span class="detail-photo-cap">the bunks</span>
       </div>
-      <div class="detail-photo" style="background-image: url('images/rooms/sharedbathroom/DSC08367-HDR.webp');"></div>
-      <div class="detail-photo" style="background-image: url('images/rooms/DSC08412-HDR.webp');"></div>
+      <div class="detail-photo" style="background-image: url('images/rooms/6bed/DSC08519-HDR.webp');">
+        <span class="detail-photo-cap">your nook</span>
+      </div>
+      <div class="detail-photo" style="background-image: url('images/rooms/6bed/DSC08539-HDR.webp');">
+        <span class="detail-photo-cap">the shower</span>
+      </div>
     </div>
   </div>
 
   <div class="detail-foot">
-    <div class="quote">A long shower, a soft towel, and the kind of door that closes properly behind you.</div>
+    <div class="quote">A real bed, a real key, and someone in the kitchen who knows your name by day three.</div>
     <div class="price-card">
       <div class="price-card-label">From</div>
-      <div class="price-card-amount"><sup>$</sup>42<small>USD</small></div>
-      <div class="price-card-note">per room, per night</div>
+      <div class="price-card-amount"><sup>$</sup>12<small>USD</small></div>
+      <div class="price-card-note">per bed, per night</div>
     </div>
   </div>
 
   <div class="folio">
     <span>Casa Migusta</span>
-    <em>The ensuite trio</em>
-    <span>10</span>
+    <em>The six-bed dorm</em>
+    <span>11</span>
   </div>
 </article>
 
 <!-- ═══════════════════════════════════════════════════════════
-     PAGE — TARIFFS / PRICING
+     PAGE 12 — ROOFTOP & TERRACES
+     ═══════════════════════════════════════════════════════════ -->
+<article class="page page-rooftop">
+  <div class="rooftop-image" style="background-image: url('images/rooms/rooftop/DSC08462-HDR.webp');"></div>
+
+  <div class="stamp rooftop-stamp">
+    <span class="stamp-num">Chapter</span>
+    <span class="stamp-big">VI</span>
+    <span class="stamp-label">azotea</span>
+  </div>
+
+  <div class="rooftop-content">
+    <div class="rooftop-eyebrow">above the city —</div>
+    <h2 class="rooftop-title">The<br><em>rooftop.</em></h2>
+    <p class="rooftop-prose">Two terraces above the house — long afternoons, the best light in Sucre at dusk, a place to read or eat or just sit with the rest of the school. The rooftop is shared, like the kitchen and the courtyard, and is open to all guests, all hours.</p>
+    <div class="rooftop-meta">
+      <div class="rooftop-meta-cell">
+        <div class="rooftop-meta-cell-label">Open</div>
+        <div class="rooftop-meta-cell-value"><b>all day</b><br>and dusk</div>
+      </div>
+      <div class="rooftop-meta-cell">
+        <div class="rooftop-meta-cell-label">Best at</div>
+        <div class="rooftop-meta-cell-value"><b>5–7pm</b><br>for the light</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rooftop-vertical-num">— <em>Chapter VI</em> · the rooftop · MMXXVI —</div>
+
+  <div class="folio" style="color: rgba(247,236,217,0.55);">
+    <span style="color: rgba(247,236,217,0.7);">Casa Migusta</span>
+    <em style="color: rgba(247,236,217,0.85);">The rooftop</em>
+    <span style="color: rgba(247,236,217,0.7);">12</span>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 13 — TARIFFS / PRICING
      ═══════════════════════════════════════════════════════════ -->
 <article class="page page-pricing">
   <div class="banner">
@@ -1637,28 +2299,28 @@
     </thead>
     <tbody>
       <tr>
-        <td>The six-bed dorm<small>per bed · sleeps 6 · shared bath</small></td>
-        <td class="price">$12<small>USD</small></td>
-        <td class="price">$72<small>/ wk</small></td>
-        <td class="price">$260<small>/ mo</small></td>
+        <td>The en-suite trio<small>rooms 1, 2 &amp; 3 · private bath · 1–2 guests</small></td>
+        <td class="price">$42<small>USD</small></td>
+        <td class="price">$252<small>/ wk</small></td>
+        <td class="price">$880<small>/ mo</small></td>
       </tr>
       <tr>
-        <td>The private single<small>1 guest · shared bath · desk</small></td>
-        <td class="price">$28<small>USD</small></td>
-        <td class="price">$168<small>/ wk</small></td>
-        <td class="price">$580<small>/ mo</small></td>
-      </tr>
-      <tr>
-        <td>The family room<small>up to 4 · shared bath · 1 dbl + 2 sgl</small></td>
+        <td>The family room<small>room 4 · sleeps up to 4 · shared bath</small></td>
         <td class="price">$55<small>USD</small></td>
         <td class="price">$330<small>/ wk</small></td>
         <td class="price">$1,150<small>/ mo</small></td>
       </tr>
       <tr>
-        <td>The ensuite trio<small>1–2 guests · private bath · 3 rooms</small></td>
-        <td class="price">$42<small>USD</small></td>
-        <td class="price">$252<small>/ wk</small></td>
-        <td class="price">$880<small>/ mo</small></td>
+        <td>The private single<small>room 5 · solo · shared bath · desk</small></td>
+        <td class="price">$28<small>USD</small></td>
+        <td class="price">$168<small>/ wk</small></td>
+        <td class="price">$580<small>/ mo</small></td>
+      </tr>
+      <tr>
+        <td>The six-bed dorm<small>room 6 · per bed · shared bath</small></td>
+        <td class="price">$12<small>USD</small></td>
+        <td class="price">$72<small>/ wk</small></td>
+        <td class="price">$260<small>/ mo</small></td>
       </tr>
     </tbody>
   </table>
@@ -1674,7 +2336,7 @@
       <li>Wi-Fi throughout the house</li>
       <li>Use of the shared kitchen</li>
       <li>Heating in the cold months</li>
-      <li>Use of the courtyard &amp; lounge</li>
+      <li>Use of the courtyard &amp; rooftop</li>
       <li>Daily light cleaning</li>
       <li>Filtered drinking water</li>
     </ul>
@@ -1685,7 +2347,7 @@
   <div class="folio">
     <span>Casa Migusta</span>
     <em>Tariffs &amp; inclusions</em>
-    <span>12</span>
+    <span>13</span>
   </div>
 </article>
 
@@ -1730,7 +2392,7 @@
 
     <div class="close-foot">
       <img src="images/megustalogoclear.webp" alt="Me Gusta" class="close-foot-logo">
-      <div class="close-foot-mark">Casa Migusta <b>·</b> Sucre <b>·</b> Bolivia <b>·</b> Catalogue Vol. I</div>
+      <div class="close-foot-mark">Casa Migusta <b>·</b> Sucre <b>·</b> Bolivia <b>·</b> Catalogue Vol. II</div>
       <div class="close-foot-year">MMXXVI</div>
     </div>
   </div>
