@@ -176,45 +176,45 @@
     .page-hero-title { font-family: 'Cormorant', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.5rem; }
     .page-hero-title em { font-style: italic; color: var(--terra); font-weight: 400; }
     .page-hero-sub { font-size: 0.97rem; line-height: 1.85; color: var(--ink-soft); font-style: italic; max-width: 30rem; margin-bottom: 2rem; }
-    .page-hero-img { position: relative; z-index: 1; min-height: 520px; }
+    .page-hero-img { position: relative; z-index: 1; min-height: 620px; }
     .polaroid { background: #fff; padding: 14px 14px 52px; box-shadow: var(--shadow-warm), 0 0 0 1px rgba(74,58,44,0.06); transition: transform 0.4s ease; position: absolute; }
     .polaroid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
     .polaroid-caption { position: absolute; bottom: 12px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', cursive; font-size: 1.05rem; font-weight: 500; color: var(--ink-soft); }
 
-    .hero-polaroid-main {
-      width: 62%;
-      top: 40px;
-      left: 50%;
-      transform: translateX(-45%) rotate(2deg);
-      z-index: 3;
-    }
-    .hero-polaroid-main:hover { transform: translateX(-45%) rotate(0.5deg) scale(1.015); }
-
     .hero-polaroid-back-left {
-      width: 46%;
+      width: 38%;
       top: 0;
       left: 0;
       transform: rotate(-5deg);
-      z-index: 2;
-    }
-    .hero-polaroid-back-left:hover { transform: rotate(-2deg) scale(1.02); }
-
-    .hero-polaroid-back-right {
-      width: 44%;
-      bottom: 10px;
-      right: 0;
-      transform: rotate(6deg);
       z-index: 1;
     }
-    .hero-polaroid-back-right:hover { transform: rotate(3deg) scale(1.02); }
+    .hero-polaroid-back-left:hover { transform: rotate(-2deg) scale(1.03); z-index: 4; }
+
+    .hero-polaroid-main {
+      width: 42%;
+      top: 30%;
+      left: 38%;
+      transform: rotate(2deg);
+      z-index: 2;
+    }
+    .hero-polaroid-main:hover { transform: rotate(0.5deg) scale(1.03); z-index: 4; }
+
+    .hero-polaroid-back-right {
+      width: 38%;
+      bottom: 0;
+      right: 0;
+      transform: rotate(5deg);
+      z-index: 1;
+    }
+    .hero-polaroid-back-right:hover { transform: rotate(2deg) scale(1.03); z-index: 4; }
 
     @media (max-width: 960px) {
       .page-hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
       .page-hero::before { display: none; }
-      .page-hero-img { min-height: 340px; }
-      .hero-polaroid-back-left { width: 42%; }
-      .hero-polaroid-main { width: 60%; top: 30px; }
-      .hero-polaroid-back-right { width: 40%; }
+      .page-hero-img { min-height: 480px; }
+      .hero-polaroid-back-left { width: 42%; top: 0; left: 0; }
+      .hero-polaroid-main { width: 46%; top: 28%; left: 38%; }
+      .hero-polaroid-back-right { width: 42%; bottom: 0; right: 0; }
     }
 
     /*  SECTION TABS  */
