@@ -986,6 +986,10 @@
     .wt-collage--thu .wt-photo:nth-child(1) { top: 4%; left: 6%; width: 68%; height: 62%; transform: rotate(-2deg); }
     .wt-collage--thu .wt-photo:nth-child(2) { bottom: 4%; right: 0; width: 42%; height: 38%; transform: rotate(2.2deg); }
 
+    .wt-collage--thuLang .wt-photo:nth-child(1) { top: 0; left: 2%; width: 56%; height: 50%; transform: rotate(-1.3deg); }
+    .wt-collage--thuLang .wt-photo:nth-child(2) { top: 22%; right: 0; width: 50%; height: 48%; transform: rotate(1.6deg); }
+    .wt-collage--thuLang .wt-photo:nth-child(3) { bottom: 0; left: 14%; width: 54%; height: 42%; transform: rotate(-0.6deg); }
+
     .wt-collage--fri .wt-photo:nth-child(1) { top: 0; left: 0; width: 54%; height: 54%; transform: rotate(-1deg); }
     .wt-collage--fri .wt-photo:nth-child(2) { top: 14%; right: 4%; width: 42%; height: 46%; transform: rotate(1.5deg); }
     .wt-collage--fri .wt-photo:nth-child(3) { bottom: 0; left: 16%; width: 60%; height: 42%; transform: rotate(-0.6deg); }
@@ -1153,6 +1157,23 @@
     .gg-beer .g5 { grid-column: 1 / 7;  grid-row: span 3; }
     .gg-beer .g6 { grid-column: 7 / 13; grid-row: span 3; }
 
+    /* salsa layout: 7 photos, rhythmic/editorial */
+    .gg-salsa .g1 { grid-column: 1 / 7;  grid-row: span 4; }
+    .gg-salsa .g2 { grid-column: 7 / 13; grid-row: span 3; }
+    .gg-salsa .g3 { grid-column: 7 / 10; grid-row: span 3; }
+    .gg-salsa .g4 { grid-column: 10 / 13; grid-row: span 3; }
+    .gg-salsa .g5 { grid-column: 1 / 5;  grid-row: span 3; }
+    .gg-salsa .g6 { grid-column: 5 / 9;  grid-row: span 3; }
+    .gg-salsa .g7 { grid-column: 9 / 13; grid-row: span 3; }
+
+    /* language exchange layout: 6 photos, conversational */
+    .gg-lang .g1 { grid-column: 1 / 8;  grid-row: span 4; }
+    .gg-lang .g2 { grid-column: 8 / 13; grid-row: span 4; }
+    .gg-lang .g3 { grid-column: 1 / 5;  grid-row: span 3; }
+    .gg-lang .g4 { grid-column: 5 / 9;  grid-row: span 3; }
+    .gg-lang .g5 { grid-column: 9 / 13; grid-row: span 3; }
+    .gg-lang .g6 { grid-column: 1 / 13; grid-row: span 3; }
+
     @media (max-width: 900px) {
       .gallery-section { padding: 4.5rem 1.25rem 5rem; }
       .gallery-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 90px; gap: 0.65rem; }
@@ -1172,6 +1193,19 @@
       .gg-beer .g3 { grid-column: 4 / 7; grid-row: span 3; }
       .gg-beer .g4 { grid-column: 1 / 7; grid-row: span 3; }
       .gg-beer .g5 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-salsa .g1 { grid-column: 1 / 7; grid-row: span 4; }
+      .gg-salsa .g2 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-salsa .g3 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-salsa .g4 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-salsa .g5 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-salsa .g6 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-salsa .g7 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-lang .g1 { grid-column: 1 / 7; grid-row: span 4; }
+      .gg-lang .g2 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-lang .g3 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-lang .g4 { grid-column: 1 / 4; grid-row: span 3; }
+      .gg-lang .g5 { grid-column: 4 / 7; grid-row: span 3; }
+      .gg-lang .g6 { grid-column: 1 / 7; grid-row: span 3; }
       .gg-beer .g6 { grid-column: 4 / 7; grid-row: span 3; }
       .gallery-chapter-label .sub { margin-left: 0; width: 100%; }
     }
@@ -1258,16 +1292,19 @@
       <span>Mon — City Walk <em>·</em></span>
       <span>Tue — Cooking Class <em>·</em></span>
       <span>Wed — Wallyball <em>·</em></span>
+      <span>Thu — Language Exchange <em>·</em></span>
       <span>Thu — Salsa Dancing <em>·</em></span>
       <span>Fri — Beer Tour <em>·</em></span>
       <span>Mon — City Walk <em>·</em></span>
       <span>Tue — Cooking Class <em>·</em></span>
       <span>Wed — Wallyball <em>·</em></span>
+      <span>Thu — Language Exchange <em>·</em></span>
       <span>Thu — Salsa Dancing <em>·</em></span>
       <span>Fri — Beer Tour <em>·</em></span>
       <span>Mon — City Walk <em>·</em></span>
       <span>Tue — Cooking Class <em>·</em></span>
       <span>Wed — Wallyball <em>·</em></span>
+      <span>Thu — Language Exchange <em>·</em></span>
       <span>Thu — Salsa Dancing <em>·</em></span>
       <span>Fri — Beer Tour <em>·</em></span>
     </div>
@@ -1299,7 +1336,7 @@
       <div class="wt-track" id="wtTrack">
 
         <!-- MON — City Walk -->
-        <article class="wt-scene" data-num="01">
+        <article class="wt-scene" data-num="01" data-day-idx="0">
           <div class="wt-scene-text">
             <span class="wt-scene-day" data-en="Monday" data-es="Lunes" data-fr="Lundi">Monday</span>
             <h3 class="wt-scene-name" data-en="Sucre <em>City</em> Walking Tour" data-es="<em>Paseo</em> por Sucre" data-fr="<em>Visite</em> de Sucre">Sucre <em>City</em> Walking Tour</h3>
@@ -1314,7 +1351,7 @@
         </article>
 
         <!-- TUE — Cooking -->
-        <article class="wt-scene" data-num="02">
+        <article class="wt-scene" data-num="02" data-day-idx="1">
           <div class="wt-scene-text">
             <span class="wt-scene-day" data-en="Tuesday" data-es="Martes" data-fr="Mardi">Tuesday</span>
             <h3 class="wt-scene-name" data-en="Bolivian <em>Cooking</em> Class" data-es="Clase de <em>Cocina</em> Boliviana" data-fr="Cours de <em>cuisine</em> bolivienne">Bolivian <em>Cooking</em> Class</h3>
@@ -1331,7 +1368,7 @@
         </article>
 
         <!-- WED — Wallyball -->
-        <article class="wt-scene" data-num="03">
+        <article class="wt-scene" data-num="03" data-day-idx="2">
           <div class="wt-scene-text">
             <span class="wt-scene-day" data-en="Wednesday" data-es="Miércoles" data-fr="Mercredi">Wednesday</span>
             <h3 class="wt-scene-name" data-en="<em>Wallyball</em> Night" data-es="Noche de <em>Wallyball</em>" data-fr="Soirée <em>Wallyball</em>"><em>Wallyball</em> Night</h3>
@@ -1346,8 +1383,24 @@
           </div>
         </article>
 
+        <!-- THU — Language Exchange -->
+        <article class="wt-scene" data-num="04" data-day-idx="3">
+          <div class="wt-scene-text">
+            <span class="wt-scene-day" data-en="Thursday" data-es="Jueves" data-fr="Jeudi">Thursday</span>
+            <h3 class="wt-scene-name" data-en="<em>Language</em> Exchange" data-es="Intercambio de <em>Idiomas</em>" data-fr="Échange <em>linguistique</em>"><em>Language</em> Exchange</h3>
+            <div class="wt-scene-meta"><span data-en="Afternoon" data-es="Tarde" data-fr="Après-midi">Afternoon</span><span class="dot">·</span><span data-en="1.5 hrs" data-es="1.5 hrs" data-fr="1h30">1.5 hrs</span></div>
+            <span class="wt-scene-tag" data-en="Conversation &amp; Connection" data-es="Conversación y Conexión" data-fr="Conversation &amp; Connexion">Conversation &amp; Connection</span>
+            <p class="wt-scene-desc" data-en="Bolivian locals come to the school to swap languages — they want to practise English, you want to practise Spanish. Pair up, switch every fifteen minutes, and walk away with new friends and a phone full of contacts." data-es="Locales bolivianos vienen a la escuela para intercambiar idiomas — ellos quieren practicar inglés, tú quieres practicar español. Forma pareja, cambia cada quince minutos y sales con amigos nuevos y un teléfono lleno de contactos." data-fr="Des Boliviens viennent à l'école pour échanger les langues — ils veulent pratiquer l'anglais, vous voulez pratiquer l'espagnol. Formez un binôme, changez toutes les quinze minutes et repartez avec de nouveaux amis et un téléphone plein de contacts.">Bolivian locals come to the school to swap languages — they want to practise English, you want to practise Spanish. Pair up, switch every fifteen minutes, and walk away with new friends and a phone full of contacts.</p>
+          </div>
+          <div class="wt-collage wt-collage--thuLang">
+            <div class="wt-photo"><img src="images/activities/languageexchange/DSC08621.webp" alt="Students and locals chatting around a table during the language exchange" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/languageexchange/DSC08644.webp" alt="A pair swapping English and Spanish phrases" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/languageexchange/DSC08699.webp" alt="Group laughing together during the exchange" loading="lazy" data-lightbox></div>
+          </div>
+        </article>
+
         <!-- THU — Salsa -->
-        <article class="wt-scene" data-num="04">
+        <article class="wt-scene" data-num="05" data-day-idx="3">
           <div class="wt-scene-text">
             <span class="wt-scene-day" data-en="Thursday" data-es="Jueves" data-fr="Jeudi">Thursday</span>
             <h3 class="wt-scene-name" data-en="<em>Salsa</em> Dancing" data-es="Clase de <em>Salsa</em>" data-fr="Cours de <em>Salsa</em>"><em>Salsa</em> Dancing</h3>
@@ -1356,13 +1409,13 @@
             <p class="wt-scene-desc" data-en="Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language." data-es="Paso, vuelta, cuenta hasta ocho en español — un instructor local te lleva del primer básico a tu primera canción completa. No necesitas pareja ni experiencia, solo ganas de reírte de ti mismo en otro idioma." data-fr="Pas, tour, compter jusqu'à huit en espagnol — un instructeur local vous emmène du premier pas de base à votre première chanson complète. Pas besoin de partenaire ni d'expérience, juste l'envie de rire de soi-même dans une autre langue.">Step, turn, count to eight in Spanish — a local instructor takes you from first basic to your first full song. No partner needed, no experience required, just a willingness to laugh at yourself in another language.</p>
           </div>
           <div class="wt-collage wt-collage--thu">
-            <div class="wt-photo"><img src="images/activities/Salsa/salsa-group.webp" alt="A group salsa dancing class in motion" loading="lazy" data-lightbox></div>
-            <div class="wt-photo"><img src="images/activities/Salsa/salsa-couple.webp" alt="A couple dancing salsa together" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/salsa/DSC08690.webp" alt="A salsa class in motion at the school" loading="lazy" data-lightbox></div>
+            <div class="wt-photo"><img src="images/activities/salsa/DSC08753.webp" alt="A couple dancing salsa together" loading="lazy" data-lightbox></div>
           </div>
         </article>
 
         <!-- FRI — Beer Tour -->
-        <article class="wt-scene" data-num="05">
+        <article class="wt-scene" data-num="06" data-day-idx="4">
           <div class="wt-scene-text">
             <span class="wt-scene-day" data-en="Friday" data-es="Viernes" data-fr="Vendredi">Friday</span>
             <h3 class="wt-scene-name" data-en="Sucre <em>Beer</em> Tour" data-es="Ruta de la <em>Cerveza</em>" data-fr="Tour des <em>Bières</em>">Sucre <em>Beer</em> Tour</h3>
@@ -1434,6 +1487,39 @@
       <figure class="gphoto g4"><img src="images/activities/Beer tour/DSC08593.webp" alt="A flight of dark craft beers on a wooden tasting paddle" loading="lazy" data-lightbox></figure>
       <figure class="gphoto g5"><img src="images/activities/Beer tour/DSC08579.webp" alt="Four hands clinking pints of craft beer in a toast" loading="lazy" data-lightbox></figure>
       <figure class="gphoto g6"><img src="images/activities/Beer tour/DSC08617.webp" alt="Students listening as the brewer explains the equipment" loading="lazy" data-lightbox></figure>
+    </div>
+  </div>
+
+  <div class="gallery-chapter reveal">
+    <div class="gallery-chapter-label">
+      <span class="num">04 —</span>
+      <span class="name" data-en="Salsa Dancing" data-es="Clase de Salsa" data-fr="Cours de Salsa">Salsa Dancing</span>
+      <span class="sub" data-en="count to eight in Spanish" data-es="cuenta hasta ocho en español" data-fr="comptez jusqu'à huit en espagnol">count to eight in Spanish</span>
+    </div>
+    <div class="gallery-grid gg-salsa">
+      <figure class="gphoto g1"><img src="images/activities/salsa/DSC08690.webp" alt="The salsa class lined up for the first basic step" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g2"><img src="images/activities/salsa/DSC08753.webp" alt="A couple turning together mid-song" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g3"><img src="images/activities/salsa/DSC08696.webp" alt="The instructor demonstrating a turn" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g4"><img src="images/activities/salsa/DSC08704.webp" alt="Students counting steps to the beat" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g5"><img src="images/activities/salsa/DSC08709.webp" alt="A pair laughing through their first turn" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g6"><img src="images/activities/salsa/DSC08767.webp" alt="The whole group dancing together" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g7"><img src="images/activities/salsa/DSC08778.webp" alt="Final spin at the end of the song" loading="lazy" data-lightbox></figure>
+    </div>
+  </div>
+
+  <div class="gallery-chapter reveal">
+    <div class="gallery-chapter-label">
+      <span class="num">05 —</span>
+      <span class="name" data-en="Language Exchange" data-es="Intercambio de Idiomas" data-fr="Échange linguistique">Language Exchange</span>
+      <span class="sub" data-en="two languages, one table" data-es="dos idiomas, una mesa" data-fr="deux langues, une table">two languages, one table</span>
+    </div>
+    <div class="gallery-grid gg-lang">
+      <figure class="gphoto g1"><img src="images/activities/languageexchange/DSC08621.webp" alt="Students and locals chatting around a table during the language exchange" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g2"><img src="images/activities/languageexchange/DSC08644.webp" alt="A pair swapping English and Spanish phrases" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g3"><img src="images/activities/languageexchange/DSC08624.webp" alt="A small group deep in conversation" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g4"><img src="images/activities/languageexchange/DSC08638.webp" alt="Students taking notes during the exchange" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g5"><img src="images/activities/languageexchange/DSC08658.webp" alt="A teacher facilitating between two pairs" loading="lazy" data-lightbox></figure>
+      <figure class="gphoto g6"><img src="images/activities/languageexchange/DSC08699.webp" alt="The whole group laughing together at the end of the session" loading="lazy" data-lightbox></figure>
     </div>
   </div>
 </section>
@@ -1659,7 +1745,8 @@
       const sceneWidth = scenes[0].offsetWidth;
       track.style.transform = 'translate3d(' + (-progress * maxIndex * sceneWidth) + 'px, 0, 0)';
       const activeIdx = Math.min(maxIndex, Math.round(progress * maxIndex));
-      days.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+      const dayIdx = parseInt(scenes[activeIdx].dataset.dayIdx ?? activeIdx, 10);
+      days.forEach((d, i) => d.classList.toggle('active', i === dayIdx));
       if (fill) fill.style.width = (progress * 100) + '%';
     }
     function onScroll() {
